@@ -28,7 +28,7 @@ class TestParsing:
     def test_method_create(self, client: LlamaCloud) -> None:
         parsing = client.parsing.create(
             tier="fast",
-            version="2025-12-11",
+            version="latest",
         )
         assert_matches_type(ParsingCreateResponse, parsing, path=["response"])
 
@@ -37,7 +37,7 @@ class TestParsing:
     def test_method_create_with_all_params(self, client: LlamaCloud) -> None:
         parsing = client.parsing.create(
             tier="fast",
-            version="2025-12-11",
+            version="latest",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             agentic_options={"custom_prompt": "custom_prompt"},
@@ -70,6 +70,7 @@ class TestParsing:
                 },
             },
             output_options={
+                "additional_outputs": ["stripped_md", "concatenated_stripped_txt", "word_bbox"],
                 "extract_printed_page_number": True,
                 "images_to_save": ["screenshot"],
                 "markdown": {
@@ -207,7 +208,7 @@ class TestParsing:
     def test_raw_response_create(self, client: LlamaCloud) -> None:
         response = client.parsing.with_raw_response.create(
             tier="fast",
-            version="2025-12-11",
+            version="latest",
         )
 
         assert response.is_closed is True
@@ -220,7 +221,7 @@ class TestParsing:
     def test_streaming_response_create(self, client: LlamaCloud) -> None:
         with client.parsing.with_streaming_response.create(
             tier="fast",
-            version="2025-12-11",
+            version="latest",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -338,7 +339,7 @@ class TestAsyncParsing:
     async def test_method_create(self, async_client: AsyncLlamaCloud) -> None:
         parsing = await async_client.parsing.create(
             tier="fast",
-            version="2025-12-11",
+            version="latest",
         )
         assert_matches_type(ParsingCreateResponse, parsing, path=["response"])
 
@@ -347,7 +348,7 @@ class TestAsyncParsing:
     async def test_method_create_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         parsing = await async_client.parsing.create(
             tier="fast",
-            version="2025-12-11",
+            version="latest",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             agentic_options={"custom_prompt": "custom_prompt"},
@@ -380,6 +381,7 @@ class TestAsyncParsing:
                 },
             },
             output_options={
+                "additional_outputs": ["stripped_md", "concatenated_stripped_txt", "word_bbox"],
                 "extract_printed_page_number": True,
                 "images_to_save": ["screenshot"],
                 "markdown": {
@@ -517,7 +519,7 @@ class TestAsyncParsing:
     async def test_raw_response_create(self, async_client: AsyncLlamaCloud) -> None:
         response = await async_client.parsing.with_raw_response.create(
             tier="fast",
-            version="2025-12-11",
+            version="latest",
         )
 
         assert response.is_closed is True
@@ -530,7 +532,7 @@ class TestAsyncParsing:
     async def test_streaming_response_create(self, async_client: AsyncLlamaCloud) -> None:
         async with async_client.parsing.with_streaming_response.create(
             tier="fast",
-            version="2025-12-11",
+            version="latest",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
