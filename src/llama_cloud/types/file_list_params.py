@@ -11,6 +11,9 @@ __all__ = ["FileListParams"]
 
 
 class FileListParams(TypedDict, total=False):
+    expand: Optional[SequenceNotStr[str]]
+    """Fields to expand on each file."""
+
     external_file_id: Optional[str]
     """Filter by external file ID."""
 

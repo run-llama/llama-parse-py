@@ -23,9 +23,6 @@ class DirectoryGetResponse(BaseModel):
     created_at: Optional[datetime] = None
     """Creation datetime"""
 
-    data_source_id: Optional[str] = None
-    """Optional data source id the directory syncs from. Null if just manual uploads."""
-
     deleted_at: Optional[datetime] = None
     """Optional timestamp of when the directory was deleted. Null if not deleted."""
 

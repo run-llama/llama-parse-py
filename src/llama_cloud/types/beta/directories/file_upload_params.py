@@ -21,4 +21,7 @@ class FileUploadParams(TypedDict, total=False):
 
     external_file_id: Optional[str]
 
+    metadata: Optional[str]
+    """User metadata as a JSON object string."""
+
     unique_id: Optional[str]

@@ -38,7 +38,6 @@ class TestDirectories:
             name="x",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            data_source_id="data_source_id",
             description="description",
         )
         assert_matches_type(DirectoryCreateResponse, directory, path=["response"])
@@ -133,7 +132,6 @@ class TestDirectories:
     @parametrize
     def test_method_list_with_all_params(self, client: LlamaCloud) -> None:
         directory = client.beta.directories.list(
-            data_source_id="data_source_id",
             include_deleted=True,
             name="name",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -291,7 +289,6 @@ class TestAsyncDirectories:
             name="x",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            data_source_id="data_source_id",
             description="description",
         )
         assert_matches_type(DirectoryCreateResponse, directory, path=["response"])
@@ -386,7 +383,6 @@ class TestAsyncDirectories:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         directory = await async_client.beta.directories.list(
-            data_source_id="data_source_id",
             include_deleted=True,
             name="name",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
