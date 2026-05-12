@@ -151,4 +151,5 @@ LlamaParseSupportedFileExtensions: TypeAlias = Literal[
     ".mpga",
     ".wav",
     ".webm",
+    ".yxmd",
 ]

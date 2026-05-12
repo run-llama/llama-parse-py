@@ -84,6 +84,7 @@ class TestFiles:
     @parametrize
     def test_method_list_with_all_params(self, client: LlamaCloud) -> None:
         file = client.files.list(
+            expand=["string", "string"],
             external_file_id="external_file_id",
             file_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             file_name="file_name",
@@ -341,6 +342,7 @@ class TestAsyncFiles:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         file = await async_client.files.list(
+            expand=["string", "string"],
             external_file_id="external_file_id",
             file_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             file_name="file_name",

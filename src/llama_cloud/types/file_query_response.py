@@ -4,6 +4,7 @@ from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
+from .presigned_url import PresignedURL
 
 __all__ = ["FileQueryResponse", "Item"]
 
@@ -19,6 +20,9 @@ class Item(BaseModel):
 
     project_id: str
     """Project this file belongs to"""
+
+    download_url: Optional[PresignedURL] = None
+    """Schema for a presigned URL."""
 
     expires_at: Optional[datetime] = None
     """When the file expires and may be automatically removed.

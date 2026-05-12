@@ -72,7 +72,6 @@ class DirectoriesResource(SyncAPIResource):
         name: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        data_source_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -84,13 +83,8 @@ class DirectoriesResource(SyncAPIResource):
         """
         Create a new directory within the specified project.
 
-        If data_source_id is provided, validates that the data source exists and belongs
-        to the same project.
-
         Args:
           name: Human-readable name for the directory.
-
-          data_source_id: Optional data source id the directory syncs from.
 
           description: Optional description shown to users.
 
@@ -107,7 +101,6 @@ class DirectoriesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
-                    "data_source_id": data_source_id,
                     "description": description,
                 },
                 directory_create_params.DirectoryCreateParams,
@@ -189,7 +182,6 @@ class DirectoriesResource(SyncAPIResource):
     def list(
         self,
         *,
-        data_source_id: Optional[str] | Omit = omit,
         include_deleted: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
@@ -226,7 +218,6 @@ class DirectoriesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "data_source_id": data_source_id,
                         "include_deleted": include_deleted,
                         "name": name,
                         "organization_id": organization_id,
@@ -363,7 +354,6 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         name: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        data_source_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -375,13 +365,8 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         """
         Create a new directory within the specified project.
 
-        If data_source_id is provided, validates that the data source exists and belongs
-        to the same project.
-
         Args:
           name: Human-readable name for the directory.
-
-          data_source_id: Optional data source id the directory syncs from.
 
           description: Optional description shown to users.
 
@@ -398,7 +383,6 @@ class AsyncDirectoriesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
-                    "data_source_id": data_source_id,
                     "description": description,
                 },
                 directory_create_params.DirectoryCreateParams,
@@ -480,7 +464,6 @@ class AsyncDirectoriesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        data_source_id: Optional[str] | Omit = omit,
         include_deleted: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
@@ -517,7 +500,6 @@ class AsyncDirectoriesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "data_source_id": data_source_id,
                         "include_deleted": include_deleted,
                         "name": name,
                         "organization_id": organization_id,

@@ -9,8 +9,6 @@ __all__ = ["DirectoryListParams"]
 
 
 class DirectoryListParams(TypedDict, total=False):
-    data_source_id: Optional[str]
-
     include_deleted: bool
 
     name: Optional[str]
