@@ -19,8 +19,6 @@ class Project(BaseModel):
     organization_id: str
     """The Organization ID the project is under."""
 
-    ad_hoc_eval_dataset_id: Optional[str] = None
-
     created_at: Optional[datetime] = None
     """Creation datetime"""
 

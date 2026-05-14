@@ -55,54 +55,7 @@ class ParsingResource(SyncAPIResource):
         self,
         *,
         tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[
-            Literal[
-                "2025-12-11",
-                "2025-12-18",
-                "2025-12-31",
-                "2026-01-08",
-                "2026-01-09",
-                "2026-01-16",
-                "2026-01-21",
-                "2026-01-22",
-                "2026-01-24",
-                "2026-01-29",
-                "2026-01-30",
-                "2026-02-03",
-                "2026-02-18",
-                "2026-02-20",
-                "2026-02-24",
-                "2026-02-26",
-                "2026-03-02",
-                "2026-03-03",
-                "2026-03-04",
-                "2026-03-05",
-                "2026-03-09",
-                "2026-03-10",
-                "2026-03-11",
-                "2026-03-12",
-                "2026-03-17",
-                "2026-03-19",
-                "2026-03-20",
-                "2026-03-22",
-                "2026-03-23",
-                "2026-03-24",
-                "2026-03-25",
-                "2026-03-26",
-                "2026-03-27",
-                "2026-03-30",
-                "2026-03-31",
-                "2026-04-02",
-                "2026-04-06",
-                "2026-04-09",
-                "2026-04-14",
-                "2026-04-19",
-                "2026-04-22",
-                "2026-04-27",
-                "latest",
-            ],
-            str,
-        ],
+        version: Union[Literal["latest", "2026-05-04", "2026-04-09", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -149,8 +102,9 @@ class ParsingResource(SyncAPIResource):
               'agentic' (AI-powered with custom prompts), or 'agentic_plus' (premium AI with
               highest accuracy)
 
-          version: Tier version. Use 'latest' for the current stable version, or specify a specific
-              version (e.g., '1.0', '2.0') for reproducible results
+          version: Tier version. Use 'latest' for the current stable version, or pin a dated
+              version for reproducible results. See GET /api/v2/parse/versions for the
+              per-tier list.
 
           agentic_options: Options for AI-powered parsing tiers (cost_effective, agentic, agentic_plus).
 
@@ -763,54 +717,7 @@ class AsyncParsingResource(AsyncAPIResource):
         self,
         *,
         tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[
-            Literal[
-                "2025-12-11",
-                "2025-12-18",
-                "2025-12-31",
-                "2026-01-08",
-                "2026-01-09",
-                "2026-01-16",
-                "2026-01-21",
-                "2026-01-22",
-                "2026-01-24",
-                "2026-01-29",
-                "2026-01-30",
-                "2026-02-03",
-                "2026-02-18",
-                "2026-02-20",
-                "2026-02-24",
-                "2026-02-26",
-                "2026-03-02",
-                "2026-03-03",
-                "2026-03-04",
-                "2026-03-05",
-                "2026-03-09",
-                "2026-03-10",
-                "2026-03-11",
-                "2026-03-12",
-                "2026-03-17",
-                "2026-03-19",
-                "2026-03-20",
-                "2026-03-22",
-                "2026-03-23",
-                "2026-03-24",
-                "2026-03-25",
-                "2026-03-26",
-                "2026-03-27",
-                "2026-03-30",
-                "2026-03-31",
-                "2026-04-02",
-                "2026-04-06",
-                "2026-04-09",
-                "2026-04-14",
-                "2026-04-19",
-                "2026-04-22",
-                "2026-04-27",
-                "latest",
-            ],
-            str,
-        ],
+        version: Union[Literal["latest", "2026-05-04", "2026-04-09", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -857,8 +764,9 @@ class AsyncParsingResource(AsyncAPIResource):
               'agentic' (AI-powered with custom prompts), or 'agentic_plus' (premium AI with
               highest accuracy)
 
-          version: Tier version. Use 'latest' for the current stable version, or specify a specific
-              version (e.g., '1.0', '2.0') for reproducible results
+          version: Tier version. Use 'latest' for the current stable version, or pin a dated
+              version for reproducible results. See GET /api/v2/parse/versions for the
+              per-tier list.
 
           agentic_options: Options for AI-powered parsing tiers (cost_effective, agentic, agentic_plus).
 
