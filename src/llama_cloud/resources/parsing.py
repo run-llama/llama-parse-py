@@ -38,7 +38,7 @@ class ParsingResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
         return ParsingResourceWithRawResponse(self)
 
@@ -47,7 +47,7 @@ class ParsingResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#with_streaming_response
+        For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
         return ParsingResourceWithStreamingResponse(self)
 
@@ -55,50 +55,7 @@ class ParsingResource(SyncAPIResource):
         self,
         *,
         tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[
-            Literal[
-                "2025-12-11",
-                "2025-12-18",
-                "2025-12-31",
-                "2026-01-08",
-                "2026-01-09",
-                "2026-01-16",
-                "2026-01-21",
-                "2026-01-22",
-                "2026-01-24",
-                "2026-01-29",
-                "2026-01-30",
-                "2026-02-03",
-                "2026-02-18",
-                "2026-02-20",
-                "2026-02-24",
-                "2026-02-26",
-                "2026-03-02",
-                "2026-03-03",
-                "2026-03-04",
-                "2026-03-05",
-                "2026-03-09",
-                "2026-03-10",
-                "2026-03-11",
-                "2026-03-12",
-                "2026-03-17",
-                "2026-03-19",
-                "2026-03-20",
-                "2026-03-22",
-                "2026-03-23",
-                "2026-03-24",
-                "2026-03-25",
-                "2026-03-26",
-                "2026-03-27",
-                "2026-03-30",
-                "2026-03-31",
-                "2026-04-02",
-                "2026-04-06",
-                "2026-04-09",
-                "latest",
-            ],
-            str,
-        ],
+        version: Union[Literal["latest", "2026-05-13", "2026-05-11", "2026-04-09", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -145,8 +102,9 @@ class ParsingResource(SyncAPIResource):
               'agentic' (AI-powered with custom prompts), or 'agentic_plus' (premium AI with
               highest accuracy)
 
-          version: Tier version. Use 'latest' for the current stable version, or specify a specific
-              version (e.g., '1.0', '2.0') for reproducible results
+          version: Tier version. Use 'latest' for the current stable version, or pin a dated
+              version for reproducible results. See GET /api/v2/parse/versions for the
+              per-tier list.
 
           agentic_options: Options for AI-powered parsing tiers (cost_effective, agentic, agentic_plus).
 
@@ -388,8 +346,9 @@ class ParsingResource(SyncAPIResource):
         Args:
           expand: Fields to include: text, markdown, items, metadata, job_metadata,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
-              metadata_content_metadata, xlsx_content_metadata, output_pdf_content_metadata,
-              images_content_metadata. Metadata fields include presigned URLs.
+              metadata_content_metadata, raw_words_content_metadata, xlsx_content_metadata,
+              output_pdf_content_metadata, images_content_metadata. Metadata fields include
+              presigned URLs.
 
           image_filenames: Filter to specific image filenames (optional). Example: image_0.png,image_1.jpg
 
@@ -741,7 +700,7 @@ class AsyncParsingResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
         return AsyncParsingResourceWithRawResponse(self)
 
@@ -750,7 +709,7 @@ class AsyncParsingResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#with_streaming_response
+        For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
         return AsyncParsingResourceWithStreamingResponse(self)
 
@@ -758,50 +717,7 @@ class AsyncParsingResource(AsyncAPIResource):
         self,
         *,
         tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[
-            Literal[
-                "2025-12-11",
-                "2025-12-18",
-                "2025-12-31",
-                "2026-01-08",
-                "2026-01-09",
-                "2026-01-16",
-                "2026-01-21",
-                "2026-01-22",
-                "2026-01-24",
-                "2026-01-29",
-                "2026-01-30",
-                "2026-02-03",
-                "2026-02-18",
-                "2026-02-20",
-                "2026-02-24",
-                "2026-02-26",
-                "2026-03-02",
-                "2026-03-03",
-                "2026-03-04",
-                "2026-03-05",
-                "2026-03-09",
-                "2026-03-10",
-                "2026-03-11",
-                "2026-03-12",
-                "2026-03-17",
-                "2026-03-19",
-                "2026-03-20",
-                "2026-03-22",
-                "2026-03-23",
-                "2026-03-24",
-                "2026-03-25",
-                "2026-03-26",
-                "2026-03-27",
-                "2026-03-30",
-                "2026-03-31",
-                "2026-04-02",
-                "2026-04-06",
-                "2026-04-09",
-                "latest",
-            ],
-            str,
-        ],
+        version: Union[Literal["latest", "2026-05-13", "2026-05-11", "2026-04-09", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -848,8 +764,9 @@ class AsyncParsingResource(AsyncAPIResource):
               'agentic' (AI-powered with custom prompts), or 'agentic_plus' (premium AI with
               highest accuracy)
 
-          version: Tier version. Use 'latest' for the current stable version, or specify a specific
-              version (e.g., '1.0', '2.0') for reproducible results
+          version: Tier version. Use 'latest' for the current stable version, or pin a dated
+              version for reproducible results. See GET /api/v2/parse/versions for the
+              per-tier list.
 
           agentic_options: Options for AI-powered parsing tiers (cost_effective, agentic, agentic_plus).
 
@@ -1091,8 +1008,9 @@ class AsyncParsingResource(AsyncAPIResource):
         Args:
           expand: Fields to include: text, markdown, items, metadata, job_metadata,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
-              metadata_content_metadata, xlsx_content_metadata, output_pdf_content_metadata,
-              images_content_metadata. Metadata fields include presigned URLs.
+              metadata_content_metadata, raw_words_content_metadata, xlsx_content_metadata,
+              output_pdf_content_metadata, images_content_metadata. Metadata fields include
+              presigned URLs.
 
           image_filenames: Filter to specific image filenames (optional). Example: image_0.png,image_1.jpg
 

@@ -1,6 +1,6 @@
 [project]
 name = "llama_cloud"
-version = "2.4.1"
+version = "2.5.0"
 description = "The official Python library for the llama-cloud API"
 dynamic = ["readme"]
 license = "MIT"
@@ -37,8 +37,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/run-llama/llama-cloud-py"
-Repository = "https://github.com/run-llama/llama-cloud-py"
+Homepage = "https://github.com/run-llama/llama-parse-py"
+Repository = "https://github.com/run-llama/llama-parse-py"
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
@@ -127,7 +127,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/run-llama/llama-cloud-py/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/run-llama/llama-parse-py/tree/main/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -169,7 +169,7 @@ show_error_codes = true
 #
 # We also exclude our `tests` as mypy doesn't always infer
 # types correctly and Pyright will still catch any type errors.
-exclude = ['src/llama_cloud/_files.py', '_dev/.*.py', 'tests/.*']
+exclude = ["src/llama_cloud/_files.py", "_dev/.*.py", "tests/.*"]
 
 strict_equality = true
 implicit_reexport = true

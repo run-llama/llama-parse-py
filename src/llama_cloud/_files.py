@@ -40,7 +40,7 @@ def assert_is_file_content(obj: object, *, key: str | None = None) -> None:
     if not is_file_content(obj):
         prefix = f"Expected entry at `{key}`" if key is not None else f"Expected file input `{obj!r}`"
         raise RuntimeError(
-            f"{prefix} to be bytes, an io.IOBase instance, PathLike or a tuple but received {type(obj)} instead. See https://github.com/run-llama/llama-cloud-py/tree/main#file-uploads"
+            f"{prefix} to be bytes, an io.IOBase instance, PathLike or a tuple but received {type(obj)} instead. See https://github.com/run-llama/llama-parse-py/tree/main#file-uploads"
         ) from None
 
 
@@ -103,7 +103,7 @@ async def async_to_httpx_files(files: RequestFiles | None) -> HttpxRequestFiles 
     elif is_sequence_t(files):
         files = [(key, await _async_transform_file(file)) for key, file in files]
     else:
-        raise TypeError("Unexpected file type input {type(files)}, expected mapping or sequence")
+        raise TypeError(f"Unexpected file type input {type(files)}, expected mapping or sequence")
 
     return files
 

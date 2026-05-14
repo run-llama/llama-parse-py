@@ -1,5 +1,30 @@
 # Changelog
 
+## 2.5.0 (2026-05-14)
+
+Full Changelog: [v2.4.1...v2.5.0](https://github.com/run-llama/llama-parse-py/compare/v2.4.1...v2.5.0)
+
+### Features
+
+* **api:** api update ([7bdde63](https://github.com/run-llama/llama-parse-py/commit/7bdde634068532ba84bd8125f5e6260cf63dc124))
+* **api:** api update ([07665a9](https://github.com/run-llama/llama-parse-py/commit/07665a98d15a397cb685473fde620072c1dce536))
+* **api:** api update ([d13afd9](https://github.com/run-llama/llama-parse-py/commit/d13afd9a2a5c64cee394b193da47f96b7a165db9))
+* **api:** api update ([6a9cc96](https://github.com/run-llama/llama-parse-py/commit/6a9cc96e656984c84d5693a5d9800e1e2f9fbd53))
+* **api:** api update ([8ab8bb9](https://github.com/run-llama/llama-parse-py/commit/8ab8bb903a51f8fc5719454dbcaa16423fdbc362))
+* **internal/types:** support eagerly validating pydantic iterators ([b8000a4](https://github.com/run-llama/llama-parse-py/commit/b8000a4c445edd14503b13f341061cbf72ae3bb0))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([d01c276](https://github.com/run-llama/llama-parse-py/commit/d01c2767b61d27c9df6957676eeccee55632a7cf))
+
+
+### Chores
+
+* **internal:** reformat pyproject.toml ([d0ea3c0](https://github.com/run-llama/llama-parse-py/commit/d0ea3c05044133131c47025fc2a7cf0e659c1726))
+* sync repo ([50348db](https://github.com/run-llama/llama-parse-py/commit/50348db551d45f34efc8d71f77a7452b9d15815d))
+* update SDK settings ([06edb62](https://github.com/run-llama/llama-parse-py/commit/06edb6291c83a106f48c9ad82cad667baa611569))
+
 ## 2.4.1 (2026-04-17)
 
 Full Changelog: [v2.4.0...v2.4.1](https://github.com/run-llama/llama-cloud-py/compare/v2.4.0...v2.4.1)

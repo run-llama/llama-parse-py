@@ -36,7 +36,7 @@ class FilesResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
         return FilesResourceWithRawResponse(self)
 
@@ -45,7 +45,7 @@ class FilesResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#with_streaming_response
+        For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
         return FilesResourceWithStreamingResponse(self)
 
@@ -126,6 +126,7 @@ class FilesResource(SyncAPIResource):
     def list(
         self,
         *,
+        expand: Optional[SequenceNotStr[str]] | Omit = omit,
         external_file_id: Optional[str] | Omit = omit,
         file_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         file_name: Optional[str] | Omit = omit,
@@ -148,6 +149,8 @@ class FilesResource(SyncAPIResource):
         pagination and custom ordering.
 
         Args:
+          expand: Fields to expand on each file.
+
           external_file_id: Filter by external file ID.
 
           file_ids: Filter by specific file IDs.
@@ -180,6 +183,7 @@ class FilesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "expand": expand,
                         "external_file_id": external_file_id,
                         "file_ids": file_ids,
                         "file_name": file_name,
@@ -371,7 +375,7 @@ class AsyncFilesResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
         return AsyncFilesResourceWithRawResponse(self)
 
@@ -380,7 +384,7 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#with_streaming_response
+        For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
         return AsyncFilesResourceWithStreamingResponse(self)
 
@@ -461,6 +465,7 @@ class AsyncFilesResource(AsyncAPIResource):
     def list(
         self,
         *,
+        expand: Optional[SequenceNotStr[str]] | Omit = omit,
         external_file_id: Optional[str] | Omit = omit,
         file_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         file_name: Optional[str] | Omit = omit,
@@ -483,6 +488,8 @@ class AsyncFilesResource(AsyncAPIResource):
         pagination and custom ordering.
 
         Args:
+          expand: Fields to expand on each file.
+
           external_file_id: Filter by external file ID.
 
           file_ids: Filter by specific file IDs.
@@ -515,6 +522,7 @@ class AsyncFilesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "expand": expand,
                         "external_file_id": external_file_id,
                         "file_ids": file_ids,
                         "file_name": file_name,

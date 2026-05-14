@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -52,7 +53,7 @@ class DirectoriesResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
         return DirectoriesResourceWithRawResponse(self)
 
@@ -61,7 +62,7 @@ class DirectoriesResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#with_streaming_response
+        For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
         return DirectoriesResourceWithStreamingResponse(self)
 
@@ -71,7 +72,6 @@ class DirectoriesResource(SyncAPIResource):
         name: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        data_source_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -83,13 +83,8 @@ class DirectoriesResource(SyncAPIResource):
         """
         Create a new directory within the specified project.
 
-        If data_source_id is provided, validates that the data source exists and belongs
-        to the same project.
-
         Args:
           name: Human-readable name for the directory.
-
-          data_source_id: Optional data source id the directory syncs from.
 
           description: Optional description shown to users.
 
@@ -106,7 +101,6 @@ class DirectoriesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
-                    "data_source_id": data_source_id,
                     "description": description,
                 },
                 directory_create_params.DirectoryCreateParams,
@@ -188,13 +182,13 @@ class DirectoriesResource(SyncAPIResource):
     def list(
         self,
         *,
-        data_source_id: Optional[str] | Omit = omit,
         include_deleted: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        type: Optional[Literal["user", "index"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -224,13 +218,13 @@ class DirectoriesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "data_source_id": data_source_id,
                         "include_deleted": include_deleted,
                         "name": name,
                         "organization_id": organization_id,
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "type": type,
                     },
                     directory_list_params.DirectoryListParams,
                 ),
@@ -341,7 +335,7 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
         return AsyncDirectoriesResourceWithRawResponse(self)
 
@@ -350,7 +344,7 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/run-llama/llama-cloud-py#with_streaming_response
+        For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
         return AsyncDirectoriesResourceWithStreamingResponse(self)
 
@@ -360,7 +354,6 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         name: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        data_source_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -372,13 +365,8 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         """
         Create a new directory within the specified project.
 
-        If data_source_id is provided, validates that the data source exists and belongs
-        to the same project.
-
         Args:
           name: Human-readable name for the directory.
-
-          data_source_id: Optional data source id the directory syncs from.
 
           description: Optional description shown to users.
 
@@ -395,7 +383,6 @@ class AsyncDirectoriesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
-                    "data_source_id": data_source_id,
                     "description": description,
                 },
                 directory_create_params.DirectoryCreateParams,
@@ -477,13 +464,13 @@ class AsyncDirectoriesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        data_source_id: Optional[str] | Omit = omit,
         include_deleted: bool | Omit = omit,
         name: Optional[str] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        type: Optional[Literal["user", "index"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -513,13 +500,13 @@ class AsyncDirectoriesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "data_source_id": data_source_id,
                         "include_deleted": include_deleted,
                         "name": name,
                         "organization_id": organization_id,
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "type": type,
                     },
                     directory_list_params.DirectoryListParams,
                 ),

@@ -16,8 +16,5 @@ class DirectoryCreateParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
-    data_source_id: Optional[str]
-    """Optional data source id the directory syncs from."""
-
     description: Optional[str]
     """Optional description shown to users."""

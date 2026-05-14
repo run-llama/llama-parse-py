@@ -24,7 +24,11 @@ class ExtractConfiguration(BaseModel):
     """Include confidence scores in results"""
 
     extract_version: Optional[str] = None
-    """Extract algorithm version. Use 'latest' or a date string."""
+    """Extract algorithm version.
+
+    Use 'latest' for the default pipeline or a date string (e.g. '2026-01-08') to
+    pin to a specific release.
+    """
 
     extraction_target: Optional[Literal["per_doc", "per_page", "per_table_row"]] = None
     """

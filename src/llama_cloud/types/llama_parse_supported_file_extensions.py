@@ -74,6 +74,8 @@ LlamaParseSupportedFileExtensions: TypeAlias = Literal[
     ".vdx",
     ".bmp",
     ".gif",
+    ".heic",
+    ".heif",
     ".jpg",
     ".jpeg",
     ".png",
@@ -149,4 +151,5 @@ LlamaParseSupportedFileExtensions: TypeAlias = Literal[
     ".mpga",
     ".wav",
     ".webm",
+    ".yxmd",
 ]

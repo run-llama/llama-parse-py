@@ -1,6 +1,6 @@
 # This workflow is triggered when a GitHub release is created.
 # It can also be run manually to re-publish to PyPI in case it failed for some reason.
-# You can run this workflow by navigating to https://www.github.com/run-llama/llama-cloud-py/actions/workflows/publish-pypi.yml
+# You can run this workflow by navigating to https://www.github.com/run-llama/llama-parse-py/actions/workflows/publish-pypi.yml
 name: Publish PyPI
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Install Rye
         run: |

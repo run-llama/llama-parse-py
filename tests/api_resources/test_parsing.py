@@ -70,6 +70,7 @@ class TestParsing:
                 },
             },
             output_options={
+                "additional_outputs": ["stripped_md", "concatenated_stripped_txt", "word_bbox"],
                 "extract_printed_page_number": True,
                 "images_to_save": ["screenshot"],
                 "markdown": {
@@ -380,6 +381,7 @@ class TestAsyncParsing:
                 },
             },
             output_options={
+                "additional_outputs": ["stripped_md", "concatenated_stripped_txt", "word_bbox"],
                 "extract_printed_page_number": True,
                 "images_to_save": ["screenshot"],
                 "markdown": {

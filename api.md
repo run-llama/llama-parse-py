@@ -32,7 +32,6 @@ Types:
 ```python
 from llama_cloud.types import (
     File,
-    FileCreate,
     PresignedURL,
     FileCreateResponse,
     FileListResponse,
