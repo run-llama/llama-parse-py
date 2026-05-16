@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, Union, Optional
 from typing_extensions import Required, Annotated, TypedDict
 
+from ...._types import SequenceNotStr
 from ...._utils import PropertyInfo
 
 __all__ = ["FileUpdateParams"]
@@ -23,7 +24,7 @@ class FileUpdateParams(TypedDict, total=False):
     display_name: Optional[str]
     """Updated display name."""
 
-    metadata: Optional[Dict[str, Union[str, float, bool, None]]]
+    metadata: Optional[Dict[str, Union[str, float, bool, SequenceNotStr[str], None]]]
     """User-defined metadata key-value pairs. Replaces the user metadata layer."""
 
     unique_id: Optional[str]
