@@ -8,6 +8,14 @@ from .beta import (
     BetaResourceWithStreamingResponse,
     AsyncBetaResourceWithStreamingResponse,
 )
+from .chat import (
+    ChatResource,
+    AsyncChatResource,
+    ChatResourceWithRawResponse,
+    AsyncChatResourceWithRawResponse,
+    ChatResourceWithStreamingResponse,
+    AsyncChatResourceWithStreamingResponse,
+)
 from .batch import (
     BatchResource,
     AsyncBatchResource,
@@ -40,6 +48,14 @@ from .indexes import (
     IndexesResourceWithStreamingResponse,
     AsyncIndexesResourceWithStreamingResponse,
 )
+from .retrieval import (
+    RetrievalResource,
+    AsyncRetrievalResource,
+    RetrievalResourceWithRawResponse,
+    AsyncRetrievalResourceWithRawResponse,
+    RetrievalResourceWithStreamingResponse,
+    AsyncRetrievalResourceWithStreamingResponse,
+)
 from .agent_data import (
     AgentDataResource,
     AsyncAgentDataResource,
@@ -64,6 +80,18 @@ __all__ = [
     "AsyncIndexesResourceWithRawResponse",
     "IndexesResourceWithStreamingResponse",
     "AsyncIndexesResourceWithStreamingResponse",
+    "RetrievalResource",
+    "AsyncRetrievalResource",
+    "RetrievalResourceWithRawResponse",
+    "AsyncRetrievalResourceWithRawResponse",
+    "RetrievalResourceWithStreamingResponse",
+    "AsyncRetrievalResourceWithStreamingResponse",
+    "ChatResource",
+    "AsyncChatResource",
+    "ChatResourceWithRawResponse",
+    "AsyncChatResourceWithRawResponse",
+    "ChatResourceWithStreamingResponse",
+    "AsyncChatResourceWithStreamingResponse",
     "AgentDataResource",
     "AsyncAgentDataResource",
     "AgentDataResourceWithRawResponse",
