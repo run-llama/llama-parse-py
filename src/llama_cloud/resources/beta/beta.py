@@ -2,6 +2,14 @@
 
 from __future__ import annotations
 
+from .chat import (
+    ChatResource,
+    AsyncChatResource,
+    ChatResourceWithRawResponse,
+    AsyncChatResourceWithRawResponse,
+    ChatResourceWithStreamingResponse,
+    AsyncChatResourceWithStreamingResponse,
+)
 from .split import (
     SplitResource,
     AsyncSplitResource,
@@ -18,7 +26,23 @@ from .sheets import (
     SheetsResourceWithStreamingResponse,
     AsyncSheetsResourceWithStreamingResponse,
 )
+from .indexes import (
+    IndexesResource,
+    AsyncIndexesResource,
+    IndexesResourceWithRawResponse,
+    AsyncIndexesResourceWithRawResponse,
+    IndexesResourceWithStreamingResponse,
+    AsyncIndexesResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
+from .retrieval import (
+    RetrievalResource,
+    AsyncRetrievalResource,
+    RetrievalResourceWithRawResponse,
+    AsyncRetrievalResourceWithRawResponse,
+    RetrievalResourceWithStreamingResponse,
+    AsyncRetrievalResourceWithStreamingResponse,
+)
 from .agent_data import (
     AgentDataResource,
     AsyncAgentDataResource,
@@ -49,6 +73,18 @@ __all__ = ["BetaResource", "AsyncBetaResource"]
 
 
 class BetaResource(SyncAPIResource):
+    @cached_property
+    def indexes(self) -> IndexesResource:
+        return IndexesResource(self._client)
+
+    @cached_property
+    def retrieval(self) -> RetrievalResource:
+        return RetrievalResource(self._client)
+
+    @cached_property
+    def chat(self) -> ChatResource:
+        return ChatResource(self._client)
+
     @cached_property
     def agent_data(self) -> AgentDataResource:
         return AgentDataResource(self._client)
@@ -90,6 +126,18 @@ class BetaResource(SyncAPIResource):
 
 
 class AsyncBetaResource(AsyncAPIResource):
+    @cached_property
+    def indexes(self) -> AsyncIndexesResource:
+        return AsyncIndexesResource(self._client)
+
+    @cached_property
+    def retrieval(self) -> AsyncRetrievalResource:
+        return AsyncRetrievalResource(self._client)
+
+    @cached_property
+    def chat(self) -> AsyncChatResource:
+        return AsyncChatResource(self._client)
+
     @cached_property
     def agent_data(self) -> AsyncAgentDataResource:
         return AsyncAgentDataResource(self._client)
@@ -135,6 +183,18 @@ class BetaResourceWithRawResponse:
         self._beta = beta
 
     @cached_property
+    def indexes(self) -> IndexesResourceWithRawResponse:
+        return IndexesResourceWithRawResponse(self._beta.indexes)
+
+    @cached_property
+    def retrieval(self) -> RetrievalResourceWithRawResponse:
+        return RetrievalResourceWithRawResponse(self._beta.retrieval)
+
+    @cached_property
+    def chat(self) -> ChatResourceWithRawResponse:
+        return ChatResourceWithRawResponse(self._beta.chat)
+
+    @cached_property
     def agent_data(self) -> AgentDataResourceWithRawResponse:
         return AgentDataResourceWithRawResponse(self._beta.agent_data)
 
@@ -158,6 +218,18 @@ class BetaResourceWithRawResponse:
 class AsyncBetaResourceWithRawResponse:
     def __init__(self, beta: AsyncBetaResource) -> None:
         self._beta = beta
+
+    @cached_property
+    def indexes(self) -> AsyncIndexesResourceWithRawResponse:
+        return AsyncIndexesResourceWithRawResponse(self._beta.indexes)
+
+    @cached_property
+    def retrieval(self) -> AsyncRetrievalResourceWithRawResponse:
+        return AsyncRetrievalResourceWithRawResponse(self._beta.retrieval)
+
+    @cached_property
+    def chat(self) -> AsyncChatResourceWithRawResponse:
+        return AsyncChatResourceWithRawResponse(self._beta.chat)
 
     @cached_property
     def agent_data(self) -> AsyncAgentDataResourceWithRawResponse:
@@ -185,6 +257,18 @@ class BetaResourceWithStreamingResponse:
         self._beta = beta
 
     @cached_property
+    def indexes(self) -> IndexesResourceWithStreamingResponse:
+        return IndexesResourceWithStreamingResponse(self._beta.indexes)
+
+    @cached_property
+    def retrieval(self) -> RetrievalResourceWithStreamingResponse:
+        return RetrievalResourceWithStreamingResponse(self._beta.retrieval)
+
+    @cached_property
+    def chat(self) -> ChatResourceWithStreamingResponse:
+        return ChatResourceWithStreamingResponse(self._beta.chat)
+
+    @cached_property
     def agent_data(self) -> AgentDataResourceWithStreamingResponse:
         return AgentDataResourceWithStreamingResponse(self._beta.agent_data)
 
@@ -208,6 +292,18 @@ class BetaResourceWithStreamingResponse:
 class AsyncBetaResourceWithStreamingResponse:
     def __init__(self, beta: AsyncBetaResource) -> None:
         self._beta = beta
+
+    @cached_property
+    def indexes(self) -> AsyncIndexesResourceWithStreamingResponse:
+        return AsyncIndexesResourceWithStreamingResponse(self._beta.indexes)
+
+    @cached_property
+    def retrieval(self) -> AsyncRetrievalResourceWithStreamingResponse:
+        return AsyncRetrievalResourceWithStreamingResponse(self._beta.retrieval)
+
+    @cached_property
+    def chat(self) -> AsyncChatResourceWithStreamingResponse:
+        return AsyncChatResourceWithStreamingResponse(self._beta.chat)
 
     @cached_property
     def agent_data(self) -> AsyncAgentDataResourceWithStreamingResponse:

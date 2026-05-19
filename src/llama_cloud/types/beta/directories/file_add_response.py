@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 
 from ...._models import BaseModel
@@ -39,7 +39,7 @@ class FileAddResponse(BaseModel):
     file_id: Optional[str] = None
     """File ID for the storage location."""
 
-    metadata: Optional[Dict[str, Union[str, float, bool, None]]] = None
+    metadata: Optional[Dict[str, Union[str, float, bool, List[str], None]]] = None
     """Merged metadata from all sources. Higher-priority sources override lower."""
 
     updated_at: Optional[datetime] = None
