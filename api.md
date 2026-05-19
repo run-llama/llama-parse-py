@@ -429,6 +429,50 @@ Methods:
 - <code title="get /api/v1/indexes/{index_id}">client.beta.indexes.<a href="./src/llama_cloud/resources/beta/indexes.py">get</a>(index_id, \*\*<a href="src/llama_cloud/types/beta/index_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/index_get_response.py">IndexGetResponse</a></code>
 - <code title="post /api/v1/indexes/{index_id}/sync">client.beta.indexes.<a href="./src/llama_cloud/resources/beta/indexes.py">sync</a>(index_id, \*\*<a href="src/llama_cloud/types/beta/index_sync_params.py">params</a>) -> object</code>
 
+## Retrieval
+
+Types:
+
+```python
+from llama_cloud.types.beta import (
+    RetrievalRetrieveResponse,
+    RetrievalGrepResponse,
+    RetrievalReadResponse,
+    RetrievalSearchResponse,
+)
+```
+
+Methods:
+
+- <code title="post /api/v1/retrieval/retrieve">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">retrieve</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_retrieve_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_retrieve_response.py">RetrievalRetrieveResponse</a></code>
+- <code title="post /api/v1/retrieval/files/grep">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">grep</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_grep_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_grep_response.py">RetrievalGrepResponse</a></code>
+- <code title="post /api/v1/retrieval/files/read">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">read</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_read_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_read_response.py">RetrievalReadResponse</a></code>
+- <code title="post /api/v1/retrieval/files/search">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">search</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_search_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_search_response.py">RetrievalSearchResponse</a></code>
+
+## Chat
+
+Types:
+
+```python
+from llama_cloud.types.beta import (
+    ChatCreateResponse,
+    ChatRetrieveResponse,
+    ChatListResponse,
+    ChatGetSummaryResponse,
+    ChatSetTitleResponse,
+)
+```
+
+Methods:
+
+- <code title="post /api/v1/chat">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">create</a>(\*\*<a href="src/llama_cloud/types/beta/chat_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/chat_create_response.py">ChatCreateResponse</a></code>
+- <code title="get /api/v1/chat/{session_id}">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">retrieve</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_retrieve_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/chat_retrieve_response.py">ChatRetrieveResponse</a></code>
+- <code title="get /api/v1/chat">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">list</a>(\*\*<a href="src/llama_cloud/types/beta/chat_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/chat_list_response.py">SyncPaginatedCursor[ChatListResponse]</a></code>
+- <code title="delete /api/v1/chat/{session_id}">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">delete</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_delete_params.py">params</a>) -> None</code>
+- <code title="get /api/v1/chat/{session_id}/summary">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">get_summary</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_get_summary_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/chat_get_summary_response.py">ChatGetSummaryResponse</a></code>
+- <code title="post /api/v1/chat/{session_id}/title">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">set_title</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_set_title_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/chat_set_title_response.py">ChatSetTitleResponse</a></code>
+- <code title="post /api/v1/chat/{session_id}/messages/stream">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">stream</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_stream_params.py">params</a>) -> object</code>
+
 ## AgentData
 
 Types:
