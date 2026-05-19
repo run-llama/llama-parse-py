@@ -413,6 +413,21 @@ Methods:
 
 # Beta
 
+## Indexes
+
+Types:
+
+```python
+from llama_cloud.types.beta import IndexCreateResponse, IndexGetResponse
+```
+
+Methods:
+
+- <code title="post /api/v1/indexes">client.beta.indexes.<a href="./src/llama_cloud/resources/beta/indexes.py">create</a>(\*\*<a href="src/llama_cloud/types/beta/index_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/index_create_response.py">IndexCreateResponse</a></code>
+- <code title="delete /api/v1/indexes/{index_id}">client.beta.indexes.<a href="./src/llama_cloud/resources/beta/indexes.py">delete</a>(index_id, \*\*<a href="src/llama_cloud/types/beta/index_delete_params.py">params</a>) -> None</code>
+- <code title="get /api/v1/indexes/{index_id}">client.beta.indexes.<a href="./src/llama_cloud/resources/beta/indexes.py">get</a>(index_id, \*\*<a href="src/llama_cloud/types/beta/index_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/index_get_response.py">IndexGetResponse</a></code>
+- <code title="post /api/v1/indexes/{index_id}/sync">client.beta.indexes.<a href="./src/llama_cloud/resources/beta/indexes.py">sync</a>(index_id, \*\*<a href="src/llama_cloud/types/beta/index_sync_params.py">params</a>) -> object</code>
+
 ## AgentData
 
 Types:

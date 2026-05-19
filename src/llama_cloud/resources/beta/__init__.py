@@ -32,6 +32,14 @@ from .sheets import (
     SheetsResourceWithStreamingResponse,
     AsyncSheetsResourceWithStreamingResponse,
 )
+from .indexes import (
+    IndexesResource,
+    AsyncIndexesResource,
+    IndexesResourceWithRawResponse,
+    AsyncIndexesResourceWithRawResponse,
+    IndexesResourceWithStreamingResponse,
+    AsyncIndexesResourceWithStreamingResponse,
+)
 from .agent_data import (
     AgentDataResource,
     AsyncAgentDataResource,
@@ -50,6 +58,12 @@ from .directories import (
 )
 
 __all__ = [
+    "IndexesResource",
+    "AsyncIndexesResource",
+    "IndexesResourceWithRawResponse",
+    "AsyncIndexesResourceWithRawResponse",
+    "IndexesResourceWithStreamingResponse",
+    "AsyncIndexesResourceWithStreamingResponse",
     "AgentDataResource",
     "AsyncAgentDataResource",
     "AgentDataResourceWithRawResponse",
