@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.6.0 (2026-05-19)
+
+Full Changelog: [v2.5.0...v2.6.0](https://github.com/run-llama/llama-parse-py/compare/v2.5.0...v2.6.0)
+
+### Features
+
+* **api:** Adding in Resources For Retrieval and Chat ([2eb6e25](https://github.com/run-llama/llama-parse-py/commit/2eb6e25c258e71cc46110444a126bddf2c98eed3))
+* **api:** api update ([f2171ca](https://github.com/run-llama/llama-parse-py/commit/f2171caf6c5e81045b1d6d7993e52a57a2c6ccad))
+* **api:** Updating indexes endpoints within the sub resources. ([4a1b7ec](https://github.com/run-llama/llama-parse-py/commit/4a1b7ec0a652336a39be4545be365840c77e92e8))
+
 ## 2.5.0 (2026-05-14)
 
 Full Changelog: [v2.4.1...v2.5.0](https://github.com/run-llama/llama-parse-py/compare/v2.4.1...v2.5.0)
