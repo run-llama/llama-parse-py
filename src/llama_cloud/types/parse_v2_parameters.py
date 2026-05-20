@@ -349,7 +349,7 @@ class ProcessingControlTimeouts(BaseModel):
     """Timeout settings for job execution. Increase for large or complex documents"""
 
     base_in_seconds: Optional[int] = None
-    """Base timeout for the job in seconds (max 1800 = 30 minutes).
+    """Base timeout for the job in seconds (max 7200 = 2 hours).
 
     This is the minimum time allowed regardless of document size
     """
