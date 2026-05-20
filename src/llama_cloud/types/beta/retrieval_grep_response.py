@@ -1,13 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
-
 from ..._models import BaseModel
 
-__all__ = ["RetrievalGrepResponse", "Match"]
+__all__ = ["RetrievalGrepResponse"]
 
 
-class Match(BaseModel):
+class RetrievalGrepResponse(BaseModel):
     """A single grep match within a file."""
 
     content: str
@@ -18,10 +16,3 @@ class Match(BaseModel):
 
     start_char: int
     """Start character offset of the match."""
-
-
-class RetrievalGrepResponse(BaseModel):
-    """Grep results for a file."""
-
-    matches: List[Match]
-    """Regex matches found in the file."""

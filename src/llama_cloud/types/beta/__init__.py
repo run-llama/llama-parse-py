@@ -38,6 +38,7 @@ from .batch_create_response import BatchCreateResponse as BatchCreateResponse
 from .chat_set_title_params import ChatSetTitleParams as ChatSetTitleParams
 from .directory_list_params import DirectoryListParams as DirectoryListParams
 from .index_create_response import IndexCreateResponse as IndexCreateResponse
+from .retrieval_find_params import RetrievalFindParams as RetrievalFindParams
 from .retrieval_grep_params import RetrievalGrepParams as RetrievalGrepParams
 from .retrieval_read_params import RetrievalReadParams as RetrievalReadParams
 from .sheets_parsing_config import SheetsParsingConfig as SheetsParsingConfig
@@ -53,9 +54,9 @@ from .directory_create_params import DirectoryCreateParams as DirectoryCreatePar
 from .directory_delete_params import DirectoryDeleteParams as DirectoryDeleteParams
 from .directory_list_response import DirectoryListResponse as DirectoryListResponse
 from .directory_update_params import DirectoryUpdateParams as DirectoryUpdateParams
+from .retrieval_find_response import RetrievalFindResponse as RetrievalFindResponse
 from .retrieval_grep_response import RetrievalGrepResponse as RetrievalGrepResponse
 from .retrieval_read_response import RetrievalReadResponse as RetrievalReadResponse
-from .retrieval_search_params import RetrievalSearchParams as RetrievalSearchParams
 from .sheet_delete_job_params import SheetDeleteJobParams as SheetDeleteJobParams
 from .agent_data_create_params import AgentDataCreateParams as AgentDataCreateParams
 from .agent_data_delete_params import AgentDataDeleteParams as AgentDataDeleteParams
@@ -66,7 +67,6 @@ from .chat_get_summary_response import ChatGetSummaryResponse as ChatGetSummaryR
 from .directory_create_response import DirectoryCreateResponse as DirectoryCreateResponse
 from .directory_update_response import DirectoryUpdateResponse as DirectoryUpdateResponse
 from .retrieval_retrieve_params import RetrievalRetrieveParams as RetrievalRetrieveParams
-from .retrieval_search_response import RetrievalSearchResponse as RetrievalSearchResponse
 from .agent_data_delete_response import AgentDataDeleteResponse as AgentDataDeleteResponse
 from .split_document_input_param import SplitDocumentInputParam as SplitDocumentInputParam
 from .agent_data_aggregate_params import AgentDataAggregateParams as AgentDataAggregateParams

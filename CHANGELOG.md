@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.7.0 (2026-05-20)
+
+Full Changelog: [v2.6.0...v2.7.0](https://github.com/run-llama/llama-parse-py/compare/v2.6.0...v2.7.0)
+
+### Features
+
+* **api:** api update ([211ccac](https://github.com/run-llama/llama-parse-py/commit/211ccac82c1607a168046b5df5b8e577d01f992d))
+* **api:** api update ([7439110](https://github.com/run-llama/llama-parse-py/commit/7439110a10fc1480b11ea071a6d84df57d33b925))
+* **api:** swap grep and file search to grep/find + pagination ([1ce1187](https://github.com/run-llama/llama-parse-py/commit/1ce1187927176d9883e314b8945eb02511725871))
+
 ## 2.6.0 (2026-05-19)
 
 Full Changelog: [v2.5.0...v2.6.0](https://github.com/run-llama/llama-parse-py/compare/v2.5.0...v2.6.0)

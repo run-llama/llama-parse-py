@@ -436,18 +436,18 @@ Types:
 ```python
 from llama_cloud.types.beta import (
     RetrievalRetrieveResponse,
+    RetrievalFindResponse,
     RetrievalGrepResponse,
     RetrievalReadResponse,
-    RetrievalSearchResponse,
 )
 ```
 
 Methods:
 
 - <code title="post /api/v1/retrieval/retrieve">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">retrieve</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_retrieve_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_retrieve_response.py">RetrievalRetrieveResponse</a></code>
-- <code title="post /api/v1/retrieval/files/grep">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">grep</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_grep_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_grep_response.py">RetrievalGrepResponse</a></code>
+- <code title="post /api/v1/retrieval/files/find">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">find</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_find_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_find_response.py">SyncPaginatedCursorPost[RetrievalFindResponse]</a></code>
+- <code title="post /api/v1/retrieval/files/grep">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">grep</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_grep_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_grep_response.py">SyncPaginatedCursorPost[RetrievalGrepResponse]</a></code>
 - <code title="post /api/v1/retrieval/files/read">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">read</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_read_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_read_response.py">RetrievalReadResponse</a></code>
-- <code title="post /api/v1/retrieval/files/search">client.beta.retrieval.<a href="./src/llama_cloud/resources/beta/retrieval.py">search</a>(\*\*<a href="src/llama_cloud/types/beta/retrieval_search_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/retrieval_search_response.py">RetrievalSearchResponse</a></code>
 
 ## Chat
 

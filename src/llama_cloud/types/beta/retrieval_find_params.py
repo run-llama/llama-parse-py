@@ -5,28 +5,22 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["RetrievalGrepParams"]
+__all__ = ["RetrievalFindParams"]
 
 
-class RetrievalGrepParams(TypedDict, total=False):
-    file_id: Required[str]
-    """ID of the file to grep."""
-
+class RetrievalFindParams(TypedDict, total=False):
     index_id: Required[str]
-    """ID of the index the file belongs to."""
-
-    pattern: Required[str]
-    """Regex pattern to search for."""
+    """ID of the index to search within."""
 
     organization_id: Optional[str]
 
     project_id: Optional[str]
 
-    context_chars: Optional[int]
-    """
-    Number of characters of context to include before and after the matched pattern
-    in the content field of the response
-    """
+    file_name: Optional[str]
+    """Exact file name to match."""
+
+    file_name_contains: Optional[str]
+    """Substring match on file name (case-insensitive)."""
 
     page_size: Optional[int]
     """The maximum number of items to return.
