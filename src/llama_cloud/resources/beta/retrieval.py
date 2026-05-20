@@ -16,16 +16,10 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.beta import (
-    retrieval_grep_params,
-    retrieval_read_params,
-    retrieval_search_params,
-    retrieval_retrieve_params,
-)
+from ...types.beta import retrieval_grep_params, retrieval_read_params, retrieval_retrieve_params
 from ..._base_client import make_request_options
 from ...types.beta.retrieval_grep_response import RetrievalGrepResponse
 from ...types.beta.retrieval_read_response import RetrievalReadResponse
-from ...types.beta.retrieval_search_response import RetrievalSearchResponse
 from ...types.beta.retrieval_retrieve_response import RetrievalRetrieveResponse
 
 __all__ = ["RetrievalResource", "AsyncRetrievalResource"]
@@ -148,7 +142,8 @@ class RetrievalResource(SyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         context_chars: Optional[int] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
+        page_size: Optional[int] | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -169,7 +164,12 @@ class RetrievalResource(SyncAPIResource):
           context_chars: Number of characters of context to include before and after the matched pattern
               in the content field of the response
 
-          limit: Maximum number of matches to return.
+          page_size: The maximum number of items to return. The service may return fewer than this
+              value. If unspecified, a default page size will be used. The maximum value is
+              typically 1000; values above this will be coerced to the maximum.
+
+          page_token: A page token, received from a previous list call. Provide this to retrieve the
+              subsequent page.
 
           extra_headers: Send extra headers
 
@@ -187,7 +187,8 @@ class RetrievalResource(SyncAPIResource):
                     "index_id": index_id,
                     "pattern": pattern,
                     "context_chars": context_chars,
-                    "limit": limit,
+                    "page_size": page_size,
+                    "page_token": page_token,
                 },
                 retrieval_grep_params.RetrievalGrepParams,
             ),
@@ -268,69 +269,6 @@ class RetrievalResource(SyncAPIResource):
                 ),
             ),
             cast_to=RetrievalReadResponse,
-        )
-
-    def search(
-        self,
-        *,
-        index_id: str,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        file_name: Optional[str] | Omit = omit,
-        file_name_contains: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RetrievalSearchResponse:
-        """
-        Search for files by name.
-
-        Args:
-          index_id: ID of the index to search within.
-
-          file_name: Exact file name to match.
-
-          file_name_contains: Substring match on file name (case-insensitive).
-
-          limit: Maximum number of files to return.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._post(
-            "/api/v1/retrieval/files/search",
-            body=maybe_transform(
-                {
-                    "index_id": index_id,
-                    "file_name": file_name,
-                    "file_name_contains": file_name_contains,
-                    "limit": limit,
-                },
-                retrieval_search_params.RetrievalSearchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    retrieval_search_params.RetrievalSearchParams,
-                ),
-            ),
-            cast_to=RetrievalSearchResponse,
         )
 
 
@@ -451,7 +389,8 @@ class AsyncRetrievalResource(AsyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         context_chars: Optional[int] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
+        page_size: Optional[int] | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -472,7 +411,12 @@ class AsyncRetrievalResource(AsyncAPIResource):
           context_chars: Number of characters of context to include before and after the matched pattern
               in the content field of the response
 
-          limit: Maximum number of matches to return.
+          page_size: The maximum number of items to return. The service may return fewer than this
+              value. If unspecified, a default page size will be used. The maximum value is
+              typically 1000; values above this will be coerced to the maximum.
+
+          page_token: A page token, received from a previous list call. Provide this to retrieve the
+              subsequent page.
 
           extra_headers: Send extra headers
 
@@ -490,7 +434,8 @@ class AsyncRetrievalResource(AsyncAPIResource):
                     "index_id": index_id,
                     "pattern": pattern,
                     "context_chars": context_chars,
-                    "limit": limit,
+                    "page_size": page_size,
+                    "page_token": page_token,
                 },
                 retrieval_grep_params.RetrievalGrepParams,
             ),
@@ -573,69 +518,6 @@ class AsyncRetrievalResource(AsyncAPIResource):
             cast_to=RetrievalReadResponse,
         )
 
-    async def search(
-        self,
-        *,
-        index_id: str,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        file_name: Optional[str] | Omit = omit,
-        file_name_contains: Optional[str] | Omit = omit,
-        limit: Optional[int] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RetrievalSearchResponse:
-        """
-        Search for files by name.
-
-        Args:
-          index_id: ID of the index to search within.
-
-          file_name: Exact file name to match.
-
-          file_name_contains: Substring match on file name (case-insensitive).
-
-          limit: Maximum number of files to return.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._post(
-            "/api/v1/retrieval/files/search",
-            body=await async_maybe_transform(
-                {
-                    "index_id": index_id,
-                    "file_name": file_name,
-                    "file_name_contains": file_name_contains,
-                    "limit": limit,
-                },
-                retrieval_search_params.RetrievalSearchParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    retrieval_search_params.RetrievalSearchParams,
-                ),
-            ),
-            cast_to=RetrievalSearchResponse,
-        )
-
 
 class RetrievalResourceWithRawResponse:
     def __init__(self, retrieval: RetrievalResource) -> None:
@@ -649,9 +531,6 @@ class RetrievalResourceWithRawResponse:
         )
         self.read = to_raw_response_wrapper(
             retrieval.read,
-        )
-        self.search = to_raw_response_wrapper(
-            retrieval.search,
         )
 
 
@@ -668,9 +547,6 @@ class AsyncRetrievalResourceWithRawResponse:
         self.read = async_to_raw_response_wrapper(
             retrieval.read,
         )
-        self.search = async_to_raw_response_wrapper(
-            retrieval.search,
-        )
 
 
 class RetrievalResourceWithStreamingResponse:
@@ -686,9 +562,6 @@ class RetrievalResourceWithStreamingResponse:
         self.read = to_streamed_response_wrapper(
             retrieval.read,
         )
-        self.search = to_streamed_response_wrapper(
-            retrieval.search,
-        )
 
 
 class AsyncRetrievalResourceWithStreamingResponse:
@@ -703,7 +576,4 @@ class AsyncRetrievalResourceWithStreamingResponse:
         )
         self.read = async_to_streamed_response_wrapper(
             retrieval.read,
-        )
-        self.search = async_to_streamed_response_wrapper(
-            retrieval.search,
         )
