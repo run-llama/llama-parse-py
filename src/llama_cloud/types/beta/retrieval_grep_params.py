@@ -28,5 +28,16 @@ class RetrievalGrepParams(TypedDict, total=False):
     in the content field of the response
     """
 
-    limit: Optional[int]
-    """Maximum number of matches to return."""
+    page_size: Optional[int]
+    """The maximum number of items to return.
+
+    The service may return fewer than this value. If unspecified, a default page
+    size will be used. The maximum value is typically 1000; values above this will
+    be coerced to the maximum.
+    """
+
+    page_token: Optional[str]
+    """A page token, received from a previous list call.
+
+    Provide this to retrieve the subsequent page.
+    """
