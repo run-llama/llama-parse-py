@@ -16,8 +16,10 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.beta import retrieval_grep_params, retrieval_read_params, retrieval_retrieve_params
-from ..._base_client import make_request_options
+from ...pagination import SyncPaginatedCursorPost, AsyncPaginatedCursorPost
+from ...types.beta import retrieval_find_params, retrieval_grep_params, retrieval_read_params, retrieval_retrieve_params
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.beta.retrieval_find_response import RetrievalFindResponse
 from ...types.beta.retrieval_grep_response import RetrievalGrepResponse
 from ...types.beta.retrieval_read_response import RetrievalReadResponse
 from ...types.beta.retrieval_retrieve_response import RetrievalRetrieveResponse
@@ -133,6 +135,78 @@ class RetrievalResource(SyncAPIResource):
             cast_to=RetrievalRetrieveResponse,
         )
 
+    def find(
+        self,
+        *,
+        index_id: str,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        file_name: Optional[str] | Omit = omit,
+        file_name_contains: Optional[str] | Omit = omit,
+        page_size: Optional[int] | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncPaginatedCursorPost[RetrievalFindResponse]:
+        """
+        Search for files by name.
+
+        Args:
+          index_id: ID of the index to search within.
+
+          file_name: Exact file name to match.
+
+          file_name_contains: Substring match on file name (case-insensitive).
+
+          page_size: The maximum number of items to return. The service may return fewer than this
+              value. If unspecified, a default page size will be used. The maximum value is
+              typically 1000; values above this will be coerced to the maximum.
+
+          page_token: A page token, received from a previous list call. Provide this to retrieve the
+              subsequent page.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/retrieval/files/find",
+            page=SyncPaginatedCursorPost[RetrievalFindResponse],
+            body=maybe_transform(
+                {
+                    "index_id": index_id,
+                    "file_name": file_name,
+                    "file_name_contains": file_name_contains,
+                    "page_size": page_size,
+                    "page_token": page_token,
+                },
+                retrieval_find_params.RetrievalFindParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    retrieval_find_params.RetrievalFindParams,
+                ),
+            ),
+            model=RetrievalFindResponse,
+            method="post",
+        )
+
     def grep(
         self,
         *,
@@ -150,7 +224,7 @@ class RetrievalResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RetrievalGrepResponse:
+    ) -> SyncPaginatedCursorPost[RetrievalGrepResponse]:
         """
         Grep within a file's parsed content using a regex pattern.
 
@@ -179,8 +253,9 @@ class RetrievalResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._post(
+        return self._get_api_list(
             "/api/v1/retrieval/files/grep",
+            page=SyncPaginatedCursorPost[RetrievalGrepResponse],
             body=maybe_transform(
                 {
                     "file_id": file_id,
@@ -205,7 +280,8 @@ class RetrievalResource(SyncAPIResource):
                     retrieval_grep_params.RetrievalGrepParams,
                 ),
             ),
-            cast_to=RetrievalGrepResponse,
+            model=RetrievalGrepResponse,
+            method="post",
         )
 
     def read(
@@ -380,7 +456,79 @@ class AsyncRetrievalResource(AsyncAPIResource):
             cast_to=RetrievalRetrieveResponse,
         )
 
-    async def grep(
+    def find(
+        self,
+        *,
+        index_id: str,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        file_name: Optional[str] | Omit = omit,
+        file_name_contains: Optional[str] | Omit = omit,
+        page_size: Optional[int] | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[RetrievalFindResponse, AsyncPaginatedCursorPost[RetrievalFindResponse]]:
+        """
+        Search for files by name.
+
+        Args:
+          index_id: ID of the index to search within.
+
+          file_name: Exact file name to match.
+
+          file_name_contains: Substring match on file name (case-insensitive).
+
+          page_size: The maximum number of items to return. The service may return fewer than this
+              value. If unspecified, a default page size will be used. The maximum value is
+              typically 1000; values above this will be coerced to the maximum.
+
+          page_token: A page token, received from a previous list call. Provide this to retrieve the
+              subsequent page.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/retrieval/files/find",
+            page=AsyncPaginatedCursorPost[RetrievalFindResponse],
+            body=maybe_transform(
+                {
+                    "index_id": index_id,
+                    "file_name": file_name,
+                    "file_name_contains": file_name_contains,
+                    "page_size": page_size,
+                    "page_token": page_token,
+                },
+                retrieval_find_params.RetrievalFindParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    retrieval_find_params.RetrievalFindParams,
+                ),
+            ),
+            model=RetrievalFindResponse,
+            method="post",
+        )
+
+    def grep(
         self,
         *,
         file_id: str,
@@ -397,7 +545,7 @@ class AsyncRetrievalResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RetrievalGrepResponse:
+    ) -> AsyncPaginator[RetrievalGrepResponse, AsyncPaginatedCursorPost[RetrievalGrepResponse]]:
         """
         Grep within a file's parsed content using a regex pattern.
 
@@ -426,9 +574,10 @@ class AsyncRetrievalResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._post(
+        return self._get_api_list(
             "/api/v1/retrieval/files/grep",
-            body=await async_maybe_transform(
+            page=AsyncPaginatedCursorPost[RetrievalGrepResponse],
+            body=maybe_transform(
                 {
                     "file_id": file_id,
                     "index_id": index_id,
@@ -444,7 +593,7 @@ class AsyncRetrievalResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "organization_id": organization_id,
                         "project_id": project_id,
@@ -452,7 +601,8 @@ class AsyncRetrievalResource(AsyncAPIResource):
                     retrieval_grep_params.RetrievalGrepParams,
                 ),
             ),
-            cast_to=RetrievalGrepResponse,
+            model=RetrievalGrepResponse,
+            method="post",
         )
 
     async def read(
@@ -526,6 +676,9 @@ class RetrievalResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             retrieval.retrieve,
         )
+        self.find = to_raw_response_wrapper(
+            retrieval.find,
+        )
         self.grep = to_raw_response_wrapper(
             retrieval.grep,
         )
@@ -540,6 +693,9 @@ class AsyncRetrievalResourceWithRawResponse:
 
         self.retrieve = async_to_raw_response_wrapper(
             retrieval.retrieve,
+        )
+        self.find = async_to_raw_response_wrapper(
+            retrieval.find,
         )
         self.grep = async_to_raw_response_wrapper(
             retrieval.grep,
@@ -556,6 +712,9 @@ class RetrievalResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             retrieval.retrieve,
         )
+        self.find = to_streamed_response_wrapper(
+            retrieval.find,
+        )
         self.grep = to_streamed_response_wrapper(
             retrieval.grep,
         )
@@ -570,6 +729,9 @@ class AsyncRetrievalResourceWithStreamingResponse:
 
         self.retrieve = async_to_streamed_response_wrapper(
             retrieval.retrieve,
+        )
+        self.find = async_to_streamed_response_wrapper(
+            retrieval.find,
         )
         self.grep = async_to_streamed_response_wrapper(
             retrieval.grep,
