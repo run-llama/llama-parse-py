@@ -38,6 +38,7 @@ from .batch_create_response import BatchCreateResponse as BatchCreateResponse
 from .chat_set_title_params import ChatSetTitleParams as ChatSetTitleParams
 from .directory_list_params import DirectoryListParams as DirectoryListParams
 from .index_create_response import IndexCreateResponse as IndexCreateResponse
+from .retrieval_find_params import RetrievalFindParams as RetrievalFindParams
 from .retrieval_grep_params import RetrievalGrepParams as RetrievalGrepParams
 from .retrieval_read_params import RetrievalReadParams as RetrievalReadParams
 from .sheets_parsing_config import SheetsParsingConfig as SheetsParsingConfig
@@ -53,6 +54,7 @@ from .directory_create_params import DirectoryCreateParams as DirectoryCreatePar
 from .directory_delete_params import DirectoryDeleteParams as DirectoryDeleteParams
 from .directory_list_response import DirectoryListResponse as DirectoryListResponse
 from .directory_update_params import DirectoryUpdateParams as DirectoryUpdateParams
+from .retrieval_find_response import RetrievalFindResponse as RetrievalFindResponse
 from .retrieval_grep_response import RetrievalGrepResponse as RetrievalGrepResponse
 from .retrieval_read_response import RetrievalReadResponse as RetrievalReadResponse
 from .sheet_delete_job_params import SheetDeleteJobParams as SheetDeleteJobParams
