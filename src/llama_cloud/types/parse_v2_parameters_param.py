@@ -467,7 +467,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     tier: Optional[Literal["fast", "cost_effective", "agentic", "agentic_plus"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-05-13", "2026-05-11", "2026-04-09", "2025-12-11"], str, None]
+    version: Union[Literal["latest", "2026-05-21", "2026-04-09", "2025-12-11"], str, None]
     """Tier version when overriding tier. Required when tier is specified"""
 
 
@@ -733,7 +733,7 @@ class ParseV2ParametersParam(TypedDict, total=False):
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-05-13", "2026-05-11", "2026-04-09", "2025-12-11"], str]]
+    version: Required[Union[Literal["latest", "2026-05-21", "2026-04-09", "2025-12-11"], str]]
     """Tier version.
 
     Use 'latest' for the current stable version, or pin a dated version for

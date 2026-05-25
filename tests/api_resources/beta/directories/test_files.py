@@ -30,7 +30,7 @@ class TestFiles:
     def test_method_update(self, client: LlamaCloud) -> None:
         file = client.beta.directories.files.update(
             directory_file_id="directory_file_id",
-            path_directory_id="directory_id",
+            directory_id="directory_id",
         )
         assert_matches_type(FileUpdateResponse, file, path=["response"])
 
@@ -39,12 +39,12 @@ class TestFiles:
     def test_method_update_with_all_params(self, client: LlamaCloud) -> None:
         file = client.beta.directories.files.update(
             directory_file_id="directory_file_id",
-            path_directory_id="directory_id",
+            directory_id="directory_id",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body_directory_id="directory_id",
             display_name="display_name",
             metadata={"foo": "string"},
+            target_directory_id="target_directory_id",
             unique_id="x",
         )
         assert_matches_type(FileUpdateResponse, file, path=["response"])
@@ -54,7 +54,7 @@ class TestFiles:
     def test_raw_response_update(self, client: LlamaCloud) -> None:
         response = client.beta.directories.files.with_raw_response.update(
             directory_file_id="directory_file_id",
-            path_directory_id="directory_id",
+            directory_id="directory_id",
         )
 
         assert response.is_closed is True
@@ -67,7 +67,7 @@ class TestFiles:
     def test_streaming_response_update(self, client: LlamaCloud) -> None:
         with client.beta.directories.files.with_streaming_response.update(
             directory_file_id="directory_file_id",
-            path_directory_id="directory_id",
+            directory_id="directory_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -80,16 +80,16 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: LlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_directory_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `directory_id` but received ''"):
             client.beta.directories.files.with_raw_response.update(
                 directory_file_id="directory_file_id",
-                path_directory_id="",
+                directory_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `directory_file_id` but received ''"):
             client.beta.directories.files.with_raw_response.update(
                 directory_file_id="",
-                path_directory_id="directory_id",
+                directory_id="directory_id",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -413,7 +413,7 @@ class TestAsyncFiles:
     async def test_method_update(self, async_client: AsyncLlamaCloud) -> None:
         file = await async_client.beta.directories.files.update(
             directory_file_id="directory_file_id",
-            path_directory_id="directory_id",
+            directory_id="directory_id",
         )
         assert_matches_type(FileUpdateResponse, file, path=["response"])
 
@@ -422,12 +422,12 @@ class TestAsyncFiles:
     async def test_method_update_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         file = await async_client.beta.directories.files.update(
             directory_file_id="directory_file_id",
-            path_directory_id="directory_id",
+            directory_id="directory_id",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body_directory_id="directory_id",
             display_name="display_name",
             metadata={"foo": "string"},
+            target_directory_id="target_directory_id",
             unique_id="x",
         )
         assert_matches_type(FileUpdateResponse, file, path=["response"])
@@ -437,7 +437,7 @@ class TestAsyncFiles:
     async def test_raw_response_update(self, async_client: AsyncLlamaCloud) -> None:
         response = await async_client.beta.directories.files.with_raw_response.update(
             directory_file_id="directory_file_id",
-            path_directory_id="directory_id",
+            directory_id="directory_id",
         )
 
         assert response.is_closed is True
@@ -450,7 +450,7 @@ class TestAsyncFiles:
     async def test_streaming_response_update(self, async_client: AsyncLlamaCloud) -> None:
         async with async_client.beta.directories.files.with_streaming_response.update(
             directory_file_id="directory_file_id",
-            path_directory_id="directory_id",
+            directory_id="directory_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -463,16 +463,16 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_directory_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `directory_id` but received ''"):
             await async_client.beta.directories.files.with_raw_response.update(
                 directory_file_id="directory_file_id",
-                path_directory_id="",
+                directory_id="",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `directory_file_id` but received ''"):
             await async_client.beta.directories.files.with_raw_response.update(
                 directory_file_id="",
-                path_directory_id="directory_id",
+                directory_id="directory_id",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

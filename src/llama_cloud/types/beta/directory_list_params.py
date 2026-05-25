@@ -21,4 +21,4 @@ class DirectoryListParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
-    type: Optional[Literal["user", "index"]]
+    type: Optional[Literal["user", "index", "ephemeral"]]

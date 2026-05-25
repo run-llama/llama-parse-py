@@ -309,15 +309,9 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileQueryResponse:
-        """
-        Query files with flexible filtering and pagination.
+        """Query files with filtering and pagination.
 
-        **Deprecated**: Use GET /files instead for listing files with query parameters.
-
-        Args: request: The query request with filters and pagination project: Validated
-        project from dependency
-
-        Returns: Paginated response with files
+        Deprecated: use `GET /files`.
 
         Args:
           filter: Filter parameters for file queries.
@@ -648,15 +642,9 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileQueryResponse:
-        """
-        Query files with flexible filtering and pagination.
+        """Query files with filtering and pagination.
 
-        **Deprecated**: Use GET /files instead for listing files with query parameters.
-
-        Args: request: The query request with filters and pagination project: Validated
-        project from dependency
-
-        Returns: Paginated response with files
+        Deprecated: use `GET /files`.
 
         Args:
           filter: Filter parameters for file queries.

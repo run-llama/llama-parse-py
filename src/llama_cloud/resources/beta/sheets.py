@@ -295,8 +295,8 @@ class SheetsResource(SyncAPIResource):
     ) -> SheetsJob:
         """Create a spreadsheet parsing job.
 
-        Experimental: This endpoint is not yet ready
-        for production use and is subject to change at any time.
+        Experimental: not production-ready and subject
+        to change.
 
         Args:
           file_id: The ID of the file to parse
@@ -357,8 +357,8 @@ class SheetsResource(SyncAPIResource):
     ) -> SyncPaginatedCursor[SheetsJob]:
         """List spreadsheet parsing jobs.
 
-        Experimental: This endpoint is not yet ready for
-        production use and is subject to change at any time.
+        Experimental: not production-ready and subject to
+        change.
 
         Args:
           created_at_on_or_after: Include items created at or after this timestamp (inclusive)
@@ -418,9 +418,8 @@ class SheetsResource(SyncAPIResource):
     ) -> object:
         """Delete a spreadsheet parsing job and its associated data.
 
-        Experimental: This
-        endpoint is not yet ready for production use and is subject to change at any
-        time.
+        Experimental: not
+        production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -465,15 +464,11 @@ class SheetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SheetsJob:
-        """
-        Get a spreadsheet parsing job.
+        """Get a spreadsheet parsing job.
 
-        When include_results=True (default), the response will include extracted regions
-        and results if the job is complete, eliminating the need for a separate /results
-        call.
-
-        Experimental: This endpoint is not yet ready for production use and is subject
-        to change at any time.
+        When `include_results=True` (default), embeds
+        extracted regions and results if complete, skipping the separate `/results`
+        call. Experimental: not production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -524,8 +519,7 @@ class SheetsResource(SyncAPIResource):
         """Generate a presigned URL to download a specific extracted region.
 
         Experimental:
-        This endpoint is not yet ready for production use and is subject to change at
-        any time.
+        not production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -820,8 +814,8 @@ class AsyncSheetsResource(AsyncAPIResource):
     ) -> SheetsJob:
         """Create a spreadsheet parsing job.
 
-        Experimental: This endpoint is not yet ready
-        for production use and is subject to change at any time.
+        Experimental: not production-ready and subject
+        to change.
 
         Args:
           file_id: The ID of the file to parse
@@ -882,8 +876,8 @@ class AsyncSheetsResource(AsyncAPIResource):
     ) -> AsyncPaginator[SheetsJob, AsyncPaginatedCursor[SheetsJob]]:
         """List spreadsheet parsing jobs.
 
-        Experimental: This endpoint is not yet ready for
-        production use and is subject to change at any time.
+        Experimental: not production-ready and subject to
+        change.
 
         Args:
           created_at_on_or_after: Include items created at or after this timestamp (inclusive)
@@ -943,9 +937,8 @@ class AsyncSheetsResource(AsyncAPIResource):
     ) -> object:
         """Delete a spreadsheet parsing job and its associated data.
 
-        Experimental: This
-        endpoint is not yet ready for production use and is subject to change at any
-        time.
+        Experimental: not
+        production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -990,15 +983,11 @@ class AsyncSheetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SheetsJob:
-        """
-        Get a spreadsheet parsing job.
+        """Get a spreadsheet parsing job.
 
-        When include_results=True (default), the response will include extracted regions
-        and results if the job is complete, eliminating the need for a separate /results
-        call.
-
-        Experimental: This endpoint is not yet ready for production use and is subject
-        to change at any time.
+        When `include_results=True` (default), embeds
+        extracted regions and results if complete, skipping the separate `/results`
+        call. Experimental: not production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -1049,8 +1038,7 @@ class AsyncSheetsResource(AsyncAPIResource):
         """Generate a presigned URL to download a specific extracted region.
 
         Experimental:
-        This endpoint is not yet ready for production use and is subject to change at
-        any time.
+        not production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers

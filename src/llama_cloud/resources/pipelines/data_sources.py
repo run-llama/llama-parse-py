@@ -182,8 +182,8 @@ class DataSourcesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Pipeline:
         """
-        Run ingestion for the pipeline data source by incrementally updating the
-        data-sink with upstream changes from data-source.
+        Run incremental ingestion: pull upstream changes from the data source into the
+        data sink.
 
         Args:
           extra_headers: Send extra headers
@@ -402,8 +402,8 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Pipeline:
         """
-        Run ingestion for the pipeline data source by incrementally updating the
-        data-sink with upstream changes from data-source.
+        Run incremental ingestion: pull upstream changes from the data source into the
+        data sink.
 
         Args:
           extra_headers: Send extra headers

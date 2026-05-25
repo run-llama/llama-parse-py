@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing import Dict, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from ..._utils import PropertyInfo
 
 __all__ = ["DirectoryCreateParams"]
 
@@ -18,3 +21,12 @@ class DirectoryCreateParams(TypedDict, total=False):
 
     description: Optional[str]
     """Optional description shown to users."""
+
+    expires_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """When this directory expires. Required for ephemeral directories."""
+
+    system_metadata: Optional[Dict[str, object]]
+    """Reserved system-managed metadata."""
+
+    type: Literal["user", "ephemeral"]
+    """Directory type. Use 'ephemeral' for batch processing with automatic cleanup."""

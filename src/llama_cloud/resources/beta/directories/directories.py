@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -73,6 +74,9 @@ class DirectoriesResource(SyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
+        system_metadata: Optional[Dict[str, object]] | Omit = omit,
+        type: Literal["user", "ephemeral"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -88,6 +92,12 @@ class DirectoriesResource(SyncAPIResource):
 
           description: Optional description shown to users.
 
+          expires_at: When this directory expires. Required for ephemeral directories.
+
+          system_metadata: Reserved system-managed metadata.
+
+          type: Directory type. Use 'ephemeral' for batch processing with automatic cleanup.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -102,6 +112,9 @@ class DirectoriesResource(SyncAPIResource):
                 {
                     "name": name,
                     "description": description,
+                    "expires_at": expires_at,
+                    "system_metadata": system_metadata,
+                    "type": type,
                 },
                 directory_create_params.DirectoryCreateParams,
             ),
@@ -188,7 +201,7 @@ class DirectoriesResource(SyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        type: Optional[Literal["user", "index"]] | Omit = omit,
+        type: Optional[Literal["user", "index", "ephemeral"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -355,6 +368,9 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        expires_at: Union[str, datetime, None] | Omit = omit,
+        system_metadata: Optional[Dict[str, object]] | Omit = omit,
+        type: Literal["user", "ephemeral"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -370,6 +386,12 @@ class AsyncDirectoriesResource(AsyncAPIResource):
 
           description: Optional description shown to users.
 
+          expires_at: When this directory expires. Required for ephemeral directories.
+
+          system_metadata: Reserved system-managed metadata.
+
+          type: Directory type. Use 'ephemeral' for batch processing with automatic cleanup.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -384,6 +406,9 @@ class AsyncDirectoriesResource(AsyncAPIResource):
                 {
                     "name": name,
                     "description": description,
+                    "expires_at": expires_at,
+                    "system_metadata": system_metadata,
+                    "type": type,
                 },
                 directory_create_params.DirectoryCreateParams,
             ),
@@ -470,7 +495,7 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        type: Optional[Literal["user", "index"]] | Omit = omit,
+        type: Optional[Literal["user", "index", "ephemeral"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

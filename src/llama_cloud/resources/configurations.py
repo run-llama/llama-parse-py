@@ -66,10 +66,8 @@ class ConfigurationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConfigurationResponse:
         """
-        Create or update a product configuration.
-
-        If a configuration with the same name already exists for this product type and
-        project, it will be updated (upsert semantics).
+        Upsert a product configuration; updates if one with the same name + product
+        type + project exists, otherwise creates.
 
         Args:
           name: Human-readable name for this configuration.
@@ -360,10 +358,8 @@ class AsyncConfigurationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConfigurationResponse:
         """
-        Create or update a product configuration.
-
-        If a configuration with the same name already exists for this product type and
-        project, it will be updated (upsert semantics).
+        Upsert a product configuration; updates if one with the same name + product
+        type + project exists, otherwise creates.
 
         Args:
           name: Human-readable name for this configuration.

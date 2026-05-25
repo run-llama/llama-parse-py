@@ -23,14 +23,12 @@ from ...types.beta import (
     chat_delete_params,
     chat_stream_params,
     chat_retrieve_params,
-    chat_set_title_params,
     chat_get_summary_params,
 )
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.beta.chat_list_response import ChatListResponse
 from ...types.beta.chat_create_response import ChatCreateResponse
 from ...types.beta.chat_retrieve_response import ChatRetrieveResponse
-from ...types.beta.chat_set_title_response import ChatSetTitleResponse
 from ...types.beta.chat_get_summary_response import ChatGetSummaryResponse
 
 __all__ = ["ChatResource", "AsyncChatResource"]
@@ -286,55 +284,6 @@ class ChatResource(SyncAPIResource):
                 ),
             ),
             cast_to=ChatGetSummaryResponse,
-        )
-
-    def set_title(
-        self,
-        session_id: str,
-        *,
-        first_message: str,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatSetTitleResponse:
-        """
-        Generate a title for a session from its first user message.
-
-        Args:
-          first_message: First user message of the session, used to infer a short title.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._post(
-            path_template("/api/v1/chat/{session_id}/title", session_id=session_id),
-            body=maybe_transform({"first_message": first_message}, chat_set_title_params.ChatSetTitleParams),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    chat_set_title_params.ChatSetTitleParams,
-                ),
-            ),
-            cast_to=ChatSetTitleResponse,
         )
 
     def stream(
@@ -648,57 +597,6 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatGetSummaryResponse,
         )
 
-    async def set_title(
-        self,
-        session_id: str,
-        *,
-        first_message: str,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatSetTitleResponse:
-        """
-        Generate a title for a session from its first user message.
-
-        Args:
-          first_message: First user message of the session, used to infer a short title.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._post(
-            path_template("/api/v1/chat/{session_id}/title", session_id=session_id),
-            body=await async_maybe_transform(
-                {"first_message": first_message}, chat_set_title_params.ChatSetTitleParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    chat_set_title_params.ChatSetTitleParams,
-                ),
-            ),
-            cast_to=ChatSetTitleResponse,
-        )
-
     async def stream(
         self,
         session_id: str,
@@ -777,9 +675,6 @@ class ChatResourceWithRawResponse:
         self.get_summary = to_raw_response_wrapper(
             chat.get_summary,
         )
-        self.set_title = to_raw_response_wrapper(
-            chat.set_title,
-        )
         self.stream = to_raw_response_wrapper(
             chat.stream,
         )
@@ -803,9 +698,6 @@ class AsyncChatResourceWithRawResponse:
         )
         self.get_summary = async_to_raw_response_wrapper(
             chat.get_summary,
-        )
-        self.set_title = async_to_raw_response_wrapper(
-            chat.set_title,
         )
         self.stream = async_to_raw_response_wrapper(
             chat.stream,
@@ -831,9 +723,6 @@ class ChatResourceWithStreamingResponse:
         self.get_summary = to_streamed_response_wrapper(
             chat.get_summary,
         )
-        self.set_title = to_streamed_response_wrapper(
-            chat.set_title,
-        )
         self.stream = to_streamed_response_wrapper(
             chat.stream,
         )
@@ -857,9 +746,6 @@ class AsyncChatResourceWithStreamingResponse:
         )
         self.get_summary = async_to_streamed_response_wrapper(
             chat.get_summary,
-        )
-        self.set_title = async_to_streamed_response_wrapper(
-            chat.set_title,
         )
         self.stream = async_to_streamed_response_wrapper(
             chat.stream,

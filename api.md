@@ -459,7 +459,6 @@ from llama_cloud.types.beta import (
     ChatRetrieveResponse,
     ChatListResponse,
     ChatGetSummaryResponse,
-    ChatSetTitleResponse,
 )
 ```
 
@@ -470,7 +469,6 @@ Methods:
 - <code title="get /api/v1/chat">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">list</a>(\*\*<a href="src/llama_cloud/types/beta/chat_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/chat_list_response.py">SyncPaginatedCursor[ChatListResponse]</a></code>
 - <code title="delete /api/v1/chat/{session_id}">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">delete</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_delete_params.py">params</a>) -> None</code>
 - <code title="get /api/v1/chat/{session_id}/summary">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">get_summary</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_get_summary_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/chat_get_summary_response.py">ChatGetSummaryResponse</a></code>
-- <code title="post /api/v1/chat/{session_id}/title">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">set_title</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_set_title_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/chat_set_title_response.py">ChatSetTitleResponse</a></code>
 - <code title="post /api/v1/chat/{session_id}/messages/stream">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">stream</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_stream_params.py">params</a>) -> object</code>
 
 ## AgentData
@@ -549,7 +547,7 @@ from llama_cloud.types.beta.directories import (
 
 Methods:
 
-- <code title="patch /api/v1/beta/directories/{directory_id}/files/{directory_file_id}">client.beta.directories.files.<a href="./src/llama_cloud/resources/beta/directories/files.py">update</a>(directory_file_id, \*, path_directory_id, \*\*<a href="src/llama_cloud/types/beta/directories/file_update_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/directories/file_update_response.py">FileUpdateResponse</a></code>
+- <code title="patch /api/v1/beta/directories/{directory_id}/files/{directory_file_id}">client.beta.directories.files.<a href="./src/llama_cloud/resources/beta/directories/files.py">update</a>(directory_file_id, \*, directory_id, \*\*<a href="src/llama_cloud/types/beta/directories/file_update_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/directories/file_update_response.py">FileUpdateResponse</a></code>
 - <code title="get /api/v1/beta/directories/{directory_id}/files">client.beta.directories.files.<a href="./src/llama_cloud/resources/beta/directories/files.py">list</a>(directory_id, \*\*<a href="src/llama_cloud/types/beta/directories/file_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/directories/file_list_response.py">SyncPaginatedCursor[FileListResponse]</a></code>
 - <code title="delete /api/v1/beta/directories/{directory_id}/files/{directory_file_id}">client.beta.directories.files.<a href="./src/llama_cloud/resources/beta/directories/files.py">delete</a>(directory_file_id, \*, directory_id, \*\*<a href="src/llama_cloud/types/beta/directories/file_delete_params.py">params</a>) -> None</code>
 - <code title="post /api/v1/beta/directories/{directory_id}/files">client.beta.directories.files.<a href="./src/llama_cloud/resources/beta/directories/files.py">add</a>(directory_id, \*\*<a href="src/llama_cloud/types/beta/directories/file_add_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/directories/file_add_response.py">FileAddResponse</a></code>
