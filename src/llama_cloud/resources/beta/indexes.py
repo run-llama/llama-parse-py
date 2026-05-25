@@ -6,7 +6,7 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -51,7 +51,10 @@ class IndexesResource(SyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         products: Optional[Iterable[index_create_params.Product]] | Omit = omit,
+        store_attachments: Optional[SequenceNotStr[str]] | Omit = omit,
+        sync_frequency: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -67,9 +70,21 @@ class IndexesResource(SyncAPIResource):
 
           description: Optional description of the index.
 
+          name: Optional display name for the index. If omitted, the index is named after the
+              source directory.
+
           products: Product configurations for syncing. Omit to use a default parse configuration.
               Include an explicit entry per product type (e.g. parse, extract) to override the
               default.
+
+          store_attachments:
+              Attachment kinds to store alongside parsed output. Each entry must be one of:
+              screenshots, items. For example, ['screenshots'] renders and stores per-page
+              screenshots; ['items'] stores structured items with bounding boxes. Omit or pass
+              an empty list to skip attachments.
+
+          sync_frequency: How often to re-run the sync. One of: manual, daily, on_source_change. Defaults
+              to manual.
 
           extra_headers: Send extra headers
 
@@ -85,7 +100,10 @@ class IndexesResource(SyncAPIResource):
                 {
                     "source_directory_id": source_directory_id,
                     "description": description,
+                    "name": name,
                     "products": products,
+                    "store_attachments": store_attachments,
+                    "sync_frequency": sync_frequency,
                 },
                 index_create_params.IndexCreateParams,
             ),
@@ -270,7 +288,10 @@ class AsyncIndexesResource(AsyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         products: Optional[Iterable[index_create_params.Product]] | Omit = omit,
+        store_attachments: Optional[SequenceNotStr[str]] | Omit = omit,
+        sync_frequency: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -286,9 +307,21 @@ class AsyncIndexesResource(AsyncAPIResource):
 
           description: Optional description of the index.
 
+          name: Optional display name for the index. If omitted, the index is named after the
+              source directory.
+
           products: Product configurations for syncing. Omit to use a default parse configuration.
               Include an explicit entry per product type (e.g. parse, extract) to override the
               default.
+
+          store_attachments:
+              Attachment kinds to store alongside parsed output. Each entry must be one of:
+              screenshots, items. For example, ['screenshots'] renders and stores per-page
+              screenshots; ['items'] stores structured items with bounding boxes. Omit or pass
+              an empty list to skip attachments.
+
+          sync_frequency: How often to re-run the sync. One of: manual, daily, on_source_change. Defaults
+              to manual.
 
           extra_headers: Send extra headers
 
@@ -304,7 +337,10 @@ class AsyncIndexesResource(AsyncAPIResource):
                 {
                     "source_directory_id": source_directory_id,
                     "description": description,
+                    "name": name,
                     "products": products,
+                    "store_attachments": store_attachments,
+                    "sync_frequency": sync_frequency,
                 },
                 index_create_params.IndexCreateParams,
             ),

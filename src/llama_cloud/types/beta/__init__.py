@@ -35,7 +35,6 @@ from .split_document_input import SplitDocumentInput as SplitDocumentInput
 from .agent_data_get_params import AgentDataGetParams as AgentDataGetParams
 from .batch_cancel_response import BatchCancelResponse as BatchCancelResponse
 from .batch_create_response import BatchCreateResponse as BatchCreateResponse
-from .chat_set_title_params import ChatSetTitleParams as ChatSetTitleParams
 from .directory_list_params import DirectoryListParams as DirectoryListParams
 from .index_create_response import IndexCreateResponse as IndexCreateResponse
 from .retrieval_find_params import RetrievalFindParams as RetrievalFindParams
@@ -49,7 +48,6 @@ from .directory_get_response import DirectoryGetResponse as DirectoryGetResponse
 from .split_segment_response import SplitSegmentResponse as SplitSegmentResponse
 from .batch_get_status_params import BatchGetStatusParams as BatchGetStatusParams
 from .chat_get_summary_params import ChatGetSummaryParams as ChatGetSummaryParams
-from .chat_set_title_response import ChatSetTitleResponse as ChatSetTitleResponse
 from .directory_create_params import DirectoryCreateParams as DirectoryCreateParams
 from .directory_delete_params import DirectoryDeleteParams as DirectoryDeleteParams
 from .directory_list_response import DirectoryListResponse as DirectoryListResponse

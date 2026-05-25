@@ -1,7 +1,8 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 
@@ -28,6 +29,15 @@ class DirectoryGetResponse(BaseModel):
 
     description: Optional[str] = None
     """Optional description shown to users."""
+
+    expires_at: Optional[datetime] = None
+    """When this directory expires and is eligible for cleanup."""
+
+    system_metadata: Optional[Dict[str, object]] = None
+    """Reserved system-managed metadata."""
+
+    type: Optional[Literal["user", "index", "ephemeral", "system_ephemeral"]] = None
+    """Directory type: 'user', 'index', 'ephemeral', or 'system_ephemeral'."""
 
     updated_at: Optional[datetime] = None
     """Update datetime"""

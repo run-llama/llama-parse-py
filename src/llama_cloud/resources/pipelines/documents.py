@@ -151,12 +151,9 @@ class DocumentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Delete a document from a pipeline.
-
-        Initiates an async job that will:
-
-        1. Delete vectors from the vector store
-        2. Delete the document from MongoDB after vectors are successfully deleted
+        """
+        Delete a document from a pipeline; runs async (vectors first, then MongoDB
+        record).
 
         Args:
           extra_headers: Send extra headers
@@ -501,12 +498,9 @@ class AsyncDocumentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
-        """Delete a document from a pipeline.
-
-        Initiates an async job that will:
-
-        1. Delete vectors from the vector store
-        2. Delete the document from MongoDB after vectors are successfully deleted
+        """
+        Delete a document from a pipeline; runs async (vectors first, then MongoDB
+        record).
 
         Args:
           extra_headers: Send extra headers
