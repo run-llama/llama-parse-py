@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
 
@@ -46,6 +46,14 @@ class IndexCreateParams(TypedDict, total=False):
     """How often to re-run the sync.
 
     One of: manual, daily, on_source_change. Defaults to manual.
+    """
+
+    vector_target: Literal["DEFAULT", "DISABLED"]
+    """Vector export destination for the index.
+
+    'DEFAULT' exports to the managed vector DB destination resolved from
+    configuration. 'DISABLED' skips vector export — the export destination falls
+    back to 'Download'.
     """
 
 

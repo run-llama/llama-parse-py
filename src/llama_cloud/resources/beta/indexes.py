@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -55,6 +56,7 @@ class IndexesResource(SyncAPIResource):
         products: Optional[Iterable[index_create_params.Product]] | Omit = omit,
         store_attachments: Optional[SequenceNotStr[str]] | Omit = omit,
         sync_frequency: str | Omit = omit,
+        vector_target: Literal["DEFAULT", "DISABLED"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -86,6 +88,10 @@ class IndexesResource(SyncAPIResource):
           sync_frequency: How often to re-run the sync. One of: manual, daily, on_source_change. Defaults
               to manual.
 
+          vector_target: Vector export destination for the index. 'DEFAULT' exports to the managed vector
+              DB destination resolved from configuration. 'DISABLED' skips vector export — the
+              export destination falls back to 'Download'.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -104,6 +110,7 @@ class IndexesResource(SyncAPIResource):
                     "products": products,
                     "store_attachments": store_attachments,
                     "sync_frequency": sync_frequency,
+                    "vector_target": vector_target,
                 },
                 index_create_params.IndexCreateParams,
             ),
@@ -292,6 +299,7 @@ class AsyncIndexesResource(AsyncAPIResource):
         products: Optional[Iterable[index_create_params.Product]] | Omit = omit,
         store_attachments: Optional[SequenceNotStr[str]] | Omit = omit,
         sync_frequency: str | Omit = omit,
+        vector_target: Literal["DEFAULT", "DISABLED"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -323,6 +331,10 @@ class AsyncIndexesResource(AsyncAPIResource):
           sync_frequency: How often to re-run the sync. One of: manual, daily, on_source_change. Defaults
               to manual.
 
+          vector_target: Vector export destination for the index. 'DEFAULT' exports to the managed vector
+              DB destination resolved from configuration. 'DISABLED' skips vector export — the
+              export destination falls back to 'Download'.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -341,6 +353,7 @@ class AsyncIndexesResource(AsyncAPIResource):
                     "products": products,
                     "store_attachments": store_attachments,
                     "sync_frequency": sync_frequency,
+                    "vector_target": vector_target,
                 },
                 index_create_params.IndexCreateParams,
             ),
