@@ -13,7 +13,7 @@ class ConfigJob(BaseModel):
     """Job to create for each file in the source directory."""
 
     configuration_id: str
-    """Saved product configuration ID matching the job type."""
+    """Product configuration ID or built-in preset ID matching the job type."""
 
     type: Literal["parse_v2", "extract_v2"]
     """Product job type to run for each source directory file."""
@@ -90,7 +90,7 @@ class BatchCreateResponse(BaseModel):
             "config": {
                 "job": {
                     "type": "parse_v2",
-                    "configuration_id": "cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+                    "configuration_id": "cfg-PARSE_AGENTIC"
                 }
             },
             "status": "COMPLETED",
@@ -109,7 +109,7 @@ class BatchCreateResponse(BaseModel):
     Batch-level ``FAILED`` means the orchestration failed and cannot provide a
     reliable per-file result set. ``results`` is only populated when explicitly
     requested with ``expand=results`` and may be ``null`` while a batch is still
-    running or before result mappings are available.
+    running.
     """
 
     id: str
@@ -133,8 +133,7 @@ class BatchCreateResponse(BaseModel):
     results: Optional[List[Result]] = None
     """Expanded per-file result mappings.
 
-    Null unless requested with expand=results, or until result mappings are
-    available.
+    Null unless requested with expand=results, or while the batch is still running.
     """
 
     updated_at: Optional[datetime] = None
