@@ -16,6 +16,14 @@ from .files import (
     FilesResourceWithStreamingResponse,
     AsyncFilesResourceWithStreamingResponse,
 )
+from .batches import (
+    BatchesResource,
+    AsyncBatchesResource,
+    BatchesResourceWithRawResponse,
+    AsyncBatchesResourceWithRawResponse,
+    BatchesResourceWithStreamingResponse,
+    AsyncBatchesResourceWithStreamingResponse,
+)
 from .extract import (
     ExtractResource,
     AsyncExtractResource,
@@ -122,6 +130,12 @@ __all__ = [
     "AsyncClassifierResourceWithRawResponse",
     "ClassifierResourceWithStreamingResponse",
     "AsyncClassifierResourceWithStreamingResponse",
+    "BatchesResource",
+    "AsyncBatchesResource",
+    "BatchesResourceWithRawResponse",
+    "AsyncBatchesResourceWithRawResponse",
+    "BatchesResourceWithStreamingResponse",
+    "AsyncBatchesResourceWithStreamingResponse",
     "ClassifyResource",
     "AsyncClassifyResource",
     "ClassifyResourceWithRawResponse",
