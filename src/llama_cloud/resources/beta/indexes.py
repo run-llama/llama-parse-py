@@ -17,9 +17,17 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.beta import index_get_params, index_sync_params, index_create_params, index_delete_params
-from ..._base_client import make_request_options
+from ...pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+from ...types.beta import (
+    index_get_params,
+    index_list_params,
+    index_sync_params,
+    index_create_params,
+    index_delete_params,
+)
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.beta.index_get_response import IndexGetResponse
+from ...types.beta.index_list_response import IndexListResponse
 from ...types.beta.index_create_response import IndexCreateResponse
 
 __all__ = ["IndexesResource", "AsyncIndexesResource"]
@@ -128,6 +136,55 @@ class IndexesResource(SyncAPIResource):
                 ),
             ),
             cast_to=IndexCreateResponse,
+        )
+
+    def list(
+        self,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: Optional[int] | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        source_directory_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncPaginatedCursor[IndexListResponse]:
+        """
+        List indexes for the current project.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/indexes",
+            page=SyncPaginatedCursor[IndexListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                        "source_directory_id": source_directory_id,
+                    },
+                    index_list_params.IndexListParams,
+                ),
+            ),
+            model=IndexListResponse,
         )
 
     def delete(
@@ -373,6 +430,55 @@ class AsyncIndexesResource(AsyncAPIResource):
             cast_to=IndexCreateResponse,
         )
 
+    def list(
+        self,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: Optional[int] | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        source_directory_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[IndexListResponse, AsyncPaginatedCursor[IndexListResponse]]:
+        """
+        List indexes for the current project.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/indexes",
+            page=AsyncPaginatedCursor[IndexListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                        "source_directory_id": source_directory_id,
+                    },
+                    index_list_params.IndexListParams,
+                ),
+            ),
+            model=IndexListResponse,
+        )
+
     async def delete(
         self,
         index_id: str,
@@ -518,6 +624,9 @@ class IndexesResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             indexes.create,
         )
+        self.list = to_raw_response_wrapper(
+            indexes.list,
+        )
         self.delete = to_raw_response_wrapper(
             indexes.delete,
         )
@@ -535,6 +644,9 @@ class AsyncIndexesResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             indexes.create,
+        )
+        self.list = async_to_raw_response_wrapper(
+            indexes.list,
         )
         self.delete = async_to_raw_response_wrapper(
             indexes.delete,
@@ -554,6 +666,9 @@ class IndexesResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             indexes.create,
         )
+        self.list = to_streamed_response_wrapper(
+            indexes.list,
+        )
         self.delete = to_streamed_response_wrapper(
             indexes.delete,
         )
@@ -571,6 +686,9 @@ class AsyncIndexesResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             indexes.create,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            indexes.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             indexes.delete,

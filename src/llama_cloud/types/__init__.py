@@ -63,15 +63,18 @@ from .fail_page_mode import FailPageMode as FailPageMode
 from .retrieval_mode import RetrievalMode as RetrievalMode
 from .classify_result import ClassifyResult as ClassifyResult
 from .file_get_params import FileGetParams as FileGetParams
+from .batch_get_params import BatchGetParams as BatchGetParams
 from .cohere_embedding import CohereEmbedding as CohereEmbedding
 from .file_list_params import FileListParams as FileListParams
 from .gemini_embedding import GeminiEmbedding as GeminiEmbedding
 from .metadata_filters import MetadataFilters as MetadataFilters
 from .openai_embedding import OpenAIEmbedding as OpenAIEmbedding
+from .batch_list_params import BatchListParams as BatchListParams
 from .bedrock_embedding import BedrockEmbedding as BedrockEmbedding
 from .extract_job_usage import ExtractJobUsage as ExtractJobUsage
 from .file_query_params import FileQueryParams as FileQueryParams
 from .parsing_languages import ParsingLanguages as ParsingLanguages
+from .batch_get_response import BatchGetResponse as BatchGetResponse
 from .extract_get_params import ExtractGetParams as ExtractGetParams
 from .file_create_params import FileCreateParams as FileCreateParams
 from .file_delete_params import FileDeleteParams as FileDeleteParams
@@ -80,6 +83,8 @@ from .parsing_get_params import ParsingGetParams as ParsingGetParams
 from .project_get_params import ProjectGetParams as ProjectGetParams
 from .retriever_pipeline import RetrieverPipeline as RetrieverPipeline
 from .untyped_parameters import UntypedParameters as UntypedParameters
+from .batch_create_params import BatchCreateParams as BatchCreateParams
+from .batch_list_response import BatchListResponse as BatchListResponse
 from .classify_get_params import ClassifyGetParams as ClassifyGetParams
 from .extract_list_params import ExtractListParams as ExtractListParams
 from .file_query_response import FileQueryResponse as FileQueryResponse
@@ -97,6 +102,7 @@ from .pipeline_list_params import PipelineListParams as PipelineListParams
 from .re_rank_config_param import ReRankConfigParam as ReRankConfigParam
 from .retriever_get_params import RetrieverGetParams as RetrieverGetParams
 from .auto_transform_config import AutoTransformConfig as AutoTransformConfig
+from .batch_create_response import BatchCreateResponse as BatchCreateResponse
 from .classify_get_response import ClassifyGetResponse as ClassifyGetResponse
 from .data_sink_list_params import DataSinkListParams as DataSinkListParams
 from .extract_configuration import ExtractConfiguration as ExtractConfiguration
