@@ -9,8 +9,10 @@ import pytest
 
 from llama_cloud import LlamaCloud, AsyncLlamaCloud
 from tests.utils import assert_matches_type
+from llama_cloud.pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 from llama_cloud.types.beta import (
     IndexGetResponse,
+    IndexListResponse,
     IndexCreateResponse,
 )
 
@@ -36,12 +38,16 @@ class TestIndexes:
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
+            name="name",
             products=[
                 {
                     "product_config_id": "cfg-abc123",
                     "product_type": "parse",
                 }
             ],
+            store_attachments=["screenshots"],
+            sync_frequency="manual",
+            vector_target="DEFAULT",
         )
         assert_matches_type(IndexCreateResponse, index, path=["response"])
 
@@ -68,6 +74,46 @@ class TestIndexes:
 
             index = response.parse()
             assert_matches_type(IndexCreateResponse, index, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list(self, client: LlamaCloud) -> None:
+        index = client.beta.indexes.list()
+        assert_matches_type(SyncPaginatedCursor[IndexListResponse], index, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: LlamaCloud) -> None:
+        index = client.beta.indexes.list(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            page_size=0,
+            page_token="page_token",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_directory_id="source_directory_id",
+        )
+        assert_matches_type(SyncPaginatedCursor[IndexListResponse], index, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: LlamaCloud) -> None:
+        response = client.beta.indexes.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        index = response.parse()
+        assert_matches_type(SyncPaginatedCursor[IndexListResponse], index, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list(self, client: LlamaCloud) -> None:
+        with client.beta.indexes.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            index = response.parse()
+            assert_matches_type(SyncPaginatedCursor[IndexListResponse], index, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -249,12 +295,16 @@ class TestAsyncIndexes:
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
+            name="name",
             products=[
                 {
                     "product_config_id": "cfg-abc123",
                     "product_type": "parse",
                 }
             ],
+            store_attachments=["screenshots"],
+            sync_frequency="manual",
+            vector_target="DEFAULT",
         )
         assert_matches_type(IndexCreateResponse, index, path=["response"])
 
@@ -281,6 +331,46 @@ class TestAsyncIndexes:
 
             index = await response.parse()
             assert_matches_type(IndexCreateResponse, index, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list(self, async_client: AsyncLlamaCloud) -> None:
+        index = await async_client.beta.indexes.list()
+        assert_matches_type(AsyncPaginatedCursor[IndexListResponse], index, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        index = await async_client.beta.indexes.list(
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            page_size=0,
+            page_token="page_token",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            source_directory_id="source_directory_id",
+        )
+        assert_matches_type(AsyncPaginatedCursor[IndexListResponse], index, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.beta.indexes.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        index = await response.parse()
+        assert_matches_type(AsyncPaginatedCursor[IndexListResponse], index, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.beta.indexes.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            index = await response.parse()
+            assert_matches_type(AsyncPaginatedCursor[IndexListResponse], index, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

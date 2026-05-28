@@ -74,8 +74,7 @@ class JobsResource(SyncAPIResource):
     ) -> ClassifyJob:
         """Create a classify job.
 
-        Experimental: This endpoint is not yet ready for
-        production use and is subject to change at any time.
+        Experimental: not production-ready and subject to change.
 
         Args:
           file_ids: The IDs of the files to classify
@@ -141,8 +140,7 @@ class JobsResource(SyncAPIResource):
     ) -> SyncPaginatedCursor[ClassifyJob]:
         """List classify jobs.
 
-        Experimental: This endpoint is not yet ready for production
-        use and is subject to change at any time.
+        Experimental: not production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -190,8 +188,7 @@ class JobsResource(SyncAPIResource):
     ) -> ClassifyJob:
         """Get a classify job.
 
-        Experimental: This endpoint is not yet ready for production
-        use and is subject to change at any time.
+        Experimental: not production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -238,8 +235,8 @@ class JobsResource(SyncAPIResource):
     ) -> JobGetResultsResponse:
         """Get the results of a classify job.
 
-        Experimental: This endpoint is not yet ready
-        for production use and is subject to change at any time.
+        Experimental: not production-ready and
+        subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -311,8 +308,7 @@ class AsyncJobsResource(AsyncAPIResource):
     ) -> ClassifyJob:
         """Create a classify job.
 
-        Experimental: This endpoint is not yet ready for
-        production use and is subject to change at any time.
+        Experimental: not production-ready and subject to change.
 
         Args:
           file_ids: The IDs of the files to classify
@@ -378,8 +374,7 @@ class AsyncJobsResource(AsyncAPIResource):
     ) -> AsyncPaginator[ClassifyJob, AsyncPaginatedCursor[ClassifyJob]]:
         """List classify jobs.
 
-        Experimental: This endpoint is not yet ready for production
-        use and is subject to change at any time.
+        Experimental: not production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -427,8 +422,7 @@ class AsyncJobsResource(AsyncAPIResource):
     ) -> ClassifyJob:
         """Get a classify job.
 
-        Experimental: This endpoint is not yet ready for production
-        use and is subject to change at any time.
+        Experimental: not production-ready and subject to change.
 
         Args:
           extra_headers: Send extra headers
@@ -475,8 +469,8 @@ class AsyncJobsResource(AsyncAPIResource):
     ) -> JobGetResultsResponse:
         """Get the results of a classify job.
 
-        Experimental: This endpoint is not yet ready
-        for production use and is subject to change at any time.
+        Experimental: not production-ready and
+        subject to change.
 
         Args:
           extra_headers: Send extra headers

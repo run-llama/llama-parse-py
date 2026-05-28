@@ -72,12 +72,12 @@ class FilesResource(SyncAPIResource):
         self,
         directory_file_id: str,
         *,
-        path_directory_id: str,
+        directory_id: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        body_directory_id: Optional[str] | Omit = omit,
         display_name: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, Union[str, float, bool, SequenceNotStr[str], None]]] | Omit = omit,
+        target_directory_id: Optional[str] | Omit = omit,
         unique_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -87,20 +87,16 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileUpdateResponse:
         """
-        Update file metadata within the specified directory.
-
-        Supports moving files to a different directory by setting directory_id.
-
-        Note: This endpoint uses directory_file_id (the internal ID). If you're trying
-        to update a file by its unique_id, use the list endpoint with a filter to find
-        the directory_file_id first.
+        Update directory-file metadata by `directory_file_id`; set `directory_id` to
+        move the file to a different directory. To resolve from `unique_id`, list with a
+        filter first.
 
         Args:
-          body_directory_id: Move file to a different directory.
-
           display_name: Updated display name.
 
           metadata: User-defined metadata key-value pairs. Replaces the user metadata layer.
+
+          target_directory_id: Move file to a different directory.
 
           unique_id: Updated unique identifier.
 
@@ -112,21 +108,21 @@ class FilesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_directory_id:
-            raise ValueError(f"Expected a non-empty value for `path_directory_id` but received {path_directory_id!r}")
+        if not directory_id:
+            raise ValueError(f"Expected a non-empty value for `directory_id` but received {directory_id!r}")
         if not directory_file_id:
             raise ValueError(f"Expected a non-empty value for `directory_file_id` but received {directory_file_id!r}")
         return self._patch(
             path_template(
-                "/api/v1/beta/directories/{path_directory_id}/files/{directory_file_id}",
-                path_directory_id=path_directory_id,
+                "/api/v1/beta/directories/{directory_id}/files/{directory_file_id}",
+                directory_id=directory_id,
                 directory_file_id=directory_file_id,
             ),
             body=maybe_transform(
                 {
-                    "body_directory_id": body_directory_id,
                     "display_name": display_name,
                     "metadata": metadata,
+                    "target_directory_id": target_directory_id,
                     "unique_id": unique_id,
                 },
                 file_update_params.FileUpdateParams,
@@ -235,11 +231,8 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Delete a file from the specified directory.
-
-        Note: This endpoint uses directory_file_id (the internal ID). If you're trying
-        to delete a file by its unique_id, use the list endpoint with a filter to find
-        the directory_file_id first.
+        Delete a directory file by `directory_file_id`; to resolve from `unique_id`,
+        list with a filter first.
 
         Args:
           extra_headers: Send extra headers
@@ -295,10 +288,8 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileAddResponse:
         """
-        Create a new file within the specified directory.
-
-        The directory must exist and belong to the project passed in. The file_id must
-        be provided and exist in the project.
+        Create a new file within the specified directory; the directory must exist in
+        the project and `file_id` must reference an existing file.
 
         Args:
           file_id: File ID for the storage location (required).
@@ -362,11 +353,9 @@ class FilesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileGetResponse:
-        """Get a file by its directory_file_id within the specified directory.
-
-        If you're
-        trying to get a file by its unique_id, use the list endpoint with a filter
-        instead.
+        """
+        Get a directory file by `directory_file_id`; to look up by `unique_id`, use the
+        list endpoint with a filter.
 
         Args:
           expand: Fields to expand.
@@ -425,11 +414,8 @@ class FilesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileUploadResponse:
         """
-        Upload a file directly to a directory.
-
-        Uploads a file and creates a directory file entry in a single operation. If
-        unique_id or display_name are not provided, they will be derived from the file
-        metadata.
+        Upload a file and create its directory entry in one call; `unique_id` /
+        `display_name` default to values derived from file metadata.
 
         Args:
           metadata: User metadata as a JSON object string.
@@ -504,12 +490,12 @@ class AsyncFilesResource(AsyncAPIResource):
         self,
         directory_file_id: str,
         *,
-        path_directory_id: str,
+        directory_id: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        body_directory_id: Optional[str] | Omit = omit,
         display_name: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, Union[str, float, bool, SequenceNotStr[str], None]]] | Omit = omit,
+        target_directory_id: Optional[str] | Omit = omit,
         unique_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -519,20 +505,16 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileUpdateResponse:
         """
-        Update file metadata within the specified directory.
-
-        Supports moving files to a different directory by setting directory_id.
-
-        Note: This endpoint uses directory_file_id (the internal ID). If you're trying
-        to update a file by its unique_id, use the list endpoint with a filter to find
-        the directory_file_id first.
+        Update directory-file metadata by `directory_file_id`; set `directory_id` to
+        move the file to a different directory. To resolve from `unique_id`, list with a
+        filter first.
 
         Args:
-          body_directory_id: Move file to a different directory.
-
           display_name: Updated display name.
 
           metadata: User-defined metadata key-value pairs. Replaces the user metadata layer.
+
+          target_directory_id: Move file to a different directory.
 
           unique_id: Updated unique identifier.
 
@@ -544,21 +526,21 @@ class AsyncFilesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not path_directory_id:
-            raise ValueError(f"Expected a non-empty value for `path_directory_id` but received {path_directory_id!r}")
+        if not directory_id:
+            raise ValueError(f"Expected a non-empty value for `directory_id` but received {directory_id!r}")
         if not directory_file_id:
             raise ValueError(f"Expected a non-empty value for `directory_file_id` but received {directory_file_id!r}")
         return await self._patch(
             path_template(
-                "/api/v1/beta/directories/{path_directory_id}/files/{directory_file_id}",
-                path_directory_id=path_directory_id,
+                "/api/v1/beta/directories/{directory_id}/files/{directory_file_id}",
+                directory_id=directory_id,
                 directory_file_id=directory_file_id,
             ),
             body=await async_maybe_transform(
                 {
-                    "body_directory_id": body_directory_id,
                     "display_name": display_name,
                     "metadata": metadata,
+                    "target_directory_id": target_directory_id,
                     "unique_id": unique_id,
                 },
                 file_update_params.FileUpdateParams,
@@ -667,11 +649,8 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Delete a file from the specified directory.
-
-        Note: This endpoint uses directory_file_id (the internal ID). If you're trying
-        to delete a file by its unique_id, use the list endpoint with a filter to find
-        the directory_file_id first.
+        Delete a directory file by `directory_file_id`; to resolve from `unique_id`,
+        list with a filter first.
 
         Args:
           extra_headers: Send extra headers
@@ -727,10 +706,8 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileAddResponse:
         """
-        Create a new file within the specified directory.
-
-        The directory must exist and belong to the project passed in. The file_id must
-        be provided and exist in the project.
+        Create a new file within the specified directory; the directory must exist in
+        the project and `file_id` must reference an existing file.
 
         Args:
           file_id: File ID for the storage location (required).
@@ -794,11 +771,9 @@ class AsyncFilesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileGetResponse:
-        """Get a file by its directory_file_id within the specified directory.
-
-        If you're
-        trying to get a file by its unique_id, use the list endpoint with a filter
-        instead.
+        """
+        Get a directory file by `directory_file_id`; to look up by `unique_id`, use the
+        list endpoint with a filter.
 
         Args:
           expand: Fields to expand.
@@ -857,11 +832,8 @@ class AsyncFilesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileUploadResponse:
         """
-        Upload a file directly to a directory.
-
-        Uploads a file and creates a directory file entry in a single operation. If
-        unique_id or display_name are not provided, they will be derived from the file
-        metadata.
+        Upload a file and create its directory entry in one call; `unique_id` /
+        `display_name` default to values derived from file metadata.
 
         Args:
           metadata: User metadata as a JSON object string.

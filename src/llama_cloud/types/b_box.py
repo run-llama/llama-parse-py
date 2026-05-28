@@ -31,5 +31,8 @@ class BBox(BaseModel):
     label: Optional[str] = None
     """Label for the bounding box"""
 
+    r: Optional[float] = None
+    """Optional visual text rotation angle in degrees. Omitted when unrotated."""
+
     start_index: Optional[int] = None
     """Start index in the text"""

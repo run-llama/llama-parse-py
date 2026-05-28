@@ -10,6 +10,7 @@ from .index_get_params import IndexGetParams as IndexGetParams
 from .sheet_get_params import SheetGetParams as SheetGetParams
 from .split_get_params import SplitGetParams as SplitGetParams
 from .batch_list_params import BatchListParams as BatchListParams
+from .index_list_params import IndexListParams as IndexListParams
 from .index_sync_params import IndexSyncParams as IndexSyncParams
 from .sheet_list_params import SheetListParams as SheetListParams
 from .split_list_params import SplitListParams as SplitListParams
@@ -24,6 +25,7 @@ from .batch_create_params import BatchCreateParams as BatchCreateParams
 from .batch_list_response import BatchListResponse as BatchListResponse
 from .index_create_params import IndexCreateParams as IndexCreateParams
 from .index_delete_params import IndexDeleteParams as IndexDeleteParams
+from .index_list_response import IndexListResponse as IndexListResponse
 from .sheet_create_params import SheetCreateParams as SheetCreateParams
 from .split_create_params import SplitCreateParams as SplitCreateParams
 from .split_list_response import SplitListResponse as SplitListResponse
@@ -35,7 +37,6 @@ from .split_document_input import SplitDocumentInput as SplitDocumentInput
 from .agent_data_get_params import AgentDataGetParams as AgentDataGetParams
 from .batch_cancel_response import BatchCancelResponse as BatchCancelResponse
 from .batch_create_response import BatchCreateResponse as BatchCreateResponse
-from .chat_set_title_params import ChatSetTitleParams as ChatSetTitleParams
 from .directory_list_params import DirectoryListParams as DirectoryListParams
 from .index_create_response import IndexCreateResponse as IndexCreateResponse
 from .retrieval_find_params import RetrievalFindParams as RetrievalFindParams
@@ -49,7 +50,6 @@ from .directory_get_response import DirectoryGetResponse as DirectoryGetResponse
 from .split_segment_response import SplitSegmentResponse as SplitSegmentResponse
 from .batch_get_status_params import BatchGetStatusParams as BatchGetStatusParams
 from .chat_get_summary_params import ChatGetSummaryParams as ChatGetSummaryParams
-from .chat_set_title_response import ChatSetTitleResponse as ChatSetTitleResponse
 from .directory_create_params import DirectoryCreateParams as DirectoryCreateParams
 from .directory_delete_params import DirectoryDeleteParams as DirectoryDeleteParams
 from .directory_list_response import DirectoryListResponse as DirectoryListResponse

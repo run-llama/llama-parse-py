@@ -3,16 +3,12 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
 
-__all__ = ["DirectoryListParams"]
+__all__ = ["IndexListParams"]
 
 
-class DirectoryListParams(TypedDict, total=False):
-    include_deleted: bool
-
-    name: Optional[str]
-
+class IndexListParams(TypedDict, total=False):
     organization_id: Optional[str]
 
     page_size: Optional[int]
@@ -21,4 +17,4 @@ class DirectoryListParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
-    type: Optional[Literal["user", "index", "ephemeral"]]
+    source_directory_id: Optional[str]
