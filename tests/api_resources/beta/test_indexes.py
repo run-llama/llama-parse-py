@@ -45,6 +45,7 @@ class TestIndexes:
             ],
             store_attachments=["screenshots"],
             sync_frequency="manual",
+            vector_target="DEFAULT",
         )
         assert_matches_type(IndexCreateResponse, index, path=["response"])
 
@@ -261,6 +262,7 @@ class TestAsyncIndexes:
             ],
             store_attachments=["screenshots"],
             sync_frequency="manual",
+            vector_target="DEFAULT",
         )
         assert_matches_type(IndexCreateResponse, index, path=["response"])
 
