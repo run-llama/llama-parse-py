@@ -24,7 +24,7 @@ class ConfigJob(TypedDict, total=False):
     """Job to create for each file in the source directory."""
 
     configuration_id: Required[str]
-    """Saved product configuration ID matching the job type."""
+    """Product configuration ID or built-in preset ID matching the job type."""
 
     type: Required[Literal["parse_v2", "extract_v2"]]
     """Product job type to run for each source directory file."""
