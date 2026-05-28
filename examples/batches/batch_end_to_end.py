@@ -51,14 +51,15 @@ async def run_batch() -> None:
     print(f"Created batch {batch.id} ({batch.status})")
 
     # 4. Poll until the batch reaches a terminal state.
-    while batch.status not in TERMINAL_STATUSES:
+    status = batch.status
+    while status not in TERMINAL_STATUSES:
         await asyncio.sleep(10)
-        batch = await client.batches.get(batch.id)
-        print(f"Batch status: {batch.status}")
+        status = (await client.batches.get(batch.id)).status
+        print(f"Batch status: {status}")
 
     # Batch-level FAILED means the orchestration failed and cannot provide a
     # reliable per-file result set.
-    if batch.status == "FAILED":
+    if status == "FAILED":
         raise RuntimeError("Batch orchestration failed")
 
     # 5. Expand per-file results to resolve each file's parse job reference.
