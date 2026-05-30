@@ -24,9 +24,8 @@ class ExtractConfiguration(BaseModel):
     """Include confidence scores in results"""
 
     extract_version: Optional[str] = None
-    """Extract algorithm version.
-
-    Use 'latest' for the default pipeline or a date string (e.g. '2026-01-08') to
+    """
+    Use 'latest' for the default pipeline or a date string (YYYY-MM-DD format) to
     pin to a specific release.
     """
 
