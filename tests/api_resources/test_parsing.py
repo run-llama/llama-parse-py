@@ -197,6 +197,7 @@ class TestParsing:
                 {
                     "webhook_events": ["string"],
                     "webhook_headers": {"foo": "bar"},
+                    "webhook_output_format": "json",
                     "webhook_url": "https:",
                 }
             ],
@@ -508,6 +509,7 @@ class TestAsyncParsing:
                 {
                     "webhook_events": ["string"],
                     "webhook_headers": {"foo": "bar"},
+                    "webhook_output_format": "json",
                     "webhook_url": "https:",
                 }
             ],
