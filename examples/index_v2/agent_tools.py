@@ -6,8 +6,10 @@ import asyncio
 from typing import cast
 
 from agents import Agent, Runner, function_tool
-from agents.items import ToolCallItem, FunctionCallOutput, ToolCallOutputItem, ResponseFunctionToolCall
-from agents.models.chatcmpl_stream_handler import ResponseTextDeltaEvent
+from agents.items import ToolCallItem, ToolCallOutputItem
+from openai.types.responses.response_input_item_param import FunctionCallOutput
+from openai.types.responses.response_text_delta_event import ResponseTextDeltaEvent
+from openai.types.responses.response_function_tool_call import ResponseFunctionToolCall
 
 from llama_cloud import AsyncLlamaCloud
 from llama_cloud._utils import lru_cache
