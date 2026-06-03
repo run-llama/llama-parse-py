@@ -722,6 +722,13 @@ class WebhookConfiguration(BaseModel):
     'Bearer xyz'}
     """
 
+    webhook_output_format: Optional[Literal["string", "json"]] = None
+    """Format of the webhook payload body.
+
+    'string' (default) sends the payload as a JSON-encoded string; 'json' sends it
+    as a JSON object.
+    """
+
     webhook_url: Optional[str] = None
     """HTTPS URL to receive webhook POST requests. Must be publicly accessible"""
 
