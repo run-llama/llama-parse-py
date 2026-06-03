@@ -1,3 +1,5 @@
+# ! pip install llama-cloud openai-agents
+
 from __future__ import annotations
 
 import os
