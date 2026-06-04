@@ -43,9 +43,9 @@ class WebhookConfiguration(TypedDict, total=False):
     webhook_events: Optional[SequenceNotStr[str]]
     """Events that trigger this webhook.
 
-    Options: 'parse.success' (job completed), 'parse.failure' (job failed),
-    'parse.partial' (some pages failed). If not specified, webhook fires for all
-    events
+    Options: 'parse.success' (job completed), 'parse.error' (job failed),
+    'parse.partial_success' (some pages failed), 'parse.pending', 'parse.running',
+    'parse.cancelled'. If not specified, webhook fires for all events
     """
 
     webhook_headers: Optional[Dict[str, object]]

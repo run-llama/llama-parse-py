@@ -47,6 +47,25 @@ class TestSheets:
                 "table_merge_sensitivity": "strong",
                 "use_experimental_processing": True,
             },
+            configuration={
+                "extraction_range": "extraction_range",
+                "flatten_hierarchical_tables": True,
+                "generate_additional_metadata": True,
+                "include_hidden_cells": True,
+                "sheet_names": ["string"],
+                "specialization": "specialization",
+                "table_merge_sensitivity": "strong",
+                "use_experimental_processing": True,
+            },
+            configuration_id="cfg-11111111-2222-3333-4444-555555555555",
+            webhook_configurations=[
+                {
+                    "webhook_events": ["parse.success", "parse.error"],
+                    "webhook_headers": {"Authorization": "Bearer sk-..."},
+                    "webhook_output_format": "json",
+                    "webhook_url": "https://example.com/webhooks/llamacloud",
+                }
+            ],
         )
         assert_matches_type(SheetsJob, sheet, path=["response"])
 
@@ -86,6 +105,7 @@ class TestSheets:
     @parametrize
     def test_method_list_with_all_params(self, client: LlamaCloud) -> None:
         sheet = client.beta.sheets.list(
+            configuration_id="configuration_id",
             created_at_on_or_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_at_on_or_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_results=True,
@@ -185,6 +205,7 @@ class TestSheets:
     def test_method_get_with_all_params(self, client: LlamaCloud) -> None:
         sheet = client.beta.sheets.get(
             spreadsheet_job_id="spreadsheet_job_id",
+            expand=["string"],
             include_results=True,
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -326,6 +347,25 @@ class TestAsyncSheets:
                 "table_merge_sensitivity": "strong",
                 "use_experimental_processing": True,
             },
+            configuration={
+                "extraction_range": "extraction_range",
+                "flatten_hierarchical_tables": True,
+                "generate_additional_metadata": True,
+                "include_hidden_cells": True,
+                "sheet_names": ["string"],
+                "specialization": "specialization",
+                "table_merge_sensitivity": "strong",
+                "use_experimental_processing": True,
+            },
+            configuration_id="cfg-11111111-2222-3333-4444-555555555555",
+            webhook_configurations=[
+                {
+                    "webhook_events": ["parse.success", "parse.error"],
+                    "webhook_headers": {"Authorization": "Bearer sk-..."},
+                    "webhook_output_format": "json",
+                    "webhook_url": "https://example.com/webhooks/llamacloud",
+                }
+            ],
         )
         assert_matches_type(SheetsJob, sheet, path=["response"])
 
@@ -365,6 +405,7 @@ class TestAsyncSheets:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         sheet = await async_client.beta.sheets.list(
+            configuration_id="configuration_id",
             created_at_on_or_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_at_on_or_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             include_results=True,
@@ -464,6 +505,7 @@ class TestAsyncSheets:
     async def test_method_get_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         sheet = await async_client.beta.sheets.get(
             spreadsheet_job_id="spreadsheet_job_id",
+            expand=["string"],
             include_results=True,
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

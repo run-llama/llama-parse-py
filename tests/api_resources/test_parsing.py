@@ -195,7 +195,7 @@ class TestParsing:
             source_url="https:",
             webhook_configurations=[
                 {
-                    "webhook_events": ["string"],
+                    "webhook_events": ["parse.success", "parse.error"],
                     "webhook_headers": {"foo": "bar"},
                     "webhook_output_format": "json",
                     "webhook_url": "https:",
@@ -507,7 +507,7 @@ class TestAsyncParsing:
             source_url="https:",
             webhook_configurations=[
                 {
-                    "webhook_events": ["string"],
+                    "webhook_events": ["parse.success", "parse.error"],
                     "webhook_headers": {"foo": "bar"},
                     "webhook_output_format": "json",
                     "webhook_url": "https:",

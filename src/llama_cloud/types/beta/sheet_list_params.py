@@ -4,16 +4,18 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
-from ..status_enum import StatusEnum
 
 __all__ = ["SheetListParams"]
 
 
 class SheetListParams(TypedDict, total=False):
+    configuration_id: Optional[str]
+    """Filter by saved configuration ID"""
+
     created_at_on_or_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Include items created at or after this timestamp (inclusive)"""
 
@@ -33,5 +35,5 @@ class SheetListParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
-    status: Optional[StatusEnum]
+    status: Optional[Literal["PENDING", "SUCCESS", "ERROR", "PARTIAL_SUCCESS", "CANCELLED"]]
     """Filter by job status"""

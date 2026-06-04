@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -60,6 +60,7 @@ class ClassifyResource(SyncAPIResource):
         file_input: Optional[str] | Omit = omit,
         parse_job_id: Optional[str] | Omit = omit,
         transaction_id: Optional[str] | Omit = omit,
+        webhook_configurations: Optional[Iterable[classify_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -95,6 +96,8 @@ class ClassifyResource(SyncAPIResource):
 
           transaction_id: Idempotency key scoped to the project
 
+          webhook_configurations: Outbound webhook endpoints to notify on job status changes
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -113,6 +116,7 @@ class ClassifyResource(SyncAPIResource):
                     "file_input": file_input,
                     "parse_job_id": parse_job_id,
                     "transaction_id": transaction_id,
+                    "webhook_configurations": webhook_configurations,
                 },
                 classify_create_params.ClassifyCreateParams,
             ),
@@ -286,6 +290,7 @@ class AsyncClassifyResource(AsyncAPIResource):
         file_input: Optional[str] | Omit = omit,
         parse_job_id: Optional[str] | Omit = omit,
         transaction_id: Optional[str] | Omit = omit,
+        webhook_configurations: Optional[Iterable[classify_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -321,6 +326,8 @@ class AsyncClassifyResource(AsyncAPIResource):
 
           transaction_id: Idempotency key scoped to the project
 
+          webhook_configurations: Outbound webhook endpoints to notify on job status changes
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -339,6 +346,7 @@ class AsyncClassifyResource(AsyncAPIResource):
                     "file_input": file_input,
                     "parse_job_id": parse_job_id,
                     "transaction_id": transaction_id,
+                    "webhook_configurations": webhook_configurations,
                 },
                 classify_create_params.ClassifyCreateParams,
             ),

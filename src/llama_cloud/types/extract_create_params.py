@@ -46,10 +46,16 @@ class WebhookConfiguration(TypedDict, total=False):
                 "parse.partial_success",
                 "parse.cancelled",
                 "classify.pending",
+                "classify.running",
                 "classify.success",
                 "classify.error",
                 "classify.partial_success",
                 "classify.cancelled",
+                "sheets.pending",
+                "sheets.success",
+                "sheets.error",
+                "sheets.partial_success",
+                "sheets.cancelled",
                 "unmapped_event",
             ]
         ]

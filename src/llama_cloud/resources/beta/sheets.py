@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
-from ...types import StatusEnum
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -28,7 +27,6 @@ from ...types.beta import (
     sheet_get_result_table_params,
 )
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.status_enum import StatusEnum
 from ...types.presigned_url import PresignedURL
 from ...types.beta.sheets_job import SheetsJob
 from ...types.beta.sheets_parsing_config_param import SheetsParsingConfigParam
@@ -62,7 +60,10 @@ class SheetsResource(SyncAPIResource):
         file_id: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        config: SheetsParsingConfigParam | Omit = omit,
+        config: Optional[SheetsParsingConfigParam] | Omit = omit,
+        configuration: Optional[SheetsParsingConfigParam] | Omit = omit,
+        configuration_id: Optional[str] | Omit = omit,
+        webhook_configurations: Optional[Iterable[sheet_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -70,15 +71,25 @@ class SheetsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SheetsJob:
-        """Create a spreadsheet parsing job.
+        """
+        Create a spreadsheet parsing job.
 
-        Experimental: not production-ready and subject
-        to change.
+        Provide **exactly one** of `configuration` (an inline parsing configuration) or
+        `configuration_id` (a saved configuration preset). Optionally include
+        `webhook_configurations` to receive `sheets.*` status notifications.
+
+        Experimental: not production-ready and subject to change.
 
         Args:
           file_id: The ID of the file to parse
 
-          config: Configuration for the parsing job
+          config: Configuration for spreadsheet parsing and region extraction
+
+          configuration: Configuration for spreadsheet parsing and region extraction
+
+          configuration_id: Saved configuration ID
+
+          webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
 
@@ -94,6 +105,9 @@ class SheetsResource(SyncAPIResource):
                 {
                     "file_id": file_id,
                     "config": config,
+                    "configuration": configuration,
+                    "configuration_id": configuration_id,
+                    "webhook_configurations": webhook_configurations,
                 },
                 sheet_create_params.SheetCreateParams,
             ),
@@ -116,6 +130,7 @@ class SheetsResource(SyncAPIResource):
     def list(
         self,
         *,
+        configuration_id: Optional[str] | Omit = omit,
         created_at_on_or_after: Union[str, datetime, None] | Omit = omit,
         created_at_on_or_before: Union[str, datetime, None] | Omit = omit,
         include_results: bool | Omit = omit,
@@ -124,7 +139,7 @@ class SheetsResource(SyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[StatusEnum] | Omit = omit,
+        status: Optional[Literal["PENDING", "SUCCESS", "ERROR", "PARTIAL_SUCCESS", "CANCELLED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -138,6 +153,8 @@ class SheetsResource(SyncAPIResource):
         change.
 
         Args:
+          configuration_id: Filter by saved configuration ID
+
           created_at_on_or_after: Include items created at or after this timestamp (inclusive)
 
           created_at_on_or_before: Include items created at or before this timestamp (inclusive)
@@ -164,6 +181,7 @@ class SheetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "configuration_id": configuration_id,
                         "created_at_on_or_after": created_at_on_or_after,
                         "created_at_on_or_before": created_at_on_or_before,
                         "include_results": include_results,
@@ -231,6 +249,7 @@ class SheetsResource(SyncAPIResource):
         self,
         spreadsheet_job_id: str,
         *,
+        expand: SequenceNotStr[str] | Omit = omit,
         include_results: bool | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -248,6 +267,10 @@ class SheetsResource(SyncAPIResource):
         call. Experimental: not production-ready and subject to change.
 
         Args:
+          expand:
+              Optional fields to populate on the response. Valid values:
+              metadata_state_transitions.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -267,6 +290,7 @@ class SheetsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "expand": expand,
                         "include_results": include_results,
                         "organization_id": organization_id,
                         "project_id": project_id,
@@ -364,7 +388,10 @@ class AsyncSheetsResource(AsyncAPIResource):
         file_id: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        config: SheetsParsingConfigParam | Omit = omit,
+        config: Optional[SheetsParsingConfigParam] | Omit = omit,
+        configuration: Optional[SheetsParsingConfigParam] | Omit = omit,
+        configuration_id: Optional[str] | Omit = omit,
+        webhook_configurations: Optional[Iterable[sheet_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -372,15 +399,25 @@ class AsyncSheetsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SheetsJob:
-        """Create a spreadsheet parsing job.
+        """
+        Create a spreadsheet parsing job.
 
-        Experimental: not production-ready and subject
-        to change.
+        Provide **exactly one** of `configuration` (an inline parsing configuration) or
+        `configuration_id` (a saved configuration preset). Optionally include
+        `webhook_configurations` to receive `sheets.*` status notifications.
+
+        Experimental: not production-ready and subject to change.
 
         Args:
           file_id: The ID of the file to parse
 
-          config: Configuration for the parsing job
+          config: Configuration for spreadsheet parsing and region extraction
+
+          configuration: Configuration for spreadsheet parsing and region extraction
+
+          configuration_id: Saved configuration ID
+
+          webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
 
@@ -396,6 +433,9 @@ class AsyncSheetsResource(AsyncAPIResource):
                 {
                     "file_id": file_id,
                     "config": config,
+                    "configuration": configuration,
+                    "configuration_id": configuration_id,
+                    "webhook_configurations": webhook_configurations,
                 },
                 sheet_create_params.SheetCreateParams,
             ),
@@ -418,6 +458,7 @@ class AsyncSheetsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        configuration_id: Optional[str] | Omit = omit,
         created_at_on_or_after: Union[str, datetime, None] | Omit = omit,
         created_at_on_or_before: Union[str, datetime, None] | Omit = omit,
         include_results: bool | Omit = omit,
@@ -426,7 +467,7 @@ class AsyncSheetsResource(AsyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[StatusEnum] | Omit = omit,
+        status: Optional[Literal["PENDING", "SUCCESS", "ERROR", "PARTIAL_SUCCESS", "CANCELLED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -440,6 +481,8 @@ class AsyncSheetsResource(AsyncAPIResource):
         change.
 
         Args:
+          configuration_id: Filter by saved configuration ID
+
           created_at_on_or_after: Include items created at or after this timestamp (inclusive)
 
           created_at_on_or_before: Include items created at or before this timestamp (inclusive)
@@ -466,6 +509,7 @@ class AsyncSheetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "configuration_id": configuration_id,
                         "created_at_on_or_after": created_at_on_or_after,
                         "created_at_on_or_before": created_at_on_or_before,
                         "include_results": include_results,
@@ -533,6 +577,7 @@ class AsyncSheetsResource(AsyncAPIResource):
         self,
         spreadsheet_job_id: str,
         *,
+        expand: SequenceNotStr[str] | Omit = omit,
         include_results: bool | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -550,6 +595,10 @@ class AsyncSheetsResource(AsyncAPIResource):
         call. Experimental: not production-ready and subject to change.
 
         Args:
+          expand:
+              Optional fields to populate on the response. Valid values:
+              metadata_state_transitions.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -569,6 +618,7 @@ class AsyncSheetsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "expand": expand,
                         "include_results": include_results,
                         "organization_id": organization_id,
                         "project_id": project_id,
