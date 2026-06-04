@@ -38,7 +38,7 @@ class CloudSharepointDataSource(TypedDict, total=False):
     folder_path: Optional[str]
     """The path of the Sharepoint folder to read from."""
 
-    get_permissions: Optional[bool]
+    get_permissions: bool
     """Whether to get permissions for the sharepoint site."""
 
     include_path_patterns: Optional[SequenceNotStr[str]]

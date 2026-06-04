@@ -467,7 +467,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     tier: Optional[Literal["fast", "cost_effective", "agentic", "agentic_plus"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-05-28", "2026-05-21", "2025-12-11"], str, None]
+    version: Union[Literal["latest", "2026-06-01", "2026-05-28", "2025-12-11"], str, None]
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -477,8 +477,8 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
 
     - `fast`: `2025-12-11`
     - `cost_effective`: `2026-05-28`
-    - `agentic`: `2026-05-21`
-    - `agentic_plus`: `2026-05-21`
+    - `agentic`: `2026-06-01`
+    - `agentic_plus`: `2026-06-01`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -712,9 +712,9 @@ class WebhookConfiguration(TypedDict, total=False):
     webhook_events: Optional[SequenceNotStr[str]]
     """Events that trigger this webhook.
 
-    Options: 'parse.success' (job completed), 'parse.failure' (job failed),
-    'parse.partial' (some pages failed). If not specified, webhook fires for all
-    events
+    Options: 'parse.success' (job completed), 'parse.error' (job failed),
+    'parse.partial_success' (some pages failed), 'parse.pending', 'parse.running',
+    'parse.cancelled'. If not specified, webhook fires for all events
     """
 
     webhook_headers: Optional[Dict[str, object]]
@@ -753,7 +753,7 @@ class ParseV2ParametersParam(TypedDict, total=False):
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-05-28", "2026-05-21", "2025-12-11"], str]]
+    version: Required[Union[Literal["latest", "2026-06-01", "2026-05-28", "2025-12-11"], str]]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -762,8 +762,8 @@ class ParseV2ParametersParam(TypedDict, total=False):
 
     - `fast`: `2025-12-11`
     - `cost_effective`: `2026-05-28`
-    - `agentic`: `2026-05-21`
-    - `agentic_plus`: `2026-05-21`
+    - `agentic`: `2026-06-01`
+    - `agentic_plus`: `2026-06-01`
 
     Full list: `GET /api/v2/parse/versions`.
     """

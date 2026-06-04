@@ -54,6 +54,14 @@ class TestClassify:
             file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             parse_job_id="pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
+            webhook_configurations=[
+                {
+                    "webhook_events": ["parse.success", "parse.error"],
+                    "webhook_headers": {"Authorization": "Bearer sk-..."},
+                    "webhook_output_format": "json",
+                    "webhook_url": "https://example.com/webhooks/llamacloud",
+                }
+            ],
         )
         assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
 
@@ -212,6 +220,14 @@ class TestAsyncClassify:
             file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             parse_job_id="pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
+            webhook_configurations=[
+                {
+                    "webhook_events": ["parse.success", "parse.error"],
+                    "webhook_headers": {"Authorization": "Bearer sk-..."},
+                    "webhook_output_format": "json",
+                    "webhook_url": "https://example.com/webhooks/llamacloud",
+                }
+            ],
         )
         assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
 
