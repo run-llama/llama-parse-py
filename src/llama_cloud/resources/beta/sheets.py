@@ -74,9 +74,10 @@ class SheetsResource(SyncAPIResource):
         """
         Create a spreadsheet parsing job.
 
-        Provide **exactly one** of `configuration` (an inline parsing configuration) or
-        `configuration_id` (a saved configuration preset). Optionally include
-        `webhook_configurations` to receive `sheets.*` status notifications.
+        Provide at most one of `configuration` (an inline parsing configuration) or
+        `configuration_id` (a saved configuration preset). If neither is provided, a
+        default configuration is used. Optionally include `webhook_configurations` to
+        receive `sheets.*` status notifications.
 
         Experimental: not production-ready and subject to change.
 
@@ -402,9 +403,10 @@ class AsyncSheetsResource(AsyncAPIResource):
         """
         Create a spreadsheet parsing job.
 
-        Provide **exactly one** of `configuration` (an inline parsing configuration) or
-        `configuration_id` (a saved configuration preset). Optionally include
-        `webhook_configurations` to receive `sheets.*` status notifications.
+        Provide at most one of `configuration` (an inline parsing configuration) or
+        `configuration_id` (a saved configuration preset). If neither is provided, a
+        default configuration is used. Optionally include `webhook_configurations` to
+        receive `sheets.*` status notifications.
 
         Experimental: not production-ready and subject to change.
 
