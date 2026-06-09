@@ -56,7 +56,7 @@ class Result(BaseModel):
     content: str
     """Text content of the retrieved chunk."""
 
-    metadata: Optional[Dict[str, Union[str, float, bool, List[str], None]]] = None
+    metadata: Optional[Dict[str, Union[str, int, float, bool, None, List[str]]]] = None
     """User-defined metadata associated with the chunk."""
 
     rerank_score: Optional[float] = None

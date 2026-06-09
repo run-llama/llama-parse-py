@@ -271,6 +271,19 @@ class OutputOptions(BaseModel):
     10', 'v', 'A-3'). Useful for referencing original page numbers
     """
 
+    granular_bboxes: Optional[List[Literal["cell", "line", "word"]]] = None
+    """Bounding-box granularity levels to compute for the parse.
+
+    'word' computes one bounding box per detected word; 'line' computes one per text
+    line; 'cell' computes one per table cell. Multiple levels can be requested.
+    Empty list (default) disables granular bboxes — only item-level layout boxes are
+    returned on the result. When set, the computed boxes are not inlined on the
+    result items; they are written to a separate `grounded_items` sidecar (JSONL,
+    one row per page) and exposed as `result_content_metadata.grounded_items` (a
+    presigned download URL) on the parse result. Each row matches the
+    `GroundedJsonItem` shape.
+    """
+
     images_to_save: Optional[List[Literal["screenshot", "embedded", "layout"]]] = None
     """Image categories to extract and save.
 
@@ -465,7 +478,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     tier: Optional[Literal["fast", "cost_effective", "agentic", "agentic_plus"]] = None
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-06-01", "2026-05-28", "2025-12-11"], str, None] = None
+    version: Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str, None] = None
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -474,9 +487,9 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-05-28`
-    - `agentic`: `2026-06-01`
-    - `agentic_plus`: `2026-06-01`
+    - `cost_effective`: `2026-06-05`
+    - `agentic`: `2026-06-04`
+    - `agentic_plus`: `2026-06-04`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -751,7 +764,7 @@ class ParseV2Parameters(BaseModel):
     highest accuracy)
     """
 
-    version: Union[Literal["latest", "2026-06-01", "2026-05-28", "2025-12-11"], str]
+    version: Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -759,9 +772,9 @@ class ParseV2Parameters(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-05-28`
-    - `agentic`: `2026-06-01`
-    - `agentic_plus`: `2026-06-01`
+    - `cost_effective`: `2026-06-05`
+    - `agentic`: `2026-06-04`
+    - `agentic_plus`: `2026-06-04`
 
     Full list: `GET /api/v2/parse/versions`.
     """
