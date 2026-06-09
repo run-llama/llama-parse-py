@@ -76,7 +76,7 @@ class FilesResource(SyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         display_name: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, Union[str, float, bool, SequenceNotStr[str], None]]] | Omit = omit,
+        metadata: Optional[Dict[str, Union[str, int, float, bool, None, SequenceNotStr[str]]]] | Omit = omit,
         target_directory_id: Optional[str] | Omit = omit,
         unique_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -278,7 +278,7 @@ class FilesResource(SyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         display_name: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, Union[str, float, bool, SequenceNotStr[str], None]]] | Omit = omit,
+        metadata: Optional[Dict[str, Union[str, int, float, bool, None, SequenceNotStr[str]]]] | Omit = omit,
         unique_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -494,7 +494,7 @@ class AsyncFilesResource(AsyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         display_name: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, Union[str, float, bool, SequenceNotStr[str], None]]] | Omit = omit,
+        metadata: Optional[Dict[str, Union[str, int, float, bool, None, SequenceNotStr[str]]]] | Omit = omit,
         target_directory_id: Optional[str] | Omit = omit,
         unique_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -696,7 +696,7 @@ class AsyncFilesResource(AsyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         display_name: Optional[str] | Omit = omit,
-        metadata: Optional[Dict[str, Union[str, float, bool, SequenceNotStr[str], None]]] | Omit = omit,
+        metadata: Optional[Dict[str, Union[str, int, float, bool, None, SequenceNotStr[str]]]] | Omit = omit,
         unique_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

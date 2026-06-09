@@ -21,7 +21,7 @@ class FileAddParams(TypedDict, total=False):
     display_name: Optional[str]
     """Display name for the file. If not provided, will use the file's name."""
 
-    metadata: Optional[Dict[str, Union[str, float, bool, SequenceNotStr[str], None]]]
+    metadata: Optional[Dict[str, Union[str, int, float, bool, None, SequenceNotStr[str]]]]
     """User-defined metadata key-value pairs to associate with the file."""
 
     unique_id: Optional[str]
