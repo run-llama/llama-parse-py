@@ -39,7 +39,7 @@ class FileAddResponse(BaseModel):
     file_id: Optional[str] = None
     """File ID for the storage location."""
 
-    metadata: Optional[Dict[str, Union[str, float, bool, List[str], None]]] = None
+    metadata: Optional[Dict[str, Union[str, int, float, bool, None, List[str]]]] = None
     """Merged metadata from all sources. Higher-priority sources override lower."""
 
     updated_at: Optional[datetime] = None

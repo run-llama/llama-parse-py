@@ -47,11 +47,19 @@ class ParsingCreateParams(TypedDict, total=False):
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-05-21", "2026-04-09", "2025-12-11"], str]]
-    """Tier version.
+    version: Required[Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str]]
+    """Version for the selected tier.
 
-    Use 'latest' for the current stable version, or pin a dated version for
-    reproducible results. See GET /api/v2/parse/versions for the per-tier list.
+    Use `latest`, or pin one of that tier's dated versions.
+
+    Current `latest` by tier:
+
+    - `fast`: `2025-12-11`
+    - `cost_effective`: `2026-06-05`
+    - `agentic`: `2026-06-04`
+    - `agentic_plus`: `2026-06-04`
+
+    Full list: `GET /api/v2/parse/versions`.
     """
 
     organization_id: Optional[str]
@@ -363,6 +371,19 @@ class OutputOptions(TypedDict, total=False):
     10', 'v', 'A-3'). Useful for referencing original page numbers
     """
 
+    granular_bboxes: List[Literal["cell", "line", "word"]]
+    """Bounding-box granularity levels to compute for the parse.
+
+    'word' computes one bounding box per detected word; 'line' computes one per text
+    line; 'cell' computes one per table cell. Multiple levels can be requested.
+    Empty list (default) disables granular bboxes — only item-level layout boxes are
+    returned on the result. When set, the computed boxes are not inlined on the
+    result items; they are written to a separate `grounded_items` sidecar (JSONL,
+    one row per page) and exposed as `result_content_metadata.grounded_items` (a
+    presigned download URL) on the parse result. Each row matches the
+    `GroundedJsonItem` shape.
+    """
+
     images_to_save: List[Literal["screenshot", "embedded", "layout"]]
     """Image categories to extract and save.
 
@@ -557,8 +578,21 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     tier: Optional[Literal["fast", "cost_effective", "agentic", "agentic_plus"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-05-21", "2026-04-09", "2025-12-11"], str, None]
-    """Tier version when overriding tier. Required when tier is specified"""
+    version: Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str, None]
+    """Version for the override tier.
+
+    Required when `tier` is set. Use `latest`, or pin one of that tier's dated
+    versions.
+
+    Current `latest` by tier:
+
+    - `fast`: `2025-12-11`
+    - `cost_effective`: `2026-06-05`
+    - `agentic`: `2026-06-04`
+    - `agentic_plus`: `2026-06-04`
+
+    Full list: `GET /api/v2/parse/versions`.
+    """
 
 
 class ProcessingOptionsAutoModeConfiguration(TypedDict, total=False):
@@ -789,9 +823,9 @@ class WebhookConfiguration(TypedDict, total=False):
     webhook_events: Optional[SequenceNotStr[str]]
     """Events that trigger this webhook.
 
-    Options: 'parse.success' (job completed), 'parse.failure' (job failed),
-    'parse.partial' (some pages failed). If not specified, webhook fires for all
-    events
+    Options: 'parse.success' (job completed), 'parse.error' (job failed),
+    'parse.partial_success' (some pages failed), 'parse.pending', 'parse.running',
+    'parse.cancelled'. If not specified, webhook fires for all events
     """
 
     webhook_headers: Optional[Dict[str, object]]
@@ -799,6 +833,13 @@ class WebhookConfiguration(TypedDict, total=False):
 
     Use for authentication tokens or custom routing. Example: {'Authorization':
     'Bearer xyz'}
+    """
+
+    webhook_output_format: Optional[Literal["string", "json"]]
+    """Format of the webhook payload body.
+
+    'string' (default) sends the payload as a JSON-encoded string; 'json' sends it
+    as a JSON object.
     """
 
     webhook_url: Optional[str]

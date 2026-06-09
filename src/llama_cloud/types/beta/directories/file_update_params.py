@@ -20,7 +20,7 @@ class FileUpdateParams(TypedDict, total=False):
     display_name: Optional[str]
     """Updated display name."""
 
-    metadata: Optional[Dict[str, Union[str, float, bool, SequenceNotStr[str], None]]]
+    metadata: Optional[Dict[str, Union[str, int, float, bool, None, SequenceNotStr[str]]]]
     """User-defined metadata key-value pairs. Replaces the user metadata layer."""
 
     target_directory_id: Optional[str]

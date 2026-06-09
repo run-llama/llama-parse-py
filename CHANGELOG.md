@@ -1,5 +1,34 @@
 # Changelog
 
+## 2.9.0 (2026-06-09)
+
+Full Changelog: [v2.8.0...v2.9.0](https://github.com/run-llama/llama-parse-py/compare/v2.8.0...v2.9.0)
+
+### Features
+
+* **api:** api update ([6c61a1f](https://github.com/run-llama/llama-parse-py/commit/6c61a1f4a5a28144eae31542bc711d6f70a29c61))
+* **api:** api update ([a642524](https://github.com/run-llama/llama-parse-py/commit/a64252425eb9888c6c57c5fbbb4f17f7e95e88fc))
+* **api:** api update ([5dfb1b0](https://github.com/run-llama/llama-parse-py/commit/5dfb1b097af2334d1bddcf70bc5e2a5b9f204834))
+* **api:** api update ([95e5f08](https://github.com/run-llama/llama-parse-py/commit/95e5f08e7799e23f5167620ea1f65b73641d4005))
+* **api:** api update ([5476040](https://github.com/run-llama/llama-parse-py/commit/54760400ca8e9401f4544801d7ca6f0fde69db36))
+* **api:** api update ([d447ad5](https://github.com/run-llama/llama-parse-py/commit/d447ad52971deb8094ff0477fb14cecd6423c88e))
+
+
+### Bug Fixes
+
+* lint (exclude the file from basepyright checks) ([f2ebdaf](https://github.com/run-llama/llama-parse-py/commit/f2ebdaff2d3f09b2c9573bdaf685127314753fba))
+
+
+### Chores
+
+* exclude from mypy as well ([80a0727](https://github.com/run-llama/llama-parse-py/commit/80a072710af7aa38a6eb210fcbe583a894ebc49c))
+* update SDK settings ([f5bdef2](https://github.com/run-llama/llama-parse-py/commit/f5bdef28a93f54d546e2627f0400ff355aa5d0d1))
+
+
+### Documentation
+
+* index v2 examples ([fa14309](https://github.com/run-llama/llama-parse-py/commit/fa14309abce3e8a3fdd13b7ef9283e31f099aa21))
+
 ## 2.8.0 (2026-05-28)
 
 Full Changelog: [v2.7.0...v2.8.0](https://github.com/run-llama/llama-parse-py/compare/v2.7.0...v2.8.0)

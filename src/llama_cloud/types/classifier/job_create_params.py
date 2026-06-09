@@ -43,9 +43,9 @@ class WebhookConfiguration(TypedDict, total=False):
     webhook_events: Optional[SequenceNotStr[str]]
     """Events that trigger this webhook.
 
-    Options: 'parse.success' (job completed), 'parse.failure' (job failed),
-    'parse.partial' (some pages failed). If not specified, webhook fires for all
-    events
+    Options: 'parse.success' (job completed), 'parse.error' (job failed),
+    'parse.partial_success' (some pages failed), 'parse.pending', 'parse.running',
+    'parse.cancelled'. If not specified, webhook fires for all events
     """
 
     webhook_headers: Optional[Dict[str, object]]
@@ -53,6 +53,13 @@ class WebhookConfiguration(TypedDict, total=False):
 
     Use for authentication tokens or custom routing. Example: {'Authorization':
     'Bearer xyz'}
+    """
+
+    webhook_output_format: Optional[Literal["string", "json"]]
+    """Format of the webhook payload body.
+
+    'string' (default) sends the payload as a JSON-encoded string; 'json' sends it
+    as a JSON object.
     """
 
     webhook_url: Optional[str]

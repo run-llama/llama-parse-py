@@ -1,13 +1,67 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
+from typing_extensions import Literal
 
 from ..file import File
 from ..._models import BaseModel
-from ..status_enum import StatusEnum
 from .sheets_parsing_config import SheetsParsingConfig
 
-__all__ = ["SheetsJob", "Region", "WorksheetMetadata"]
+__all__ = ["SheetsJob", "Parameters", "ParametersWebhookConfiguration", "Region", "WorksheetMetadata"]
+
+
+class ParametersWebhookConfiguration(BaseModel):
+    """Configuration for a single outbound webhook endpoint."""
+
+    webhook_events: Optional[
+        List[
+            Literal[
+                "extract.pending",
+                "extract.success",
+                "extract.error",
+                "extract.partial_success",
+                "extract.cancelled",
+                "parse.pending",
+                "parse.running",
+                "parse.success",
+                "parse.error",
+                "parse.partial_success",
+                "parse.cancelled",
+                "classify.pending",
+                "classify.running",
+                "classify.success",
+                "classify.error",
+                "classify.partial_success",
+                "classify.cancelled",
+                "sheets.pending",
+                "sheets.success",
+                "sheets.error",
+                "sheets.partial_success",
+                "sheets.cancelled",
+                "unmapped_event",
+            ]
+        ]
+    ] = None
+    """Events to subscribe to (e.g.
+
+    'parse.success', 'extract.error'). If null, all events are delivered.
+    """
+
+    webhook_headers: Optional[Dict[str, str]] = None
+    """Custom HTTP headers sent with each webhook request (e.g. auth tokens)"""
+
+    webhook_output_format: Optional[str] = None
+    """Response format sent to the webhook: 'string' (default) or 'json'"""
+
+    webhook_url: Optional[str] = None
+    """URL to receive webhook POST notifications"""
+
+
+class Parameters(BaseModel):
+    """Job-time parameters such as webhook configurations."""
+
+    webhook_configurations: Optional[List[ParametersWebhookConfiguration]] = None
+    """Webhook configurations for job status notifications."""
 
 
 class Region(BaseModel):
@@ -46,13 +100,16 @@ class WorksheetMetadata(BaseModel):
 
 
 class SheetsJob(BaseModel):
-    """A spreadsheet parsing job"""
+    """A spreadsheet parsing job."""
 
     id: str
     """The ID of the job"""
 
-    config: SheetsParsingConfig
-    """Configuration for the parsing job"""
+    configuration: SheetsParsingConfig
+    """
+    Configuration applied to the parsing job (inline or resolved from a saved
+    preset).
+    """
 
     created_at: str
     """When the job was created"""
@@ -63,7 +120,7 @@ class SheetsJob(BaseModel):
     project_id: str
     """The ID of the project"""
 
-    status: StatusEnum
+    status: Literal["PENDING", "SUCCESS", "ERROR", "PARTIAL_SUCCESS", "CANCELLED"]
     """The status of the parsing job"""
 
     updated_at: str
@@ -72,11 +129,26 @@ class SheetsJob(BaseModel):
     user_id: str
     """The ID of the user"""
 
+    config: Optional[SheetsParsingConfig] = None
+    """Configuration for spreadsheet parsing and region extraction"""
+
+    configuration_id: Optional[str] = None
+    """The saved product configuration ID used at create time, if any."""
+
     errors: Optional[List[str]] = None
     """Any errors encountered"""
 
     file: Optional[File] = None
     """Schema for a file."""
+
+    metadata_state_transitions: Optional[Dict[str, object]] = None
+    """Per-status entry timestamps.
+
+    Returned only when requested via `?expand=metadata_state_transitions`.
+    """
+
+    parameters: Optional[Parameters] = None
+    """Job-time parameters such as webhook configurations."""
 
     regions: Optional[List[Region]] = None
     """All extracted regions (populated when job is complete)"""

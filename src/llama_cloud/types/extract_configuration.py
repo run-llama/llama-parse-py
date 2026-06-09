@@ -23,13 +23,6 @@ class ExtractConfiguration(BaseModel):
     confidence_scores: Optional[bool] = None
     """Include confidence scores in results"""
 
-    extract_version: Optional[str] = None
-    """Extract algorithm version.
-
-    Use 'latest' for the default pipeline or a date string (e.g. '2026-01-08') to
-    pin to a specific release.
-    """
-
     extraction_target: Optional[Literal["per_doc", "per_page", "per_table_row"]] = None
     """
     Granularity of extraction: per_doc returns one object per document, per_page
@@ -62,3 +55,9 @@ class ExtractConfiguration(BaseModel):
 
     tier: Optional[Literal["cost_effective", "agentic"]] = None
     """Extract tier: cost_effective (5 credits/page) or agentic (15 credits/page)"""
+
+    version: Optional[str] = None
+    """
+    Use 'latest' for the latest release for the selected tier or a date string
+    (YYYY-MM-DD format) to pin to the nearest release at or before that date.
+    """

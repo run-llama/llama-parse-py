@@ -26,13 +26,6 @@ class ExtractV2ParametersParam(TypedDict, total=False):
     confidence_scores: bool
     """Include confidence scores in results"""
 
-    extract_version: str
-    """Extract algorithm version.
-
-    Use 'latest' for the default pipeline or a date string (e.g. '2026-01-08') to
-    pin to a specific release.
-    """
-
     extraction_target: Literal["per_doc", "per_page", "per_table_row"]
     """
     Granularity of extraction: per_doc returns one object per document, per_page
@@ -65,3 +58,9 @@ class ExtractV2ParametersParam(TypedDict, total=False):
 
     tier: Literal["cost_effective", "agentic"]
     """Extract tier: cost_effective (5 credits/page) or agentic (15 credits/page)"""
+
+    version: str
+    """
+    Use 'latest' for the latest release for the selected tier or a date string
+    (YYYY-MM-DD format) to pin to the nearest release at or before that date.
+    """

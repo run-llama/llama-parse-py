@@ -29,7 +29,7 @@ class TestBatches:
         batch = client.batches.create(
             config={
                 "job": {
-                    "configuration_id": "cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "configuration_id": "cfg-PARSE_AGENTIC",
                     "type": "parse_v2",
                 }
             },
@@ -43,7 +43,7 @@ class TestBatches:
         batch = client.batches.create(
             config={
                 "job": {
-                    "configuration_id": "cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "configuration_id": "cfg-PARSE_AGENTIC",
                     "type": "parse_v2",
                 }
             },
@@ -59,7 +59,7 @@ class TestBatches:
         response = client.batches.with_raw_response.create(
             config={
                 "job": {
-                    "configuration_id": "cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "configuration_id": "cfg-PARSE_AGENTIC",
                     "type": "parse_v2",
                 }
             },
@@ -77,7 +77,7 @@ class TestBatches:
         with client.batches.with_streaming_response.create(
             config={
                 "job": {
-                    "configuration_id": "cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "configuration_id": "cfg-PARSE_AGENTIC",
                     "type": "parse_v2",
                 }
             },
@@ -199,7 +199,7 @@ class TestAsyncBatches:
         batch = await async_client.batches.create(
             config={
                 "job": {
-                    "configuration_id": "cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "configuration_id": "cfg-PARSE_AGENTIC",
                     "type": "parse_v2",
                 }
             },
@@ -213,7 +213,7 @@ class TestAsyncBatches:
         batch = await async_client.batches.create(
             config={
                 "job": {
-                    "configuration_id": "cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "configuration_id": "cfg-PARSE_AGENTIC",
                     "type": "parse_v2",
                 }
             },
@@ -229,7 +229,7 @@ class TestAsyncBatches:
         response = await async_client.batches.with_raw_response.create(
             config={
                 "job": {
-                    "configuration_id": "cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "configuration_id": "cfg-PARSE_AGENTIC",
                     "type": "parse_v2",
                 }
             },
@@ -247,7 +247,7 @@ class TestAsyncBatches:
         async with async_client.batches.with_streaming_response.create(
             config={
                 "job": {
-                    "configuration_id": "cfg-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                    "configuration_id": "cfg-PARSE_AGENTIC",
                     "type": "parse_v2",
                 }
             },
