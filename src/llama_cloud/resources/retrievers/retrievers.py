@@ -6,6 +6,14 @@ from typing import Iterable, Optional
 
 import httpx
 
+from .query import (
+    QueryResource,
+    AsyncQueryResource,
+    QueryResourceWithRawResponse,
+    AsyncQueryResourceWithRawResponse,
+    QueryResourceWithStreamingResponse,
+    AsyncQueryResourceWithStreamingResponse,
+)
 from ...types import (
     CompositeRetrievalMode,
     retriever_get_params,
@@ -19,14 +27,6 @@ from ...types import (
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
-from .retriever import (
-    RetrieverResource,
-    AsyncRetrieverResource,
-    RetrieverResourceWithRawResponse,
-    AsyncRetrieverResourceWithRawResponse,
-    RetrieverResourceWithStreamingResponse,
-    AsyncRetrieverResourceWithStreamingResponse,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
     to_raw_response_wrapper,
@@ -47,8 +47,8 @@ __all__ = ["RetrieversResource", "AsyncRetrieversResource"]
 
 class RetrieversResource(SyncAPIResource):
     @cached_property
-    def retriever(self) -> RetrieverResource:
-        return RetrieverResource(self._client)
+    def query(self) -> QueryResource:
+        return QueryResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> RetrieversResourceWithRawResponse:
@@ -447,8 +447,8 @@ class RetrieversResource(SyncAPIResource):
 
 class AsyncRetrieversResource(AsyncAPIResource):
     @cached_property
-    def retriever(self) -> AsyncRetrieverResource:
-        return AsyncRetrieverResource(self._client)
+    def query(self) -> AsyncQueryResource:
+        return AsyncQueryResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncRetrieversResourceWithRawResponse:
@@ -872,8 +872,8 @@ class RetrieversResourceWithRawResponse:
         )
 
     @cached_property
-    def retriever(self) -> RetrieverResourceWithRawResponse:
-        return RetrieverResourceWithRawResponse(self._retrievers.retriever)
+    def query(self) -> QueryResourceWithRawResponse:
+        return QueryResourceWithRawResponse(self._retrievers.query)
 
 
 class AsyncRetrieversResourceWithRawResponse:
@@ -903,8 +903,8 @@ class AsyncRetrieversResourceWithRawResponse:
         )
 
     @cached_property
-    def retriever(self) -> AsyncRetrieverResourceWithRawResponse:
-        return AsyncRetrieverResourceWithRawResponse(self._retrievers.retriever)
+    def query(self) -> AsyncQueryResourceWithRawResponse:
+        return AsyncQueryResourceWithRawResponse(self._retrievers.query)
 
 
 class RetrieversResourceWithStreamingResponse:
@@ -934,8 +934,8 @@ class RetrieversResourceWithStreamingResponse:
         )
 
     @cached_property
-    def retriever(self) -> RetrieverResourceWithStreamingResponse:
-        return RetrieverResourceWithStreamingResponse(self._retrievers.retriever)
+    def query(self) -> QueryResourceWithStreamingResponse:
+        return QueryResourceWithStreamingResponse(self._retrievers.query)
 
 
 class AsyncRetrieversResourceWithStreamingResponse:
@@ -965,5 +965,5 @@ class AsyncRetrieversResourceWithStreamingResponse:
         )
 
     @cached_property
-    def retriever(self) -> AsyncRetrieverResourceWithStreamingResponse:
-        return AsyncRetrieverResourceWithStreamingResponse(self._retrievers.retriever)
+    def query(self) -> AsyncQueryResourceWithStreamingResponse:
+        return AsyncQueryResourceWithStreamingResponse(self._retrievers.query)

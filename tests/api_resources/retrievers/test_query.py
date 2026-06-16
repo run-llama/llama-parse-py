@@ -14,22 +14,22 @@ from llama_cloud.types import CompositeRetrievalResult
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestRetriever:
+class TestQuery:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search(self, client: LlamaCloud) -> None:
-        retriever = client.retrievers.retriever.search(
+        query = client.retrievers.query.search(
             retriever_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="x",
         )
-        assert_matches_type(CompositeRetrievalResult, retriever, path=["response"])
+        assert_matches_type(CompositeRetrievalResult, query, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_search_with_all_params(self, client: LlamaCloud) -> None:
-        retriever = client.retrievers.retriever.search(
+        query = client.retrievers.query.search(
             retriever_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="x",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -41,33 +41,33 @@ class TestRetriever:
             },
             rerank_top_n=0,
         )
-        assert_matches_type(CompositeRetrievalResult, retriever, path=["response"])
+        assert_matches_type(CompositeRetrievalResult, query, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_search(self, client: LlamaCloud) -> None:
-        response = client.retrievers.retriever.with_raw_response.search(
+        response = client.retrievers.query.with_raw_response.search(
             retriever_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="x",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        retriever = response.parse()
-        assert_matches_type(CompositeRetrievalResult, retriever, path=["response"])
+        query = response.parse()
+        assert_matches_type(CompositeRetrievalResult, query, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_search(self, client: LlamaCloud) -> None:
-        with client.retrievers.retriever.with_streaming_response.search(
+        with client.retrievers.query.with_streaming_response.search(
             retriever_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            retriever = response.parse()
-            assert_matches_type(CompositeRetrievalResult, retriever, path=["response"])
+            query = response.parse()
+            assert_matches_type(CompositeRetrievalResult, query, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -75,13 +75,13 @@ class TestRetriever:
     @parametrize
     def test_path_params_search(self, client: LlamaCloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `retriever_id` but received ''"):
-            client.retrievers.retriever.with_raw_response.search(
+            client.retrievers.query.with_raw_response.search(
                 retriever_id="",
                 query="x",
             )
 
 
-class TestAsyncRetriever:
+class TestAsyncQuery:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
@@ -89,16 +89,16 @@ class TestAsyncRetriever:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search(self, async_client: AsyncLlamaCloud) -> None:
-        retriever = await async_client.retrievers.retriever.search(
+        query = await async_client.retrievers.query.search(
             retriever_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="x",
         )
-        assert_matches_type(CompositeRetrievalResult, retriever, path=["response"])
+        assert_matches_type(CompositeRetrievalResult, query, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_search_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        retriever = await async_client.retrievers.retriever.search(
+        query = await async_client.retrievers.query.search(
             retriever_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="x",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -110,33 +110,33 @@ class TestAsyncRetriever:
             },
             rerank_top_n=0,
         )
-        assert_matches_type(CompositeRetrievalResult, retriever, path=["response"])
+        assert_matches_type(CompositeRetrievalResult, query, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.retrievers.retriever.with_raw_response.search(
+        response = await async_client.retrievers.query.with_raw_response.search(
             retriever_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="x",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        retriever = await response.parse()
-        assert_matches_type(CompositeRetrievalResult, retriever, path=["response"])
+        query = await response.parse()
+        assert_matches_type(CompositeRetrievalResult, query, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.retrievers.retriever.with_streaming_response.search(
+        async with async_client.retrievers.query.with_streaming_response.search(
             retriever_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             query="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            retriever = await response.parse()
-            assert_matches_type(CompositeRetrievalResult, retriever, path=["response"])
+            query = await response.parse()
+            assert_matches_type(CompositeRetrievalResult, query, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -144,7 +144,7 @@ class TestAsyncRetriever:
     @parametrize
     async def test_path_params_search(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `retriever_id` but received ''"):
-            await async_client.retrievers.retriever.with_raw_response.search(
+            await async_client.retrievers.query.with_raw_response.search(
                 retriever_id="",
                 query="x",
             )

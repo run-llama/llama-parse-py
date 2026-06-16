@@ -18,33 +18,33 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.retrievers import retriever_search_params
+from ...types.retrievers import query_search_params
 from ...types.re_rank_config_param import ReRankConfigParam
 from ...types.composite_retrieval_mode import CompositeRetrievalMode
 from ...types.composite_retrieval_result import CompositeRetrievalResult
 
-__all__ = ["RetrieverResource", "AsyncRetrieverResource"]
+__all__ = ["QueryResource", "AsyncQueryResource"]
 
 
-class RetrieverResource(SyncAPIResource):
+class QueryResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> RetrieverResourceWithRawResponse:
+    def with_raw_response(self) -> QueryResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
-        return RetrieverResourceWithRawResponse(self)
+        return QueryResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> RetrieverResourceWithStreamingResponse:
+    def with_streaming_response(self) -> QueryResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
-        return RetrieverResourceWithStreamingResponse(self)
+        return QueryResourceWithStreamingResponse(self)
 
     def search(
         self,
@@ -95,7 +95,7 @@ class RetrieverResource(SyncAPIResource):
                     "rerank_config": rerank_config,
                     "rerank_top_n": rerank_top_n,
                 },
-                retriever_search_params.RetrieverSearchParams,
+                query_search_params.QuerySearchParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -107,32 +107,32 @@ class RetrieverResource(SyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    retriever_search_params.RetrieverSearchParams,
+                    query_search_params.QuerySearchParams,
                 ),
             ),
             cast_to=CompositeRetrievalResult,
         )
 
 
-class AsyncRetrieverResource(AsyncAPIResource):
+class AsyncQueryResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncRetrieverResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncQueryResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
-        return AsyncRetrieverResourceWithRawResponse(self)
+        return AsyncQueryResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncRetrieverResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncQueryResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
-        return AsyncRetrieverResourceWithStreamingResponse(self)
+        return AsyncQueryResourceWithStreamingResponse(self)
 
     async def search(
         self,
@@ -183,7 +183,7 @@ class AsyncRetrieverResource(AsyncAPIResource):
                     "rerank_config": rerank_config,
                     "rerank_top_n": rerank_top_n,
                 },
-                retriever_search_params.RetrieverSearchParams,
+                query_search_params.QuerySearchParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -195,44 +195,44 @@ class AsyncRetrieverResource(AsyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    retriever_search_params.RetrieverSearchParams,
+                    query_search_params.QuerySearchParams,
                 ),
             ),
             cast_to=CompositeRetrievalResult,
         )
 
 
-class RetrieverResourceWithRawResponse:
-    def __init__(self, retriever: RetrieverResource) -> None:
-        self._retriever = retriever
+class QueryResourceWithRawResponse:
+    def __init__(self, query: QueryResource) -> None:
+        self._query = query
 
         self.search = to_raw_response_wrapper(
-            retriever.search,
+            query.search,
         )
 
 
-class AsyncRetrieverResourceWithRawResponse:
-    def __init__(self, retriever: AsyncRetrieverResource) -> None:
-        self._retriever = retriever
+class AsyncQueryResourceWithRawResponse:
+    def __init__(self, query: AsyncQueryResource) -> None:
+        self._query = query
 
         self.search = async_to_raw_response_wrapper(
-            retriever.search,
+            query.search,
         )
 
 
-class RetrieverResourceWithStreamingResponse:
-    def __init__(self, retriever: RetrieverResource) -> None:
-        self._retriever = retriever
+class QueryResourceWithStreamingResponse:
+    def __init__(self, query: QueryResource) -> None:
+        self._query = query
 
         self.search = to_streamed_response_wrapper(
-            retriever.search,
+            query.search,
         )
 
 
-class AsyncRetrieverResourceWithStreamingResponse:
-    def __init__(self, retriever: AsyncRetrieverResource) -> None:
-        self._retriever = retriever
+class AsyncQueryResourceWithStreamingResponse:
+    def __init__(self, query: AsyncQueryResource) -> None:
+        self._query = query
 
         self.search = async_to_streamed_response_wrapper(
-            retriever.search,
+            query.search,
         )
