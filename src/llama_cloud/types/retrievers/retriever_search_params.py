@@ -8,10 +8,10 @@ from typing_extensions import Required, TypedDict
 from ..re_rank_config_param import ReRankConfigParam
 from ..composite_retrieval_mode import CompositeRetrievalMode
 
-__all__ = ["QuerySearchParams"]
+__all__ = ["RetrieverSearchParams"]
 
 
-class QuerySearchParams(TypedDict, total=False):
+class RetrieverSearchParams(TypedDict, total=False):
     query: Required[str]
     """The query to retrieve against."""
 

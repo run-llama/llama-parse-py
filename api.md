@@ -420,11 +420,11 @@ Methods:
 - <code title="post /api/v1/retrievers/retrieve">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">search</a>(\*\*<a href="src/llama_cloud/types/retriever_search_params.py">params</a>) -> <a href="./src/llama_cloud/types/composite_retrieval_result.py">CompositeRetrievalResult</a></code>
 - <code title="put /api/v1/retrievers">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">upsert</a>(\*\*<a href="src/llama_cloud/types/retriever_upsert_params.py">params</a>) -> <a href="./src/llama_cloud/types/retriever.py">Retriever</a></code>
 
-## Query
+## Retriever
 
 Methods:
 
-- <code title="post /api/v1/retrievers/{retriever_id}/retrieve">client.retrievers.query.<a href="./src/llama_cloud/resources/retrievers/query.py">search</a>(retriever_id, \*\*<a href="src/llama_cloud/types/retrievers/query_search_params.py">params</a>) -> <a href="./src/llama_cloud/types/composite_retrieval_result.py">CompositeRetrievalResult</a></code>
+- <code title="post /api/v1/retrievers/{retriever_id}/retrieve">client.retrievers.retriever.<a href="./src/llama_cloud/resources/retrievers/retriever.py">search</a>(retriever_id, \*\*<a href="src/llama_cloud/types/retrievers/retriever_search_params.py">params</a>) -> <a href="./src/llama_cloud/types/composite_retrieval_result.py">CompositeRetrievalResult</a></code>
 
 # Beta
 

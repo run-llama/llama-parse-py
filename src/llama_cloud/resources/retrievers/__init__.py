@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .query import (
-    QueryResource,
-    AsyncQueryResource,
-    QueryResourceWithRawResponse,
-    AsyncQueryResourceWithRawResponse,
-    QueryResourceWithStreamingResponse,
-    AsyncQueryResourceWithStreamingResponse,
+from .retriever import (
+    RetrieverResource,
+    AsyncRetrieverResource,
+    RetrieverResourceWithRawResponse,
+    AsyncRetrieverResourceWithRawResponse,
+    RetrieverResourceWithStreamingResponse,
+    AsyncRetrieverResourceWithStreamingResponse,
 )
 from .retrievers import (
     RetrieversResource,
@@ -18,12 +18,12 @@ from .retrievers import (
 )
 
 __all__ = [
-    "QueryResource",
-    "AsyncQueryResource",
-    "QueryResourceWithRawResponse",
-    "AsyncQueryResourceWithRawResponse",
-    "QueryResourceWithStreamingResponse",
-    "AsyncQueryResourceWithStreamingResponse",
+    "RetrieverResource",
+    "AsyncRetrieverResource",
+    "RetrieverResourceWithRawResponse",
+    "AsyncRetrieverResourceWithRawResponse",
+    "RetrieverResourceWithStreamingResponse",
+    "AsyncRetrieverResourceWithStreamingResponse",
     "RetrieversResource",
     "AsyncRetrieversResource",
     "RetrieversResourceWithRawResponse",

@@ -2,4 +2,4 @@
 
 from __future__ import annotations
 
-from .query_search_params import QuerySearchParams as QuerySearchParams
+from .retriever_search_params import RetrieverSearchParams as RetrieverSearchParams
