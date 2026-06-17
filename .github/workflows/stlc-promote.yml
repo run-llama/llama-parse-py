@@ -1,0 +1,73 @@
+name: Promote SDKs
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    if: github.repository == 'run-llama/llamacloud-prod-python'
+    env:
+      PRODUCTION_REPO: run-llama/llama-parse-py
+      GH_TOKEN: ${{ secrets.PRODUCTION_REPO_TOKEN }}
+    steps:
+      - name: Check out staging
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Fetch production main
+        run: |
+          git remote add production \
+            "https://x-access-token:${GH_TOKEN}@github.com/${PRODUCTION_REPO}.git"
+          git fetch production main
+
+      - name: Check whether production already has staging's content
+        id: diff
+        run: |
+          # Compare by CONTENT, not commit SHA. After a release, production
+          # carries release-please's version/changelog commits that staging
+          # lacks, so the SHAs always differ — a SHA check would re-open a
+          # spurious release PR (and push staging's now-stale manifest) on
+          # every push. Instead, ask whether merging staging into production
+          # would change production's tree: if not, production already contains
+          # everything on staging (it's equal, or only ahead by release
+          # metadata) and there is nothing to release.
+          MERGED=$(git merge-tree --write-tree production/main origin/main) || MERGED=conflict
+          PRODUCTION_TREE=$(git rev-parse 'production/main^{tree}')
+          if [ "$MERGED" = "$PRODUCTION_TREE" ]; then
+            echo "Production already contains staging's content. Nothing to release."
+            echo "synced=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "synced=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push staging main to the release branch on production
+        if: steps.diff.outputs.synced == 'false'
+        run: |
+          git push production origin/main:refs/heads/stainless/release --force
+
+      - name: Open or update the release PR on production
+        if: steps.diff.outputs.synced == 'false'
+        run: |
+          EXISTING_PR=$(gh pr list \
+            --repo "${PRODUCTION_REPO}" \
+            --head stainless/release \
+            --state open \
+            --json number \
+            --jq '.[0].number')
+          if [ -z "${EXISTING_PR}" ]; then
+            gh pr create \
+              --repo "${PRODUCTION_REPO}" \
+              --base main \
+              --head stainless/release \
+              --title "Release SDK updates" \
+              --body "$(git log --oneline production/main..origin/main)"
+          else
+            echo "Release PR #${EXISTING_PR} already exists. Force-push has updated it."
+          fi
