@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Mapping, cast
 
 import httpx
@@ -44,6 +45,7 @@ class MetadataResource(SyncAPIResource):
         """
         return MetadataResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def create(
         self,
         pipeline_id: str,
@@ -86,6 +88,7 @@ class MetadataResource(SyncAPIResource):
             cast_to=MetadataCreateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def delete_all(
         self,
         pipeline_id: str,
@@ -141,6 +144,7 @@ class AsyncMetadataResource(AsyncAPIResource):
         """
         return AsyncMetadataResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def create(
         self,
         pipeline_id: str,
@@ -183,6 +187,7 @@ class AsyncMetadataResource(AsyncAPIResource):
             cast_to=MetadataCreateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def delete_all(
         self,
         pipeline_id: str,
@@ -222,11 +227,15 @@ class MetadataResourceWithRawResponse:
     def __init__(self, metadata: MetadataResource) -> None:
         self._metadata = metadata
 
-        self.create = to_raw_response_wrapper(
-            metadata.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                metadata.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete_all = to_raw_response_wrapper(
-            metadata.delete_all,
+        self.delete_all = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                metadata.delete_all,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -234,11 +243,15 @@ class AsyncMetadataResourceWithRawResponse:
     def __init__(self, metadata: AsyncMetadataResource) -> None:
         self._metadata = metadata
 
-        self.create = async_to_raw_response_wrapper(
-            metadata.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                metadata.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete_all = async_to_raw_response_wrapper(
-            metadata.delete_all,
+        self.delete_all = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                metadata.delete_all,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -246,11 +259,15 @@ class MetadataResourceWithStreamingResponse:
     def __init__(self, metadata: MetadataResource) -> None:
         self._metadata = metadata
 
-        self.create = to_streamed_response_wrapper(
-            metadata.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                metadata.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete_all = to_streamed_response_wrapper(
-            metadata.delete_all,
+        self.delete_all = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                metadata.delete_all,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -258,9 +275,13 @@ class AsyncMetadataResourceWithStreamingResponse:
     def __init__(self, metadata: AsyncMetadataResource) -> None:
         self._metadata = metadata
 
-        self.create = async_to_streamed_response_wrapper(
-            metadata.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                metadata.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete_all = async_to_streamed_response_wrapper(
-            metadata.delete_all,
+        self.delete_all = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                metadata.delete_all,  # pyright: ignore[reportDeprecated],
+            )
         )

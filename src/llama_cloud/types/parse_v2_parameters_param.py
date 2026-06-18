@@ -14,6 +14,7 @@ __all__ = [
     "CropBox",
     "InputOptions",
     "InputOptionsHTML",
+    "InputOptionsImage",
     "InputOptionsPresentation",
     "InputOptionsSpreadsheet",
     "OutputOptions",
@@ -105,6 +106,19 @@ class InputOptionsHTML(TypedDict, total=False):
     """Remove navigation elements (nav bars, sidebars, menus) to focus on main content"""
 
 
+class InputOptionsImage(TypedDict, total=False):
+    """Image parsing options (applies to .jpg, .jpeg, .png, .webp files)"""
+
+    camera_photo_correction: Optional[bool]
+    """Detect documents photographed with a camera (e.g.
+
+    phone scans of receipts or forms), then crop, perspective-correct, and flatten
+    uneven lighting and shadows before parsing. Supports JPEG, PNG, WebP, and
+    HEIC/HEIF inputs. Improves results when the document is tilted or surrounded by
+    background. Images that already look like clean scans are left untouched
+    """
+
+
 class InputOptionsPresentation(TypedDict, total=False):
     """Presentation parsing options (applies to .pptx, .ppt, .odp, .key files)"""
 
@@ -154,6 +168,9 @@ class InputOptions(TypedDict, total=False):
 
     html: InputOptionsHTML
     """HTML/web page parsing options (applies to .html, .htm files)"""
+
+    image: InputOptionsImage
+    """Image parsing options (applies to .jpg, .jpeg, .png, .webp files)"""
 
     pdf: object
     """PDF-specific parsing options (applies to .pdf files)"""
@@ -480,7 +497,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     tier: Optional[Literal["fast", "cost_effective", "agentic", "agentic_plus"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str, None]
+    version: Union[Literal["latest", "2026-06-17", "2026-06-11", "2025-12-11"], str, None]
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -489,9 +506,9 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-05`
-    - `agentic`: `2026-06-04`
-    - `agentic_plus`: `2026-06-04`
+    - `cost_effective`: `2026-06-17`
+    - `agentic`: `2026-06-11`
+    - `agentic_plus`: `2026-06-11`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -766,7 +783,7 @@ class ParseV2ParametersParam(TypedDict, total=False):
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str]]
+    version: Required[Union[Literal["latest", "2026-06-17", "2026-06-11", "2025-12-11"], str]]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -774,9 +791,9 @@ class ParseV2ParametersParam(TypedDict, total=False):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-05`
-    - `agentic`: `2026-06-04`
-    - `agentic_plus`: `2026-06-04`
+    - `cost_effective`: `2026-06-17`
+    - `agentic`: `2026-06-11`
+    - `agentic_plus`: `2026-06-11`
 
     Full list: `GET /api/v2/parse/versions`.
     """

@@ -49,6 +49,7 @@ class FilesResource(SyncAPIResource):
         """
         return FilesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def create(
         self,
         pipeline_id: str,
@@ -84,6 +85,7 @@ class FilesResource(SyncAPIResource):
             cast_to=FileCreateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def update(
         self,
         file_id: str,
@@ -184,6 +186,7 @@ class FilesResource(SyncAPIResource):
             model=PipelineFile,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def delete(
         self,
         file_id: str,
@@ -221,6 +224,7 @@ class FilesResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get_status(
         self,
         file_id: str,
@@ -259,6 +263,7 @@ class FilesResource(SyncAPIResource):
             cast_to=ManagedIngestionStatusResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get_status_counts(
         self,
         pipeline_id: str,
@@ -325,6 +330,7 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         return AsyncFilesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def create(
         self,
         pipeline_id: str,
@@ -360,6 +366,7 @@ class AsyncFilesResource(AsyncAPIResource):
             cast_to=FileCreateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def update(
         self,
         file_id: str,
@@ -460,6 +467,7 @@ class AsyncFilesResource(AsyncAPIResource):
             model=PipelineFile,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def delete(
         self,
         file_id: str,
@@ -497,6 +505,7 @@ class AsyncFilesResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get_status(
         self,
         file_id: str,
@@ -535,6 +544,7 @@ class AsyncFilesResource(AsyncAPIResource):
             cast_to=ManagedIngestionStatusResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get_status_counts(
         self,
         pipeline_id: str,
@@ -585,25 +595,35 @@ class FilesResourceWithRawResponse:
     def __init__(self, files: FilesResource) -> None:
         self._files = files
 
-        self.create = to_raw_response_wrapper(
-            files.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                files.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update = to_raw_response_wrapper(
-            files.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                files.update,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.list = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
                 files.list,  # pyright: ignore[reportDeprecated],
             )
         )
-        self.delete = to_raw_response_wrapper(
-            files.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                files.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = to_raw_response_wrapper(
-            files.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                files.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status_counts = to_raw_response_wrapper(
-            files.get_status_counts,
+        self.get_status_counts = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                files.get_status_counts,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -611,25 +631,35 @@ class AsyncFilesResourceWithRawResponse:
     def __init__(self, files: AsyncFilesResource) -> None:
         self._files = files
 
-        self.create = async_to_raw_response_wrapper(
-            files.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                files.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update = async_to_raw_response_wrapper(
-            files.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                files.update,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.list = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
                 files.list,  # pyright: ignore[reportDeprecated],
             )
         )
-        self.delete = async_to_raw_response_wrapper(
-            files.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                files.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = async_to_raw_response_wrapper(
-            files.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                files.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status_counts = async_to_raw_response_wrapper(
-            files.get_status_counts,
+        self.get_status_counts = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                files.get_status_counts,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -637,25 +667,35 @@ class FilesResourceWithStreamingResponse:
     def __init__(self, files: FilesResource) -> None:
         self._files = files
 
-        self.create = to_streamed_response_wrapper(
-            files.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                files.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update = to_streamed_response_wrapper(
-            files.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                files.update,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.list = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
                 files.list,  # pyright: ignore[reportDeprecated],
             )
         )
-        self.delete = to_streamed_response_wrapper(
-            files.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                files.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = to_streamed_response_wrapper(
-            files.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                files.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status_counts = to_streamed_response_wrapper(
-            files.get_status_counts,
+        self.get_status_counts = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                files.get_status_counts,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -663,23 +703,33 @@ class AsyncFilesResourceWithStreamingResponse:
     def __init__(self, files: AsyncFilesResource) -> None:
         self._files = files
 
-        self.create = async_to_streamed_response_wrapper(
-            files.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                files.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update = async_to_streamed_response_wrapper(
-            files.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                files.update,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.list = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
                 files.list,  # pyright: ignore[reportDeprecated],
             )
         )
-        self.delete = async_to_streamed_response_wrapper(
-            files.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                files.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = async_to_streamed_response_wrapper(
-            files.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                files.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status_counts = async_to_streamed_response_wrapper(
-            files.get_status_counts,
+        self.get_status_counts = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                files.get_status_counts,  # pyright: ignore[reportDeprecated],
+            )
         )
