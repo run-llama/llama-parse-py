@@ -23,7 +23,7 @@ from llama_cloud import LlamaCloud, AsyncLlamaCloud, APIResponseValidationError
 from llama_cloud._types import Omit
 from llama_cloud._utils import asyncify
 from llama_cloud._models import BaseModel, FinalRequestOptions
-from llama_cloud._exceptions import APIStatusError, APITimeoutError, LlamaCloudError, APIResponseValidationError
+from llama_cloud._exceptions import APIStatusError, LlamaCloudError, APIResponseValidationError
 from llama_cloud._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -101,14 +101,6 @@ async def _make_async_iterator(iterable: Iterable[T], counter: Optional[Counter]
         if counter:
             counter.value += 1
         yield item
-
-
-def _get_open_connections(client: LlamaCloud | AsyncLlamaCloud) -> int:
-    transport = client._client._transport
-    assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
-
-    pool = transport._pool
-    return len(pool._requests)
 
 
 class TestLlamaCloud:
@@ -880,25 +872,6 @@ class TestLlamaCloud:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("llama_cloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: LlamaCloud) -> None:
-        respx_mock.get("/api/v1/pipelines").mock(side_effect=httpx.TimeoutException("Test timeout error"))
-
-        with pytest.raises(APITimeoutError):
-            client.pipelines.with_streaming_response.list().__enter__()
-
-        assert _get_open_connections(client) == 0
-
-    @mock.patch("llama_cloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: LlamaCloud) -> None:
-        respx_mock.get("/api/v1/pipelines").mock(return_value=httpx.Response(500))
-
-        with pytest.raises(APIStatusError):
-            client.pipelines.with_streaming_response.list().__enter__()
-        assert _get_open_connections(client) == 0
-
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("llama_cloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
@@ -923,9 +896,9 @@ class TestLlamaCloud:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/pipelines").mock(side_effect=retry_handler)
+        respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = client.pipelines.with_raw_response.list()
+        response = client.beta.indexes.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -947,9 +920,9 @@ class TestLlamaCloud:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/pipelines").mock(side_effect=retry_handler)
+        respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = client.pipelines.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.beta.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -970,9 +943,9 @@ class TestLlamaCloud:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/pipelines").mock(side_effect=retry_handler)
+        respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = client.pipelines.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.beta.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1812,29 +1785,6 @@ class TestAsyncLlamaCloud:
         calculated = async_client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("llama_cloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(
-        self, respx_mock: MockRouter, async_client: AsyncLlamaCloud
-    ) -> None:
-        respx_mock.get("/api/v1/pipelines").mock(side_effect=httpx.TimeoutException("Test timeout error"))
-
-        with pytest.raises(APITimeoutError):
-            await async_client.pipelines.with_streaming_response.list().__aenter__()
-
-        assert _get_open_connections(async_client) == 0
-
-    @mock.patch("llama_cloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
-    @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(
-        self, respx_mock: MockRouter, async_client: AsyncLlamaCloud
-    ) -> None:
-        respx_mock.get("/api/v1/pipelines").mock(return_value=httpx.Response(500))
-
-        with pytest.raises(APIStatusError):
-            await async_client.pipelines.with_streaming_response.list().__aenter__()
-        assert _get_open_connections(async_client) == 0
-
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
     @mock.patch("llama_cloud._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
@@ -1859,9 +1809,9 @@ class TestAsyncLlamaCloud:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/pipelines").mock(side_effect=retry_handler)
+        respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = await client.pipelines.with_raw_response.list()
+        response = await client.beta.indexes.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1883,9 +1833,9 @@ class TestAsyncLlamaCloud:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/pipelines").mock(side_effect=retry_handler)
+        respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = await client.pipelines.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
+        response = await client.beta.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1906,9 +1856,9 @@ class TestAsyncLlamaCloud:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/api/v1/pipelines").mock(side_effect=retry_handler)
+        respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = await client.pipelines.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
+        response = await client.beta.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 

@@ -1,3 +1,6 @@
+# Index/sheets helpers intentionally use the deprecated v1 pipelines / beta.sheets API;
+# migration to the indexes/retrievers + top-level sheets API is tracked separately.
+# pyright: reportDeprecated=false
 from __future__ import annotations
 
 import logging

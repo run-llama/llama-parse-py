@@ -140,7 +140,7 @@ class SheetsResource(SyncAPIResource):
             ```
         """
         # Create the job
-        job = self.create(
+        job = self.create(  # pyright: ignore[reportDeprecated]
             file_id=file_id,
             organization_id=organization_id,
             project_id=project_id,
@@ -244,7 +244,7 @@ class SheetsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `spreadsheet_job_id` but received {spreadsheet_job_id!r}")
 
         def get_status() -> SheetsJob:
-            return self.get(
+            return self.get(  # pyright: ignore[reportDeprecated]
                 spreadsheet_job_id,
                 include_results=True,
                 organization_id=organization_id,
@@ -684,7 +684,7 @@ class AsyncSheetsResource(AsyncAPIResource):
             ```
         """
         # Create the job
-        job = await self.create(
+        job = await self.create(  # pyright: ignore[reportDeprecated]
             file_id=file_id,
             organization_id=organization_id,
             project_id=project_id,
@@ -788,7 +788,7 @@ class AsyncSheetsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `spreadsheet_job_id` but received {spreadsheet_job_id!r}")
 
         async def get_status() -> SheetsJob:
-            return await self.get(
+            return await self.get(  # pyright: ignore[reportDeprecated]
                 spreadsheet_job_id,
                 include_results=True,
                 organization_id=organization_id,

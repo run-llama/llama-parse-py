@@ -26,9 +26,9 @@ def index_name() -> Generator[str, None, None]:
         yield name
     finally:
         client = LlamaCloud(api_key=api_key, base_url=base_url)
-        pipeline = client.pipelines.list(pipeline_name=name)
+        pipeline = client.pipelines.list(pipeline_name=name)  # pyright: ignore[reportDeprecated]
         if pipeline:
-            client.pipelines.delete(pipeline_id=pipeline[0].id)
+            client.pipelines.delete(pipeline_id=pipeline[0].id)  # pyright: ignore[reportDeprecated]
 
 
 @pytest.fixture()
@@ -49,7 +49,7 @@ def _setup_index_with_file(client: LlamaCloud, index_name: str) -> Pipeline:
     project = client.projects.get(project_id=project_id)
 
     # create pipeline
-    pipeline = client.pipelines.upsert(
+    pipeline = client.pipelines.upsert(  # pyright: ignore[reportDeprecated]
         name=index_name, project_id=project.id, transform_config=AutoTransformConfigParam()
     )
 
@@ -64,7 +64,7 @@ def _setup_index_with_file(client: LlamaCloud, index_name: str) -> Pipeline:
         )
 
     # add file to pipeline
-    client.pipelines.files.create(pipeline_id=pipeline.id, body=[{"file_id": file_obj.id}])
+    client.pipelines.files.create(pipeline_id=pipeline.id, body=[{"file_id": file_obj.id}])  # pyright: ignore[reportDeprecated]
 
     return pipeline
 
