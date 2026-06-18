@@ -28,19 +28,22 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: LlamaCloud) -> None:
-        file = client.pipelines.files.create(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-        )
+        with pytest.warns(DeprecationWarning):
+            file = client.pipelines.files.create(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            )
+
         assert_matches_type(FileCreateResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: LlamaCloud) -> None:
-        response = client.pipelines.files.with_raw_response.create(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-        )
+        with pytest.warns(DeprecationWarning):
+            response = client.pipelines.files.with_raw_response.create(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -50,53 +53,60 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: LlamaCloud) -> None:
-        with client.pipelines.files.with_streaming_response.create(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            with client.pipelines.files.with_streaming_response.create(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = response.parse()
-            assert_matches_type(FileCreateResponse, file, path=["response"])
+                file = response.parse()
+                assert_matches_type(FileCreateResponse, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_create(self, client: LlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            client.pipelines.files.with_raw_response.create(
-                pipeline_id="",
-                body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                client.pipelines.files.with_raw_response.create(
+                    pipeline_id="",
+                    body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+                )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: LlamaCloud) -> None:
-        file = client.pipelines.files.update(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            file = client.pipelines.files.update(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert_matches_type(PipelineFile, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: LlamaCloud) -> None:
-        file = client.pipelines.files.update(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            custom_metadata={"foo": {"foo": "bar"}},
-        )
+        with pytest.warns(DeprecationWarning):
+            file = client.pipelines.files.update(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                custom_metadata={"foo": {"foo": "bar"}},
+            )
+
         assert_matches_type(PipelineFile, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: LlamaCloud) -> None:
-        response = client.pipelines.files.with_raw_response.update(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = client.pipelines.files.with_raw_response.update(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -106,32 +116,34 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: LlamaCloud) -> None:
-        with client.pipelines.files.with_streaming_response.update(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            with client.pipelines.files.with_streaming_response.update(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = response.parse()
-            assert_matches_type(PipelineFile, file, path=["response"])
+                file = response.parse()
+                assert_matches_type(PipelineFile, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: LlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            client.pipelines.files.with_raw_response.update(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="",
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                client.pipelines.files.with_raw_response.update(
+                    file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    pipeline_id="",
+                )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.pipelines.files.with_raw_response.update(
-                file_id="",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+                client.pipelines.files.with_raw_response.update(
+                    file_id="",
+                    pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -200,19 +212,22 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: LlamaCloud) -> None:
-        file = client.pipelines.files.delete(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            file = client.pipelines.files.delete(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert file is None
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: LlamaCloud) -> None:
-        response = client.pipelines.files.with_raw_response.delete(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = client.pipelines.files.with_raw_response.delete(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -222,49 +237,54 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: LlamaCloud) -> None:
-        with client.pipelines.files.with_streaming_response.delete(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            with client.pipelines.files.with_streaming_response.delete(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = response.parse()
-            assert file is None
+                file = response.parse()
+                assert file is None
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: LlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            client.pipelines.files.with_raw_response.delete(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="",
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                client.pipelines.files.with_raw_response.delete(
+                    file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    pipeline_id="",
+                )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.pipelines.files.with_raw_response.delete(
-                file_id="",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+                client.pipelines.files.with_raw_response.delete(
+                    file_id="",
+                    pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_status(self, client: LlamaCloud) -> None:
-        file = client.pipelines.files.get_status(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            file = client.pipelines.files.get_status(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_status(self, client: LlamaCloud) -> None:
-        response = client.pipelines.files.with_raw_response.get_status(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = client.pipelines.files.with_raw_response.get_status(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -274,57 +294,64 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_status(self, client: LlamaCloud) -> None:
-        with client.pipelines.files.with_streaming_response.get_status(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            with client.pipelines.files.with_streaming_response.get_status(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = response.parse()
-            assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
+                file = response.parse()
+                assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_get_status(self, client: LlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            client.pipelines.files.with_raw_response.get_status(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="",
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                client.pipelines.files.with_raw_response.get_status(
+                    file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    pipeline_id="",
+                )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.pipelines.files.with_raw_response.get_status(
-                file_id="",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+                client.pipelines.files.with_raw_response.get_status(
+                    file_id="",
+                    pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_status_counts(self, client: LlamaCloud) -> None:
-        file = client.pipelines.files.get_status_counts(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            file = client.pipelines.files.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_status_counts_with_all_params(self, client: LlamaCloud) -> None:
-        file = client.pipelines.files.get_status_counts(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            only_manually_uploaded=True,
-        )
+        with pytest.warns(DeprecationWarning):
+            file = client.pipelines.files.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                only_manually_uploaded=True,
+            )
+
         assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_status_counts(self, client: LlamaCloud) -> None:
-        response = client.pipelines.files.with_raw_response.get_status_counts(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = client.pipelines.files.with_raw_response.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -334,24 +361,26 @@ class TestFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_status_counts(self, client: LlamaCloud) -> None:
-        with client.pipelines.files.with_streaming_response.get_status_counts(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            with client.pipelines.files.with_streaming_response.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = response.parse()
-            assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])
+                file = response.parse()
+                assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_get_status_counts(self, client: LlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            client.pipelines.files.with_raw_response.get_status_counts(
-                pipeline_id="",
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                client.pipelines.files.with_raw_response.get_status_counts(
+                    pipeline_id="",
+                )
 
 
 class TestAsyncFiles:
@@ -362,19 +391,22 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncLlamaCloud) -> None:
-        file = await async_client.pipelines.files.create(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-        )
+        with pytest.warns(DeprecationWarning):
+            file = await async_client.pipelines.files.create(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            )
+
         assert_matches_type(FileCreateResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.pipelines.files.with_raw_response.create(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-        )
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.pipelines.files.with_raw_response.create(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -384,53 +416,60 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.pipelines.files.with_streaming_response.create(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.pipelines.files.with_streaming_response.create(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = await response.parse()
-            assert_matches_type(FileCreateResponse, file, path=["response"])
+                file = await response.parse()
+                assert_matches_type(FileCreateResponse, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_create(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            await async_client.pipelines.files.with_raw_response.create(
-                pipeline_id="",
-                body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                await async_client.pipelines.files.with_raw_response.create(
+                    pipeline_id="",
+                    body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
+                )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncLlamaCloud) -> None:
-        file = await async_client.pipelines.files.update(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            file = await async_client.pipelines.files.update(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert_matches_type(PipelineFile, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        file = await async_client.pipelines.files.update(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            custom_metadata={"foo": {"foo": "bar"}},
-        )
+        with pytest.warns(DeprecationWarning):
+            file = await async_client.pipelines.files.update(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                custom_metadata={"foo": {"foo": "bar"}},
+            )
+
         assert_matches_type(PipelineFile, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.pipelines.files.with_raw_response.update(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.pipelines.files.with_raw_response.update(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -440,32 +479,34 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.pipelines.files.with_streaming_response.update(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.pipelines.files.with_streaming_response.update(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = await response.parse()
-            assert_matches_type(PipelineFile, file, path=["response"])
+                file = await response.parse()
+                assert_matches_type(PipelineFile, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            await async_client.pipelines.files.with_raw_response.update(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="",
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                await async_client.pipelines.files.with_raw_response.update(
+                    file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    pipeline_id="",
+                )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.pipelines.files.with_raw_response.update(
-                file_id="",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+                await async_client.pipelines.files.with_raw_response.update(
+                    file_id="",
+                    pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -534,19 +575,22 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncLlamaCloud) -> None:
-        file = await async_client.pipelines.files.delete(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            file = await async_client.pipelines.files.delete(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert file is None
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.pipelines.files.with_raw_response.delete(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.pipelines.files.with_raw_response.delete(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -556,49 +600,54 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.pipelines.files.with_streaming_response.delete(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.pipelines.files.with_streaming_response.delete(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = await response.parse()
-            assert file is None
+                file = await response.parse()
+                assert file is None
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            await async_client.pipelines.files.with_raw_response.delete(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="",
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                await async_client.pipelines.files.with_raw_response.delete(
+                    file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    pipeline_id="",
+                )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.pipelines.files.with_raw_response.delete(
-                file_id="",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+                await async_client.pipelines.files.with_raw_response.delete(
+                    file_id="",
+                    pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_status(self, async_client: AsyncLlamaCloud) -> None:
-        file = await async_client.pipelines.files.get_status(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            file = await async_client.pipelines.files.get_status(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_status(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.pipelines.files.with_raw_response.get_status(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.pipelines.files.with_raw_response.get_status(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -608,57 +657,64 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_status(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.pipelines.files.with_streaming_response.get_status(
-            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.pipelines.files.with_streaming_response.get_status(
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = await response.parse()
-            assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
+                file = await response.parse()
+                assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_get_status(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            await async_client.pipelines.files.with_raw_response.get_status(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="",
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                await async_client.pipelines.files.with_raw_response.get_status(
+                    file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                    pipeline_id="",
+                )
 
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.pipelines.files.with_raw_response.get_status(
-                file_id="",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+                await async_client.pipelines.files.with_raw_response.get_status(
+                    file_id="",
+                    pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_status_counts(self, async_client: AsyncLlamaCloud) -> None:
-        file = await async_client.pipelines.files.get_status_counts(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            file = await async_client.pipelines.files.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_status_counts_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        file = await async_client.pipelines.files.get_status_counts(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            only_manually_uploaded=True,
-        )
+        with pytest.warns(DeprecationWarning):
+            file = await async_client.pipelines.files.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                only_manually_uploaded=True,
+            )
+
         assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_status_counts(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.pipelines.files.with_raw_response.get_status_counts(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.pipelines.files.with_raw_response.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -668,21 +724,23 @@ class TestAsyncFiles:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_status_counts(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.pipelines.files.with_streaming_response.get_status_counts(
-            pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.pipelines.files.with_streaming_response.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            file = await response.parse()
-            assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])
+                file = await response.parse()
+                assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_get_status_counts(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
-            await async_client.pipelines.files.with_raw_response.get_status_counts(
-                pipeline_id="",
-            )
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                await async_client.pipelines.files.with_raw_response.get_status_counts(
+                    pipeline_id="",
+                )

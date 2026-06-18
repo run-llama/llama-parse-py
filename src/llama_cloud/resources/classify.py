@@ -100,7 +100,8 @@ class ClassifyResource(SyncAPIResource):
 
           parse_job_id: Deprecated: use file_input instead
 
-          transaction_id: Idempotency key scoped to the project
+          transaction_id: Idempotency key scoped to the project. Reusing a key returns the original job;
+              the new request body is ignored.
 
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
@@ -513,7 +514,8 @@ class AsyncClassifyResource(AsyncAPIResource):
 
           parse_job_id: Deprecated: use file_input instead
 
-          transaction_id: Idempotency key scoped to the project
+          transaction_id: Idempotency key scoped to the project. Reusing a key returns the original job;
+              the new request body is ignored.
 
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
