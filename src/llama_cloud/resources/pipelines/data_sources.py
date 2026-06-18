@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Iterable, Optional
 
 import httpx
@@ -51,6 +52,7 @@ class DataSourcesResource(SyncAPIResource):
         """
         return DataSourcesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def update(
         self,
         data_source_id: str,
@@ -95,6 +97,7 @@ class DataSourcesResource(SyncAPIResource):
             cast_to=PipelineDataSource,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get_data_sources(
         self,
         pipeline_id: str,
@@ -128,6 +131,7 @@ class DataSourcesResource(SyncAPIResource):
             cast_to=DataSourceGetDataSourcesResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get_status(
         self,
         data_source_id: str,
@@ -168,6 +172,7 @@ class DataSourcesResource(SyncAPIResource):
             cast_to=ManagedIngestionStatusResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def sync(
         self,
         data_source_id: str,
@@ -213,6 +218,7 @@ class DataSourcesResource(SyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def update_data_sources(
         self,
         pipeline_id: str,
@@ -269,6 +275,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         """
         return AsyncDataSourcesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def update(
         self,
         data_source_id: str,
@@ -315,6 +322,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
             cast_to=PipelineDataSource,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get_data_sources(
         self,
         pipeline_id: str,
@@ -348,6 +356,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
             cast_to=DataSourceGetDataSourcesResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get_status(
         self,
         data_source_id: str,
@@ -388,6 +397,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
             cast_to=ManagedIngestionStatusResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def sync(
         self,
         data_source_id: str,
@@ -433,6 +443,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def update_data_sources(
         self,
         pipeline_id: str,
@@ -473,20 +484,30 @@ class DataSourcesResourceWithRawResponse:
     def __init__(self, data_sources: DataSourcesResource) -> None:
         self._data_sources = data_sources
 
-        self.update = to_raw_response_wrapper(
-            data_sources.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                data_sources.update,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_data_sources = to_raw_response_wrapper(
-            data_sources.get_data_sources,
+        self.get_data_sources = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                data_sources.get_data_sources,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = to_raw_response_wrapper(
-            data_sources.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                data_sources.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = to_raw_response_wrapper(
-            data_sources.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                data_sources.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update_data_sources = to_raw_response_wrapper(
-            data_sources.update_data_sources,
+        self.update_data_sources = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                data_sources.update_data_sources,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -494,20 +515,30 @@ class AsyncDataSourcesResourceWithRawResponse:
     def __init__(self, data_sources: AsyncDataSourcesResource) -> None:
         self._data_sources = data_sources
 
-        self.update = async_to_raw_response_wrapper(
-            data_sources.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                data_sources.update,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_data_sources = async_to_raw_response_wrapper(
-            data_sources.get_data_sources,
+        self.get_data_sources = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                data_sources.get_data_sources,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = async_to_raw_response_wrapper(
-            data_sources.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                data_sources.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = async_to_raw_response_wrapper(
-            data_sources.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                data_sources.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update_data_sources = async_to_raw_response_wrapper(
-            data_sources.update_data_sources,
+        self.update_data_sources = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                data_sources.update_data_sources,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -515,20 +546,30 @@ class DataSourcesResourceWithStreamingResponse:
     def __init__(self, data_sources: DataSourcesResource) -> None:
         self._data_sources = data_sources
 
-        self.update = to_streamed_response_wrapper(
-            data_sources.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                data_sources.update,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_data_sources = to_streamed_response_wrapper(
-            data_sources.get_data_sources,
+        self.get_data_sources = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                data_sources.get_data_sources,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = to_streamed_response_wrapper(
-            data_sources.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                data_sources.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = to_streamed_response_wrapper(
-            data_sources.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                data_sources.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update_data_sources = to_streamed_response_wrapper(
-            data_sources.update_data_sources,
+        self.update_data_sources = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                data_sources.update_data_sources,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -536,18 +577,28 @@ class AsyncDataSourcesResourceWithStreamingResponse:
     def __init__(self, data_sources: AsyncDataSourcesResource) -> None:
         self._data_sources = data_sources
 
-        self.update = async_to_streamed_response_wrapper(
-            data_sources.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                data_sources.update,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_data_sources = async_to_streamed_response_wrapper(
-            data_sources.get_data_sources,
+        self.get_data_sources = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                data_sources.get_data_sources,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = async_to_streamed_response_wrapper(
-            data_sources.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                data_sources.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = async_to_streamed_response_wrapper(
-            data_sources.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                data_sources.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update_data_sources = async_to_streamed_response_wrapper(
-            data_sources.update_data_sources,
+        self.update_data_sources = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                data_sources.update_data_sources,  # pyright: ignore[reportDeprecated],
+            )
         )

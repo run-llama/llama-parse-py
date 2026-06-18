@@ -49,5 +49,14 @@ class CloudConfluenceDataSource(BaseModel):
 
     supports_access_control: Optional[bool] = None
 
+    sync_permissions: Optional[bool] = None
+    """
+    Whether to fetch space-level permissions (allowed users/groups) and attach them
+    to document metadata for access control. Disable for Confluence Server/Data
+    Center versions whose permission APIs are unavailable (e.g. the JSON-RPC API
+    removed in Data Center 9.2.6+), which otherwise surface as 401 errors during
+    sync.
+    """
+
     user_name: Optional[str] = None
     """The username to use for authentication."""

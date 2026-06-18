@@ -41,6 +41,11 @@ class WebhookConfiguration(TypedDict, total=False):
                 "sheets.error",
                 "sheets.partial_success",
                 "sheets.cancelled",
+                "split.pending",
+                "split.processing",
+                "split.success",
+                "split.error",
+                "split.cancelled",
                 "unmapped_event",
             ]
         ]

@@ -62,5 +62,7 @@ class ExtractV2Parameters(BaseModel):
     version: Optional[str] = None
     """
     Use 'latest' for the latest release for the selected tier or a date string
-    (YYYY-MM-DD format) to pin to the nearest release at or before that date.
+    (YYYY-MM-DD format) to pin to the nearest release at or before that date. Job
+    responses always report the concrete resolved version the job runs, fixed at job
+    creation; saved configurations keep the value as provided.
     """

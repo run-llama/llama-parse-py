@@ -69,11 +69,13 @@ from .file_list_params import FileListParams as FileListParams
 from .gemini_embedding import GeminiEmbedding as GeminiEmbedding
 from .metadata_filters import MetadataFilters as MetadataFilters
 from .openai_embedding import OpenAIEmbedding as OpenAIEmbedding
+from .sheet_get_params import SheetGetParams as SheetGetParams
 from .batch_list_params import BatchListParams as BatchListParams
 from .bedrock_embedding import BedrockEmbedding as BedrockEmbedding
 from .extract_job_usage import ExtractJobUsage as ExtractJobUsage
 from .file_query_params import FileQueryParams as FileQueryParams
 from .parsing_languages import ParsingLanguages as ParsingLanguages
+from .sheet_list_params import SheetListParams as SheetListParams
 from .batch_get_response import BatchGetResponse as BatchGetResponse
 from .extract_get_params import ExtractGetParams as ExtractGetParams
 from .file_create_params import FileCreateParams as FileCreateParams
@@ -91,6 +93,7 @@ from .file_query_response import FileQueryResponse as FileQueryResponse
 from .parse_v2_parameters import ParseV2Parameters as ParseV2Parameters
 from .parsing_list_params import ParsingListParams as ParsingListParams
 from .project_list_params import ProjectListParams as ProjectListParams
+from .sheet_create_params import SheetCreateParams as SheetCreateParams
 from .sparse_model_config import SparseModelConfig as SparseModelConfig
 from .split_v1_parameters import SplitV1Parameters as SplitV1Parameters
 from .classify_list_params import ClassifyListParams as ClassifyListParams
@@ -146,6 +149,7 @@ from .retriever_list_response import RetrieverListResponse as RetrieverListRespo
 from .retriever_search_params import RetrieverSearchParams as RetrieverSearchParams
 from .retriever_update_params import RetrieverUpdateParams as RetrieverUpdateParams
 from .retriever_upsert_params import RetrieverUpsertParams as RetrieverUpsertParams
+from .sheet_delete_job_params import SheetDeleteJobParams as SheetDeleteJobParams
 from .bedrock_embedding_config import BedrockEmbeddingConfig as BedrockEmbeddingConfig
 from .classify_create_response import ClassifyCreateResponse as ClassifyCreateResponse
 from .composite_retrieval_mode import CompositeRetrievalMode as CompositeRetrievalMode
@@ -186,6 +190,7 @@ from .extract_v2_job_query_response import ExtractV2JobQueryResponse as ExtractV
 from .gemini_embedding_config_param import GeminiEmbeddingConfigParam as GeminiEmbeddingConfigParam
 from .openai_embedding_config_param import OpenAIEmbeddingConfigParam as OpenAIEmbeddingConfigParam
 from .preset_retrieval_params_param import PresetRetrievalParamsParam as PresetRetrievalParamsParam
+from .sheet_get_result_table_params import SheetGetResultTableParams as SheetGetResultTableParams
 from .advanced_mode_transform_config import AdvancedModeTransformConfig as AdvancedModeTransformConfig
 from .bedrock_embedding_config_param import BedrockEmbeddingConfigParam as BedrockEmbeddingConfigParam
 from .extract_generate_schema_params import ExtractGenerateSchemaParams as ExtractGenerateSchemaParams

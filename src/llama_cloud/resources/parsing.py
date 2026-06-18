@@ -54,12 +54,13 @@ class ParsingResource(SyncAPIResource):
     def create(
         self,
         *,
-        tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str],
+        tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
+        version: Union[Literal["latest", "2026-06-11", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
         client_name: Optional[str] | Omit = omit,
+        configuration_id: Optional[str] | Omit = omit,
         crop_box: parsing_create_params.CropBox | Omit = omit,
         disable_cache: Optional[bool] | Omit = omit,
         fast_options: Optional[object] | Omit = omit,
@@ -108,9 +109,9 @@ class ParsingResource(SyncAPIResource):
               Current `latest` by tier:
 
               - `fast`: `2025-12-11`
-              - `cost_effective`: `2026-06-05`
-              - `agentic`: `2026-06-04`
-              - `agentic_plus`: `2026-06-04`
+              - `cost_effective`: `2026-06-11`
+              - `agentic`: `2026-06-11`
+              - `agentic_plus`: `2026-06-11`
 
               Full list: `GET /api/v2/parse/versions`.
 
@@ -121,6 +122,9 @@ class ParsingResource(SyncAPIResource):
 
           client_name: Identifier for the client/application making the request. Used for analytics and
               debugging. Example: 'my-app-v2'
+
+          configuration_id: ID of a saved parse configuration. When set, `tier` and `version` default to the
+              saved configuration's values — omit them or pass `'configured'`.
 
           crop_box: Crop boundaries to process only a portion of each page. Values are ratios 0-1
               from page edges
@@ -222,6 +226,7 @@ class ParsingResource(SyncAPIResource):
                     "version": version,
                     "agentic_options": agentic_options,
                     "client_name": client_name,
+                    "configuration_id": configuration_id,
                     "crop_box": crop_box,
                     "disable_cache": disable_cache,
                     "fast_options": fast_options,
@@ -724,12 +729,13 @@ class AsyncParsingResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str],
+        tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
+        version: Union[Literal["latest", "2026-06-11", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
         client_name: Optional[str] | Omit = omit,
+        configuration_id: Optional[str] | Omit = omit,
         crop_box: parsing_create_params.CropBox | Omit = omit,
         disable_cache: Optional[bool] | Omit = omit,
         fast_options: Optional[object] | Omit = omit,
@@ -778,9 +784,9 @@ class AsyncParsingResource(AsyncAPIResource):
               Current `latest` by tier:
 
               - `fast`: `2025-12-11`
-              - `cost_effective`: `2026-06-05`
-              - `agentic`: `2026-06-04`
-              - `agentic_plus`: `2026-06-04`
+              - `cost_effective`: `2026-06-11`
+              - `agentic`: `2026-06-11`
+              - `agentic_plus`: `2026-06-11`
 
               Full list: `GET /api/v2/parse/versions`.
 
@@ -791,6 +797,9 @@ class AsyncParsingResource(AsyncAPIResource):
 
           client_name: Identifier for the client/application making the request. Used for analytics and
               debugging. Example: 'my-app-v2'
+
+          configuration_id: ID of a saved parse configuration. When set, `tier` and `version` default to the
+              saved configuration's values — omit them or pass `'configured'`.
 
           crop_box: Crop boundaries to process only a portion of each page. Values are ratios 0-1
               from page edges
@@ -892,6 +901,7 @@ class AsyncParsingResource(AsyncAPIResource):
                     "version": version,
                     "agentic_options": agentic_options,
                     "client_name": client_name,
+                    "configuration_id": configuration_id,
                     "crop_box": crop_box,
                     "disable_cache": disable_cache,
                     "fast_options": fast_options,
