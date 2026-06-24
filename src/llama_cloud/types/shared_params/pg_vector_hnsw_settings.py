@@ -10,7 +10,7 @@ __all__ = ["PgVectorHnswSettings"]
 class PgVectorHnswSettings(TypedDict, total=False):
     """HNSW settings for PGVector."""
 
-    distance_method: Literal["l2", "ip", "cosine", "l1", "hamming", "jaccard"]
+    distance_method: Literal["cosine", "hamming", "ip", "jaccard", "l1", "l2"]
     """The distance method to use."""
 
     ef_construction: int
@@ -22,5 +22,5 @@ class PgVectorHnswSettings(TypedDict, total=False):
     m: int
     """The number of bi-directional links created for each new element."""
 
-    vector_type: Literal["vector", "half_vec", "bit", "sparse_vec"]
+    vector_type: Literal["bit", "half_vec", "sparse_vec", "vector"]
     """The type of vector to use."""

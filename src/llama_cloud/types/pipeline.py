@@ -62,14 +62,14 @@ class EmbeddingConfigManagedOpenAIEmbeddingConfig(BaseModel):
 
 EmbeddingConfig: TypeAlias = Annotated[
     Union[
-        EmbeddingConfigManagedOpenAIEmbeddingConfig,
         AzureOpenAIEmbeddingConfig,
+        BedrockEmbeddingConfig,
         CohereEmbeddingConfig,
         GeminiEmbeddingConfig,
         HuggingFaceInferenceAPIEmbeddingConfig,
+        EmbeddingConfigManagedOpenAIEmbeddingConfig,
         OpenAIEmbeddingConfig,
         VertexAIEmbeddingConfig,
-        BedrockEmbeddingConfig,
     ],
     PropertyInfo(discriminator="type"),
 ]
@@ -91,12 +91,12 @@ class ConfigHash(BaseModel):
 EmbeddingModelConfigEmbeddingConfig: TypeAlias = Annotated[
     Union[
         AzureOpenAIEmbeddingConfig,
+        BedrockEmbeddingConfig,
         CohereEmbeddingConfig,
         GeminiEmbeddingConfig,
         HuggingFaceInferenceAPIEmbeddingConfig,
         OpenAIEmbeddingConfig,
         VertexAIEmbeddingConfig,
-        BedrockEmbeddingConfig,
     ],
     PropertyInfo(discriminator="type"),
 ]

@@ -53,7 +53,7 @@ class ExtractConfigurationParam(TypedDict, total=False):
     Omit to process all pages.
     """
 
-    tier: Literal["cost_effective", "agentic"]
+    tier: Literal["agentic", "cost_effective"]
     """Extract tier: cost_effective (5 credits/page) or agentic (15 credits/page)"""
 
     version: str

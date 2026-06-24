@@ -12,7 +12,7 @@ __all__ = ["SplitV1Parameters", "SplittingStrategy"]
 class SplittingStrategy(BaseModel):
     """Strategy for splitting documents."""
 
-    allow_uncategorized: Optional[Literal["include", "forbid", "omit"]] = None
+    allow_uncategorized: Optional[Literal["forbid", "include", "omit"]] = None
     """Controls handling of pages that don't match any category.
 
     'include': pages can be grouped as 'uncategorized' and included in results.

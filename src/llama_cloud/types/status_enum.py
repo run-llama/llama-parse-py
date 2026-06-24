@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["StatusEnum"]
 
-StatusEnum: TypeAlias = Literal["PENDING", "SUCCESS", "ERROR", "PARTIAL_SUCCESS", "CANCELLED"]
+StatusEnum: TypeAlias = Literal["CANCELLED", "ERROR", "PARTIAL_SUCCESS", "PENDING", "SUCCESS"]

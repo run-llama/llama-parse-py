@@ -9,7 +9,7 @@ __all__ = ["CloudBoxDataSource"]
 
 
 class CloudBoxDataSource(TypedDict, total=False):
-    authentication_mechanism: Required[Literal["developer_token", "ccg"]]
+    authentication_mechanism: Required[Literal["ccg", "developer_token"]]
     """The type of authentication to use (Developer Token or CCG)"""
 
     class_name: str

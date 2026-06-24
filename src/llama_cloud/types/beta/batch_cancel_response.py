@@ -19,5 +19,5 @@ class BatchCancelResponse(BaseModel):
     processed_items: int
     """Number of items processed before cancellation"""
 
-    status: Literal["pending", "running", "dispatched", "completed", "failed", "cancelled"]
+    status: Literal["cancelled", "completed", "dispatched", "failed", "pending", "running"]
     """New status (should be 'cancelled')"""

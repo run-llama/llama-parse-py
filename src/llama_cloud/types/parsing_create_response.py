@@ -18,7 +18,7 @@ class ParsingCreateResponse(BaseModel):
     project_id: str
     """Project this job belongs to"""
 
-    status: Literal["PENDING", "RUNNING", "COMPLETED", "FAILED", "CANCELLED"]
+    status: Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING"]
     """Current job status: PENDING, RUNNING, COMPLETED, FAILED, or CANCELLED"""
 
     created_at: Optional[datetime] = None

@@ -49,7 +49,7 @@ class TestRetrievers:
                         "enable_reranking": True,
                         "files_top_k": 1,
                         "rerank_top_n": 1,
-                        "retrieval_mode": "chunks",
+                        "retrieval_mode": "auto_routed",
                         "retrieve_image_nodes": True,
                         "retrieve_page_figure_nodes": True,
                         "retrieve_page_screenshot_nodes": True,
@@ -58,7 +58,7 @@ class TestRetrievers:
                                 {
                                     "key": "key",
                                     "value": 0,
-                                    "operator": "==",
+                                    "operator": "!=",
                                 }
                             ],
                             "condition": "and",
@@ -130,7 +130,7 @@ class TestRetrievers:
                         "enable_reranking": True,
                         "files_top_k": 1,
                         "rerank_top_n": 1,
-                        "retrieval_mode": "chunks",
+                        "retrieval_mode": "auto_routed",
                         "retrieve_image_nodes": True,
                         "retrieve_page_figure_nodes": True,
                         "retrieve_page_screenshot_nodes": True,
@@ -139,7 +139,7 @@ class TestRetrievers:
                                 {
                                     "key": "key",
                                     "value": 0,
-                                    "operator": "==",
+                                    "operator": "!=",
                                 }
                             ],
                             "condition": "and",
@@ -367,7 +367,7 @@ class TestRetrievers:
             query="x",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            mode="routing",
+            mode="full",
             pipelines=[
                 {
                     "description": "description",
@@ -381,7 +381,7 @@ class TestRetrievers:
                         "enable_reranking": True,
                         "files_top_k": 1,
                         "rerank_top_n": 1,
-                        "retrieval_mode": "chunks",
+                        "retrieval_mode": "auto_routed",
                         "retrieve_image_nodes": True,
                         "retrieve_page_figure_nodes": True,
                         "retrieve_page_screenshot_nodes": True,
@@ -390,7 +390,7 @@ class TestRetrievers:
                                 {
                                     "key": "key",
                                     "value": 0,
-                                    "operator": "==",
+                                    "operator": "!=",
                                 }
                             ],
                             "condition": "and",
@@ -402,7 +402,7 @@ class TestRetrievers:
             ],
             rerank_config={
                 "top_n": 1,
-                "type": "system_default",
+                "type": "bedrock",
             },
             rerank_top_n=0,
         )
@@ -462,7 +462,7 @@ class TestRetrievers:
                         "enable_reranking": True,
                         "files_top_k": 1,
                         "rerank_top_n": 1,
-                        "retrieval_mode": "chunks",
+                        "retrieval_mode": "auto_routed",
                         "retrieve_image_nodes": True,
                         "retrieve_page_figure_nodes": True,
                         "retrieve_page_screenshot_nodes": True,
@@ -471,7 +471,7 @@ class TestRetrievers:
                                 {
                                     "key": "key",
                                     "value": 0,
-                                    "operator": "==",
+                                    "operator": "!=",
                                 }
                             ],
                             "condition": "and",
@@ -544,7 +544,7 @@ class TestAsyncRetrievers:
                         "enable_reranking": True,
                         "files_top_k": 1,
                         "rerank_top_n": 1,
-                        "retrieval_mode": "chunks",
+                        "retrieval_mode": "auto_routed",
                         "retrieve_image_nodes": True,
                         "retrieve_page_figure_nodes": True,
                         "retrieve_page_screenshot_nodes": True,
@@ -553,7 +553,7 @@ class TestAsyncRetrievers:
                                 {
                                     "key": "key",
                                     "value": 0,
-                                    "operator": "==",
+                                    "operator": "!=",
                                 }
                             ],
                             "condition": "and",
@@ -625,7 +625,7 @@ class TestAsyncRetrievers:
                         "enable_reranking": True,
                         "files_top_k": 1,
                         "rerank_top_n": 1,
-                        "retrieval_mode": "chunks",
+                        "retrieval_mode": "auto_routed",
                         "retrieve_image_nodes": True,
                         "retrieve_page_figure_nodes": True,
                         "retrieve_page_screenshot_nodes": True,
@@ -634,7 +634,7 @@ class TestAsyncRetrievers:
                                 {
                                     "key": "key",
                                     "value": 0,
-                                    "operator": "==",
+                                    "operator": "!=",
                                 }
                             ],
                             "condition": "and",
@@ -862,7 +862,7 @@ class TestAsyncRetrievers:
             query="x",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            mode="routing",
+            mode="full",
             pipelines=[
                 {
                     "description": "description",
@@ -876,7 +876,7 @@ class TestAsyncRetrievers:
                         "enable_reranking": True,
                         "files_top_k": 1,
                         "rerank_top_n": 1,
-                        "retrieval_mode": "chunks",
+                        "retrieval_mode": "auto_routed",
                         "retrieve_image_nodes": True,
                         "retrieve_page_figure_nodes": True,
                         "retrieve_page_screenshot_nodes": True,
@@ -885,7 +885,7 @@ class TestAsyncRetrievers:
                                 {
                                     "key": "key",
                                     "value": 0,
-                                    "operator": "==",
+                                    "operator": "!=",
                                 }
                             ],
                             "condition": "and",
@@ -897,7 +897,7 @@ class TestAsyncRetrievers:
             ],
             rerank_config={
                 "top_n": 1,
-                "type": "system_default",
+                "type": "bedrock",
             },
             rerank_top_n=0,
         )
@@ -957,7 +957,7 @@ class TestAsyncRetrievers:
                         "enable_reranking": True,
                         "files_top_k": 1,
                         "rerank_top_n": 1,
-                        "retrieval_mode": "chunks",
+                        "retrieval_mode": "auto_routed",
                         "retrieve_image_nodes": True,
                         "retrieve_page_figure_nodes": True,
                         "retrieve_page_screenshot_nodes": True,
@@ -966,7 +966,7 @@ class TestAsyncRetrievers:
                                 {
                                     "key": "key",
                                     "value": 0,
-                                    "operator": "==",
+                                    "operator": "!=",
                                 }
                             ],
                             "condition": "and",

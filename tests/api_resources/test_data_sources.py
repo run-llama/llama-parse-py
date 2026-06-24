@@ -26,7 +26,7 @@ class TestDataSources:
         data_source = client.data_sources.create(
             component={"foo": "bar"},
             name="name",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         )
         assert_matches_type(DataSource, data_source, path=["response"])
 
@@ -36,7 +36,7 @@ class TestDataSources:
         data_source = client.data_sources.create(
             component={"foo": "bar"},
             name="name",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             custom_metadata={"foo": {"foo": "bar"}},
@@ -49,7 +49,7 @@ class TestDataSources:
         response = client.data_sources.with_raw_response.create(
             component={"foo": "bar"},
             name="name",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         )
 
         assert response.is_closed is True
@@ -63,7 +63,7 @@ class TestDataSources:
         with client.data_sources.with_streaming_response.create(
             component={"foo": "bar"},
             name="name",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -78,7 +78,7 @@ class TestDataSources:
     def test_method_update(self, client: LlamaCloud) -> None:
         data_source = client.data_sources.update(
             data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         )
         assert_matches_type(DataSource, data_source, path=["response"])
 
@@ -87,7 +87,7 @@ class TestDataSources:
     def test_method_update_with_all_params(self, client: LlamaCloud) -> None:
         data_source = client.data_sources.update(
             data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
             component={"foo": "bar"},
             custom_metadata={"foo": {"foo": "bar"}},
             name="name",
@@ -99,7 +99,7 @@ class TestDataSources:
     def test_raw_response_update(self, client: LlamaCloud) -> None:
         response = client.data_sources.with_raw_response.update(
             data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         )
 
         assert response.is_closed is True
@@ -112,7 +112,7 @@ class TestDataSources:
     def test_streaming_response_update(self, client: LlamaCloud) -> None:
         with client.data_sources.with_streaming_response.update(
             data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -128,7 +128,7 @@ class TestDataSources:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `data_source_id` but received ''"):
             client.data_sources.with_raw_response.update(
                 data_source_id="",
-                source_type="S3",
+                source_type="AZURE_STORAGE_BLOB",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -264,7 +264,7 @@ class TestAsyncDataSources:
         data_source = await async_client.data_sources.create(
             component={"foo": "bar"},
             name="name",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         )
         assert_matches_type(DataSource, data_source, path=["response"])
 
@@ -274,7 +274,7 @@ class TestAsyncDataSources:
         data_source = await async_client.data_sources.create(
             component={"foo": "bar"},
             name="name",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             custom_metadata={"foo": {"foo": "bar"}},
@@ -287,7 +287,7 @@ class TestAsyncDataSources:
         response = await async_client.data_sources.with_raw_response.create(
             component={"foo": "bar"},
             name="name",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         )
 
         assert response.is_closed is True
@@ -301,7 +301,7 @@ class TestAsyncDataSources:
         async with async_client.data_sources.with_streaming_response.create(
             component={"foo": "bar"},
             name="name",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -316,7 +316,7 @@ class TestAsyncDataSources:
     async def test_method_update(self, async_client: AsyncLlamaCloud) -> None:
         data_source = await async_client.data_sources.update(
             data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         )
         assert_matches_type(DataSource, data_source, path=["response"])
 
@@ -325,7 +325,7 @@ class TestAsyncDataSources:
     async def test_method_update_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         data_source = await async_client.data_sources.update(
             data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
             component={"foo": "bar"},
             custom_metadata={"foo": {"foo": "bar"}},
             name="name",
@@ -337,7 +337,7 @@ class TestAsyncDataSources:
     async def test_raw_response_update(self, async_client: AsyncLlamaCloud) -> None:
         response = await async_client.data_sources.with_raw_response.update(
             data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         )
 
         assert response.is_closed is True
@@ -350,7 +350,7 @@ class TestAsyncDataSources:
     async def test_streaming_response_update(self, async_client: AsyncLlamaCloud) -> None:
         async with async_client.data_sources.with_streaming_response.update(
             data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            source_type="S3",
+            source_type="AZURE_STORAGE_BLOB",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -366,7 +366,7 @@ class TestAsyncDataSources:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `data_source_id` but received ''"):
             await async_client.data_sources.with_raw_response.update(
                 data_source_id="",
-                source_type="S3",
+                source_type="AZURE_STORAGE_BLOB",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

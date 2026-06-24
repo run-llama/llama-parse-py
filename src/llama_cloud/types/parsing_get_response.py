@@ -47,7 +47,7 @@ class Job(BaseModel):
     project_id: str
     """Project this job belongs to"""
 
-    status: Literal["PENDING", "RUNNING", "COMPLETED", "FAILED", "CANCELLED"]
+    status: Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING"]
     """Current job status: PENDING, RUNNING, COMPLETED, FAILED, or CANCELLED"""
 
     created_at: Optional[datetime] = None
@@ -94,7 +94,7 @@ class ImagesContentMetadataImage(BaseModel):
     bbox: Optional[ImagesContentMetadataImageBbox] = None
     """Bounding box for an image on its page."""
 
-    category: Optional[Literal["screenshot", "embedded", "layout"]] = None
+    category: Optional[Literal["embedded", "layout", "screenshot"]] = None
     """
     Image category: 'screenshot' (full page), 'embedded' (images in document), or
     'layout' (cropped from layout detection)
@@ -121,7 +121,7 @@ class ImagesContentMetadata(BaseModel):
 
 
 ItemsPageStructuredResultPageItem: TypeAlias = Annotated[
-    Union[TextItem, HeadingItem, "ListItem", CodeItem, TableItem, ImageItem, LinkItem, "HeaderItem", "FooterItem"],
+    Union[CodeItem, "FooterItem", "HeaderItem", HeadingItem, ImageItem, LinkItem, "ListItem", TableItem, TextItem],
     PropertyInfo(discriminator="type"),
 ]
 

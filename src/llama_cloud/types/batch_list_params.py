@@ -26,4 +26,4 @@ class BatchListParams(TypedDict, total=False):
 
     source_directory_id: Optional[str]
 
-    status: Optional[Literal["PENDING", "THROTTLED", "RUNNING", "COMPLETED", "FAILED", "CANCELLED"]]
+    status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]]

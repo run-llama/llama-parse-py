@@ -39,7 +39,7 @@ class HuggingFaceInferenceAPIEmbedding(BaseModel):
     num_workers: Optional[int] = None
     """The number of workers to use for async embedding calls."""
 
-    pooling: Optional[Literal["cls", "mean", "last"]] = None
+    pooling: Optional[Literal["cls", "last", "mean"]] = None
     """Enum of possible pooling choices with pooling behaviors."""
 
     query_instruction: Optional[str] = None

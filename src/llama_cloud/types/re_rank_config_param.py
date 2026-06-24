@@ -14,5 +14,5 @@ class ReRankConfigParam(TypedDict, total=False):
     retrieval tools.
     """
 
-    type: Literal["system_default", "llm", "cohere", "bedrock", "score", "disabled"]
+    type: Literal["bedrock", "cohere", "disabled", "llm", "score", "system_default"]
     """The type of reranker to use."""

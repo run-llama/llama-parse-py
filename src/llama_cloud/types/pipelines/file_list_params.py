@@ -21,5 +21,5 @@ class FileListParams(TypedDict, total=False):
 
     order_by: Optional[str]
 
-    statuses: Optional[List[Literal["NOT_STARTED", "IN_PROGRESS", "SUCCESS", "ERROR", "CANCELLED"]]]
+    statuses: Optional[List[Literal["CANCELLED", "ERROR", "IN_PROGRESS", "NOT_STARTED", "SUCCESS"]]]
     """Filter by file statuses"""

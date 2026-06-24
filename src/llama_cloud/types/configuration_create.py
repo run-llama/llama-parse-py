@@ -67,10 +67,10 @@ class ParametersSpreadsheetV1Parameters(BaseModel):
 
 Parameters: TypeAlias = Annotated[
     Union[
-        SplitV1Parameters,
-        ExtractV2Parameters,
         ClassifyV2Parameters,
+        ExtractV2Parameters,
         ParseV2Parameters,
+        SplitV1Parameters,
         ParametersSpreadsheetV1Parameters,
         UntypedParameters,
     ],

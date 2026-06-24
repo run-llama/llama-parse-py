@@ -301,7 +301,7 @@ class OutputOptions(BaseModel):
     `GroundedJsonItem` shape.
     """
 
-    images_to_save: Optional[List[Literal["screenshot", "embedded", "layout"]]] = None
+    images_to_save: Optional[List[Literal["embedded", "layout", "screenshot"]]] = None
     """Image categories to extract and save.
 
     Options: 'screenshot' (full page renders useful for visual QA), 'embedded'
@@ -489,13 +489,13 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     spatial_text: Optional[ProcessingOptionsAutoModeConfigurationParsingConfSpatialText] = None
     """Spatial text options for auto mode parsing configuration."""
 
-    specialized_chart_parsing: Optional[Literal["agentic_plus", "agentic", "efficient"]] = None
+    specialized_chart_parsing: Optional[Literal["agentic", "agentic_plus", "efficient"]] = None
     """Enable specialized chart parsing with the specified mode"""
 
-    tier: Optional[Literal["fast", "cost_effective", "agentic", "agentic_plus"]] = None
+    tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]] = None
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-06-11", "2025-12-11"], str, None] = None
+    version: Union[Literal["latest", "2026-06-18", "2025-12-11"], str, None] = None
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -504,9 +504,9 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-11`
-    - `agentic`: `2026-06-11`
-    - `agentic_plus`: `2026-06-11`
+    - `cost_effective`: `2026-06-18`
+    - `agentic`: `2026-06-18`
+    - `agentic_plus`: `2026-06-18`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -721,7 +721,7 @@ class ProcessingOptions(BaseModel):
     ocr_parameters: Optional[ProcessingOptionsOcrParameters] = None
     """OCR configuration including language detection settings"""
 
-    specialized_chart_parsing: Optional[Literal["agentic_plus", "agentic", "efficient"]] = None
+    specialized_chart_parsing: Optional[Literal["agentic", "agentic_plus", "efficient"]] = None
     """Enable AI-powered chart analysis.
 
     Modes: 'efficient' (fast, lower cost), 'agentic' (balanced), 'agentic_plus'
@@ -752,7 +752,7 @@ class WebhookConfiguration(BaseModel):
     'Bearer xyz'}
     """
 
-    webhook_output_format: Optional[Literal["string", "json"]] = None
+    webhook_output_format: Optional[Literal["json", "string"]] = None
     """Format of the webhook payload body.
 
     'string' (default) sends the payload as a JSON-encoded string; 'json' sends it
@@ -774,14 +774,14 @@ class ParseV2Parameters(BaseModel):
     product_type: Literal["parse_v2"]
     """Product type."""
 
-    tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"]
+    tier: Literal["agentic", "agentic_plus", "cost_effective", "fast"]
     """
     Parsing tier: 'fast' (rule-based, cheapest), 'cost_effective' (balanced),
     'agentic' (AI-powered with custom prompts), or 'agentic_plus' (premium AI with
     highest accuracy)
     """
 
-    version: Union[Literal["latest", "2026-06-11", "2025-12-11"], str]
+    version: Union[Literal["latest", "2026-06-18", "2025-12-11"], str]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -789,9 +789,9 @@ class ParseV2Parameters(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-11`
-    - `agentic`: `2026-06-11`
-    - `agentic_plus`: `2026-06-11`
+    - `cost_effective`: `2026-06-18`
+    - `agentic`: `2026-06-18`
+    - `agentic_plus`: `2026-06-18`
 
     Full list: `GET /api/v2/parse/versions`.
     """

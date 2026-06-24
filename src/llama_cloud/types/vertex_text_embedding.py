@@ -37,7 +37,7 @@ class VertexTextEmbedding(BaseModel):
     embed_batch_size: Optional[int] = None
     """The batch size for embedding calls."""
 
-    embed_mode: Optional[Literal["default", "classification", "clustering", "similarity", "retrieval"]] = None
+    embed_mode: Optional[Literal["classification", "clustering", "default", "retrieval", "similarity"]] = None
     """The embedding mode to use."""
 
     api_model_name: Optional[str] = FieldInfo(alias="model_name", default=None)

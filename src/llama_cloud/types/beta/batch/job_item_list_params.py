@@ -19,5 +19,5 @@ class JobItemListParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
-    status: Optional[Literal["pending", "processing", "completed", "failed", "skipped", "cancelled"]]
+    status: Optional[Literal["cancelled", "completed", "failed", "pending", "processing", "skipped"]]
     """Filter items by status"""

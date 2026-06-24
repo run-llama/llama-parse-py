@@ -9,24 +9,38 @@ from ..._models import BaseModel
 __all__ = [
     "ChatRetrieveResponse",
     "Event",
-    "EventThinkingDeltaEvent",
+    "EventStopEvent",
+    "EventStopEventUsage",
     "EventTextDeltaEvent",
-    "EventThinkingEvent",
     "EventTextEvent",
+    "EventThinkingDeltaEvent",
+    "EventThinkingEvent",
     "EventToolCallEvent",
     "EventToolResultEvent",
     "EventToolResultEventImageAttachment",
-    "EventStopEvent",
-    "EventStopEventUsage",
     "EventUserInputEvent",
     "JobMetadata",
 ]
 
 
-class EventThinkingDeltaEvent(BaseModel):
-    content: str
+class EventStopEventUsage(BaseModel):
+    duration_ms: Optional[float] = None
 
-    type: Optional[Literal["thinking_delta"]] = None
+    total_input_tokens: Optional[int] = None
+
+    total_output_tokens: Optional[int] = None
+
+    turns: Optional[int] = None
+
+
+class EventStopEvent(BaseModel):
+    error: Optional[str] = None
+
+    is_error: bool
+
+    usage: EventStopEventUsage
+
+    type: Optional[Literal["stop"]] = None
 
 
 class EventTextDeltaEvent(BaseModel):
@@ -35,16 +49,22 @@ class EventTextDeltaEvent(BaseModel):
     type: Optional[Literal["text_delta"]] = None
 
 
-class EventThinkingEvent(BaseModel):
-    content: str
-
-    type: Optional[Literal["thinking"]] = None
-
-
 class EventTextEvent(BaseModel):
     content: str
 
     type: Optional[Literal["text"]] = None
+
+
+class EventThinkingDeltaEvent(BaseModel):
+    content: str
+
+    type: Optional[Literal["thinking_delta"]] = None
+
+
+class EventThinkingEvent(BaseModel):
+    content: str
+
+    type: Optional[Literal["thinking"]] = None
 
 
 class EventToolCallEvent(BaseModel):
@@ -78,26 +98,6 @@ class EventToolResultEvent(BaseModel):
     type: Optional[Literal["tool_result"]] = None
 
 
-class EventStopEventUsage(BaseModel):
-    duration_ms: Optional[float] = None
-
-    total_input_tokens: Optional[int] = None
-
-    total_output_tokens: Optional[int] = None
-
-    turns: Optional[int] = None
-
-
-class EventStopEvent(BaseModel):
-    error: Optional[str] = None
-
-    is_error: bool
-
-    usage: EventStopEventUsage
-
-    type: Optional[Literal["stop"]] = None
-
-
 class EventUserInputEvent(BaseModel):
     content: str
 
@@ -106,13 +106,13 @@ class EventUserInputEvent(BaseModel):
 
 Event: TypeAlias = Annotated[
     Union[
-        EventThinkingDeltaEvent,
+        EventStopEvent,
         EventTextDeltaEvent,
-        EventThinkingEvent,
         EventTextEvent,
+        EventThinkingDeltaEvent,
+        EventThinkingEvent,
         EventToolCallEvent,
         EventToolResultEvent,
-        EventStopEvent,
         EventUserInputEvent,
     ],
     PropertyInfo(discriminator="type"),

@@ -17,13 +17,13 @@ class Error(BaseModel):
     """List of errors that occurred during ingestion."""
 
     step: Literal[
-        "MANAGED_INGESTION", "DATA_SOURCE", "FILE_UPDATER", "PARSE", "TRANSFORM", "INGESTION", "METADATA_UPDATE"
+        "DATA_SOURCE", "FILE_UPDATER", "INGESTION", "MANAGED_INGESTION", "METADATA_UPDATE", "PARSE", "TRANSFORM"
     ]
     """Name of the job that failed."""
 
 
 class ManagedIngestionStatusResponse(BaseModel):
-    status: Literal["NOT_STARTED", "IN_PROGRESS", "SUCCESS", "ERROR", "PARTIAL_SUCCESS", "CANCELLED"]
+    status: Literal["CANCELLED", "ERROR", "IN_PROGRESS", "NOT_STARTED", "PARTIAL_SUCCESS", "SUCCESS"]
     """Status of the ingestion."""
 
     deployment_date: Optional[datetime] = None

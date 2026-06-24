@@ -9,7 +9,7 @@ __all__ = ["CloudBoxDataSource"]
 
 
 class CloudBoxDataSource(BaseModel):
-    authentication_mechanism: Literal["developer_token", "ccg"]
+    authentication_mechanism: Literal["ccg", "developer_token"]
     """The type of authentication to use (Developer Token or CCG)"""
 
     class_name: Optional[str] = None

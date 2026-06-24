@@ -34,10 +34,10 @@ class TestRetriever:
             query="x",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            mode="routing",
+            mode="full",
             rerank_config={
                 "top_n": 1,
-                "type": "system_default",
+                "type": "bedrock",
             },
             rerank_top_n=0,
         )
@@ -103,10 +103,10 @@ class TestAsyncRetriever:
             query="x",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            mode="routing",
+            mode="full",
             rerank_config={
                 "top_n": 1,
-                "type": "system_default",
+                "type": "bedrock",
             },
             rerank_top_n=0,
         )

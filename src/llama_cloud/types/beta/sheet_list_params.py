@@ -35,5 +35,5 @@ class SheetListParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
-    status: Optional[Literal["PENDING", "SUCCESS", "ERROR", "PARTIAL_SUCCESS", "CANCELLED"]]
+    status: Optional[Literal["CANCELLED", "ERROR", "PARTIAL_SUCCESS", "PENDING", "SUCCESS"]]
     """Filter by job status"""

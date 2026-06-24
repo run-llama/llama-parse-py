@@ -29,7 +29,7 @@ class SplitCreateParams(TypedDict, total=False):
 class ConfigurationSplittingStrategy(TypedDict, total=False):
     """Strategy for splitting documents."""
 
-    allow_uncategorized: Literal["include", "forbid", "omit"]
+    allow_uncategorized: Literal["forbid", "include", "omit"]
     """Controls handling of pages that don't match any category.
 
     'include': pages can be grouped as 'uncategorized' and included in results.

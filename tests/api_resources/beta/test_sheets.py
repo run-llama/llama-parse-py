@@ -125,7 +125,7 @@ class TestSheets:
                 page_size=0,
                 page_token="page_token",
                 project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                status="PENDING",
+                status="CANCELLED",
             )
 
         assert_matches_type(SyncPaginatedCursor[SheetsJob], sheet, path=["response"])
@@ -283,7 +283,7 @@ class TestSheets:
     def test_method_get_result_table(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             sheet = client.beta.sheets.get_result_table(
-                region_type="table",
+                region_type="cell_metadata",
                 spreadsheet_job_id="spreadsheet_job_id",
                 region_id="region_id",
             )
@@ -295,7 +295,7 @@ class TestSheets:
     def test_method_get_result_table_with_all_params(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             sheet = client.beta.sheets.get_result_table(
-                region_type="table",
+                region_type="cell_metadata",
                 spreadsheet_job_id="spreadsheet_job_id",
                 region_id="region_id",
                 expires_at_seconds=0,
@@ -310,7 +310,7 @@ class TestSheets:
     def test_raw_response_get_result_table(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.beta.sheets.with_raw_response.get_result_table(
-                region_type="table",
+                region_type="cell_metadata",
                 spreadsheet_job_id="spreadsheet_job_id",
                 region_id="region_id",
             )
@@ -325,7 +325,7 @@ class TestSheets:
     def test_streaming_response_get_result_table(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             with client.beta.sheets.with_streaming_response.get_result_table(
-                region_type="table",
+                region_type="cell_metadata",
                 spreadsheet_job_id="spreadsheet_job_id",
                 region_id="region_id",
             ) as response:
@@ -345,14 +345,14 @@ class TestSheets:
                 ValueError, match=r"Expected a non-empty value for `spreadsheet_job_id` but received ''"
             ):
                 client.beta.sheets.with_raw_response.get_result_table(
-                    region_type="table",
+                    region_type="cell_metadata",
                     spreadsheet_job_id="",
                     region_id="region_id",
                 )
 
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `region_id` but received ''"):
                 client.beta.sheets.with_raw_response.get_result_table(
-                    region_type="table",
+                    region_type="cell_metadata",
                     spreadsheet_job_id="spreadsheet_job_id",
                     region_id="",
                 )
@@ -464,7 +464,7 @@ class TestAsyncSheets:
                 page_size=0,
                 page_token="page_token",
                 project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                status="PENDING",
+                status="CANCELLED",
             )
 
         assert_matches_type(AsyncPaginatedCursor[SheetsJob], sheet, path=["response"])
@@ -622,7 +622,7 @@ class TestAsyncSheets:
     async def test_method_get_result_table(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             sheet = await async_client.beta.sheets.get_result_table(
-                region_type="table",
+                region_type="cell_metadata",
                 spreadsheet_job_id="spreadsheet_job_id",
                 region_id="region_id",
             )
@@ -634,7 +634,7 @@ class TestAsyncSheets:
     async def test_method_get_result_table_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             sheet = await async_client.beta.sheets.get_result_table(
-                region_type="table",
+                region_type="cell_metadata",
                 spreadsheet_job_id="spreadsheet_job_id",
                 region_id="region_id",
                 expires_at_seconds=0,
@@ -649,7 +649,7 @@ class TestAsyncSheets:
     async def test_raw_response_get_result_table(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.beta.sheets.with_raw_response.get_result_table(
-                region_type="table",
+                region_type="cell_metadata",
                 spreadsheet_job_id="spreadsheet_job_id",
                 region_id="region_id",
             )
@@ -664,7 +664,7 @@ class TestAsyncSheets:
     async def test_streaming_response_get_result_table(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.beta.sheets.with_streaming_response.get_result_table(
-                region_type="table",
+                region_type="cell_metadata",
                 spreadsheet_job_id="spreadsheet_job_id",
                 region_id="region_id",
             ) as response:
@@ -684,14 +684,14 @@ class TestAsyncSheets:
                 ValueError, match=r"Expected a non-empty value for `spreadsheet_job_id` but received ''"
             ):
                 await async_client.beta.sheets.with_raw_response.get_result_table(
-                    region_type="table",
+                    region_type="cell_metadata",
                     spreadsheet_job_id="",
                     region_id="region_id",
                 )
 
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `region_id` but received ''"):
                 await async_client.beta.sheets.with_raw_response.get_result_table(
-                    region_type="table",
+                    region_type="cell_metadata",
                     spreadsheet_job_id="spreadsheet_job_id",
                     region_id="",
                 )
