@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.1](https://github.com/run-llama/llama-parse-py/compare/v2.9.0...v2.9.1) (2026-06-24)
+
+
+### Bug Fixes
+
+* **python:** unblock lint after v1-pipelines deprecation ([6ed9ba5](https://github.com/run-llama/llama-parse-py/commit/6ed9ba505113f3478fb2fc4c24ac5a102c44ac02))
+
 ## 2.9.0 (2026-06-09)
 
 Full Changelog: [v2.8.0...v2.9.0](https://github.com/run-llama/llama-parse-py/compare/v2.8.0...v2.9.0)
