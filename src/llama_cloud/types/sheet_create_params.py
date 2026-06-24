@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Dict, List, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-from .sheets_parsing_config_param import SheetsParsingConfigParam
+from .beta.sheets_parsing_config_param import SheetsParsingConfigParam
 
 __all__ = ["SheetCreateParams", "WebhookConfiguration"]
 

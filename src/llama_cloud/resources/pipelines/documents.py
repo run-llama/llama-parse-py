@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Iterable, Optional
 from typing_extensions import Literal
 
@@ -50,6 +51,7 @@ class DocumentsResource(SyncAPIResource):
         """
         return DocumentsResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def create(
         self,
         pipeline_id: str,
@@ -85,6 +87,7 @@ class DocumentsResource(SyncAPIResource):
             cast_to=DocumentCreateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         pipeline_id: str,
@@ -139,6 +142,7 @@ class DocumentsResource(SyncAPIResource):
             model=CloudDocument,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def delete(
         self,
         document_id: str,
@@ -181,6 +185,7 @@ class DocumentsResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get(
         self,
         document_id: str,
@@ -221,6 +226,7 @@ class DocumentsResource(SyncAPIResource):
             cast_to=CloudDocument,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get_chunks(
         self,
         document_id: str,
@@ -261,6 +267,7 @@ class DocumentsResource(SyncAPIResource):
             cast_to=DocumentGetChunksResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get_status(
         self,
         document_id: str,
@@ -301,6 +308,7 @@ class DocumentsResource(SyncAPIResource):
             cast_to=ManagedIngestionStatusResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def sync(
         self,
         document_id: str,
@@ -341,6 +349,7 @@ class DocumentsResource(SyncAPIResource):
             cast_to=object,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def upsert(
         self,
         pipeline_id: str,
@@ -397,6 +406,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
         """
         return AsyncDocumentsResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def create(
         self,
         pipeline_id: str,
@@ -432,6 +442,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=DocumentCreateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         pipeline_id: str,
@@ -486,6 +497,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             model=CloudDocument,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def delete(
         self,
         document_id: str,
@@ -528,6 +540,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get(
         self,
         document_id: str,
@@ -568,6 +581,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=CloudDocument,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get_chunks(
         self,
         document_id: str,
@@ -608,6 +622,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=DocumentGetChunksResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get_status(
         self,
         document_id: str,
@@ -648,6 +663,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=ManagedIngestionStatusResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def sync(
         self,
         document_id: str,
@@ -688,6 +704,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             cast_to=object,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def upsert(
         self,
         pipeline_id: str,
@@ -728,29 +745,45 @@ class DocumentsResourceWithRawResponse:
     def __init__(self, documents: DocumentsResource) -> None:
         self._documents = documents
 
-        self.create = to_raw_response_wrapper(
-            documents.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                documents.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_raw_response_wrapper(
-            documents.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                documents.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = to_raw_response_wrapper(
-            documents.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                documents.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_raw_response_wrapper(
-            documents.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                documents.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_chunks = to_raw_response_wrapper(
-            documents.get_chunks,
+        self.get_chunks = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                documents.get_chunks,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = to_raw_response_wrapper(
-            documents.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                documents.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = to_raw_response_wrapper(
-            documents.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                documents.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.upsert = to_raw_response_wrapper(
-            documents.upsert,
+        self.upsert = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                documents.upsert,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -758,29 +791,45 @@ class AsyncDocumentsResourceWithRawResponse:
     def __init__(self, documents: AsyncDocumentsResource) -> None:
         self._documents = documents
 
-        self.create = async_to_raw_response_wrapper(
-            documents.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                documents.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_raw_response_wrapper(
-            documents.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                documents.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = async_to_raw_response_wrapper(
-            documents.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                documents.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_raw_response_wrapper(
-            documents.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                documents.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_chunks = async_to_raw_response_wrapper(
-            documents.get_chunks,
+        self.get_chunks = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                documents.get_chunks,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = async_to_raw_response_wrapper(
-            documents.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                documents.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = async_to_raw_response_wrapper(
-            documents.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                documents.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.upsert = async_to_raw_response_wrapper(
-            documents.upsert,
+        self.upsert = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                documents.upsert,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -788,29 +837,45 @@ class DocumentsResourceWithStreamingResponse:
     def __init__(self, documents: DocumentsResource) -> None:
         self._documents = documents
 
-        self.create = to_streamed_response_wrapper(
-            documents.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                documents.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_streamed_response_wrapper(
-            documents.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                documents.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = to_streamed_response_wrapper(
-            documents.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                documents.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_streamed_response_wrapper(
-            documents.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                documents.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_chunks = to_streamed_response_wrapper(
-            documents.get_chunks,
+        self.get_chunks = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                documents.get_chunks,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = to_streamed_response_wrapper(
-            documents.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                documents.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = to_streamed_response_wrapper(
-            documents.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                documents.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.upsert = to_streamed_response_wrapper(
-            documents.upsert,
+        self.upsert = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                documents.upsert,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -818,27 +883,43 @@ class AsyncDocumentsResourceWithStreamingResponse:
     def __init__(self, documents: AsyncDocumentsResource) -> None:
         self._documents = documents
 
-        self.create = async_to_streamed_response_wrapper(
-            documents.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                documents.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_streamed_response_wrapper(
-            documents.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                documents.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = async_to_streamed_response_wrapper(
-            documents.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                documents.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_streamed_response_wrapper(
-            documents.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                documents.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_chunks = async_to_streamed_response_wrapper(
-            documents.get_chunks,
+        self.get_chunks = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                documents.get_chunks,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = async_to_streamed_response_wrapper(
-            documents.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                documents.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = async_to_streamed_response_wrapper(
-            documents.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                documents.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.upsert = async_to_streamed_response_wrapper(
-            documents.upsert,
+        self.upsert = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                documents.upsert,  # pyright: ignore[reportDeprecated],
+            )
         )

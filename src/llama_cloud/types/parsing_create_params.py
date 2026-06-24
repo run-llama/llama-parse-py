@@ -14,6 +14,7 @@ __all__ = [
     "CropBox",
     "InputOptions",
     "InputOptionsHTML",
+    "InputOptionsImage",
     "InputOptionsPresentation",
     "InputOptionsSpreadsheet",
     "OutputOptions",
@@ -40,14 +41,14 @@ __all__ = [
 
 
 class ParsingCreateParams(TypedDict, total=False):
-    tier: Required[Literal["fast", "cost_effective", "agentic", "agentic_plus"]]
+    tier: Required[Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str]]
     """
     Parsing tier: 'fast' (rule-based, cheapest), 'cost_effective' (balanced),
     'agentic' (AI-powered with custom prompts), or 'agentic_plus' (premium AI with
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str]]
+    version: Required[Union[Literal["latest", "2026-06-11", "2025-12-11"], str]]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -55,9 +56,9 @@ class ParsingCreateParams(TypedDict, total=False):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-05`
-    - `agentic`: `2026-06-04`
-    - `agentic_plus`: `2026-06-04`
+    - `cost_effective`: `2026-06-11`
+    - `agentic`: `2026-06-11`
+    - `agentic_plus`: `2026-06-11`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -77,6 +78,13 @@ class ParsingCreateParams(TypedDict, total=False):
     """Identifier for the client/application making the request.
 
     Used for analytics and debugging. Example: 'my-app-v2'
+    """
+
+    configuration_id: Optional[str]
+    """ID of a saved parse configuration.
+
+    When set, `tier` and `version` default to the saved configuration's values —
+    omit them or pass `'configured'`.
     """
 
     crop_box: CropBox
@@ -203,6 +211,19 @@ class InputOptionsHTML(TypedDict, total=False):
     """Remove navigation elements (nav bars, sidebars, menus) to focus on main content"""
 
 
+class InputOptionsImage(TypedDict, total=False):
+    """Image parsing options (applies to .jpg, .jpeg, .png, .webp files)"""
+
+    camera_photo_correction: Optional[bool]
+    """Detect documents photographed with a camera (e.g.
+
+    phone scans of receipts or forms), then crop, perspective-correct, and flatten
+    uneven lighting and shadows before parsing. Supports JPEG, PNG, WebP, and
+    HEIC/HEIF inputs. Improves results when the document is tilted or surrounded by
+    background. Images that already look like clean scans are left untouched
+    """
+
+
 class InputOptionsPresentation(TypedDict, total=False):
     """Presentation parsing options (applies to .pptx, .ppt, .odp, .key files)"""
 
@@ -252,6 +273,9 @@ class InputOptions(TypedDict, total=False):
 
     html: InputOptionsHTML
     """HTML/web page parsing options (applies to .html, .htm files)"""
+
+    image: InputOptionsImage
+    """Image parsing options (applies to .jpg, .jpeg, .png, .webp files)"""
 
     pdf: object
     """PDF-specific parsing options (applies to .pdf files)"""
@@ -578,7 +602,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     tier: Optional[Literal["fast", "cost_effective", "agentic", "agentic_plus"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-06-05", "2026-06-04", "2025-12-11"], str, None]
+    version: Union[Literal["latest", "2026-06-11", "2025-12-11"], str, None]
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -587,9 +611,9 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-05`
-    - `agentic`: `2026-06-04`
-    - `agentic_plus`: `2026-06-04`
+    - `cost_effective`: `2026-06-11`
+    - `agentic`: `2026-06-11`
+    - `agentic_plus`: `2026-06-11`
 
     Full list: `GET /api/v2/parse/versions`.
     """

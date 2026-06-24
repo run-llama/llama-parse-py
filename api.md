@@ -47,6 +47,16 @@ Methods:
 - <code title="get /api/v1/beta/files/{file_id}/content">client.files.<a href="./src/llama_cloud/resources/files.py">get</a>(file_id, \*\*<a href="src/llama_cloud/types/file_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/presigned_url.py">PresignedURL</a></code>
 - <code title="post /api/v1/beta/files/query">client.files.<a href="./src/llama_cloud/resources/files.py">query</a>(\*\*<a href="src/llama_cloud/types/file_query_params.py">params</a>) -> <a href="./src/llama_cloud/types/file_query_response.py">FileQueryResponse</a></code>
 
+# Sheets
+
+Methods:
+
+- <code title="post /api/v1/sheets/jobs">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">create</a>(\*\*<a href="src/llama_cloud/types/sheet_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/sheets_job.py">SheetsJob</a></code>
+- <code title="get /api/v1/sheets/jobs">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">list</a>(\*\*<a href="src/llama_cloud/types/sheet_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/sheets_job.py">SyncPaginatedCursor[SheetsJob]</a></code>
+- <code title="delete /api/v1/sheets/jobs/{spreadsheet_job_id}">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">delete_job</a>(spreadsheet_job_id, \*\*<a href="src/llama_cloud/types/sheet_delete_job_params.py">params</a>) -> object</code>
+- <code title="get /api/v1/sheets/jobs/{spreadsheet_job_id}">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">get</a>(spreadsheet_job_id, \*\*<a href="src/llama_cloud/types/sheet_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/sheets_job.py">SheetsJob</a></code>
+- <code title="get /api/v1/sheets/jobs/{spreadsheet_job_id}/regions/{region_id}/result/{region_type}">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">get_result_table</a>(region_type, \*, spreadsheet_job_id, region_id, \*\*<a href="src/llama_cloud/types/sheet_get_result_table_params.py">params</a>) -> <a href="./src/llama_cloud/types/presigned_url.py">PresignedURL</a></code>
+
 # Parsing
 
 Types:

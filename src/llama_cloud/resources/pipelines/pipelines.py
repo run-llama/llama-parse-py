@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict, Union, Iterable, Optional
 
 import httpx
@@ -135,6 +136,7 @@ class PipelinesResource(SyncAPIResource):
         """
         return PipelinesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def create(
         self,
         *,
@@ -239,6 +241,7 @@ class PipelinesResource(SyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def retrieve(
         self,
         pipeline_id: str,
@@ -357,6 +360,7 @@ class PipelinesResource(SyncAPIResource):
             cast_to=PipelineRetrieveResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def update(
         self,
         pipeline_id: str,
@@ -446,6 +450,7 @@ class PipelinesResource(SyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -496,6 +501,7 @@ class PipelinesResource(SyncAPIResource):
             cast_to=PipelineListResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def delete(
         self,
         pipeline_id: str,
@@ -533,6 +539,7 @@ class PipelinesResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get(
         self,
         pipeline_id: str,
@@ -566,6 +573,7 @@ class PipelinesResource(SyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def get_status(
         self,
         pipeline_id: str,
@@ -609,6 +617,7 @@ class PipelinesResource(SyncAPIResource):
             cast_to=ManagedIngestionStatusResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def upsert(
         self,
         *,
@@ -758,6 +767,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
         """
         return AsyncPipelinesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def create(
         self,
         *,
@@ -862,6 +872,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def retrieve(
         self,
         pipeline_id: str,
@@ -980,6 +991,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
             cast_to=PipelineRetrieveResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def update(
         self,
         pipeline_id: str,
@@ -1069,6 +1081,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -1119,6 +1132,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
             cast_to=PipelineListResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def delete(
         self,
         pipeline_id: str,
@@ -1156,6 +1170,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get(
         self,
         pipeline_id: str,
@@ -1189,6 +1204,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def get_status(
         self,
         pipeline_id: str,
@@ -1232,6 +1248,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
             cast_to=ManagedIngestionStatusResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def upsert(
         self,
         *,
@@ -1341,29 +1358,45 @@ class PipelinesResourceWithRawResponse:
     def __init__(self, pipelines: PipelinesResource) -> None:
         self._pipelines = pipelines
 
-        self.create = to_raw_response_wrapper(
-            pipelines.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipelines.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.retrieve = to_raw_response_wrapper(
-            pipelines.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipelines.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update = to_raw_response_wrapper(
-            pipelines.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipelines.update,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_raw_response_wrapper(
-            pipelines.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipelines.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = to_raw_response_wrapper(
-            pipelines.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipelines.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_raw_response_wrapper(
-            pipelines.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipelines.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = to_raw_response_wrapper(
-            pipelines.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipelines.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.upsert = to_raw_response_wrapper(
-            pipelines.upsert,
+        self.upsert = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                pipelines.upsert,  # pyright: ignore[reportDeprecated],
+            )
         )
 
     @cached_property
@@ -1395,29 +1428,45 @@ class AsyncPipelinesResourceWithRawResponse:
     def __init__(self, pipelines: AsyncPipelinesResource) -> None:
         self._pipelines = pipelines
 
-        self.create = async_to_raw_response_wrapper(
-            pipelines.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipelines.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            pipelines.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipelines.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update = async_to_raw_response_wrapper(
-            pipelines.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipelines.update,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_raw_response_wrapper(
-            pipelines.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipelines.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = async_to_raw_response_wrapper(
-            pipelines.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipelines.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_raw_response_wrapper(
-            pipelines.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipelines.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = async_to_raw_response_wrapper(
-            pipelines.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipelines.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.upsert = async_to_raw_response_wrapper(
-            pipelines.upsert,
+        self.upsert = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                pipelines.upsert,  # pyright: ignore[reportDeprecated],
+            )
         )
 
     @cached_property
@@ -1449,29 +1498,45 @@ class PipelinesResourceWithStreamingResponse:
     def __init__(self, pipelines: PipelinesResource) -> None:
         self._pipelines = pipelines
 
-        self.create = to_streamed_response_wrapper(
-            pipelines.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipelines.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.retrieve = to_streamed_response_wrapper(
-            pipelines.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipelines.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update = to_streamed_response_wrapper(
-            pipelines.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipelines.update,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_streamed_response_wrapper(
-            pipelines.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipelines.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = to_streamed_response_wrapper(
-            pipelines.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipelines.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_streamed_response_wrapper(
-            pipelines.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipelines.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = to_streamed_response_wrapper(
-            pipelines.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipelines.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.upsert = to_streamed_response_wrapper(
-            pipelines.upsert,
+        self.upsert = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                pipelines.upsert,  # pyright: ignore[reportDeprecated],
+            )
         )
 
     @cached_property
@@ -1503,29 +1568,45 @@ class AsyncPipelinesResourceWithStreamingResponse:
     def __init__(self, pipelines: AsyncPipelinesResource) -> None:
         self._pipelines = pipelines
 
-        self.create = async_to_streamed_response_wrapper(
-            pipelines.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipelines.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            pipelines.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipelines.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.update = async_to_streamed_response_wrapper(
-            pipelines.update,
+        self.update = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipelines.update,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_streamed_response_wrapper(
-            pipelines.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipelines.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = async_to_streamed_response_wrapper(
-            pipelines.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipelines.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_streamed_response_wrapper(
-            pipelines.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipelines.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get_status = async_to_streamed_response_wrapper(
-            pipelines.get_status,
+        self.get_status = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipelines.get_status,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.upsert = async_to_streamed_response_wrapper(
-            pipelines.upsert,
+        self.upsert = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                pipelines.upsert,  # pyright: ignore[reportDeprecated],
+            )
         )
 
     @cached_property

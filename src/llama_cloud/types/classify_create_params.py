@@ -31,7 +31,10 @@ class ClassifyCreateParams(TypedDict, total=False):
     """Deprecated: use file_input instead"""
 
     transaction_id: Optional[str]
-    """Idempotency key scoped to the project"""
+    """Idempotency key scoped to the project.
+
+    Reusing a key returns the original job; the new request body is ignored.
+    """
 
     webhook_configurations: Optional[Iterable[WebhookConfiguration]]
     """Outbound webhook endpoints to notify on job status changes"""
@@ -65,6 +68,11 @@ class WebhookConfiguration(TypedDict, total=False):
                 "sheets.error",
                 "sheets.partial_success",
                 "sheets.cancelled",
+                "split.pending",
+                "split.processing",
+                "split.success",
+                "split.error",
+                "split.cancelled",
                 "unmapped_event",
             ]
         ]

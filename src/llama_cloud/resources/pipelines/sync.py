@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import typing_extensions
+
 import httpx
 
 from ..._types import Body, Query, Headers, NotGiven, not_given
@@ -40,6 +42,7 @@ class SyncResource(SyncAPIResource):
         """
         return SyncResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def create(
         self,
         pipeline_id: str,
@@ -76,6 +79,7 @@ class SyncResource(SyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def cancel(
         self,
         pipeline_id: str,
@@ -130,6 +134,7 @@ class AsyncSyncResource(AsyncAPIResource):
         """
         return AsyncSyncResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def create(
         self,
         pipeline_id: str,
@@ -166,6 +171,7 @@ class AsyncSyncResource(AsyncAPIResource):
             cast_to=Pipeline,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def cancel(
         self,
         pipeline_id: str,
@@ -204,11 +210,15 @@ class SyncResourceWithRawResponse:
     def __init__(self, sync: SyncResource) -> None:
         self._sync = sync
 
-        self.create = to_raw_response_wrapper(
-            sync.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                sync.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.cancel = to_raw_response_wrapper(
-            sync.cancel,
+        self.cancel = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                sync.cancel,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -216,11 +226,15 @@ class AsyncSyncResourceWithRawResponse:
     def __init__(self, sync: AsyncSyncResource) -> None:
         self._sync = sync
 
-        self.create = async_to_raw_response_wrapper(
-            sync.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                sync.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.cancel = async_to_raw_response_wrapper(
-            sync.cancel,
+        self.cancel = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                sync.cancel,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -228,11 +242,15 @@ class SyncResourceWithStreamingResponse:
     def __init__(self, sync: SyncResource) -> None:
         self._sync = sync
 
-        self.create = to_streamed_response_wrapper(
-            sync.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                sync.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.cancel = to_streamed_response_wrapper(
-            sync.cancel,
+        self.cancel = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                sync.cancel,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -240,9 +258,13 @@ class AsyncSyncResourceWithStreamingResponse:
     def __init__(self, sync: AsyncSyncResource) -> None:
         self._sync = sync
 
-        self.create = async_to_streamed_response_wrapper(
-            sync.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                sync.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.cancel = async_to_streamed_response_wrapper(
-            sync.cancel,
+        self.cancel = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                sync.cancel,  # pyright: ignore[reportDeprecated],
+            )
         )
