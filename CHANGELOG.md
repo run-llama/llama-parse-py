@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.10.0 (2026-06-24)
+
+Full Changelog: [v2.9.0...v2.10.0](https://github.com/run-llama/llama-parse-py/compare/v2.9.0...v2.10.0)
+
+### Features
+
+* **api:** api update ([70f5bb8](https://github.com/run-llama/llama-parse-py/commit/70f5bb850afa45692cbd2fd8d7db57f5f8ba7444))
+* **api:** api update ([1a39f7c](https://github.com/run-llama/llama-parse-py/commit/1a39f7cd1c786141e2b2171ae5173ce6b9f52c02))
+* **api:** api update ([1e5904a](https://github.com/run-llama/llama-parse-py/commit/1e5904a39dd115ee522db7a58947f8b43219fb40))
+* **api:** api update ([b7430f9](https://github.com/run-llama/llama-parse-py/commit/b7430f9481a46a56cb9f988ae2517b816d59b02c))
+
 ## 2.9.0 (2026-06-09)
 
 Full Changelog: [v2.8.0...v2.9.0](https://github.com/run-llama/llama-parse-py/compare/v2.8.0...v2.9.0)
