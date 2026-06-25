@@ -25,20 +25,20 @@ class FilterMetadataFilter(TypedDict, total=False):
     value: Required[Union[float, str, SequenceNotStr[str], Iterable[float], Iterable[int], None]]
 
     operator: Literal[
+        "!=",
+        "<",
+        "<=",
         "==",
         ">",
-        "<",
-        "!=",
         ">=",
-        "<=",
-        "in",
-        "nin",
-        "any",
         "all",
+        "any",
+        "contains",
+        "in",
+        "is_empty",
+        "nin",
         "text_match",
         "text_match_insensitive",
-        "contains",
-        "is_empty",
     ]
     """Vector store filter operator."""
 
@@ -54,5 +54,5 @@ class MetadataFiltersParam(TypedDict, total=False):
 
     filters: Required[Iterable[Filter]]
 
-    condition: Optional[Literal["and", "or", "not"]]
+    condition: Optional[Literal["and", "not", "or"]]
     """Vector store filter conditions to combine different filters."""

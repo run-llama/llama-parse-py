@@ -79,10 +79,10 @@ class ParametersSpreadsheetV1Parameters(TypedDict, total=False):
 
 
 Parameters: TypeAlias = Union[
-    SplitV1ParametersParam,
-    ExtractV2ParametersParam,
     ClassifyV2ParametersParam,
+    ExtractV2ParametersParam,
     ParseV2ParametersParam,
+    SplitV1ParametersParam,
     ParametersSpreadsheetV1Parameters,
     UntypedParametersParam,
 ]

@@ -18,7 +18,7 @@ from .heading_item import HeadingItem
 __all__ = ["FooterItem", "Item"]
 
 Item: TypeAlias = Annotated[
-    Union[TextItem, HeadingItem, "ListItem", CodeItem, TableItem, ImageItem, LinkItem],
+    Union[CodeItem, HeadingItem, ImageItem, LinkItem, "ListItem", TableItem, TextItem],
     PropertyInfo(discriminator="type"),
 ]
 

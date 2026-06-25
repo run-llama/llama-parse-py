@@ -26,7 +26,7 @@ class TestDataSinks:
         data_sink = client.data_sinks.create(
             component={"foo": "bar"},
             name="name",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         )
         assert_matches_type(DataSink, data_sink, path=["response"])
 
@@ -36,7 +36,7 @@ class TestDataSinks:
         data_sink = client.data_sinks.create(
             component={"foo": "bar"},
             name="name",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -48,7 +48,7 @@ class TestDataSinks:
         response = client.data_sinks.with_raw_response.create(
             component={"foo": "bar"},
             name="name",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         )
 
         assert response.is_closed is True
@@ -62,7 +62,7 @@ class TestDataSinks:
         with client.data_sinks.with_streaming_response.create(
             component={"foo": "bar"},
             name="name",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -77,7 +77,7 @@ class TestDataSinks:
     def test_method_update(self, client: LlamaCloud) -> None:
         data_sink = client.data_sinks.update(
             data_sink_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         )
         assert_matches_type(DataSink, data_sink, path=["response"])
 
@@ -86,7 +86,7 @@ class TestDataSinks:
     def test_method_update_with_all_params(self, client: LlamaCloud) -> None:
         data_sink = client.data_sinks.update(
             data_sink_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
             component={"foo": "bar"},
             name="name",
         )
@@ -97,7 +97,7 @@ class TestDataSinks:
     def test_raw_response_update(self, client: LlamaCloud) -> None:
         response = client.data_sinks.with_raw_response.update(
             data_sink_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         )
 
         assert response.is_closed is True
@@ -110,7 +110,7 @@ class TestDataSinks:
     def test_streaming_response_update(self, client: LlamaCloud) -> None:
         with client.data_sinks.with_streaming_response.update(
             data_sink_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -126,7 +126,7 @@ class TestDataSinks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `data_sink_id` but received ''"):
             client.data_sinks.with_raw_response.update(
                 data_sink_id="",
-                sink_type="PINECONE",
+                sink_type="ASTRA_DB",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -262,7 +262,7 @@ class TestAsyncDataSinks:
         data_sink = await async_client.data_sinks.create(
             component={"foo": "bar"},
             name="name",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         )
         assert_matches_type(DataSink, data_sink, path=["response"])
 
@@ -272,7 +272,7 @@ class TestAsyncDataSinks:
         data_sink = await async_client.data_sinks.create(
             component={"foo": "bar"},
             name="name",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -284,7 +284,7 @@ class TestAsyncDataSinks:
         response = await async_client.data_sinks.with_raw_response.create(
             component={"foo": "bar"},
             name="name",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         )
 
         assert response.is_closed is True
@@ -298,7 +298,7 @@ class TestAsyncDataSinks:
         async with async_client.data_sinks.with_streaming_response.create(
             component={"foo": "bar"},
             name="name",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -313,7 +313,7 @@ class TestAsyncDataSinks:
     async def test_method_update(self, async_client: AsyncLlamaCloud) -> None:
         data_sink = await async_client.data_sinks.update(
             data_sink_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         )
         assert_matches_type(DataSink, data_sink, path=["response"])
 
@@ -322,7 +322,7 @@ class TestAsyncDataSinks:
     async def test_method_update_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         data_sink = await async_client.data_sinks.update(
             data_sink_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
             component={"foo": "bar"},
             name="name",
         )
@@ -333,7 +333,7 @@ class TestAsyncDataSinks:
     async def test_raw_response_update(self, async_client: AsyncLlamaCloud) -> None:
         response = await async_client.data_sinks.with_raw_response.update(
             data_sink_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         )
 
         assert response.is_closed is True
@@ -346,7 +346,7 @@ class TestAsyncDataSinks:
     async def test_streaming_response_update(self, async_client: AsyncLlamaCloud) -> None:
         async with async_client.data_sinks.with_streaming_response.update(
             data_sink_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            sink_type="PINECONE",
+            sink_type="ASTRA_DB",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -362,7 +362,7 @@ class TestAsyncDataSinks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `data_sink_id` but received ''"):
             await async_client.data_sinks.with_raw_response.update(
                 data_sink_id="",
-                sink_type="PINECONE",
+                sink_type="ASTRA_DB",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

@@ -303,7 +303,7 @@ class OutputOptions(TypedDict, total=False):
     `GroundedJsonItem` shape.
     """
 
-    images_to_save: List[Literal["screenshot", "embedded", "layout"]]
+    images_to_save: List[Literal["embedded", "layout", "screenshot"]]
     """Image categories to extract and save.
 
     Options: 'screenshot' (full page renders useful for visual QA), 'embedded'
@@ -491,13 +491,13 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     spatial_text: Optional[ProcessingOptionsAutoModeConfigurationParsingConfSpatialText]
     """Spatial text options for auto mode parsing configuration."""
 
-    specialized_chart_parsing: Optional[Literal["agentic_plus", "agentic", "efficient"]]
+    specialized_chart_parsing: Optional[Literal["agentic", "agentic_plus", "efficient"]]
     """Enable specialized chart parsing with the specified mode"""
 
-    tier: Optional[Literal["fast", "cost_effective", "agentic", "agentic_plus"]]
+    tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-06-11", "2025-12-11"], str, None]
+    version: Union[Literal["latest", "2026-06-18", "2025-12-11"], str, None]
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -506,9 +506,9 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-11`
-    - `agentic`: `2026-06-11`
-    - `agentic_plus`: `2026-06-11`
+    - `cost_effective`: `2026-06-18`
+    - `agentic`: `2026-06-18`
+    - `agentic_plus`: `2026-06-18`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -723,7 +723,7 @@ class ProcessingOptions(TypedDict, total=False):
     ocr_parameters: ProcessingOptionsOcrParameters
     """OCR configuration including language detection settings"""
 
-    specialized_chart_parsing: Optional[Literal["agentic_plus", "agentic", "efficient"]]
+    specialized_chart_parsing: Optional[Literal["agentic", "agentic_plus", "efficient"]]
     """Enable AI-powered chart analysis.
 
     Modes: 'efficient' (fast, lower cost), 'agentic' (balanced), 'agentic_plus'
@@ -754,7 +754,7 @@ class WebhookConfiguration(TypedDict, total=False):
     'Bearer xyz'}
     """
 
-    webhook_output_format: Optional[Literal["string", "json"]]
+    webhook_output_format: Optional[Literal["json", "string"]]
     """Format of the webhook payload body.
 
     'string' (default) sends the payload as a JSON-encoded string; 'json' sends it
@@ -776,14 +776,14 @@ class ParseV2ParametersParam(TypedDict, total=False):
     product_type: Required[Literal["parse_v2"]]
     """Product type."""
 
-    tier: Required[Literal["fast", "cost_effective", "agentic", "agentic_plus"]]
+    tier: Required[Literal["agentic", "agentic_plus", "cost_effective", "fast"]]
     """
     Parsing tier: 'fast' (rule-based, cheapest), 'cost_effective' (balanced),
     'agentic' (AI-powered with custom prompts), or 'agentic_plus' (premium AI with
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-06-11", "2025-12-11"], str]]
+    version: Required[Union[Literal["latest", "2026-06-18", "2025-12-11"], str]]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -791,9 +791,9 @@ class ParseV2ParametersParam(TypedDict, total=False):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-11`
-    - `agentic`: `2026-06-11`
-    - `agentic_plus`: `2026-06-11`
+    - `cost_effective`: `2026-06-18`
+    - `agentic`: `2026-06-18`
+    - `agentic_plus`: `2026-06-18`
 
     Full list: `GET /api/v2/parse/versions`.
     """

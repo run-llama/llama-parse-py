@@ -15,13 +15,13 @@ class BatchListResponse(BaseModel):
     id: str
     """Unique identifier for the batch job"""
 
-    job_type: Literal["parse", "extract", "classify"]
+    job_type: Literal["classify", "extract", "parse"]
     """Type of processing operation (parse or classify)"""
 
     project_id: str
     """Project this job belongs to"""
 
-    status: Literal["pending", "running", "dispatched", "completed", "failed", "cancelled"]
+    status: Literal["cancelled", "completed", "dispatched", "failed", "pending", "running"]
     """Current job status"""
 
     total_items: int

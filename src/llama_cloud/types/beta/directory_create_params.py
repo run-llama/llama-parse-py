@@ -28,5 +28,5 @@ class DirectoryCreateParams(TypedDict, total=False):
     system_metadata: Optional[Dict[str, object]]
     """Reserved system-managed metadata."""
 
-    type: Literal["user", "ephemeral"]
+    type: Literal["ephemeral", "user"]
     """Directory type. Use 'ephemeral' for batch processing with automatic cleanup."""

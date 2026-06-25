@@ -124,7 +124,7 @@ class BatchGetResponse(BaseModel):
     source_directory_id: str
     """Directory being processed."""
 
-    status: Literal["PENDING", "THROTTLED", "RUNNING", "COMPLETED", "FAILED", "CANCELLED"]
+    status: Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]
     """Current batch status."""
 
     created_at: Optional[datetime] = None

@@ -142,12 +142,12 @@ class BatchResource(SyncAPIResource):
         self,
         *,
         directory_id: Optional[str] | Omit = omit,
-        job_type: Optional[Literal["parse", "extract", "classify"]] | Omit = omit,
+        job_type: Optional[Literal["classify", "extract", "parse"]] | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[Literal["pending", "running", "dispatched", "completed", "failed", "cancelled"]] | Omit = omit,
+        status: Optional[Literal["cancelled", "completed", "dispatched", "failed", "pending", "running"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -413,12 +413,12 @@ class AsyncBatchResource(AsyncAPIResource):
         self,
         *,
         directory_id: Optional[str] | Omit = omit,
-        job_type: Optional[Literal["parse", "extract", "classify"]] | Omit = omit,
+        job_type: Optional[Literal["classify", "extract", "parse"]] | Omit = omit,
         limit: int | Omit = omit,
         offset: int | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[Literal["pending", "running", "dispatched", "completed", "failed", "cancelled"]] | Omit = omit,
+        status: Optional[Literal["cancelled", "completed", "dispatched", "failed", "pending", "running"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

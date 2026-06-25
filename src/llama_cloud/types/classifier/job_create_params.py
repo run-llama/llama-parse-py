@@ -55,7 +55,7 @@ class WebhookConfiguration(TypedDict, total=False):
     'Bearer xyz'}
     """
 
-    webhook_output_format: Optional[Literal["string", "json"]]
+    webhook_output_format: Optional[Literal["json", "string"]]
     """Format of the webhook payload body.
 
     'string' (default) sends the payload as a JSON-encoded string; 'json' sends it

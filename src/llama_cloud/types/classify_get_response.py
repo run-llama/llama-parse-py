@@ -20,7 +20,7 @@ class ClassifyGetResponse(BaseModel):
     configuration: ClassifyConfiguration
     """Classify configuration used for this job"""
 
-    document_input_type: Literal["url", "file_id", "parse_job_id"]
+    document_input_type: Literal["file_id", "parse_job_id", "url"]
     """Whether the input was a file or parse job (FILE or PARSE_JOB)"""
 
     file_input: str
@@ -29,7 +29,7 @@ class ClassifyGetResponse(BaseModel):
     project_id: str
     """Project this job belongs to"""
 
-    status: Literal["PENDING", "RUNNING", "COMPLETED", "FAILED"]
+    status: Literal["COMPLETED", "FAILED", "PENDING", "RUNNING"]
     """Current job status: PENDING, RUNNING, COMPLETED, or FAILED"""
 
     user_id: str

@@ -53,7 +53,7 @@ class ExtractConfiguration(BaseModel):
     Omit to process all pages.
     """
 
-    tier: Optional[Literal["cost_effective", "agentic"]] = None
+    tier: Optional[Literal["agentic", "cost_effective"]] = None
     """Extract tier: cost_effective (5 credits/page) or agentic (15 credits/page)"""
 
     version: Optional[str] = None

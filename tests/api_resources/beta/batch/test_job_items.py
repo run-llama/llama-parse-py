@@ -38,7 +38,7 @@ class TestJobItems:
             offset=0,
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="pending",
+            status="cancelled",
         )
         assert_matches_type(SyncPaginatedBatchItems[JobItemListResponse], job_item, path=["response"])
 
@@ -89,7 +89,7 @@ class TestJobItems:
     def test_method_get_processing_results_with_all_params(self, client: LlamaCloud) -> None:
         job_item = client.beta.batch.job_items.get_processing_results(
             item_id="item_id",
-            job_type="parse",
+            job_type="classify",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -152,7 +152,7 @@ class TestAsyncJobItems:
             offset=0,
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="pending",
+            status="cancelled",
         )
         assert_matches_type(AsyncPaginatedBatchItems[JobItemListResponse], job_item, path=["response"])
 
@@ -203,7 +203,7 @@ class TestAsyncJobItems:
     async def test_method_get_processing_results_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         job_item = await async_client.beta.batch.job_items.get_processing_results(
             item_id="item_id",
-            job_type="parse",
+            job_type="classify",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )

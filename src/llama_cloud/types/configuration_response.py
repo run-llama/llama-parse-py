@@ -68,10 +68,10 @@ class ParametersSpreadsheetV1Parameters(BaseModel):
 
 Parameters: TypeAlias = Annotated[
     Union[
-        SplitV1Parameters,
-        ExtractV2Parameters,
         ClassifyV2Parameters,
+        ExtractV2Parameters,
         ParseV2Parameters,
+        SplitV1Parameters,
         ParametersSpreadsheetV1Parameters,
         UntypedParameters,
     ],
@@ -91,7 +91,7 @@ class ConfigurationResponse(BaseModel):
     parameters: Parameters
     """Product-specific configuration parameters."""
 
-    product_type: Literal["split_v1", "extract_v2", "classify_v2", "parse_v2", "spreadsheet_v1", "unknown"]
+    product_type: Literal["classify_v2", "extract_v2", "parse_v2", "split_v1", "spreadsheet_v1", "unknown"]
     """Product type."""
 
     version: str

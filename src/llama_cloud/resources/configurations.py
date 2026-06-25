@@ -219,7 +219,7 @@ class ConfigurationsResource(SyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         product_type: Optional[
-            List[Literal["split_v1", "extract_v2", "classify_v2", "parse_v2", "spreadsheet_v1", "unknown"]]
+            List[Literal["classify_v2", "extract_v2", "parse_v2", "split_v1", "spreadsheet_v1", "unknown"]]
         ]
         | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -511,7 +511,7 @@ class AsyncConfigurationsResource(AsyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         product_type: Optional[
-            List[Literal["split_v1", "extract_v2", "classify_v2", "parse_v2", "spreadsheet_v1", "unknown"]]
+            List[Literal["classify_v2", "extract_v2", "parse_v2", "split_v1", "spreadsheet_v1", "unknown"]]
         ]
         | Omit = omit,
         project_id: Optional[str] | Omit = omit,

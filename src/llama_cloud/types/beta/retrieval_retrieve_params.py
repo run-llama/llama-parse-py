@@ -55,13 +55,13 @@ class RetrievalRetrieveParams(TypedDict, total=False):
 
 
 class CustomFiltersFilterTypeUnionStrIntBoolFloat(TypedDict, total=False):
-    operator: Required[Literal["eq", "ne", "gt", "lt", "gte", "lte", "in", "nin"]]
+    operator: Required[Literal["eq", "gt", "gte", "in", "lt", "lte", "ne", "nin"]]
 
     value: Required[Union[str, bool, float, SequenceNotStr[Union[str, bool, float]]]]
 
 
 class CustomFiltersUnionMember1(TypedDict, total=False):
-    operator: Required[Literal["eq", "ne", "gt", "lt", "gte", "lte", "in", "nin"]]
+    operator: Required[Literal["eq", "gt", "gte", "in", "lt", "lte", "ne", "nin"]]
 
     value: Required[Union[float, Iterable[float]]]
 
@@ -80,7 +80,7 @@ class Rerank(TypedDict, total=False):
 
 
 class StaticFiltersParsedDirectoryFileID(TypedDict, total=False):
-    operator: Required[Literal["eq", "ne", "gt", "lt", "gte", "lte", "in", "nin"]]
+    operator: Required[Literal["eq", "gt", "gte", "in", "lt", "lte", "ne", "nin"]]
 
     value: Required[Union[str, SequenceNotStr[str]]]
 

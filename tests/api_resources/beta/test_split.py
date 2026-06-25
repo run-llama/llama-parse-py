@@ -51,7 +51,7 @@ class TestSplit:
                         "description": "x",
                     }
                 ],
-                "splitting_strategy": {"allow_uncategorized": "include"},
+                "splitting_strategy": {"allow_uncategorized": "forbid"},
             },
             configuration_id="configuration_id",
         )
@@ -106,7 +106,7 @@ class TestSplit:
             page_size=0,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="pending",
+            status="cancelled",
         )
         assert_matches_type(SyncPaginatedCursor[SplitListResponse], split, path=["response"])
 
@@ -218,7 +218,7 @@ class TestAsyncSplit:
                         "description": "x",
                     }
                 ],
-                "splitting_strategy": {"allow_uncategorized": "include"},
+                "splitting_strategy": {"allow_uncategorized": "forbid"},
             },
             configuration_id="configuration_id",
         )
@@ -273,7 +273,7 @@ class TestAsyncSplit:
             page_size=0,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="pending",
+            status="cancelled",
         )
         assert_matches_type(AsyncPaginatedCursor[SplitListResponse], split, path=["response"])
 

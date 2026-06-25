@@ -77,12 +77,12 @@ class PipelineUpdateParams(TypedDict, total=False):
 
 EmbeddingConfig: TypeAlias = Union[
     AzureOpenAIEmbeddingConfigParam,
+    BedrockEmbeddingConfigParam,
     CohereEmbeddingConfigParam,
     GeminiEmbeddingConfigParam,
     HuggingFaceInferenceAPIEmbeddingConfigParam,
     OpenAIEmbeddingConfigParam,
     VertexAIEmbeddingConfigParam,
-    BedrockEmbeddingConfigParam,
 ]
 
 TransformConfig: TypeAlias = Union[AutoTransformConfigParam, AdvancedModeTransformConfigParam]

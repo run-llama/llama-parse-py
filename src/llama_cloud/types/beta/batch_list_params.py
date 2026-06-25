@@ -12,7 +12,7 @@ class BatchListParams(TypedDict, total=False):
     directory_id: Optional[str]
     """Filter by directory ID"""
 
-    job_type: Optional[Literal["parse", "extract", "classify"]]
+    job_type: Optional[Literal["classify", "extract", "parse"]]
     """Filter by job type (PARSE, EXTRACT, CLASSIFY)"""
 
     limit: int
@@ -25,5 +25,5 @@ class BatchListParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
-    status: Optional[Literal["pending", "running", "dispatched", "completed", "failed", "cancelled"]]
+    status: Optional[Literal["cancelled", "completed", "dispatched", "failed", "pending", "running"]]
     """Filter by job status (PENDING, RUNNING, COMPLETED, FAILED, CANCELLED)"""
