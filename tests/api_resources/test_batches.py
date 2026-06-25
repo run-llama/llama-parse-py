@@ -108,7 +108,7 @@ class TestBatches:
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_directory_id="source_directory_id",
-            status="PENDING",
+            status="CANCELLED",
         )
         assert_matches_type(SyncPaginatedCursor[BatchListResponse], batch, path=["response"])
 
@@ -278,7 +278,7 @@ class TestAsyncBatches:
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_directory_id="source_directory_id",
-            status="PENDING",
+            status="CANCELLED",
         )
         assert_matches_type(AsyncPaginatedCursor[BatchListResponse], batch, path=["response"])
 

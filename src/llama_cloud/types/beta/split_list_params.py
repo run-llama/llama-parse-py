@@ -30,5 +30,5 @@ class SplitListParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
-    status: Optional[Literal["pending", "processing", "completed", "failed", "cancelled"]]
+    status: Optional[Literal["cancelled", "completed", "failed", "pending", "processing"]]
     """Filter by job status (pending, processing, completed, failed, cancelled)"""

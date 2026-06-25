@@ -60,17 +60,17 @@ class PipelineDataSource(BaseModel):
     project_id: str
 
     source_type: Literal[
-        "S3",
         "AZURE_STORAGE_BLOB",
-        "GOOGLE_DRIVE",
-        "MICROSOFT_ONEDRIVE",
-        "MICROSOFT_SHAREPOINT",
-        "SLACK",
-        "NOTION_PAGE",
+        "BOX",
         "CONFLUENCE",
+        "GOOGLE_DRIVE",
         "JIRA",
         "JIRA_V2",
-        "BOX",
+        "MICROSOFT_ONEDRIVE",
+        "MICROSOFT_SHAREPOINT",
+        "NOTION_PAGE",
+        "S3",
+        "SLACK",
     ]
 
     created_at: Optional[datetime] = None
@@ -79,7 +79,7 @@ class PipelineDataSource(BaseModel):
     custom_metadata: Optional[Dict[str, Union[Dict[str, object], List[object], str, float, bool, None]]] = None
     """Custom metadata that will be present on all data loaded from the data source"""
 
-    status: Optional[Literal["NOT_STARTED", "IN_PROGRESS", "SUCCESS", "ERROR", "CANCELLED"]] = None
+    status: Optional[Literal["CANCELLED", "ERROR", "IN_PROGRESS", "NOT_STARTED", "SUCCESS"]] = None
     """The status of the data source in the pipeline."""
 
     status_updated_at: Optional[datetime] = None

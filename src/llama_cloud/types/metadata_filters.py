@@ -26,20 +26,20 @@ class FilterMetadataFilter(BaseModel):
 
     operator: Optional[
         Literal[
+            "!=",
+            "<",
+            "<=",
             "==",
             ">",
-            "<",
-            "!=",
             ">=",
-            "<=",
-            "in",
-            "nin",
-            "any",
             "all",
+            "any",
+            "contains",
+            "in",
+            "is_empty",
+            "nin",
             "text_match",
             "text_match_insensitive",
-            "contains",
-            "is_empty",
         ]
     ] = None
     """Vector store filter operator."""
@@ -56,5 +56,5 @@ class MetadataFilters(BaseModel):
 
     filters: List[Filter]
 
-    condition: Optional[Literal["and", "or", "not"]] = None
+    condition: Optional[Literal["and", "not", "or"]] = None
     """Vector store filter conditions to combine different filters."""

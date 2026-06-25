@@ -16,7 +16,7 @@ class SparseModelConfigParam(TypedDict, total=False):
 
     class_name: str
 
-    model_type: Literal["splade", "bm25", "auto"]
+    model_type: Literal["auto", "bm25", "splade"]
     """The sparse model type to use.
 
     'bm25' uses Qdrant's FastEmbed BM25 model (default for new pipelines), 'splade'

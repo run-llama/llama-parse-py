@@ -13,7 +13,7 @@ __all__ = ["SplitV1ParametersParam", "SplittingStrategy"]
 class SplittingStrategy(TypedDict, total=False):
     """Strategy for splitting documents."""
 
-    allow_uncategorized: Literal["include", "forbid", "omit"]
+    allow_uncategorized: Literal["forbid", "include", "omit"]
     """Controls handling of pages that don't match any category.
 
     'include': pages can be grouped as 'uncategorized' and included in results.

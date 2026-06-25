@@ -23,17 +23,17 @@ __all__ = ["DataSourceUpdateParams", "Component"]
 class DataSourceUpdateParams(TypedDict, total=False):
     source_type: Required[
         Literal[
-            "S3",
             "AZURE_STORAGE_BLOB",
-            "GOOGLE_DRIVE",
-            "MICROSOFT_ONEDRIVE",
-            "MICROSOFT_SHAREPOINT",
-            "SLACK",
-            "NOTION_PAGE",
+            "BOX",
             "CONFLUENCE",
+            "GOOGLE_DRIVE",
             "JIRA",
             "JIRA_V2",
-            "BOX",
+            "MICROSOFT_ONEDRIVE",
+            "MICROSOFT_SHAREPOINT",
+            "NOTION_PAGE",
+            "S3",
+            "SLACK",
         ]
     ]
 

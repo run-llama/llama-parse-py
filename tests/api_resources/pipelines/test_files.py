@@ -167,7 +167,7 @@ class TestFiles:
                 offset=0,
                 only_manually_uploaded=True,
                 order_by="order_by",
-                statuses=["NOT_STARTED", "IN_PROGRESS"],
+                statuses=["CANCELLED", "ERROR"],
             )
 
         assert_matches_type(SyncPaginatedPipelineFiles[PipelineFile], file, path=["response"])
@@ -530,7 +530,7 @@ class TestAsyncFiles:
                 offset=0,
                 only_manually_uploaded=True,
                 order_by="order_by",
-                statuses=["NOT_STARTED", "IN_PROGRESS"],
+                statuses=["CANCELLED", "ERROR"],
             )
 
         assert_matches_type(AsyncPaginatedPipelineFiles[PipelineFile], file, path=["response"])

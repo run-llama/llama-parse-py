@@ -105,7 +105,7 @@ class TestClassify:
             page_size=1,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="PENDING",
+            status="COMPLETED",
         )
         assert_matches_type(SyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
 
@@ -271,7 +271,7 @@ class TestAsyncClassify:
             page_size=1,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="PENDING",
+            status="COMPLETED",
         )
         assert_matches_type(AsyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
 

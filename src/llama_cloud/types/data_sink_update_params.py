@@ -18,7 +18,7 @@ __all__ = ["DataSinkUpdateParams", "Component"]
 
 class DataSinkUpdateParams(TypedDict, total=False):
     sink_type: Required[
-        Literal["PINECONE", "POSTGRES", "QDRANT", "AZUREAI_SEARCH", "MONGODB_ATLAS", "MILVUS", "ASTRA_DB"]
+        Literal["ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT"]
     ]
 
     component: Optional[Component]

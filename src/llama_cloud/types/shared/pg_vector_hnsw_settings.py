@@ -11,7 +11,7 @@ __all__ = ["PgVectorHnswSettings"]
 class PgVectorHnswSettings(BaseModel):
     """HNSW settings for PGVector."""
 
-    distance_method: Optional[Literal["l2", "ip", "cosine", "l1", "hamming", "jaccard"]] = None
+    distance_method: Optional[Literal["cosine", "hamming", "ip", "jaccard", "l1", "l2"]] = None
     """The distance method to use."""
 
     ef_construction: Optional[int] = None
@@ -23,5 +23,5 @@ class PgVectorHnswSettings(BaseModel):
     m: Optional[int] = None
     """The number of bi-directional links created for each new element."""
 
-    vector_type: Optional[Literal["vector", "half_vec", "bit", "sparse_vec"]] = None
+    vector_type: Optional[Literal["bit", "half_vec", "sparse_vec", "vector"]] = None
     """The type of vector to use."""

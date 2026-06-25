@@ -41,10 +41,10 @@ class TestExtract:
             configuration={
                 "data_schema": {
                     "properties": {
-                        "vendor_name": "bar",
                         "total_amount": "bar",
+                        "vendor_name": "bar",
                     },
-                    "required": ["vendor_name", "total_amount"],
+                    "required": ["total_amount", "vendor_name"],
                     "type": "object",
                 },
                 "cite_sources": True,
@@ -118,7 +118,7 @@ class TestExtract:
             page_size=0,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="PENDING",
+            status="CANCELLED",
         )
         assert_matches_type(SyncPaginatedCursor[ExtractV2Job], extract, path=["response"])
 
@@ -296,12 +296,12 @@ class TestExtract:
         extract = client.extract.validate_schema(
             data_schema={
                 "properties": {
-                    "vendor_name": "bar",
                     "invoice_number": "bar",
-                    "total_amount": "bar",
                     "line_items": "bar",
+                    "total_amount": "bar",
+                    "vendor_name": "bar",
                 },
-                "required": ["vendor_name", "invoice_number", "total_amount"],
+                "required": ["invoice_number", "total_amount", "vendor_name"],
                 "type": "object",
             },
         )
@@ -313,12 +313,12 @@ class TestExtract:
         response = client.extract.with_raw_response.validate_schema(
             data_schema={
                 "properties": {
-                    "vendor_name": "bar",
                     "invoice_number": "bar",
-                    "total_amount": "bar",
                     "line_items": "bar",
+                    "total_amount": "bar",
+                    "vendor_name": "bar",
                 },
-                "required": ["vendor_name", "invoice_number", "total_amount"],
+                "required": ["invoice_number", "total_amount", "vendor_name"],
                 "type": "object",
             },
         )
@@ -334,12 +334,12 @@ class TestExtract:
         with client.extract.with_streaming_response.validate_schema(
             data_schema={
                 "properties": {
-                    "vendor_name": "bar",
                     "invoice_number": "bar",
-                    "total_amount": "bar",
                     "line_items": "bar",
+                    "total_amount": "bar",
+                    "vendor_name": "bar",
                 },
-                "required": ["vendor_name", "invoice_number", "total_amount"],
+                "required": ["invoice_number", "total_amount", "vendor_name"],
                 "type": "object",
             },
         ) as response:
@@ -375,10 +375,10 @@ class TestAsyncExtract:
             configuration={
                 "data_schema": {
                     "properties": {
-                        "vendor_name": "bar",
                         "total_amount": "bar",
+                        "vendor_name": "bar",
                     },
-                    "required": ["vendor_name", "total_amount"],
+                    "required": ["total_amount", "vendor_name"],
                     "type": "object",
                 },
                 "cite_sources": True,
@@ -452,7 +452,7 @@ class TestAsyncExtract:
             page_size=0,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="PENDING",
+            status="CANCELLED",
         )
         assert_matches_type(AsyncPaginatedCursor[ExtractV2Job], extract, path=["response"])
 
@@ -630,12 +630,12 @@ class TestAsyncExtract:
         extract = await async_client.extract.validate_schema(
             data_schema={
                 "properties": {
-                    "vendor_name": "bar",
                     "invoice_number": "bar",
-                    "total_amount": "bar",
                     "line_items": "bar",
+                    "total_amount": "bar",
+                    "vendor_name": "bar",
                 },
-                "required": ["vendor_name", "invoice_number", "total_amount"],
+                "required": ["invoice_number", "total_amount", "vendor_name"],
                 "type": "object",
             },
         )
@@ -647,12 +647,12 @@ class TestAsyncExtract:
         response = await async_client.extract.with_raw_response.validate_schema(
             data_schema={
                 "properties": {
-                    "vendor_name": "bar",
                     "invoice_number": "bar",
-                    "total_amount": "bar",
                     "line_items": "bar",
+                    "total_amount": "bar",
+                    "vendor_name": "bar",
                 },
-                "required": ["vendor_name", "invoice_number", "total_amount"],
+                "required": ["invoice_number", "total_amount", "vendor_name"],
                 "type": "object",
             },
         )
@@ -668,12 +668,12 @@ class TestAsyncExtract:
         async with async_client.extract.with_streaming_response.validate_schema(
             data_schema={
                 "properties": {
-                    "vendor_name": "bar",
                     "invoice_number": "bar",
-                    "total_amount": "bar",
                     "line_items": "bar",
+                    "total_amount": "bar",
+                    "vendor_name": "bar",
                 },
-                "required": ["vendor_name", "invoice_number", "total_amount"],
+                "required": ["invoice_number", "total_amount", "vendor_name"],
                 "type": "object",
             },
         ) as response:

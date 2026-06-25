@@ -18,7 +18,7 @@ class JobItemListResponse(BaseModel):
     item_name: str
     """Name of the item"""
 
-    status: Literal["pending", "processing", "completed", "failed", "skipped", "cancelled"]
+    status: Literal["cancelled", "completed", "failed", "pending", "processing", "skipped"]
     """Processing status of this item"""
 
     completed_at: Optional[datetime] = None

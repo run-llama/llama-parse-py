@@ -19,33 +19,33 @@ class WebhookConfiguration(TypedDict, total=False):
     webhook_events: Optional[
         List[
             Literal[
-                "extract.pending",
-                "extract.success",
-                "extract.error",
-                "extract.partial_success",
-                "extract.cancelled",
-                "parse.pending",
-                "parse.running",
-                "parse.success",
-                "parse.error",
-                "parse.partial_success",
-                "parse.cancelled",
+                "classify.cancelled",
+                "classify.error",
+                "classify.partial_success",
                 "classify.pending",
                 "classify.running",
                 "classify.success",
-                "classify.error",
-                "classify.partial_success",
-                "classify.cancelled",
-                "sheets.pending",
-                "sheets.success",
+                "extract.cancelled",
+                "extract.error",
+                "extract.partial_success",
+                "extract.pending",
+                "extract.success",
+                "parse.cancelled",
+                "parse.error",
+                "parse.partial_success",
+                "parse.pending",
+                "parse.running",
+                "parse.success",
+                "sheets.cancelled",
                 "sheets.error",
                 "sheets.partial_success",
-                "sheets.cancelled",
+                "sheets.pending",
+                "sheets.success",
+                "split.cancelled",
+                "split.error",
                 "split.pending",
                 "split.processing",
                 "split.success",
-                "split.error",
-                "split.cancelled",
                 "unmapped_event",
             ]
         ]
@@ -154,7 +154,7 @@ class LlamaParseParametersParam(TypedDict, total=False):
 
     ignore_document_elements_for_layout_detection: Optional[bool]
 
-    images_to_save: Optional[List[Literal["screenshot", "embedded", "layout"]]]
+    images_to_save: Optional[List[Literal["embedded", "layout", "screenshot"]]]
 
     inline_images_in_markdown: Optional[bool]
 
@@ -237,7 +237,7 @@ class LlamaParseParametersParam(TypedDict, total=False):
 
     preset: Optional[str]
 
-    priority: Optional[Literal["low", "medium", "high", "critical"]]
+    priority: Optional[Literal["critical", "high", "low", "medium"]]
     """The priority for the request.
 
     This field may be ignored or overwritten depending on the organization tier.

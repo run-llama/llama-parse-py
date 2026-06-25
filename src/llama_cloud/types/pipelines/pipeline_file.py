@@ -60,7 +60,7 @@ class PipelineFile(BaseModel):
     resource_info: Optional[Dict[str, Union[Dict[str, object], List[object], str, float, bool, None]]] = None
     """Resource information for the file."""
 
-    status: Optional[Literal["NOT_STARTED", "IN_PROGRESS", "SUCCESS", "ERROR", "CANCELLED"]] = None
+    status: Optional[Literal["CANCELLED", "ERROR", "IN_PROGRESS", "NOT_STARTED", "SUCCESS"]] = None
     """Status of the pipeline file."""
 
     status_updated_at: Optional[datetime] = None

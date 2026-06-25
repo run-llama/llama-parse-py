@@ -35,7 +35,7 @@ class VertexTextEmbeddingParam(TypedDict, total=False):
     embed_batch_size: int
     """The batch size for embedding calls."""
 
-    embed_mode: Literal["default", "classification", "clustering", "similarity", "retrieval"]
+    embed_mode: Literal["classification", "clustering", "default", "retrieval", "similarity"]
     """The embedding mode to use."""
 
     model_name: str

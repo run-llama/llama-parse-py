@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["CompositeRetrievalMode"]
 
-CompositeRetrievalMode: TypeAlias = Literal["routing", "full"]
+CompositeRetrievalMode: TypeAlias = Literal["full", "routing"]

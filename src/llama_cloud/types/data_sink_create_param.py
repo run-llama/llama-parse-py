@@ -37,5 +37,5 @@ class DataSinkCreateParam(TypedDict, total=False):
     """The name of the data sink."""
 
     sink_type: Required[
-        Literal["PINECONE", "POSTGRES", "QDRANT", "AZUREAI_SEARCH", "MONGODB_ATLAS", "MILVUS", "ASTRA_DB"]
+        Literal["ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT"]
     ]

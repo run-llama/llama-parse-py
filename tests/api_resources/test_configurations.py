@@ -26,8 +26,13 @@ class TestConfigurations:
         configuration = client.configurations.create(
             name="x",
             parameters={
-                "categories": [{"name": "x"}],
-                "product_type": "split_v1",
+                "product_type": "classify_v2",
+                "rules": [
+                    {
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
+                    }
+                ],
             },
         )
         assert_matches_type(ConfigurationResponse, configuration, path=["response"])
@@ -38,14 +43,19 @@ class TestConfigurations:
         configuration = client.configurations.create(
             name="x",
             parameters={
-                "categories": [
+                "product_type": "classify_v2",
+                "rules": [
                     {
-                        "name": "x",
-                        "description": "x",
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
                     }
                 ],
-                "product_type": "split_v1",
-                "splitting_strategy": {"allow_uncategorized": "include"},
+                "mode": "FAST",
+                "parsing_configuration": {
+                    "lang": "en",
+                    "max_pages": 10,
+                    "target_pages": "1,3,5-7",
+                },
             },
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -58,8 +68,13 @@ class TestConfigurations:
         response = client.configurations.with_raw_response.create(
             name="x",
             parameters={
-                "categories": [{"name": "x"}],
-                "product_type": "split_v1",
+                "product_type": "classify_v2",
+                "rules": [
+                    {
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
+                    }
+                ],
             },
         )
 
@@ -74,8 +89,13 @@ class TestConfigurations:
         with client.configurations.with_streaming_response.create(
             name="x",
             parameters={
-                "categories": [{"name": "x"}],
-                "product_type": "split_v1",
+                "product_type": "classify_v2",
+                "rules": [
+                    {
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
+                    }
+                ],
             },
         ) as response:
             assert not response.is_closed
@@ -155,14 +175,19 @@ class TestConfigurations:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="x",
             parameters={
-                "categories": [
+                "product_type": "classify_v2",
+                "rules": [
                     {
-                        "name": "x",
-                        "description": "x",
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
                     }
                 ],
-                "product_type": "split_v1",
-                "splitting_strategy": {"allow_uncategorized": "include"},
+                "mode": "FAST",
+                "parsing_configuration": {
+                    "lang": "en",
+                    "max_pages": 10,
+                    "target_pages": "1,3,5-7",
+                },
             },
         )
         assert_matches_type(ConfigurationResponse, configuration, path=["response"])
@@ -216,7 +241,7 @@ class TestConfigurations:
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             page_size=0,
             page_token="page_token",
-            product_type=["split_v1", "extract_v2"],
+            product_type=["classify_v2", "extract_v2"],
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(SyncPaginatedCursor[ConfigurationResponse], configuration, path=["response"])
@@ -307,8 +332,13 @@ class TestAsyncConfigurations:
         configuration = await async_client.configurations.create(
             name="x",
             parameters={
-                "categories": [{"name": "x"}],
-                "product_type": "split_v1",
+                "product_type": "classify_v2",
+                "rules": [
+                    {
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
+                    }
+                ],
             },
         )
         assert_matches_type(ConfigurationResponse, configuration, path=["response"])
@@ -319,14 +349,19 @@ class TestAsyncConfigurations:
         configuration = await async_client.configurations.create(
             name="x",
             parameters={
-                "categories": [
+                "product_type": "classify_v2",
+                "rules": [
                     {
-                        "name": "x",
-                        "description": "x",
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
                     }
                 ],
-                "product_type": "split_v1",
-                "splitting_strategy": {"allow_uncategorized": "include"},
+                "mode": "FAST",
+                "parsing_configuration": {
+                    "lang": "en",
+                    "max_pages": 10,
+                    "target_pages": "1,3,5-7",
+                },
             },
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -339,8 +374,13 @@ class TestAsyncConfigurations:
         response = await async_client.configurations.with_raw_response.create(
             name="x",
             parameters={
-                "categories": [{"name": "x"}],
-                "product_type": "split_v1",
+                "product_type": "classify_v2",
+                "rules": [
+                    {
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
+                    }
+                ],
             },
         )
 
@@ -355,8 +395,13 @@ class TestAsyncConfigurations:
         async with async_client.configurations.with_streaming_response.create(
             name="x",
             parameters={
-                "categories": [{"name": "x"}],
-                "product_type": "split_v1",
+                "product_type": "classify_v2",
+                "rules": [
+                    {
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
+                    }
+                ],
             },
         ) as response:
             assert not response.is_closed
@@ -436,14 +481,19 @@ class TestAsyncConfigurations:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="x",
             parameters={
-                "categories": [
+                "product_type": "classify_v2",
+                "rules": [
                     {
-                        "name": "x",
-                        "description": "x",
+                        "description": "contains invoice number, line items, and total amount",
+                        "type": "invoice",
                     }
                 ],
-                "product_type": "split_v1",
-                "splitting_strategy": {"allow_uncategorized": "include"},
+                "mode": "FAST",
+                "parsing_configuration": {
+                    "lang": "en",
+                    "max_pages": 10,
+                    "target_pages": "1,3,5-7",
+                },
             },
         )
         assert_matches_type(ConfigurationResponse, configuration, path=["response"])
@@ -497,7 +547,7 @@ class TestAsyncConfigurations:
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             page_size=0,
             page_token="page_token",
-            product_type=["split_v1", "extract_v2"],
+            product_type=["classify_v2", "extract_v2"],
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(AsyncPaginatedCursor[ConfigurationResponse], configuration, path=["response"])

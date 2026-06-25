@@ -19,7 +19,7 @@ class SparseModelConfig(BaseModel):
 
     class_name: Optional[str] = None
 
-    api_model_type: Optional[Literal["splade", "bm25", "auto"]] = FieldInfo(alias="model_type", default=None)
+    api_model_type: Optional[Literal["auto", "bm25", "splade"]] = FieldInfo(alias="model_type", default=None)
     """The sparse model type to use.
 
     'bm25' uses Qdrant's FastEmbed BM25 model (default for new pipelines), 'splade'

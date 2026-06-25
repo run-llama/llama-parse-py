@@ -41,7 +41,7 @@ class DataSink(BaseModel):
 
     project_id: str
 
-    sink_type: Literal["PINECONE", "POSTGRES", "QDRANT", "AZUREAI_SEARCH", "MONGODB_ATLAS", "MILVUS", "ASTRA_DB"]
+    sink_type: Literal["ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT"]
 
     created_at: Optional[datetime] = None
     """Creation datetime"""

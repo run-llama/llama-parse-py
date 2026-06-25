@@ -4,4 +4,4 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["PipelineType"]
 
-PipelineType: TypeAlias = Literal["PLAYGROUND", "MANAGED"]
+PipelineType: TypeAlias = Literal["MANAGED", "PLAYGROUND"]

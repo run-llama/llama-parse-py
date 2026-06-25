@@ -54,7 +54,7 @@ class JobItemsResource(SyncAPIResource):
         offset: int | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[Literal["pending", "processing", "completed", "failed", "skipped", "cancelled"]] | Omit = omit,
+        status: Optional[Literal["cancelled", "completed", "failed", "pending", "processing", "skipped"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -111,7 +111,7 @@ class JobItemsResource(SyncAPIResource):
         self,
         item_id: str,
         *,
-        job_type: Optional[Literal["parse", "extract", "classify"]] | Omit = omit,
+        job_type: Optional[Literal["classify", "extract", "parse"]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -189,7 +189,7 @@ class AsyncJobItemsResource(AsyncAPIResource):
         offset: int | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[Literal["pending", "processing", "completed", "failed", "skipped", "cancelled"]] | Omit = omit,
+        status: Optional[Literal["cancelled", "completed", "failed", "pending", "processing", "skipped"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -246,7 +246,7 @@ class AsyncJobItemsResource(AsyncAPIResource):
         self,
         item_id: str,
         *,
-        job_type: Optional[Literal["parse", "extract", "classify"]] | Omit = omit,
+        job_type: Optional[Literal["classify", "extract", "parse"]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

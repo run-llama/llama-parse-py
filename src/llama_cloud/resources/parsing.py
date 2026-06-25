@@ -55,7 +55,7 @@ class ParsingResource(SyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-06-11", "2025-12-11"], str],
+        version: Union[Literal["latest", "2026-06-18", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -109,9 +109,9 @@ class ParsingResource(SyncAPIResource):
               Current `latest` by tier:
 
               - `fast`: `2025-12-11`
-              - `cost_effective`: `2026-06-11`
-              - `agentic`: `2026-06-11`
-              - `agentic_plus`: `2026-06-11`
+              - `cost_effective`: `2026-06-18`
+              - `agentic`: `2026-06-18`
+              - `agentic_plus`: `2026-06-18`
 
               Full list: `GET /api/v2/parse/versions`.
 
@@ -268,7 +268,7 @@ class ParsingResource(SyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[Literal["PENDING", "RUNNING", "COMPLETED", "FAILED", "CANCELLED"]] | Omit = omit,
+        status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -730,7 +730,7 @@ class AsyncParsingResource(AsyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-06-11", "2025-12-11"], str],
+        version: Union[Literal["latest", "2026-06-18", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -784,9 +784,9 @@ class AsyncParsingResource(AsyncAPIResource):
               Current `latest` by tier:
 
               - `fast`: `2025-12-11`
-              - `cost_effective`: `2026-06-11`
-              - `agentic`: `2026-06-11`
-              - `agentic_plus`: `2026-06-11`
+              - `cost_effective`: `2026-06-18`
+              - `agentic`: `2026-06-18`
+              - `agentic_plus`: `2026-06-18`
 
               Full list: `GET /api/v2/parse/versions`.
 
@@ -943,7 +943,7 @@ class AsyncParsingResource(AsyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[Literal["PENDING", "RUNNING", "COMPLETED", "FAILED", "CANCELLED"]] | Omit = omit,
+        status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

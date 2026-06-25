@@ -9,7 +9,7 @@ __all__ = ["JobItemGetProcessingResultsParams"]
 
 
 class JobItemGetProcessingResultsParams(TypedDict, total=False):
-    job_type: Optional[Literal["parse", "extract", "classify"]]
+    job_type: Optional[Literal["classify", "extract", "parse"]]
     """Filter results by job type"""
 
     organization_id: Optional[str]

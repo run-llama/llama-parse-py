@@ -51,17 +51,17 @@ class DataSource(BaseModel):
     project_id: str
 
     source_type: Literal[
-        "S3",
         "AZURE_STORAGE_BLOB",
-        "GOOGLE_DRIVE",
-        "MICROSOFT_ONEDRIVE",
-        "MICROSOFT_SHAREPOINT",
-        "SLACK",
-        "NOTION_PAGE",
+        "BOX",
         "CONFLUENCE",
+        "GOOGLE_DRIVE",
         "JIRA",
         "JIRA_V2",
-        "BOX",
+        "MICROSOFT_ONEDRIVE",
+        "MICROSOFT_SHAREPOINT",
+        "NOTION_PAGE",
+        "S3",
+        "SLACK",
     ]
 
     created_at: Optional[datetime] = None
