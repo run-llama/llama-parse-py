@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
+from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -202,6 +202,7 @@ class DirectoriesResource(SyncAPIResource):
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         type: Optional[Literal["ephemeral", "index", "user"]] | Omit = omit,
+        types: Optional[List[Literal["ephemeral", "index", "user"]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -213,6 +214,14 @@ class DirectoriesResource(SyncAPIResource):
         List Directories
 
         Args:
+          include_deleted: Include deleted directories.
+
+          name: Directory name to match.
+
+          type: Directory type to include.
+
+          types: Filter by one or more directory types. Repeat the parameter for multiple values.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -238,6 +247,7 @@ class DirectoriesResource(SyncAPIResource):
                         "page_token": page_token,
                         "project_id": project_id,
                         "type": type,
+                        "types": types,
                     },
                     directory_list_params.DirectoryListParams,
                 ),
@@ -496,6 +506,7 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         type: Optional[Literal["ephemeral", "index", "user"]] | Omit = omit,
+        types: Optional[List[Literal["ephemeral", "index", "user"]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -507,6 +518,14 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         List Directories
 
         Args:
+          include_deleted: Include deleted directories.
+
+          name: Directory name to match.
+
+          type: Directory type to include.
+
+          types: Filter by one or more directory types. Repeat the parameter for multiple values.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -532,6 +551,7 @@ class AsyncDirectoriesResource(AsyncAPIResource):
                         "page_token": page_token,
                         "project_id": project_id,
                         "type": type,
+                        "types": types,
                     },
                     directory_list_params.DirectoryListParams,
                 ),

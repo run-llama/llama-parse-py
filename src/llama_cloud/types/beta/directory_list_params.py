@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["DirectoryListParams"]
@@ -10,8 +10,10 @@ __all__ = ["DirectoryListParams"]
 
 class DirectoryListParams(TypedDict, total=False):
     include_deleted: bool
+    """Include deleted directories."""
 
     name: Optional[str]
+    """Directory name to match."""
 
     organization_id: Optional[str]
 
@@ -22,3 +24,10 @@ class DirectoryListParams(TypedDict, total=False):
     project_id: Optional[str]
 
     type: Optional[Literal["ephemeral", "index", "user"]]
+    """Directory type to include."""
+
+    types: Optional[List[Literal["ephemeral", "index", "user"]]]
+    """Filter by one or more directory types.
+
+    Repeat the parameter for multiple values.
+    """
