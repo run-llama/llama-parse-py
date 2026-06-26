@@ -64,6 +64,7 @@ class TestExtract:
                     "webhook_events": ["parse.success", "parse.error"],
                     "webhook_headers": {"Authorization": "Bearer sk-..."},
                     "webhook_output_format": "json",
+                    "webhook_signing_secret": "whsec_...",
                     "webhook_url": "https://example.com/webhooks/llamacloud",
                 }
             ],
@@ -398,6 +399,7 @@ class TestAsyncExtract:
                     "webhook_events": ["parse.success", "parse.error"],
                     "webhook_headers": {"Authorization": "Bearer sk-..."},
                     "webhook_output_format": "json",
+                    "webhook_signing_secret": "whsec_...",
                     "webhook_url": "https://example.com/webhooks/llamacloud",
                 }
             ],

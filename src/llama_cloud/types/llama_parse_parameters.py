@@ -61,6 +61,14 @@ class WebhookConfiguration(BaseModel):
     webhook_output_format: Optional[str] = None
     """Response format sent to the webhook: 'string' (default) or 'json'"""
 
+    webhook_signing_secret: Optional[str] = None
+    """Shared signing secret used to sign webhook deliveries.
+
+    When set, each request includes an HMAC-SHA256 signature of the request body in
+    the 'LC-Signature' header (value 'sha256=<hex>'). Recompute the HMAC over the
+    raw request body with this secret to verify the delivery is authentic.
+    """
+
     webhook_url: Optional[str] = None
     """URL to receive webhook POST notifications"""
 
