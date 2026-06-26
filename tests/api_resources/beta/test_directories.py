@@ -9,7 +9,6 @@ import pytest
 
 from llama_cloud import LlamaCloud, AsyncLlamaCloud
 from tests.utils import assert_matches_type
-from llama_cloud._utils import parse_datetime
 from llama_cloud.pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 from llama_cloud.types.beta import (
     DirectoryGetResponse,
@@ -40,7 +39,6 @@ class TestDirectories:
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
-            expires_at=parse_datetime("2026-05-10T00:00:00Z"),
             system_metadata={"foo": "bar"},
             type="user",
         )
@@ -295,7 +293,6 @@ class TestAsyncDirectories:
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
-            expires_at=parse_datetime("2026-05-10T00:00:00Z"),
             system_metadata={"foo": "bar"},
             type="user",
         )
