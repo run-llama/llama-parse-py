@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.10.0](https://github.com/run-llama/llama-parse-py/compare/v2.9.1...v2.10.0) (2026-06-30)
+
+
+### Features
+
+* **index:** add output_directory_id to IndexResponse ([#21149](https://github.com/run-llama/llama-parse-py/issues/21149)) ([7c33775](https://github.com/run-llama/llama-parse-py/commit/7c337754ac339bc66e407249a74a07bf1f632c71))
+
+
+### Bug Fixes
+
+* **ci:** make cli SDK push race-proof and self-heal the seal-back loop ([a44fa38](https://github.com/run-llama/llama-parse-py/commit/a44fa38b4ff92062fd66f0fa25096ea64dbab7f2))
+* **python:** drop removed expires_at param from batch example; resolve parsing import conflict ([35ddf0b](https://github.com/run-llama/llama-parse-py/commit/35ddf0bbdde3046620df497e0b5b4c9240d01c63))
+
+
+### Chores
+
+* correct manifest to 2.9.1 (already on PyPI) and pin 2.10.0 ([7a11fdf](https://github.com/run-llama/llama-parse-py/commit/7a11fdf2bae486db8141e703b581a41ddf7fe62c))
+
 ## 2.9.0 (2026-06-09)
 
 Full Changelog: [v2.8.0...v2.9.0](https://github.com/run-llama/llama-parse-py/compare/v2.8.0...v2.9.0)
