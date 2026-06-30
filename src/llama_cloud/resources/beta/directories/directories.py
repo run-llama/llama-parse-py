@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
-from datetime import datetime
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -74,7 +73,6 @@ class DirectoriesResource(SyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        expires_at: Union[str, datetime, None] | Omit = omit,
         system_metadata: Optional[Dict[str, object]] | Omit = omit,
         type: Literal["ephemeral", "user"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -91,8 +89,6 @@ class DirectoriesResource(SyncAPIResource):
           name: Human-readable name for the directory.
 
           description: Optional description shown to users.
-
-          expires_at: When this directory expires. Required for ephemeral directories.
 
           system_metadata: Reserved system-managed metadata.
 
@@ -112,7 +108,6 @@ class DirectoriesResource(SyncAPIResource):
                 {
                     "name": name,
                     "description": description,
-                    "expires_at": expires_at,
                     "system_metadata": system_metadata,
                     "type": type,
                 },
@@ -378,7 +373,6 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        expires_at: Union[str, datetime, None] | Omit = omit,
         system_metadata: Optional[Dict[str, object]] | Omit = omit,
         type: Literal["ephemeral", "user"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -395,8 +389,6 @@ class AsyncDirectoriesResource(AsyncAPIResource):
           name: Human-readable name for the directory.
 
           description: Optional description shown to users.
-
-          expires_at: When this directory expires. Required for ephemeral directories.
 
           system_metadata: Reserved system-managed metadata.
 
@@ -416,7 +408,6 @@ class AsyncDirectoriesResource(AsyncAPIResource):
                 {
                     "name": name,
                     "description": description,
-                    "expires_at": expires_at,
                     "system_metadata": system_metadata,
                     "type": type,
                 },

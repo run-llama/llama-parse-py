@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -35,3 +35,6 @@ class ParsingCreateResponse(BaseModel):
 
     updated_at: Optional[datetime] = None
     """Update datetime"""
+
+    user_metadata: Optional[Dict[str, str]] = None
+    """Key/value tags associated with this job."""

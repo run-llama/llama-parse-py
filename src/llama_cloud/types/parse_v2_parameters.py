@@ -495,7 +495,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]] = None
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-06-18", "2025-12-11"], str, None] = None
+    version: Union[Literal["latest", "2026-06-26", "2026-06-18", "2025-12-11"], str, None] = None
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -504,7 +504,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-18`
+    - `cost_effective`: `2026-06-26`
     - `agentic`: `2026-06-18`
     - `agentic_plus`: `2026-06-18`
 
@@ -759,6 +759,14 @@ class WebhookConfiguration(BaseModel):
     as a JSON object.
     """
 
+    webhook_signing_secret: Optional[str] = None
+    """Shared signing secret used to sign webhook deliveries.
+
+    When set, each request includes an HMAC-SHA256 signature of the request body in
+    the 'LC-Signature' header (value 'sha256=<hex>'). Recompute the HMAC over the
+    raw request body with this secret to verify the delivery is authentic.
+    """
+
     webhook_url: Optional[str] = None
     """HTTPS URL to receive webhook POST requests. Must be publicly accessible"""
 
@@ -781,7 +789,7 @@ class ParseV2Parameters(BaseModel):
     highest accuracy)
     """
 
-    version: Union[Literal["latest", "2026-06-18", "2025-12-11"], str]
+    version: Union[Literal["latest", "2026-06-26", "2026-06-18", "2025-12-11"], str]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -789,7 +797,7 @@ class ParseV2Parameters(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2025-12-11`
-    - `cost_effective`: `2026-06-18`
+    - `cost_effective`: `2026-06-26`
     - `agentic`: `2026-06-18`
     - `agentic_plus`: `2026-06-18`
 
@@ -847,6 +855,9 @@ class ParseV2Parameters(BaseModel):
 
     processing_options: Optional[ProcessingOptions] = None
     """Document processing options including OCR, table extraction, and chart parsing"""
+
+    webhook_configuration_ids: Optional[List[str]] = None
+    """IDs of saved webhook configurations to notify for this job."""
 
     webhook_configurations: Optional[List[WebhookConfiguration]] = None
     """Webhook endpoints for job status notifications.

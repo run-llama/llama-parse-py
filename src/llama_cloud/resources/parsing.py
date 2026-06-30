@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from typing import Union, Iterable, Optional, cast
+from typing import Dict, Union, Iterable, Optional, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -55,7 +55,7 @@ class ParsingResource(SyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-06-18", "2025-12-11"], str],
+        version: Union[Literal["latest", "2026-06-26", "2026-06-18", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -73,6 +73,8 @@ class ParsingResource(SyncAPIResource):
         processing_control: parsing_create_params.ProcessingControl | Omit = omit,
         processing_options: parsing_create_params.ProcessingOptions | Omit = omit,
         source_url: Optional[str] | Omit = omit,
+        user_metadata: Optional[Dict[str, str]] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Iterable[parsing_create_params.WebhookConfiguration] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -109,7 +111,7 @@ class ParsingResource(SyncAPIResource):
               Current `latest` by tier:
 
               - `fast`: `2025-12-11`
-              - `cost_effective`: `2026-06-18`
+              - `cost_effective`: `2026-06-26`
               - `agentic`: `2026-06-18`
               - `agentic_plus`: `2026-06-18`
 
@@ -158,6 +160,12 @@ class ParsingResource(SyncAPIResource):
           processing_options: Document processing options including OCR, table extraction, and chart parsing
 
           source_url: Public URL of the document to parse. Mutually exclusive with file_id
+
+          user_metadata: Arbitrary key/value tags to attach to this job. Returned when retrieving the
+              job. Not searchable. Limits apply to the number of entries and the length of
+              keys and values; oversized metadata is rejected.
+
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
           webhook_configurations: Webhook endpoints for job status notifications. Multiple webhooks can be
               configured for different events or services
@@ -238,6 +246,8 @@ class ParsingResource(SyncAPIResource):
                     "processing_control": processing_control,
                     "processing_options": processing_options,
                     "source_url": source_url,
+                    "user_metadata": user_metadata,
+                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 parsing_create_params.ParsingCreateParams,
@@ -730,7 +740,7 @@ class AsyncParsingResource(AsyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-06-18", "2025-12-11"], str],
+        version: Union[Literal["latest", "2026-06-26", "2026-06-18", "2025-12-11"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -748,6 +758,8 @@ class AsyncParsingResource(AsyncAPIResource):
         processing_control: parsing_create_params.ProcessingControl | Omit = omit,
         processing_options: parsing_create_params.ProcessingOptions | Omit = omit,
         source_url: Optional[str] | Omit = omit,
+        user_metadata: Optional[Dict[str, str]] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Iterable[parsing_create_params.WebhookConfiguration] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -784,7 +796,7 @@ class AsyncParsingResource(AsyncAPIResource):
               Current `latest` by tier:
 
               - `fast`: `2025-12-11`
-              - `cost_effective`: `2026-06-18`
+              - `cost_effective`: `2026-06-26`
               - `agentic`: `2026-06-18`
               - `agentic_plus`: `2026-06-18`
 
@@ -833,6 +845,12 @@ class AsyncParsingResource(AsyncAPIResource):
           processing_options: Document processing options including OCR, table extraction, and chart parsing
 
           source_url: Public URL of the document to parse. Mutually exclusive with file_id
+
+          user_metadata: Arbitrary key/value tags to attach to this job. Returned when retrieving the
+              job. Not searchable. Limits apply to the number of entries and the length of
+              keys and values; oversized metadata is rejected.
+
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
           webhook_configurations: Webhook endpoints for job status notifications. Multiple webhooks can be
               configured for different events or services
@@ -913,6 +931,8 @@ class AsyncParsingResource(AsyncAPIResource):
                     "processing_control": processing_control,
                     "processing_options": processing_options,
                     "source_url": source_url,
+                    "user_metadata": user_metadata,
+                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 parsing_create_params.ParsingCreateParams,

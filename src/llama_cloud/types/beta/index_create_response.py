@@ -20,6 +20,9 @@ class IndexCreateResponse(BaseModel):
     name: str
     """Index name."""
 
+    output_directory_id: str
+    """ID of the output directory holding the indexed files."""
+
     project_id: str
     """Project this index belongs to."""
 
