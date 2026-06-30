@@ -196,6 +196,11 @@ class TestParsing:
                 "specialized_chart_parsing": "agentic",
             },
             source_url="https:",
+            user_metadata={
+                "owner": "jerry",
+                "team": "research",
+            },
+            webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
                 {
                     "webhook_events": ["parse.success", "parse.error"],
@@ -512,6 +517,11 @@ class TestAsyncParsing:
                 "specialized_chart_parsing": "agentic",
             },
             source_url="https:",
+            user_metadata={
+                "owner": "jerry",
+                "team": "research",
+            },
+            webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
                 {
                     "webhook_events": ["parse.success", "parse.error"],

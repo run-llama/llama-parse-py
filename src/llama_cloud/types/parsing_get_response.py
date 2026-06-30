@@ -65,6 +65,9 @@ class Job(BaseModel):
     updated_at: Optional[datetime] = None
     """Update datetime"""
 
+    user_metadata: Optional[Dict[str, str]] = None
+    """Key/value tags associated with this job."""
+
 
 class ImagesContentMetadataImageBbox(BaseModel):
     """Bounding box for an image on its page."""

@@ -858,6 +858,9 @@ class ParseV2ParametersParam(TypedDict, total=False):
     processing_options: ProcessingOptions
     """Document processing options including OCR, table extraction, and chart parsing"""
 
+    webhook_configuration_ids: Optional[SequenceNotStr[str]]
+    """IDs of saved webhook configurations to notify for this job."""
+
     webhook_configurations: Iterable[WebhookConfiguration]
     """Webhook endpoints for job status notifications.
 

@@ -138,6 +138,16 @@ class ParsingCreateParams(TypedDict, total=False):
     source_url: Optional[str]
     """Public URL of the document to parse. Mutually exclusive with file_id"""
 
+    user_metadata: Optional[Dict[str, str]]
+    """Arbitrary key/value tags to attach to this job.
+
+    Returned when retrieving the job. Not searchable. Limits apply to the number of
+    entries and the length of keys and values; oversized metadata is rejected.
+    """
+
+    webhook_configuration_ids: Optional[SequenceNotStr[str]]
+    """IDs of saved webhook configurations to notify for this job."""
+
     webhook_configurations: Iterable[WebhookConfiguration]
     """Webhook endpoints for job status notifications.
 

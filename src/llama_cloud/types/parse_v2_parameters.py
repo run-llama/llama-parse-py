@@ -856,6 +856,9 @@ class ParseV2Parameters(BaseModel):
     processing_options: Optional[ProcessingOptions] = None
     """Document processing options including OCR, table extraction, and chart parsing"""
 
+    webhook_configuration_ids: Optional[List[str]] = None
+    """IDs of saved webhook configurations to notify for this job."""
+
     webhook_configurations: Optional[List[WebhookConfiguration]] = None
     """Webhook endpoints for job status notifications.
 
