@@ -1,6 +1,5 @@
 import asyncio
 from pathlib import Path
-from datetime import datetime, timezone, timedelta
 
 from llama_cloud import AsyncLlamaCloud
 
@@ -25,11 +24,9 @@ async def run_batch() -> None:
     client = AsyncLlamaCloud()
 
     # 1. Ephemeral directories are automatically eligible for cleanup.
-    expires_at = (datetime.now(timezone.utc) + timedelta(days=2)).isoformat()
     directory = await client.beta.directories.create(
         name="batch-example",
         type="ephemeral",
-        expires_at=expires_at,
     )
     print(f"Created directory {directory.id}")
 
