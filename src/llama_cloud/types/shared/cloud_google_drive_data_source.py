@@ -13,6 +13,9 @@ class CloudGoogleDriveDataSource(BaseModel):
 
     class_name: Optional[str] = None
 
+    folder_name: Optional[str] = None
+    """Human-readable name of the selected folder, for display."""
+
     service_account_key: Optional[Dict[str, str]] = None
     """A dictionary containing secret values"""
 

@@ -36,8 +36,8 @@ class DirectoryGetResponse(BaseModel):
     system_metadata: Optional[Dict[str, object]] = None
     """Reserved system-managed metadata."""
 
-    type: Optional[Literal["ephemeral", "index", "system_ephemeral", "user"]] = None
-    """Directory type: 'user', 'index', 'ephemeral', or 'system_ephemeral'."""
+    type: Optional[Literal["ephemeral", "index", "user"]] = None
+    """Directory type: 'user', 'index', or 'ephemeral'."""
 
     updated_at: Optional[datetime] = None
     """Update datetime"""
