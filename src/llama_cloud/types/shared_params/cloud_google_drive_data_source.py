@@ -14,6 +14,9 @@ class CloudGoogleDriveDataSource(TypedDict, total=False):
 
     class_name: str
 
+    folder_name: Optional[str]
+    """Human-readable name of the selected folder, for display."""
+
     service_account_key: Optional[Dict[str, str]]
     """A dictionary containing secret values"""
 
