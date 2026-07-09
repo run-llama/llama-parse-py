@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.11.0](https://github.com/run-llama/llama-parse-py/compare/v2.10.0...v2.11.0) (2026-07-09)
+
+
+### Features
+
+* **agentic-plus:** dated version 2026-07-08 — graduate decomposed-gemini (flash-lite), fallback to 2026-06-18 ([#21738](https://github.com/run-llama/llama-parse-py/issues/21738)) ([bed1c22](https://github.com/run-llama/llama-parse-py/commit/bed1c22675e570da9a9218576dfecb4a4eeeb9e3))
+* update fast tier latest version to use liteparse + markdown ([#21669](https://github.com/run-llama/llama-parse-py/issues/21669)) ([7bd8a60](https://github.com/run-llama/llama-parse-py/commit/7bd8a60fbf5372d21bc0bc8b54534835261e4e92))
+
+
+### Bug Fixes
+
+* resolve conflict markers committed by the auto-resolver ([2749857](https://github.com/run-llama/llama-parse-py/commit/2749857bbb974935eff3d93d51615fc084cf4999))
+
 ## [2.10.0](https://github.com/run-llama/llama-parse-py/compare/v2.9.1...v2.10.0) (2026-06-30)
 
 
