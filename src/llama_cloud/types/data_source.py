@@ -64,9 +64,6 @@ class DataSource(BaseModel):
         "SLACK",
     ]
 
-    brokered_connection_id: Optional[str] = None
-    """Reference to a brokered managed-OAuth connection backing this source."""
-
     created_at: Optional[datetime] = None
     """Creation datetime"""
 

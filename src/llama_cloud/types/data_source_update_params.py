@@ -37,9 +37,6 @@ class DataSourceUpdateParams(TypedDict, total=False):
         ]
     ]
 
-    brokered_connection_id: Optional[str]
-    """Reference to a brokered managed-OAuth connection backing this source."""
-
     component: Optional[Component]
     """Component that implements the data source"""
 

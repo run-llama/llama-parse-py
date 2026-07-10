@@ -65,7 +65,6 @@ class DataSourcesResource(SyncAPIResource):
         ],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        brokered_connection_id: Optional[str] | Omit = omit,
         custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -82,8 +81,6 @@ class DataSourcesResource(SyncAPIResource):
           component: Component that implements the data source
 
           name: The name of the data source.
-
-          brokered_connection_id: Reference to a brokered managed-OAuth connection backing this source.
 
           custom_metadata: Custom metadata that will be present on all data loaded from the data source
 
@@ -102,7 +99,6 @@ class DataSourcesResource(SyncAPIResource):
                     "component": component,
                     "name": name,
                     "source_type": source_type,
-                    "brokered_connection_id": brokered_connection_id,
                     "custom_metadata": custom_metadata,
                 },
                 data_source_create_params.DataSourceCreateParams,
@@ -140,7 +136,6 @@ class DataSourcesResource(SyncAPIResource):
             "S3",
             "SLACK",
         ],
-        brokered_connection_id: Optional[str] | Omit = omit,
         component: Optional[data_source_update_params.Component] | Omit = omit,
         custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
         | Omit = omit,
@@ -156,8 +151,6 @@ class DataSourcesResource(SyncAPIResource):
         Update a data source by ID.
 
         Args:
-          brokered_connection_id: Reference to a brokered managed-OAuth connection backing this source.
-
           component: Component that implements the data source
 
           custom_metadata: Custom metadata that will be present on all data loaded from the data source
@@ -179,7 +172,6 @@ class DataSourcesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "source_type": source_type,
-                    "brokered_connection_id": brokered_connection_id,
                     "component": component,
                     "custom_metadata": custom_metadata,
                     "name": name,
@@ -344,7 +336,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         ],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        brokered_connection_id: Optional[str] | Omit = omit,
         custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -361,8 +352,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
           component: Component that implements the data source
 
           name: The name of the data source.
-
-          brokered_connection_id: Reference to a brokered managed-OAuth connection backing this source.
 
           custom_metadata: Custom metadata that will be present on all data loaded from the data source
 
@@ -381,7 +370,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
                     "component": component,
                     "name": name,
                     "source_type": source_type,
-                    "brokered_connection_id": brokered_connection_id,
                     "custom_metadata": custom_metadata,
                 },
                 data_source_create_params.DataSourceCreateParams,
@@ -419,7 +407,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
             "S3",
             "SLACK",
         ],
-        brokered_connection_id: Optional[str] | Omit = omit,
         component: Optional[data_source_update_params.Component] | Omit = omit,
         custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
         | Omit = omit,
@@ -435,8 +422,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         Update a data source by ID.
 
         Args:
-          brokered_connection_id: Reference to a brokered managed-OAuth connection backing this source.
-
           component: Component that implements the data source
 
           custom_metadata: Custom metadata that will be present on all data loaded from the data source
@@ -458,7 +443,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "source_type": source_type,
-                    "brokered_connection_id": brokered_connection_id,
                     "component": component,
                     "custom_metadata": custom_metadata,
                     "name": name,
