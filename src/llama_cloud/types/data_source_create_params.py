@@ -47,6 +47,9 @@ class DataSourceCreateParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
+    brokered_connection_id: Optional[str]
+    """Reference to a brokered managed-OAuth connection backing this source."""
+
     custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
     """Custom metadata that will be present on all data loaded from the data source"""
 
