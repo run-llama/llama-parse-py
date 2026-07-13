@@ -717,6 +717,15 @@ class ProcessingOptions(TypedDict, total=False):
     long table handling. Use when heuristics produce incorrect results
     """
 
+    forms: Optional[Literal["default", "enrich"]]
+    """
+    Beta: set to 'enrich' to run an additional AI form-analysis pass on pages
+    detected as forms, producing a structured tree of the form's sections, fields,
+    and fillable grids. Retrieve the result with expand=forms. 'default' (the
+    default) applies standard parsing with no extra pass. Not available on the fast
+    tier
+    """
+
     ignore: ProcessingOptionsIgnore
     """Options for ignoring specific text types (diagonal, hidden, text in images)"""
 

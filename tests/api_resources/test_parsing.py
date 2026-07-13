@@ -187,6 +187,7 @@ class TestParsing:
                 ],
                 "cost_optimizer": {"enable": True},
                 "disable_heuristics": True,
+                "forms": "enrich",
                 "ignore": {
                     "ignore_diagonal_text": True,
                     "ignore_hidden_text": True,
@@ -508,6 +509,7 @@ class TestAsyncParsing:
                 ],
                 "cost_optimizer": {"enable": True},
                 "disable_heuristics": True,
+                "forms": "enrich",
                 "ignore": {
                     "ignore_diagonal_text": True,
                     "ignore_hidden_text": True,

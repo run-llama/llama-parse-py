@@ -367,11 +367,11 @@ class ParsingResource(SyncAPIResource):
         downloading large results.
 
         Args:
-          expand: Fields to include: text, markdown, items, metadata, job_metadata,
+          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
-              metadata_content_metadata, raw_words_content_metadata, xlsx_content_metadata,
-              output_pdf_content_metadata, images_content_metadata. Metadata fields include
-              presigned URLs.
+              metadata_content_metadata, forms_content_metadata, raw_words_content_metadata,
+              xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata.
+              Metadata fields include presigned URLs.
 
           image_filenames: Filter to specific image filenames (optional). Example: image_0.png,image_1.jpg
 
@@ -1052,11 +1052,11 @@ class AsyncParsingResource(AsyncAPIResource):
         downloading large results.
 
         Args:
-          expand: Fields to include: text, markdown, items, metadata, job_metadata,
+          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
-              metadata_content_metadata, raw_words_content_metadata, xlsx_content_metadata,
-              output_pdf_content_metadata, images_content_metadata. Metadata fields include
-              presigned URLs.
+              metadata_content_metadata, forms_content_metadata, raw_words_content_metadata,
+              xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata.
+              Metadata fields include presigned URLs.
 
           image_filenames: Filter to specific image filenames (optional). Example: image_0.png,image_1.jpg
 
