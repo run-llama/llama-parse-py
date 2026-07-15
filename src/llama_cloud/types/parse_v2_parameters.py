@@ -701,6 +701,14 @@ class ProcessingOptions(BaseModel):
     conditions and the parsing configuration to apply when triggered
     """
 
+    confidence_scores: Optional[Literal["default", "verified"]] = None
+    """Confidence scoring mode.
+
+    'default': standard scoring. 'verified': more accurate assessment of the parsing
+    quality of every page, plus a document-level score in the result metadata; costs
+    an additional 5 credits per page
+    """
+
     cost_optimizer: Optional[ProcessingOptionsCostOptimizer] = None
     """Cost optimizer configuration for reducing parsing costs on simpler pages.
 

@@ -114,6 +114,8 @@ class LlamaParseParameters(BaseModel):
 
     complemental_formatting_instruction: Optional[str] = None
 
+    confidence_scores: Optional[str] = None
+
     content_guideline_instruction: Optional[str] = None
 
     continuous_mode: Optional[bool] = None

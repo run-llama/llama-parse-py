@@ -114,6 +114,8 @@ class LlamaParseParametersParam(TypedDict, total=False):
 
     complemental_formatting_instruction: Optional[str]
 
+    confidence_scores: Optional[str]
+
     content_guideline_instruction: Optional[str]
 
     continuous_mode: Optional[bool]
