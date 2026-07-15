@@ -6,8 +6,6 @@ from typing import Dict, List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
-from pydantic import Field as FieldInfo
-
 from .._utils import PropertyInfo
 from .._models import BaseModel
 from .code_item import CodeItem
@@ -23,14 +21,6 @@ __all__ = [
     "Forms",
     "FormsPage",
     "FormsPageFormsResultPage",
-    "FormsPageFormsResultPageForm",
-    "FormsPageFormsResultPageFormJson",
-    "FormsPageFormsResultPageFormJsonFormField",
-    "FormsPageFormsResultPageFormJsonFormSection",
-    "FormsPageFormsResultPageFormJsonFormTable",
-    "FormsPageFormsResultPageFormList",
-    "FormsPageFormsResultPageFormListItem",
-    "FormsPageFormsResultPageFormListItemFormListTextItem",
     "FormsPageFailedFormsPage",
     "ImagesContentMetadata",
     "ImagesContentMetadataImage",
@@ -83,136 +73,10 @@ class Job(BaseModel):
     """Key/value tags associated with this job."""
 
 
-class FormsPageFormsResultPageFormJsonFormField(BaseModel):
-    """
-    One labeled form entry: a text input, checkbox, select group, or signature line.
-    """
-
-    field: Literal["checkbox", "multi_select", "signature", "single_select", "text"]
-    """
-    Kind of entry: text (any free-text input), checkbox, single_select,
-    multi_select, or signature
-    """
-
-    id: Optional[str] = None
-    """Field number/letter printed on the form (e.g. '1a'), if any"""
-
-    is_empty: Optional[bool] = FieldInfo(alias="isEmpty", default=None)
-    """True for a printed-but-blank text field (mutually exclusive with value)"""
-
-    label: Optional[str] = None
-    """Printed field caption, if any"""
-
-    type: Optional[Literal["field"]] = None
-    """Form field node"""
-
-    value: Union[str, bool, None] = None
-    """
-    Entered content: verbatim text for text fields, or a boolean for checkbox
-    (checked) and signature (signed). Absent on blank text fields and on select
-    groups
-    """
-
-    value_items: Optional[List[object]] = FieldInfo(alias="valueItems", default=None)
-    """Options of a single_select/multi_select group (only on select fields)"""
-
-
-class FormsPageFormsResultPageFormJsonFormSection(BaseModel):
-    """A grouping of form content, in the form's reading order."""
-
-    items: List[object]
-    """Child form nodes in reading order"""
-
-    id: Optional[str] = None
-    """Identifier printed on the form (e.g. 'Part III'), if any"""
-
-    label: Optional[str] = None
-    """Printed section heading, if any"""
-
-    type: Optional[Literal["section"]] = None
-    """Form section node"""
-
-
-class FormsPageFormsResultPageFormJsonFormTable(BaseModel):
-    """
-    A fillable grid printed on the form: repeating records or a row-by-column matrix.
-    """
-
-    rows: List[List[Union[str, object, None]]]
-    """
-    Table cells: a verbatim string, null for a printed-but-blank cell, or an object
-    holding the cell's own form nodes
-    """
-
-    id: Optional[str] = None
-    """Identifier printed on the form, if any"""
-
-    columns: Optional[List[str]] = None
-    """Printed column headers in order, if any"""
-
-    label: Optional[str] = None
-    """Printed table caption, if any"""
-
-    type: Optional[Literal["table"]] = None
-    """Form table node"""
-
-
-FormsPageFormsResultPageFormJson: TypeAlias = Annotated[
-    Union[
-        FormsPageFormsResultPageFormJsonFormField,
-        FormsPageFormsResultPageFormJsonFormSection,
-        FormsPageFormsResultPageFormJsonFormTable,
-    ],
-    PropertyInfo(discriminator="type"),
-]
-
-
-class FormsPageFormsResultPageFormListItemFormListTextItem(BaseModel):
-    """One line of a form's list representation."""
-
-    md: str
-    """Markdown representation of the line"""
-
-    value: str
-    """Line content (e.g. '[1a] Wages: 29,513')"""
-
-    type: Optional[Literal["text"]] = None
-    """Text line"""
-
-
-FormsPageFormsResultPageFormListItem: TypeAlias = Union[FormsPageFormsResultPageFormListItemFormListTextItem, object]
-
-
-class FormsPageFormsResultPageFormList(BaseModel):
-    """Flattened list representation of the same content"""
-
-    items: List[FormsPageFormsResultPageFormListItem]
-    """Nested lines and sub-lists, in the form's reading order"""
-
-    md: str
-    """Markdown representation of this list"""
-
-    ordered: bool
-    """Whether the list is ordered"""
-
-    type: Optional[Literal["list"]] = None
-    """List node"""
-
-
-class FormsPageFormsResultPageForm(BaseModel):
-    """One form detected on a page, in two representations of the same content."""
-
-    json_: List[FormsPageFormsResultPageFormJson] = FieldInfo(alias="json")
-    """Structured representation: an ordered tree of sections, fields, and tables"""
-
-    list: FormsPageFormsResultPageFormList
-    """Flattened list representation of the same content"""
-
-
 class FormsPageFormsResultPage(BaseModel):
     """Forms found on one page. Pages without form content have an empty forms list."""
 
-    forms: List[FormsPageFormsResultPageForm]
+    forms: List["Form"]
     """Forms detected on the page"""
 
     page_number: int
@@ -486,6 +350,7 @@ class ParsingGetResponse(BaseModel):
     """Full raw text content (if requested)"""
 
 
+from .form import Form
 from .list_item import ListItem
 from .footer_item import FooterItem
 from .header_item import HeaderItem
