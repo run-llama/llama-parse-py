@@ -185,7 +185,7 @@ class TestParsing:
                         "trigger_mode": "trigger_mode",
                     }
                 ],
-                "confidence_scores": "verified",
+                "confidence_score_effort": "high",
                 "cost_optimizer": {"enable": True},
                 "disable_heuristics": True,
                 "forms": "enrich",
@@ -508,7 +508,7 @@ class TestAsyncParsing:
                         "trigger_mode": "trigger_mode",
                     }
                 ],
-                "confidence_scores": "verified",
+                "confidence_score_effort": "high",
                 "cost_optimizer": {"enable": True},
                 "disable_heuristics": True,
                 "forms": "enrich",

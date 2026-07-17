@@ -162,7 +162,7 @@ class JobConfigBatchParseJobRecordCreateParameters(TypedDict, total=False):
 
     complemental_formatting_instruction: Optional[str]
 
-    confidence_scores: Optional[str]
+    confidence_score_effort: Optional[str]
 
     content_guideline_instruction: Optional[str]
 

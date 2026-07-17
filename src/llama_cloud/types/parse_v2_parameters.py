@@ -701,10 +701,10 @@ class ProcessingOptions(BaseModel):
     conditions and the parsing configuration to apply when triggered
     """
 
-    confidence_scores: Optional[Literal["default", "verified"]] = None
-    """Confidence scoring mode.
+    confidence_score_effort: Optional[Literal["high"]] = None
+    """Confidence scoring effort.
 
-    'default': standard scoring. 'verified': more accurate assessment of the parsing
+    Omit for standard scoring. 'high': more accurate assessment of the parsing
     quality of every page, plus a document-level score in the result metadata; costs
     an additional 5 credits per page
     """

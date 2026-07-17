@@ -134,7 +134,7 @@ class ProcessingResultJobConfigBatchParseJobRecordCreateParameters(BaseModel):
 
     complemental_formatting_instruction: Optional[str] = None
 
-    confidence_scores: Optional[str] = None
+    confidence_score_effort: Optional[str] = None
 
     content_guideline_instruction: Optional[str] = None
 
