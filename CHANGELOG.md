@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.12.0](https://github.com/run-llama/llama-parse-py/compare/v2.11.0...v2.12.0) (2026-07-21)
+
+
+### Features
+
+* **gdrive:** reuse-first connection picker in the data-source connect modal ([#21725](https://github.com/run-llama/llama-parse-py/issues/21725)) ([dda7ac8](https://github.com/run-llama/llama-parse-py/commit/dda7ac8ba99f64bc3868bc48f75dfad1f3c509e6))
+* **llamaparse:** agentic 2026-07-15 — Markdown-pipe table body for Gemini 3.1 Flash-Lite (EU primary) ([#22208](https://github.com/run-llama/llama-parse-py/issues/22208)) ([b3767d9](https://github.com/run-llama/llama-parse-py/commit/b3767d9ef0d17f2cd753ab78533b073b23aea1c3))
+* **parse:** adding forms pass to api layer (forms=`enrich` param + output types) ([#22012](https://github.com/run-llama/llama-parse-py/issues/22012)) ([4239bbe](https://github.com/run-llama/llama-parse-py/commit/4239bbea84fde0a5c04dc8a19d474c63455ec548))
+* **parse:** confidence_scores="verified" — per-page AI-verified confidence + document-level score ([#22083](https://github.com/run-llama/llama-parse-py/issues/22083)) ([7a4e1d1](https://github.com/run-llama/llama-parse-py/commit/7a4e1d176c136d16b4f7ce39c8c320e74686a153))
+* **parse:** rename confidence scoring option + billing event (confidence_score_effort / confidence_score_high) ([#22290](https://github.com/run-llama/llama-parse-py/issues/22290)) ([c75005b](https://github.com/run-llama/llama-parse-py/commit/c75005b2a3c1d9011a97824859a9474667689254))
+
+
+### Bug Fixes
+
+* **parse:** declare the recursive form node schemas as models ([8b5208a](https://github.com/run-llama/llama-parse-py/commit/8b5208ae3c6e8c5d8dd18b91c314b03630475284))
+
 ## [2.11.0](https://github.com/run-llama/llama-parse-py/compare/v2.10.0...v2.11.0) (2026-07-09)
 
 
