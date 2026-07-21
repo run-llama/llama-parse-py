@@ -497,7 +497,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-07-08", "2026-06-26", "2026-06-18", "2026-06-15"], str, None]
+    version: Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str, None]
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -507,7 +507,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
 
     - `fast`: `2026-06-15`
     - `cost_effective`: `2026-06-26`
-    - `agentic`: `2026-06-18`
+    - `agentic`: `2026-07-15`
     - `agentic_plus`: `2026-07-08`
 
     Full list: `GET /api/v2/parse/versions`.
@@ -703,6 +703,14 @@ class ProcessingOptions(TypedDict, total=False):
     conditions and the parsing configuration to apply when triggered
     """
 
+    confidence_score_effort: Optional[Literal["high"]]
+    """Confidence scoring effort.
+
+    Omit for standard scoring. 'high': more accurate assessment of the parsing
+    quality of every page, plus a document-level score in the result metadata; costs
+    an additional 5 credits per page
+    """
+
     cost_optimizer: Optional[ProcessingOptionsCostOptimizer]
     """Cost optimizer configuration for reducing parsing costs on simpler pages.
 
@@ -715,6 +723,15 @@ class ProcessingOptions(TypedDict, total=False):
     """
     Disable automatic heuristics including outlined table extraction and adaptive
     long table handling. Use when heuristics produce incorrect results
+    """
+
+    forms: Optional[Literal["default", "enrich"]]
+    """
+    Beta: set to 'enrich' to run an additional AI form-analysis pass on pages
+    detected as forms, producing a structured tree of the form's sections, fields,
+    and fillable grids. Retrieve the result with expand=forms. 'default' (the
+    default) applies standard parsing with no extra pass. Not available on the fast
+    tier
     """
 
     ignore: ProcessingOptionsIgnore
@@ -791,7 +808,7 @@ class ParseV2ParametersParam(TypedDict, total=False):
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-07-08", "2026-06-26", "2026-06-18", "2026-06-15"], str]]
+    version: Required[Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str]]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -800,7 +817,7 @@ class ParseV2ParametersParam(TypedDict, total=False):
 
     - `fast`: `2026-06-15`
     - `cost_effective`: `2026-06-26`
-    - `agentic`: `2026-06-18`
+    - `agentic`: `2026-07-15`
     - `agentic_plus`: `2026-07-08`
 
     Full list: `GET /api/v2/parse/versions`.

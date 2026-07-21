@@ -55,7 +55,7 @@ class ParsingResource(SyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-07-08", "2026-06-26", "2026-06-18", "2026-06-15"], str],
+        version: Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -112,7 +112,7 @@ class ParsingResource(SyncAPIResource):
 
               - `fast`: `2026-06-15`
               - `cost_effective`: `2026-06-26`
-              - `agentic`: `2026-06-18`
+              - `agentic`: `2026-07-15`
               - `agentic_plus`: `2026-07-08`
 
               Full list: `GET /api/v2/parse/versions`.
@@ -367,11 +367,11 @@ class ParsingResource(SyncAPIResource):
         downloading large results.
 
         Args:
-          expand: Fields to include: text, markdown, items, metadata, job_metadata,
+          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
-              metadata_content_metadata, raw_words_content_metadata, xlsx_content_metadata,
-              output_pdf_content_metadata, images_content_metadata. Metadata fields include
-              presigned URLs.
+              metadata_content_metadata, forms_content_metadata, raw_words_content_metadata,
+              xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata.
+              Metadata fields include presigned URLs.
 
           image_filenames: Filter to specific image filenames (optional). Example: image_0.png,image_1.jpg
 
@@ -740,7 +740,7 @@ class AsyncParsingResource(AsyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-07-08", "2026-06-26", "2026-06-18", "2026-06-15"], str],
+        version: Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -797,7 +797,7 @@ class AsyncParsingResource(AsyncAPIResource):
 
               - `fast`: `2026-06-15`
               - `cost_effective`: `2026-06-26`
-              - `agentic`: `2026-06-18`
+              - `agentic`: `2026-07-15`
               - `agentic_plus`: `2026-07-08`
 
               Full list: `GET /api/v2/parse/versions`.
@@ -1052,11 +1052,11 @@ class AsyncParsingResource(AsyncAPIResource):
         downloading large results.
 
         Args:
-          expand: Fields to include: text, markdown, items, metadata, job_metadata,
+          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
-              metadata_content_metadata, raw_words_content_metadata, xlsx_content_metadata,
-              output_pdf_content_metadata, images_content_metadata. Metadata fields include
-              presigned URLs.
+              metadata_content_metadata, forms_content_metadata, raw_words_content_metadata,
+              xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata.
+              Metadata fields include presigned URLs.
 
           image_filenames: Filter to specific image filenames (optional). Example: image_0.png,image_1.jpg
 

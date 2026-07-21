@@ -3,19 +3,26 @@
 from __future__ import annotations
 
 from . import (
+    form,
     pipeline,
     list_item,
     retriever,
+    form_field,
+    form_table,
     footer_item,
     header_item,
+    form_section,
+    form_list_item,
     metadata_filters,
     retriever_pipeline,
     parsing_get_response,
+    form_table_cell_items,
     preset_retrieval_params,
     pipeline_retrieve_response,
 )
 from .. import _compat
 from .file import File as File
+from .form import Form as Form
 from .b_box import BBox as BBox
 from .shared import (
     CloudS3DataSource as CloudS3DataSource,
@@ -47,12 +54,15 @@ from .link_item import LinkItem as LinkItem
 from .list_item import ListItem as ListItem
 from .retriever import Retriever as Retriever
 from .text_item import TextItem as TextItem
+from .form_field import FormField as FormField
+from .form_table import FormTable as FormTable
 from .image_item import ImageItem as ImageItem
 from .table_item import TableItem as TableItem
 from .data_source import DataSource as DataSource
 from .footer_item import FooterItem as FooterItem
 from .header_item import HeaderItem as HeaderItem
 from .status_enum import StatusEnum as StatusEnum
+from .form_section import FormSection as FormSection
 from .heading_item import HeadingItem as HeadingItem
 from .message_role import MessageRole as MessageRole
 from .parsing_mode import ParsingMode as ParsingMode
@@ -60,6 +70,7 @@ from .pipeline_type import PipelineType as PipelineType
 from .presigned_url import PresignedURL as PresignedURL
 from .extract_v2_job import ExtractV2Job as ExtractV2Job
 from .fail_page_mode import FailPageMode as FailPageMode
+from .form_list_item import FormListItem as FormListItem
 from .retrieval_mode import RetrievalMode as RetrievalMode
 from .classify_result import ClassifyResult as ClassifyResult
 from .file_get_params import FileGetParams as FileGetParams
@@ -90,6 +101,7 @@ from .batch_list_response import BatchListResponse as BatchListResponse
 from .classify_get_params import ClassifyGetParams as ClassifyGetParams
 from .extract_list_params import ExtractListParams as ExtractListParams
 from .file_query_response import FileQueryResponse as FileQueryResponse
+from .form_list_text_item import FormListTextItem as FormListTextItem
 from .parse_v2_parameters import ParseV2Parameters as ParseV2Parameters
 from .parsing_list_params import ParsingListParams as ParsingListParams
 from .project_list_params import ProjectListParams as ProjectListParams
@@ -112,6 +124,7 @@ from .extract_configuration import ExtractConfiguration as ExtractConfiguration
 from .extract_create_params import ExtractCreateParams as ExtractCreateParams
 from .extract_delete_params import ExtractDeleteParams as ExtractDeleteParams
 from .extract_v2_parameters import ExtractV2Parameters as ExtractV2Parameters
+from .form_table_cell_items import FormTableCellItems as FormTableCellItems
 from .parsing_create_params import ParsingCreateParams as ParsingCreateParams
 from .parsing_list_response import ParsingListResponse as ParsingListResponse
 from .project_list_response import ProjectListResponse as ProjectListResponse
@@ -223,6 +236,12 @@ from .hugging_face_inference_api_embedding_config_param import (
 # See: https://github.com/pydantic/pydantic/issues/11250 for more context.
 if _compat.PYDANTIC_V1:
     footer_item.FooterItem.update_forward_refs()  # type: ignore
+    form.Form.update_forward_refs()  # type: ignore
+    form_field.FormField.update_forward_refs()  # type: ignore
+    form_list_item.FormListItem.update_forward_refs()  # type: ignore
+    form_section.FormSection.update_forward_refs()  # type: ignore
+    form_table.FormTable.update_forward_refs()  # type: ignore
+    form_table_cell_items.FormTableCellItems.update_forward_refs()  # type: ignore
     header_item.HeaderItem.update_forward_refs()  # type: ignore
     list_item.ListItem.update_forward_refs()  # type: ignore
     parsing_get_response.ParsingGetResponse.update_forward_refs()  # type: ignore
@@ -234,6 +253,12 @@ if _compat.PYDANTIC_V1:
     retriever_pipeline.RetrieverPipeline.update_forward_refs()  # type: ignore
 else:
     footer_item.FooterItem.model_rebuild(_parent_namespace_depth=0)
+    form.Form.model_rebuild(_parent_namespace_depth=0)
+    form_field.FormField.model_rebuild(_parent_namespace_depth=0)
+    form_list_item.FormListItem.model_rebuild(_parent_namespace_depth=0)
+    form_section.FormSection.model_rebuild(_parent_namespace_depth=0)
+    form_table.FormTable.model_rebuild(_parent_namespace_depth=0)
+    form_table_cell_items.FormTableCellItems.model_rebuild(_parent_namespace_depth=0)
     header_item.HeaderItem.model_rebuild(_parent_namespace_depth=0)
     list_item.ListItem.model_rebuild(_parent_namespace_depth=0)
     parsing_get_response.ParsingGetResponse.model_rebuild(_parent_namespace_depth=0)

@@ -185,8 +185,10 @@ class TestParsing:
                         "trigger_mode": "trigger_mode",
                     }
                 ],
+                "confidence_score_effort": "high",
                 "cost_optimizer": {"enable": True},
                 "disable_heuristics": True,
+                "forms": "enrich",
                 "ignore": {
                     "ignore_diagonal_text": True,
                     "ignore_hidden_text": True,
@@ -506,8 +508,10 @@ class TestAsyncParsing:
                         "trigger_mode": "trigger_mode",
                     }
                 ],
+                "confidence_score_effort": "high",
                 "cost_optimizer": {"enable": True},
                 "disable_heuristics": True,
+                "forms": "enrich",
                 "ignore": {
                     "ignore_diagonal_text": True,
                     "ignore_hidden_text": True,

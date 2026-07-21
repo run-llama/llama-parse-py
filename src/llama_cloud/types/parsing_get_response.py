@@ -18,6 +18,10 @@ from .heading_item import HeadingItem
 __all__ = [
     "ParsingGetResponse",
     "Job",
+    "Forms",
+    "FormsPage",
+    "FormsPageFormsResultPage",
+    "FormsPageFailedFormsPage",
     "ImagesContentMetadata",
     "ImagesContentMetadataImage",
     "ImagesContentMetadataImageBbox",
@@ -67,6 +71,42 @@ class Job(BaseModel):
 
     user_metadata: Optional[Dict[str, str]] = None
     """Key/value tags associated with this job."""
+
+
+class FormsPageFormsResultPage(BaseModel):
+    """Forms found on one page. Pages without form content have an empty forms list."""
+
+    forms: List["Form"]
+    """Forms detected on the page"""
+
+    page_number: int
+    """Page number of the document"""
+
+    success: Literal[True]
+    """Success indicator"""
+
+
+class FormsPageFailedFormsPage(BaseModel):
+    """A page whose processing failed."""
+
+    error: str
+    """Error message describing the failure"""
+
+    page_number: int
+    """Page number of the document"""
+
+    success: Literal[False]
+    """Failure indicator"""
+
+
+FormsPage: TypeAlias = Union[FormsPageFormsResultPage, FormsPageFailedFormsPage]
+
+
+class Forms(BaseModel):
+    """Per-page form analysis results (one entry per page)."""
+
+    pages: List[FormsPage]
+    """List of form pages or failed page entries"""
 
 
 class ImagesContentMetadataImageBbox(BaseModel):
@@ -277,6 +317,9 @@ class ParsingGetResponse(BaseModel):
     job: Job
     """Parse job status and metadata"""
 
+    forms: Optional[Forms] = None
+    """Per-page form analysis results (one entry per page)."""
+
     images_content_metadata: Optional[ImagesContentMetadata] = None
     """Metadata for all extracted images."""
 
@@ -307,6 +350,7 @@ class ParsingGetResponse(BaseModel):
     """Full raw text content (if requested)"""
 
 
+from .form import Form
 from .list_item import ListItem
 from .footer_item import FooterItem
 from .header_item import HeaderItem
