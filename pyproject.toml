@@ -1,6 +1,6 @@
 [project]
 name = "llama_cloud"
-version = "2.11.0"
+version = "2.12.0"
 description = "The official Python library for the llama-cloud API"
 dynamic = ["readme"]
 license = "MIT"
