@@ -10,5 +10,8 @@ __all__ = ["ExtractJobUsage"]
 class ExtractJobUsage(BaseModel):
     """Extraction usage metrics."""
 
+    num_pages_billed: Optional[int] = None
+    """Number of effective pages billed"""
+
     num_pages_extracted: Optional[int] = None
     """Number of pages extracted"""
