@@ -50,6 +50,7 @@ class TestSheets:
                     "sheet_names": ["string"],
                     "specialization": "specialization",
                     "table_merge_sensitivity": "strong",
+                    "tier": "agentic",
                     "use_experimental_processing": True,
                 },
                 configuration={
@@ -60,6 +61,7 @@ class TestSheets:
                     "sheet_names": ["string"],
                     "specialization": "specialization",
                     "table_merge_sensitivity": "strong",
+                    "tier": "agentic",
                     "use_experimental_processing": True,
                 },
                 configuration_id="cfg-11111111-2222-3333-4444-555555555555",
@@ -390,6 +392,7 @@ class TestAsyncSheets:
                     "sheet_names": ["string"],
                     "specialization": "specialization",
                     "table_merge_sensitivity": "strong",
+                    "tier": "agentic",
                     "use_experimental_processing": True,
                 },
                 configuration={
@@ -400,6 +403,7 @@ class TestAsyncSheets:
                     "sheet_names": ["string"],
                     "specialization": "specialization",
                     "table_merge_sensitivity": "strong",
+                    "tier": "agentic",
                     "use_experimental_processing": True,
                 },
                 configuration_id="cfg-11111111-2222-3333-4444-555555555555",

@@ -33,9 +33,10 @@ class ParametersSpreadsheetV1Parameters(BaseModel):
     """
 
     generate_additional_metadata: Optional[bool] = None
-    """
+    """Deprecated: controlled by `tier`.
+
     Whether to generate additional metadata (title, description) for each extracted
-    region.
+    region. Honored only on `agentic`.
     """
 
     include_hidden_cells: Optional[bool] = None
@@ -48,21 +49,32 @@ class ParametersSpreadsheetV1Parameters(BaseModel):
     """
 
     specialization: Optional[str] = None
-    """Optional specialization mode for domain-specific extraction.
+    """Deprecated: controlled by `tier`.
 
-    Supported values: 'financial-standard', 'financial-enhanced',
-    'financial-precise'. Default None uses the general-purpose pipeline.
+    Optional specialization mode for domain-specific extraction. Supported values:
+    'financial-standard', 'financial-enhanced', 'financial-precise'. Default None
+    uses the general-purpose pipeline. Honored only on `agentic`.
     """
 
     table_merge_sensitivity: Optional[Literal["strong", "weak"]] = None
-    """Influences how likely similar-looking regions are merged into a single table.
+    """Deprecated: controlled by `tier`.
 
-    Useful for spreadsheets that either have sparse tables (strong merging) or many
-    distinct tables close together (weak merging).
+    Influences how likely similar-looking regions are merged into a single table.
+    Honored only on `agentic`.
+    """
+
+    tier: Optional[Literal["agentic", "cost_effective"]] = None
+    """Spreadsheet extraction tier.
+
+    `cost_effective` uses the rule-based/ML-only pipeline; `agentic` uses the full
+    pipeline.
     """
 
     use_experimental_processing: Optional[bool] = None
-    """Enables experimental processing. Accuracy may be impacted."""
+    """Deprecated: controlled by `tier`.
+
+    Enables experimental processing. Honored only on `agentic`.
+    """
 
 
 Parameters: TypeAlias = Annotated[
