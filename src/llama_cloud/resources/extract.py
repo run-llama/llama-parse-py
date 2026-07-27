@@ -70,6 +70,7 @@ class ExtractResource(SyncAPIResource):
         project_id: Optional[str] | Omit = omit,
         configuration: Optional[ExtractConfigurationParam] | Omit = omit,
         configuration_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -106,6 +107,8 @@ class ExtractResource(SyncAPIResource):
 
           configuration_id: Saved configuration ID
 
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
@@ -123,6 +126,7 @@ class ExtractResource(SyncAPIResource):
                     "file_input": file_input,
                     "configuration": configuration,
                     "configuration_id": configuration_id,
+                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 extract_create_params.ExtractCreateParams,
@@ -640,6 +644,7 @@ class AsyncExtractResource(AsyncAPIResource):
         project_id: Optional[str] | Omit = omit,
         configuration: Optional[ExtractConfigurationParam] | Omit = omit,
         configuration_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -676,6 +681,8 @@ class AsyncExtractResource(AsyncAPIResource):
 
           configuration_id: Saved configuration ID
 
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
@@ -693,6 +700,7 @@ class AsyncExtractResource(AsyncAPIResource):
                     "file_input": file_input,
                     "configuration": configuration,
                     "configuration_id": configuration_id,
+                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 extract_create_params.ExtractCreateParams,
