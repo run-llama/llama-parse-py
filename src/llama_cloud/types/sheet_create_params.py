@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, List, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .._types import SequenceNotStr
 from .beta.sheets_parsing_config_param import SheetsParsingConfigParam
 
 __all__ = ["SheetCreateParams", "WebhookConfiguration"]
@@ -26,6 +27,9 @@ class SheetCreateParams(TypedDict, total=False):
 
     configuration_id: Optional[str]
     """Saved configuration ID"""
+
+    webhook_configuration_ids: Optional[SequenceNotStr[str]]
+    """IDs of saved webhook configurations to notify for this job."""
 
     webhook_configurations: Optional[Iterable[WebhookConfiguration]]
     """Outbound webhook endpoints to notify on job status changes"""
