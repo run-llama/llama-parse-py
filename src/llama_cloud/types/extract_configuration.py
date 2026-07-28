@@ -35,13 +35,16 @@ class ExtractConfiguration(BaseModel):
     parse_config_id: Optional[str] = None
     """
     Saved parse configuration ID to control how the document is parsed before
-    extraction
+    extraction. Turbo extract does not support parse configuration or produce a
+    parse output; use another tier if your workflow requires parsed text.
     """
 
     parse_tier: Optional[str] = None
     """Parse tier to use before extraction.
 
-    Defaults to the extract tier if not specified.
+    Defaults to the extract tier if not specified. Turbo extract does not support
+    parse configuration or produce a parse output; use another tier if your workflow
+    requires parsed text.
     """
 
     system_prompt: Optional[str] = None
