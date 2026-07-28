@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, List, Iterable, Optional
 from typing_extensions import Literal, TypedDict
 
+from .._types import SequenceNotStr
 from .classify_configuration_param import ClassifyConfigurationParam
 
 __all__ = ["ClassifyCreateParams", "WebhookConfiguration"]
@@ -35,6 +36,9 @@ class ClassifyCreateParams(TypedDict, total=False):
 
     Reusing a key returns the original job; the new request body is ignored.
     """
+
+    webhook_configuration_ids: Optional[SequenceNotStr[str]]
+    """IDs of saved webhook configurations to notify for this job."""
 
     webhook_configurations: Optional[Iterable[WebhookConfiguration]]
     """Outbound webhook endpoints to notify on job status changes"""

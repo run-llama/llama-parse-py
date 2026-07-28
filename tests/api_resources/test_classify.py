@@ -54,6 +54,7 @@ class TestClassify:
             file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             parse_job_id="pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
+            webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
                 {
                     "webhook_events": ["parse.success", "parse.error"],
@@ -221,6 +222,7 @@ class TestAsyncClassify:
             file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             parse_job_id="pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
+            webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
                 {
                     "webhook_events": ["parse.success", "parse.error"],

@@ -66,6 +66,7 @@ class ClassifyResource(SyncAPIResource):
         file_input: Optional[str] | Omit = omit,
         parse_job_id: Optional[str] | Omit = omit,
         transaction_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[classify_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -103,6 +104,8 @@ class ClassifyResource(SyncAPIResource):
           transaction_id: Idempotency key scoped to the project. Reusing a key returns the original job;
               the new request body is ignored.
 
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
@@ -123,6 +126,7 @@ class ClassifyResource(SyncAPIResource):
                     "file_input": file_input,
                     "parse_job_id": parse_job_id,
                     "transaction_id": transaction_id,
+                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 classify_create_params.ClassifyCreateParams,
@@ -480,6 +484,7 @@ class AsyncClassifyResource(AsyncAPIResource):
         file_input: Optional[str] | Omit = omit,
         parse_job_id: Optional[str] | Omit = omit,
         transaction_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[classify_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -517,6 +522,8 @@ class AsyncClassifyResource(AsyncAPIResource):
           transaction_id: Idempotency key scoped to the project. Reusing a key returns the original job;
               the new request body is ignored.
 
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
@@ -537,6 +544,7 @@ class AsyncClassifyResource(AsyncAPIResource):
                     "file_input": file_input,
                     "parse_job_id": parse_job_id,
                     "transaction_id": transaction_id,
+                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 classify_create_params.ClassifyCreateParams,
