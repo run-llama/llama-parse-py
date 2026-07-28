@@ -18,10 +18,17 @@ class ExtractConfiguration(BaseModel):
     """
 
     cite_sources: Optional[bool] = None
-    """Include citations in results"""
+    """Include citations in results.
+
+    Returned under `extract_metadata` (auto-included when set). Text-level on
+    `turbo` (no bounding boxes).
+    """
 
     confidence_scores: Optional[bool] = None
-    """Include confidence scores in results"""
+    """Include confidence scores in results.
+
+    Returned under `extract_metadata` (auto-included when set).
+    """
 
     extraction_target: Optional[Literal["per_doc", "per_page", "per_table_row"]] = None
     """

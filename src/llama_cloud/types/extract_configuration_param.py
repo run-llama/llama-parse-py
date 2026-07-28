@@ -18,10 +18,17 @@ class ExtractConfigurationParam(TypedDict, total=False):
     """
 
     cite_sources: bool
-    """Include citations in results"""
+    """Include citations in results.
+
+    Returned under `extract_metadata` (auto-included when set). Text-level on
+    `turbo` (no bounding boxes).
+    """
 
     confidence_scores: bool
-    """Include confidence scores in results"""
+    """Include confidence scores in results.
+
+    Returned under `extract_metadata` (auto-included when set).
+    """
 
     extraction_target: Literal["per_doc", "per_page", "per_table_row"]
     """
