@@ -54,6 +54,25 @@ class ExtractConfiguration(BaseModel):
     requires parsed text.
     """
 
+    sheet_names: Optional[List[str]] = None
+    """Optional worksheet names to extract when spreadsheet_mode is on.
+
+    Overrides target_pages for spreadsheets; omit to extract every sheet. Names are
+    matched exactly (case-sensitive) — pass them as a list, e.g. ["Sheet 1", "My
+    Sheet"].
+    """
+
+    spreadsheet_mode: Optional[bool] = None
+    """Beta.
+
+    When true, extract structured data directly from a spreadsheet workbook
+    (.xlsx/.xls/.csv) — the agent reads cells straight from the workbook instead of
+    the standard document path. Off by default (spreadsheets keep the standard
+    path). Requires the agentic_plus tier. Billed on the standard per-page extract
+    rate, against a page count derived from workbook size. Citations and confidence
+    scores are not available in this mode.
+    """
+
     system_prompt: Optional[str] = None
     """Custom system prompt to guide extraction behavior"""
 
