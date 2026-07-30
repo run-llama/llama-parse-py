@@ -50,6 +50,16 @@ class TestBatches:
             source_directory_id="dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            webhook_configuration_ids=["whc-...", "whc-..."],
+            webhook_configurations=[
+                {
+                    "webhook_events": ["parse.success", "parse.error"],
+                    "webhook_headers": {"Authorization": "Bearer sk-..."},
+                    "webhook_output_format": "json",
+                    "webhook_signing_secret": "whsec_...",
+                    "webhook_url": "https://example.com/webhooks/llamacloud",
+                }
+            ],
         )
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 
@@ -220,6 +230,16 @@ class TestAsyncBatches:
             source_directory_id="dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            webhook_configuration_ids=["whc-...", "whc-..."],
+            webhook_configurations=[
+                {
+                    "webhook_events": ["parse.success", "parse.error"],
+                    "webhook_headers": {"Authorization": "Bearer sk-..."},
+                    "webhook_output_format": "json",
+                    "webhook_signing_secret": "whsec_...",
+                    "webhook_url": "https://example.com/webhooks/llamacloud",
+                }
+            ],
         )
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 

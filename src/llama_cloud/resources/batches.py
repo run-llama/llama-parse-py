@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -55,6 +55,8 @@ class BatchesResource(SyncAPIResource):
         source_directory_id: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        webhook_configurations: Optional[Iterable[batch_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -65,10 +67,26 @@ class BatchesResource(SyncAPIResource):
         """
         Create a batch over a source directory and start processing asynchronously.
 
+        To be notified as the batch progresses, pass `webhook_configurations` with
+        inline endpoints and/or `webhook_configuration_ids` referencing saved
+        configurations. Batches emit `batch.pending` on create, `batch.running` once
+        processing starts, and a terminal `batch.success` or `batch.error`.
+
+        `batch.success` means the batch finished mapping every source file to a job —
+        individual files may still have failed, so read `results` (with
+        `expand=results`) for per-file outcomes.
+
+        Delivery order across events is not guaranteed; key on the `status` field in the
+        payload rather than arrival order.
+
         Args:
           config: Batch configuration snapshot to apply to this source directory.
 
           source_directory_id: Directory whose files should be processed.
+
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
+          webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
 
@@ -84,6 +102,8 @@ class BatchesResource(SyncAPIResource):
                 {
                     "config": config,
                     "source_directory_id": source_directory_id,
+                    "webhook_configuration_ids": webhook_configuration_ids,
+                    "webhook_configurations": webhook_configurations,
                 },
                 batch_create_params.BatchCreateParams,
             ),
@@ -236,6 +256,8 @@ class AsyncBatchesResource(AsyncAPIResource):
         source_directory_id: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        webhook_configurations: Optional[Iterable[batch_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -246,10 +268,26 @@ class AsyncBatchesResource(AsyncAPIResource):
         """
         Create a batch over a source directory and start processing asynchronously.
 
+        To be notified as the batch progresses, pass `webhook_configurations` with
+        inline endpoints and/or `webhook_configuration_ids` referencing saved
+        configurations. Batches emit `batch.pending` on create, `batch.running` once
+        processing starts, and a terminal `batch.success` or `batch.error`.
+
+        `batch.success` means the batch finished mapping every source file to a job —
+        individual files may still have failed, so read `results` (with
+        `expand=results`) for per-file outcomes.
+
+        Delivery order across events is not guaranteed; key on the `status` field in the
+        payload rather than arrival order.
+
         Args:
           config: Batch configuration snapshot to apply to this source directory.
 
           source_directory_id: Directory whose files should be processed.
+
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
+          webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
 
@@ -265,6 +303,8 @@ class AsyncBatchesResource(AsyncAPIResource):
                 {
                     "config": config,
                     "source_directory_id": source_directory_id,
+                    "webhook_configuration_ids": webhook_configuration_ids,
+                    "webhook_configurations": webhook_configurations,
                 },
                 batch_create_params.BatchCreateParams,
             ),
