@@ -217,6 +217,9 @@ class OutputOptionsMarkdown(TypedDict, total=False):
     When false, only the link text is included
     """
 
+    annotate_revisions: Optional[bool]
+    """Extract Word-style revisions and comments into structured page output"""
+
     inline_images: Optional[bool]
     """
     Embed images directly in markdown as base64 data URIs instead of extracting them

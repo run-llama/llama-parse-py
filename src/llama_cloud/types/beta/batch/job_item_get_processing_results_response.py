@@ -105,6 +105,8 @@ class ProcessingResultJobConfigBatchParseJobRecordCreateParameters(BaseModel):
 
     annotate_links: Optional[bool] = None
 
+    annotate_revisions: Optional[bool] = None
+
     auto_mode: Optional[bool] = None
 
     auto_mode_configuration_json: Optional[str] = None

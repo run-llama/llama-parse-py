@@ -78,6 +78,7 @@ class TestParsing:
                 "images_to_save": ["embedded"],
                 "markdown": {
                     "annotate_links": True,
+                    "annotate_revisions": True,
                     "inline_images": True,
                     "tables": {
                         "compact_markdown_tables": True,
@@ -401,6 +402,7 @@ class TestAsyncParsing:
                 "images_to_save": ["embedded"],
                 "markdown": {
                     "annotate_links": True,
+                    "annotate_revisions": True,
                     "inline_images": True,
                     "tables": {
                         "compact_markdown_tables": True,

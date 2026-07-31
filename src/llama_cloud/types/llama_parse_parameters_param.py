@@ -85,6 +85,8 @@ class LlamaParseParametersParam(TypedDict, total=False):
 
     annotate_links: Optional[bool]
 
+    annotate_revisions: Optional[bool]
+
     auto_mode: Optional[bool]
 
     auto_mode_configuration_json: Optional[str]
