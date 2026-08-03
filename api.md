@@ -88,6 +88,7 @@ from llama_cloud.types import (
     TextItem,
     ParsingCreateResponse,
     ParsingListResponse,
+    ParsingCancelResponse,
     ParsingGetResponse,
     ParsingUploadFileResponse,
 )
@@ -97,6 +98,7 @@ Methods:
 
 - <code title="post /api/v2/parse">client.parsing.<a href="./src/llama_cloud/resources/parsing.py">create</a>(\*\*<a href="src/llama_cloud/types/parsing_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/parsing_create_response.py">ParsingCreateResponse</a></code>
 - <code title="get /api/v2/parse">client.parsing.<a href="./src/llama_cloud/resources/parsing.py">list</a>(\*\*<a href="src/llama_cloud/types/parsing_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/parsing_list_response.py">SyncPaginatedCursor[ParsingListResponse]</a></code>
+- <code title="post /api/v2/parse/{job_id}/cancel">client.parsing.<a href="./src/llama_cloud/resources/parsing.py">cancel</a>(job_id, \*\*<a href="src/llama_cloud/types/parsing_cancel_params.py">params</a>) -> <a href="./src/llama_cloud/types/parsing_cancel_response.py">ParsingCancelResponse</a></code>
 - <code title="get /api/v2/parse/{job_id}">client.parsing.<a href="./src/llama_cloud/resources/parsing.py">get</a>(job_id, \*\*<a href="src/llama_cloud/types/parsing_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/parsing_get_response.py">ParsingGetResponse</a></code>
 
 # Extract
@@ -148,20 +150,6 @@ Methods:
 - <code title="get /api/v1/classifier/jobs">client.classifier.jobs.<a href="./src/llama_cloud/resources/classifier/jobs.py">list</a>(\*\*<a href="src/llama_cloud/types/classifier/job_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/classifier/classify_job.py">SyncPaginatedCursor[ClassifyJob]</a></code>
 - <code title="get /api/v1/classifier/jobs/{classify_job_id}">client.classifier.jobs.<a href="./src/llama_cloud/resources/classifier/jobs.py">get</a>(classify_job_id, \*\*<a href="src/llama_cloud/types/classifier/job_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/classifier/classify_job.py">ClassifyJob</a></code>
 - <code title="get /api/v1/classifier/jobs/{classify_job_id}/results">client.classifier.jobs.<a href="./src/llama_cloud/resources/classifier/jobs.py">get_results</a>(classify_job_id, \*\*<a href="src/llama_cloud/types/classifier/job_get_results_params.py">params</a>) -> <a href="./src/llama_cloud/types/classifier/job_get_results_response.py">JobGetResultsResponse</a></code>
-
-# Batches
-
-Types:
-
-```python
-from llama_cloud.types import BatchCreateResponse, BatchListResponse, BatchGetResponse
-```
-
-Methods:
-
-- <code title="post /api/v2/batches">client.batches.<a href="./src/llama_cloud/resources/batches.py">create</a>(\*\*<a href="src/llama_cloud/types/batch_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/batch_create_response.py">BatchCreateResponse</a></code>
-- <code title="get /api/v2/batches">client.batches.<a href="./src/llama_cloud/resources/batches.py">list</a>(\*\*<a href="src/llama_cloud/types/batch_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/batch_list_response.py">SyncPaginatedCursor[BatchListResponse]</a></code>
-- <code title="get /api/v2/batches/{batch_id}">client.batches.<a href="./src/llama_cloud/resources/batches.py">get</a>(batch_id, \*\*<a href="src/llama_cloud/types/batch_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/batch_get_response.py">BatchGetResponse</a></code>
 
 # Classify
 
@@ -585,39 +573,6 @@ Methods:
 - <code title="post /api/v1/beta/directories/{directory_id}/files">client.beta.directories.files.<a href="./src/llama_cloud/resources/beta/directories/files.py">add</a>(directory_id, \*\*<a href="src/llama_cloud/types/beta/directories/file_add_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/directories/file_add_response.py">FileAddResponse</a></code>
 - <code title="get /api/v1/beta/directories/{directory_id}/files/{directory_file_id}">client.beta.directories.files.<a href="./src/llama_cloud/resources/beta/directories/files.py">get</a>(directory_file_id, \*, directory_id, \*\*<a href="src/llama_cloud/types/beta/directories/file_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/directories/file_get_response.py">FileGetResponse</a></code>
 - <code title="post /api/v1/beta/directories/{directory_id}/files/upload">client.beta.directories.files.<a href="./src/llama_cloud/resources/beta/directories/files.py">upload</a>(directory_id, \*\*<a href="src/llama_cloud/types/beta/directories/file_upload_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/directories/file_upload_response.py">FileUploadResponse</a></code>
-
-## Batch
-
-Types:
-
-```python
-from llama_cloud.types.beta import (
-    BatchCreateResponse,
-    BatchListResponse,
-    BatchCancelResponse,
-    BatchGetStatusResponse,
-)
-```
-
-Methods:
-
-- <code title="post /api/v1/beta/batch-processing">client.beta.batch.<a href="./src/llama_cloud/resources/beta/batch/batch.py">create</a>(\*\*<a href="src/llama_cloud/types/beta/batch_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/batch_create_response.py">BatchCreateResponse</a></code>
-- <code title="get /api/v1/beta/batch-processing">client.beta.batch.<a href="./src/llama_cloud/resources/beta/batch/batch.py">list</a>(\*\*<a href="src/llama_cloud/types/beta/batch_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/batch_list_response.py">SyncPaginatedBatchItems[BatchListResponse]</a></code>
-- <code title="post /api/v1/beta/batch-processing/{job_id}/cancel">client.beta.batch.<a href="./src/llama_cloud/resources/beta/batch/batch.py">cancel</a>(job_id, \*\*<a href="src/llama_cloud/types/beta/batch_cancel_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/batch_cancel_response.py">BatchCancelResponse</a></code>
-- <code title="get /api/v1/beta/batch-processing/{job_id}">client.beta.batch.<a href="./src/llama_cloud/resources/beta/batch/batch.py">get_status</a>(job_id, \*\*<a href="src/llama_cloud/types/beta/batch_get_status_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/batch_get_status_response.py">BatchGetStatusResponse</a></code>
-
-### JobItems
-
-Types:
-
-```python
-from llama_cloud.types.beta.batch import JobItemListResponse, JobItemGetProcessingResultsResponse
-```
-
-Methods:
-
-- <code title="get /api/v1/beta/batch-processing/{job_id}/items">client.beta.batch.job_items.<a href="./src/llama_cloud/resources/beta/batch/job_items.py">list</a>(job_id, \*\*<a href="src/llama_cloud/types/beta/batch/job_item_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/batch/job_item_list_response.py">SyncPaginatedBatchItems[JobItemListResponse]</a></code>
-- <code title="get /api/v1/beta/batch-processing/items/{item_id}/processing-results">client.beta.batch.job_items.<a href="./src/llama_cloud/resources/beta/batch/job_items.py">get_processing_results</a>(item_id, \*\*<a href="src/llama_cloud/types/beta/batch/job_item_get_processing_results_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/batch/job_item_get_processing_results_response.py">JobItemGetProcessingResultsResponse</a></code>
 
 ## Split
 

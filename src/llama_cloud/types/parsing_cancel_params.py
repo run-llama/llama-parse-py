@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["BatchGetStatusParams"]
+__all__ = ["ParsingCancelParams"]
 
 
-class BatchGetStatusParams(TypedDict, total=False):
+class ParsingCancelParams(TypedDict, total=False):
     organization_id: Optional[str]
 
     project_id: Optional[str]

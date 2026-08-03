@@ -9,7 +9,13 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import parsing_get_params, parsing_list_params, parsing_create_params, parsing_upload_file_params
+from ..types import (
+    parsing_get_params,
+    parsing_list_params,
+    parsing_cancel_params,
+    parsing_create_params,
+    parsing_upload_file_params,
+)
 from .._files import to_httpx_files, async_to_httpx_files
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -26,6 +32,7 @@ from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.parsing_get_response import ParsingGetResponse
 from ..types.parsing_list_response import ParsingListResponse
+from ..types.parsing_cancel_response import ParsingCancelResponse
 from ..types.parsing_create_response import ParsingCreateResponse
 
 __all__ = ["ParsingResource", "AsyncParsingResource"]
@@ -336,6 +343,55 @@ class ParsingResource(SyncAPIResource):
                 ),
             ),
             model=ParsingListResponse,
+        )
+
+    def cancel(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParsingCancelResponse:
+        """Cancel a running parse job.
+
+        Stops processing and marks the job as CANCELLED.
+
+        Returns the updated job. Jobs
+        already in a terminal state (COMPLETED, FAILED, CANCELLED) cannot be cancelled.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return self._post(
+            path_template("/api/v2/parse/{job_id}/cancel", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    parsing_cancel_params.ParsingCancelParams,
+                ),
+            ),
+            cast_to=ParsingCancelResponse,
         )
 
     def get(
@@ -1023,6 +1079,55 @@ class AsyncParsingResource(AsyncAPIResource):
             model=ParsingListResponse,
         )
 
+    async def cancel(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParsingCancelResponse:
+        """Cancel a running parse job.
+
+        Stops processing and marks the job as CANCELLED.
+
+        Returns the updated job. Jobs
+        already in a terminal state (COMPLETED, FAILED, CANCELLED) cannot be cancelled.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return await self._post(
+            path_template("/api/v2/parse/{job_id}/cancel", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    parsing_cancel_params.ParsingCancelParams,
+                ),
+            ),
+            cast_to=ParsingCancelResponse,
+        )
+
     async def get(
         self,
         job_id: str,
@@ -1411,6 +1516,9 @@ class ParsingResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             parsing.list,
         )
+        self.cancel = to_raw_response_wrapper(
+            parsing.cancel,
+        )
         self.get = to_raw_response_wrapper(
             parsing.get,
         )
@@ -1425,6 +1533,9 @@ class AsyncParsingResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             parsing.list,
+        )
+        self.cancel = async_to_raw_response_wrapper(
+            parsing.cancel,
         )
         self.get = async_to_raw_response_wrapper(
             parsing.get,
@@ -1441,6 +1552,9 @@ class ParsingResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             parsing.list,
         )
+        self.cancel = to_streamed_response_wrapper(
+            parsing.cancel,
+        )
         self.get = to_streamed_response_wrapper(
             parsing.get,
         )
@@ -1455,6 +1569,9 @@ class AsyncParsingResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             parsing.list,
+        )
+        self.cancel = async_to_streamed_response_wrapper(
+            parsing.cancel,
         )
         self.get = async_to_streamed_response_wrapper(
             parsing.get,
