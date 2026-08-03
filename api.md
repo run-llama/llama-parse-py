@@ -151,6 +151,20 @@ Methods:
 - <code title="get /api/v1/classifier/jobs/{classify_job_id}">client.classifier.jobs.<a href="./src/llama_cloud/resources/classifier/jobs.py">get</a>(classify_job_id, \*\*<a href="src/llama_cloud/types/classifier/job_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/classifier/classify_job.py">ClassifyJob</a></code>
 - <code title="get /api/v1/classifier/jobs/{classify_job_id}/results">client.classifier.jobs.<a href="./src/llama_cloud/resources/classifier/jobs.py">get_results</a>(classify_job_id, \*\*<a href="src/llama_cloud/types/classifier/job_get_results_params.py">params</a>) -> <a href="./src/llama_cloud/types/classifier/job_get_results_response.py">JobGetResultsResponse</a></code>
 
+# Batches
+
+Types:
+
+```python
+from llama_cloud.types import BatchCreateResponse, BatchListResponse, BatchGetResponse
+```
+
+Methods:
+
+- <code title="post /api/v2/batches">client.batches.<a href="./src/llama_cloud/resources/batches.py">create</a>(\*\*<a href="src/llama_cloud/types/batch_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/batch_create_response.py">BatchCreateResponse</a></code>
+- <code title="get /api/v2/batches">client.batches.<a href="./src/llama_cloud/resources/batches.py">list</a>(\*\*<a href="src/llama_cloud/types/batch_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/batch_list_response.py">SyncPaginatedCursor[BatchListResponse]</a></code>
+- <code title="get /api/v2/batches/{batch_id}">client.batches.<a href="./src/llama_cloud/resources/batches.py">get</a>(batch_id, \*\*<a href="src/llama_cloud/types/batch_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/batch_get_response.py">BatchGetResponse</a></code>
+
 # Classify
 
 Types:
