@@ -88,6 +88,7 @@ class TestParsing:
                         "output_tables_as_markdown": True,
                     },
                 },
+                "save_output_pdf": True,
                 "spatial_text": {
                     "do_not_unroll_columns": True,
                     "preserve_layout_alignment_across_pages": True,
@@ -464,6 +465,7 @@ class TestAsyncParsing:
                         "output_tables_as_markdown": True,
                     },
                 },
+                "save_output_pdf": True,
                 "spatial_text": {
                     "do_not_unroll_columns": True,
                     "preserve_layout_alignment_across_pages": True,

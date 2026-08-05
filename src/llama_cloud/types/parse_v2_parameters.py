@@ -315,6 +315,13 @@ class OutputOptions(BaseModel):
     markdown: Optional[OutputOptionsMarkdown] = None
     """Markdown formatting options including table styles and link annotations"""
 
+    save_output_pdf: Optional[bool] = None
+    """
+    Save a PDF copy of the parsed document, retrievable via
+    `expand=output_pdf_content_metadata`. Not produced for spreadsheet, plain-text,
+    or audio inputs
+    """
+
     spatial_text: Optional[OutputOptionsSpatialText] = None
     """Spatial text output options for preserving document layout structure"""
 
