@@ -1,15 +1,11 @@
 name: Sync from production
 
 on:
-  schedule:
-    # A poll, not a release — tune to how often releases/contributions land on
-    # production. Every few hours is plenty; daily is fine.
-    #
-    # Retained while the central dispatcher in run-llama/stainless is verified.
-    # Both fire for now; the concurrency group below collapses the overlap. This
-    # cron is removed in a follow-up once dispatched runs are confirmed to be
-    # attributed to the CI bot rather than to a person.
-    - cron: '17 */6 * * *'
+  # Cadence lives in run-llama/stainless .github/workflows/stlc-dispatch-backsync.yml,
+  # which dispatches this workflow with a CI_BOT App installation token. A `schedule:`
+  # here would fire it a second time and attribute that run to whoever last edited the
+  # cron. Verified 2026-08-07 by running both paths side by side: dispatched runs show
+  # llama-org-ci-bot[bot], scheduled runs showed a maintainer who had left the org.
   workflow_dispatch: {}
 
 permissions:
