@@ -8,7 +8,12 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import classify_get_params, classify_list_params, classify_create_params
+from ..types import (
+    classify_get_params,
+    classify_list_params,
+    classify_cancel_params,
+    classify_create_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -29,6 +34,7 @@ from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.classify_get_response import ClassifyGetResponse
 from ..types.classify_list_response import ClassifyListResponse
+from ..types.classify_cancel_response import ClassifyCancelResponse
 from ..types.classify_create_response import ClassifyCreateResponse
 from ..types.classify_configuration_param import ClassifyConfigurationParam
 
@@ -219,6 +225,55 @@ class ClassifyResource(SyncAPIResource):
                 ),
             ),
             model=ClassifyListResponse,
+        )
+
+    def cancel(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClassifyCancelResponse:
+        """Cancel a running classify job.
+
+        Stops processing and marks the job as CANCELLED.
+
+        Returns the updated job. Jobs
+        already in a terminal state (COMPLETED, FAILED, CANCELLED) cannot be cancelled.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return self._post(
+            path_template("/api/v2/classify/{job_id}/cancel", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    classify_cancel_params.ClassifyCancelParams,
+                ),
+            ),
+            cast_to=ClassifyCancelResponse,
         )
 
     def get(
@@ -639,6 +694,55 @@ class AsyncClassifyResource(AsyncAPIResource):
             model=ClassifyListResponse,
         )
 
+    async def cancel(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClassifyCancelResponse:
+        """Cancel a running classify job.
+
+        Stops processing and marks the job as CANCELLED.
+
+        Returns the updated job. Jobs
+        already in a terminal state (COMPLETED, FAILED, CANCELLED) cannot be cancelled.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return await self._post(
+            path_template("/api/v2/classify/{job_id}/cancel", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    classify_cancel_params.ClassifyCancelParams,
+                ),
+            ),
+            cast_to=ClassifyCancelResponse,
+        )
+
     async def get(
         self,
         job_id: str,
@@ -881,6 +985,9 @@ class ClassifyResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             classify.list,
         )
+        self.cancel = to_raw_response_wrapper(
+            classify.cancel,
+        )
         self.get = to_raw_response_wrapper(
             classify.get,
         )
@@ -895,6 +1002,9 @@ class AsyncClassifyResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             classify.list,
+        )
+        self.cancel = async_to_raw_response_wrapper(
+            classify.cancel,
         )
         self.get = async_to_raw_response_wrapper(
             classify.get,
@@ -911,6 +1021,9 @@ class ClassifyResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             classify.list,
         )
+        self.cancel = to_streamed_response_wrapper(
+            classify.cancel,
+        )
         self.get = to_streamed_response_wrapper(
             classify.get,
         )
@@ -925,6 +1038,9 @@ class AsyncClassifyResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             classify.list,
+        )
+        self.cancel = async_to_streamed_response_wrapper(
+            classify.cancel,
         )
         self.get = async_to_streamed_response_wrapper(
             classify.get,

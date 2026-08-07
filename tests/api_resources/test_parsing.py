@@ -14,6 +14,7 @@ from llama_cloud.types import (
     ParsingListResponse,
     ParsingCancelResponse,
     ParsingCreateResponse,
+    ParsingListVersionsResponse,
 )
 from llama_cloud._utils import parse_datetime
 from llama_cloud.pagination import SyncPaginatedCursor, AsyncPaginatedCursor
@@ -395,6 +396,34 @@ class TestParsing:
                 job_id="",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_versions(self, client: LlamaCloud) -> None:
+        parsing = client.parsing.list_versions()
+        assert_matches_type(ParsingListVersionsResponse, parsing, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list_versions(self, client: LlamaCloud) -> None:
+        response = client.parsing.with_raw_response.list_versions()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        parsing = response.parse()
+        assert_matches_type(ParsingListVersionsResponse, parsing, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list_versions(self, client: LlamaCloud) -> None:
+        with client.parsing.with_streaming_response.list_versions() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            parsing = response.parse()
+            assert_matches_type(ParsingListVersionsResponse, parsing, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncParsing:
     parametrize = pytest.mark.parametrize(
@@ -771,3 +800,31 @@ class TestAsyncParsing:
             await async_client.parsing.with_raw_response.get(
                 job_id="",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_versions(self, async_client: AsyncLlamaCloud) -> None:
+        parsing = await async_client.parsing.list_versions()
+        assert_matches_type(ParsingListVersionsResponse, parsing, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list_versions(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.parsing.with_raw_response.list_versions()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        parsing = await response.parse()
+        assert_matches_type(ParsingListVersionsResponse, parsing, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list_versions(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.parsing.with_streaming_response.list_versions() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            parsing = await response.parse()
+            assert_matches_type(ParsingListVersionsResponse, parsing, path=["response"])
+
+        assert cast(Any, response.is_closed) is True

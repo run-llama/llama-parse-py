@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import batch_get_params, batch_list_params, batch_cancel_params, batch_create_params
+from ..types import split_get_params, split_list_params, split_cancel_params, split_create_params, split_delete_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,69 +21,64 @@ from .._response import (
 )
 from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.batch_get_response import BatchGetResponse
-from ..types.batch_list_response import BatchListResponse
-from ..types.batch_cancel_response import BatchCancelResponse
-from ..types.batch_create_response import BatchCreateResponse
+from ..types.split_get_response import SplitGetResponse
+from ..types.split_list_response import SplitListResponse
+from ..types.split_cancel_response import SplitCancelResponse
+from ..types.split_create_response import SplitCreateResponse
 
-__all__ = ["BatchesResource", "AsyncBatchesResource"]
+__all__ = ["SplitResource", "AsyncSplitResource"]
 
 
-class BatchesResource(SyncAPIResource):
+class SplitResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> BatchesResourceWithRawResponse:
+    def with_raw_response(self) -> SplitResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
-        return BatchesResourceWithRawResponse(self)
+        return SplitResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> BatchesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> SplitResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
-        return BatchesResourceWithStreamingResponse(self)
+        return SplitResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        config: batch_create_params.Config,
-        source_directory_id: str,
+        file_input: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        configuration: Optional[split_create_params.Configuration] | Omit = omit,
+        configuration_id: Optional[str] | Omit = omit,
+        transaction_id: Optional[str] | Omit = omit,
         webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        webhook_configurations: Optional[Iterable[batch_create_params.WebhookConfiguration]] | Omit = omit,
+        webhook_configurations: Optional[Iterable[split_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BatchCreateResponse:
+    ) -> SplitCreateResponse:
         """
-        Create a batch over a source directory and start processing asynchronously.
-
-        To be notified as the batch progresses, pass `webhook_configurations` with
-        inline endpoints and/or `webhook_configuration_ids` referencing saved
-        configurations. Batches emit `batch.pending` on create, `batch.running` once
-        processing starts, and a terminal `batch.success` or `batch.error`.
-
-        `batch.success` means the batch finished mapping every source file to a job —
-        individual files may still have failed, so read `results` (with
-        `expand=results`) for per-file outcomes.
-
-        Delivery order across events is not guaranteed; key on the `status` field in the
-        payload rather than arrival order.
+        Create a document split job.
 
         Args:
-          config: Batch configuration snapshot to apply to this source directory.
+          file_input: File ID or parse job ID
 
-          source_directory_id: Directory whose files should be processed.
+          configuration: Split configuration with categories and splitting strategy.
+
+          configuration_id: Saved configuration ID
+
+          transaction_id: Idempotency key scoped to the project. Reusing a key returns the original job;
+              the new request body is ignored.
 
           webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
@@ -98,15 +93,17 @@ class BatchesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/api/v2/batches",
+            "/api/v1/split/jobs",
             body=maybe_transform(
                 {
-                    "config": config,
-                    "source_directory_id": source_directory_id,
+                    "file_input": file_input,
+                    "configuration": configuration,
+                    "configuration_id": configuration_id,
+                    "transaction_id": transaction_id,
                     "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
-                batch_create_params.BatchCreateParams,
+                split_create_params.SplitCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -118,10 +115,10 @@ class BatchesResource(SyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    batch_create_params.BatchCreateParams,
+                    split_create_params.SplitCreateParams,
                 ),
             ),
-            cast_to=BatchCreateResponse,
+            cast_to=SplitCreateResponse,
         )
 
     def list(
@@ -129,23 +126,31 @@ class BatchesResource(SyncAPIResource):
         *,
         created_at_on_or_after: Union[str, datetime, None] | Omit = omit,
         created_at_on_or_before: Union[str, datetime, None] | Omit = omit,
+        job_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        source_directory_id: Optional[str] | Omit = omit,
-        status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]] | Omit = omit,
+        status: Optional[Literal["cancelled", "completed", "failed", "pending", "processing"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncPaginatedCursor[BatchListResponse]:
+    ) -> SyncPaginatedCursor[SplitListResponse]:
         """
-        List batches for the current project.
+        List document split jobs.
 
         Args:
+          created_at_on_or_after: Include items created at or after this timestamp (inclusive)
+
+          created_at_on_or_before: Include items created at or before this timestamp (inclusive)
+
+          job_ids: Filter by specific job IDs
+
+          status: Filter by job status (pending, processing, completed, failed, cancelled)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -155,8 +160,8 @@ class BatchesResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/api/v2/batches",
-            page=SyncPaginatedCursor[BatchListResponse],
+            "/api/v1/split/jobs",
+            page=SyncPaginatedCursor[SplitListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -166,22 +171,67 @@ class BatchesResource(SyncAPIResource):
                     {
                         "created_at_on_or_after": created_at_on_or_after,
                         "created_at_on_or_before": created_at_on_or_before,
+                        "job_ids": job_ids,
                         "organization_id": organization_id,
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
-                        "source_directory_id": source_directory_id,
                         "status": status,
                     },
-                    batch_list_params.BatchListParams,
+                    split_list_params.SplitListParams,
                 ),
             ),
-            model=BatchListResponse,
+            model=SplitListResponse,
+        )
+
+    def delete(
+        self,
+        split_job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Delete a split job and its results.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not split_job_id:
+            raise ValueError(f"Expected a non-empty value for `split_job_id` but received {split_job_id!r}")
+        return self._delete(
+            path_template("/api/v1/split/jobs/{split_job_id}", split_job_id=split_job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    split_delete_params.SplitDeleteParams,
+                ),
+            ),
+            cast_to=object,
         )
 
     def cancel(
         self,
-        batch_id: str,
+        split_job_id: str,
         *,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -191,13 +241,14 @@ class BatchesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BatchCancelResponse:
+    ) -> SplitCancelResponse:
         """
-        Cancel a running batch.
+        Cancel a running split job.
 
-        Returns immediately; the batch reaches `CANCELLED` once processing stops. Files
-        that already finished keep their results. A batch in a terminal status cannot be
-        cancelled.
+        Requests cancellation; the job transitions to CANCELLED asynchronously once
+        processing stops. Returns the job, which may still be in its current
+        non-terminal state. Jobs already in a terminal state (COMPLETED, FAILED,
+        CANCELLED) cannot be cancelled.
 
         Args:
           extra_headers: Send extra headers
@@ -208,10 +259,10 @@ class BatchesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not batch_id:
-            raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
+        if not split_job_id:
+            raise ValueError(f"Expected a non-empty value for `split_job_id` but received {split_job_id!r}")
         return self._post(
-            path_template("/api/v2/batches/{batch_id}/cancel", batch_id=batch_id),
+            path_template("/api/v1/split/jobs/{split_job_id}/cancel", split_job_id=split_job_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -222,17 +273,16 @@ class BatchesResource(SyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    batch_cancel_params.BatchCancelParams,
+                    split_cancel_params.SplitCancelParams,
                 ),
             ),
-            cast_to=BatchCancelResponse,
+            cast_to=SplitCancelResponse,
         )
 
     def get(
         self,
-        batch_id: str,
+        split_job_id: str,
         *,
-        expand: Optional[SequenceNotStr[str]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -241,14 +291,11 @@ class BatchesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BatchGetResponse:
-        """Get a batch by ID.
+    ) -> SplitGetResponse:
+        """
+        Get a document split job.
 
         Args:
-          expand: Fields to expand.
-
-        Supported value: results.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -257,10 +304,10 @@ class BatchesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not batch_id:
-            raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
+        if not split_job_id:
+            raise ValueError(f"Expected a non-empty value for `split_job_id` but received {split_job_id!r}")
         return self._get(
-            path_template("/api/v2/batches/{batch_id}", batch_id=batch_id),
+            path_template("/api/v1/split/jobs/{split_job_id}", split_job_id=split_job_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -268,72 +315,66 @@ class BatchesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "expand": expand,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    batch_get_params.BatchGetParams,
+                    split_get_params.SplitGetParams,
                 ),
             ),
-            cast_to=BatchGetResponse,
+            cast_to=SplitGetResponse,
         )
 
 
-class AsyncBatchesResource(AsyncAPIResource):
+class AsyncSplitResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncBatchesResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncSplitResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
-        return AsyncBatchesResourceWithRawResponse(self)
+        return AsyncSplitResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncBatchesResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncSplitResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
-        return AsyncBatchesResourceWithStreamingResponse(self)
+        return AsyncSplitResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
-        config: batch_create_params.Config,
-        source_directory_id: str,
+        file_input: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        configuration: Optional[split_create_params.Configuration] | Omit = omit,
+        configuration_id: Optional[str] | Omit = omit,
+        transaction_id: Optional[str] | Omit = omit,
         webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        webhook_configurations: Optional[Iterable[batch_create_params.WebhookConfiguration]] | Omit = omit,
+        webhook_configurations: Optional[Iterable[split_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BatchCreateResponse:
+    ) -> SplitCreateResponse:
         """
-        Create a batch over a source directory and start processing asynchronously.
-
-        To be notified as the batch progresses, pass `webhook_configurations` with
-        inline endpoints and/or `webhook_configuration_ids` referencing saved
-        configurations. Batches emit `batch.pending` on create, `batch.running` once
-        processing starts, and a terminal `batch.success` or `batch.error`.
-
-        `batch.success` means the batch finished mapping every source file to a job —
-        individual files may still have failed, so read `results` (with
-        `expand=results`) for per-file outcomes.
-
-        Delivery order across events is not guaranteed; key on the `status` field in the
-        payload rather than arrival order.
+        Create a document split job.
 
         Args:
-          config: Batch configuration snapshot to apply to this source directory.
+          file_input: File ID or parse job ID
 
-          source_directory_id: Directory whose files should be processed.
+          configuration: Split configuration with categories and splitting strategy.
+
+          configuration_id: Saved configuration ID
+
+          transaction_id: Idempotency key scoped to the project. Reusing a key returns the original job;
+              the new request body is ignored.
 
           webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
@@ -348,15 +389,17 @@ class AsyncBatchesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/api/v2/batches",
+            "/api/v1/split/jobs",
             body=await async_maybe_transform(
                 {
-                    "config": config,
-                    "source_directory_id": source_directory_id,
+                    "file_input": file_input,
+                    "configuration": configuration,
+                    "configuration_id": configuration_id,
+                    "transaction_id": transaction_id,
                     "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
-                batch_create_params.BatchCreateParams,
+                split_create_params.SplitCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -368,10 +411,10 @@ class AsyncBatchesResource(AsyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    batch_create_params.BatchCreateParams,
+                    split_create_params.SplitCreateParams,
                 ),
             ),
-            cast_to=BatchCreateResponse,
+            cast_to=SplitCreateResponse,
         )
 
     def list(
@@ -379,23 +422,31 @@ class AsyncBatchesResource(AsyncAPIResource):
         *,
         created_at_on_or_after: Union[str, datetime, None] | Omit = omit,
         created_at_on_or_before: Union[str, datetime, None] | Omit = omit,
+        job_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        source_directory_id: Optional[str] | Omit = omit,
-        status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]] | Omit = omit,
+        status: Optional[Literal["cancelled", "completed", "failed", "pending", "processing"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[BatchListResponse, AsyncPaginatedCursor[BatchListResponse]]:
+    ) -> AsyncPaginator[SplitListResponse, AsyncPaginatedCursor[SplitListResponse]]:
         """
-        List batches for the current project.
+        List document split jobs.
 
         Args:
+          created_at_on_or_after: Include items created at or after this timestamp (inclusive)
+
+          created_at_on_or_before: Include items created at or before this timestamp (inclusive)
+
+          job_ids: Filter by specific job IDs
+
+          status: Filter by job status (pending, processing, completed, failed, cancelled)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -405,8 +456,8 @@ class AsyncBatchesResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/api/v2/batches",
-            page=AsyncPaginatedCursor[BatchListResponse],
+            "/api/v1/split/jobs",
+            page=AsyncPaginatedCursor[SplitListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -416,22 +467,67 @@ class AsyncBatchesResource(AsyncAPIResource):
                     {
                         "created_at_on_or_after": created_at_on_or_after,
                         "created_at_on_or_before": created_at_on_or_before,
+                        "job_ids": job_ids,
                         "organization_id": organization_id,
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
-                        "source_directory_id": source_directory_id,
                         "status": status,
                     },
-                    batch_list_params.BatchListParams,
+                    split_list_params.SplitListParams,
                 ),
             ),
-            model=BatchListResponse,
+            model=SplitListResponse,
+        )
+
+    async def delete(
+        self,
+        split_job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Delete a split job and its results.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not split_job_id:
+            raise ValueError(f"Expected a non-empty value for `split_job_id` but received {split_job_id!r}")
+        return await self._delete(
+            path_template("/api/v1/split/jobs/{split_job_id}", split_job_id=split_job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    split_delete_params.SplitDeleteParams,
+                ),
+            ),
+            cast_to=object,
         )
 
     async def cancel(
         self,
-        batch_id: str,
+        split_job_id: str,
         *,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -441,13 +537,14 @@ class AsyncBatchesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BatchCancelResponse:
+    ) -> SplitCancelResponse:
         """
-        Cancel a running batch.
+        Cancel a running split job.
 
-        Returns immediately; the batch reaches `CANCELLED` once processing stops. Files
-        that already finished keep their results. A batch in a terminal status cannot be
-        cancelled.
+        Requests cancellation; the job transitions to CANCELLED asynchronously once
+        processing stops. Returns the job, which may still be in its current
+        non-terminal state. Jobs already in a terminal state (COMPLETED, FAILED,
+        CANCELLED) cannot be cancelled.
 
         Args:
           extra_headers: Send extra headers
@@ -458,10 +555,10 @@ class AsyncBatchesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not batch_id:
-            raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
+        if not split_job_id:
+            raise ValueError(f"Expected a non-empty value for `split_job_id` but received {split_job_id!r}")
         return await self._post(
-            path_template("/api/v2/batches/{batch_id}/cancel", batch_id=batch_id),
+            path_template("/api/v1/split/jobs/{split_job_id}/cancel", split_job_id=split_job_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -472,17 +569,16 @@ class AsyncBatchesResource(AsyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    batch_cancel_params.BatchCancelParams,
+                    split_cancel_params.SplitCancelParams,
                 ),
             ),
-            cast_to=BatchCancelResponse,
+            cast_to=SplitCancelResponse,
         )
 
     async def get(
         self,
-        batch_id: str,
+        split_job_id: str,
         *,
-        expand: Optional[SequenceNotStr[str]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -491,14 +587,11 @@ class AsyncBatchesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> BatchGetResponse:
-        """Get a batch by ID.
+    ) -> SplitGetResponse:
+        """
+        Get a document split job.
 
         Args:
-          expand: Fields to expand.
-
-        Supported value: results.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -507,10 +600,10 @@ class AsyncBatchesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not batch_id:
-            raise ValueError(f"Expected a non-empty value for `batch_id` but received {batch_id!r}")
+        if not split_job_id:
+            raise ValueError(f"Expected a non-empty value for `split_job_id` but received {split_job_id!r}")
         return await self._get(
-            path_template("/api/v2/batches/{batch_id}", batch_id=batch_id),
+            path_template("/api/v1/split/jobs/{split_job_id}", split_job_id=split_job_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -518,84 +611,95 @@ class AsyncBatchesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "expand": expand,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    batch_get_params.BatchGetParams,
+                    split_get_params.SplitGetParams,
                 ),
             ),
-            cast_to=BatchGetResponse,
+            cast_to=SplitGetResponse,
         )
 
 
-class BatchesResourceWithRawResponse:
-    def __init__(self, batches: BatchesResource) -> None:
-        self._batches = batches
+class SplitResourceWithRawResponse:
+    def __init__(self, split: SplitResource) -> None:
+        self._split = split
 
         self.create = to_raw_response_wrapper(
-            batches.create,
+            split.create,
         )
         self.list = to_raw_response_wrapper(
-            batches.list,
+            split.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            split.delete,
         )
         self.cancel = to_raw_response_wrapper(
-            batches.cancel,
+            split.cancel,
         )
         self.get = to_raw_response_wrapper(
-            batches.get,
+            split.get,
         )
 
 
-class AsyncBatchesResourceWithRawResponse:
-    def __init__(self, batches: AsyncBatchesResource) -> None:
-        self._batches = batches
+class AsyncSplitResourceWithRawResponse:
+    def __init__(self, split: AsyncSplitResource) -> None:
+        self._split = split
 
         self.create = async_to_raw_response_wrapper(
-            batches.create,
+            split.create,
         )
         self.list = async_to_raw_response_wrapper(
-            batches.list,
+            split.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            split.delete,
         )
         self.cancel = async_to_raw_response_wrapper(
-            batches.cancel,
+            split.cancel,
         )
         self.get = async_to_raw_response_wrapper(
-            batches.get,
+            split.get,
         )
 
 
-class BatchesResourceWithStreamingResponse:
-    def __init__(self, batches: BatchesResource) -> None:
-        self._batches = batches
+class SplitResourceWithStreamingResponse:
+    def __init__(self, split: SplitResource) -> None:
+        self._split = split
 
         self.create = to_streamed_response_wrapper(
-            batches.create,
+            split.create,
         )
         self.list = to_streamed_response_wrapper(
-            batches.list,
+            split.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            split.delete,
         )
         self.cancel = to_streamed_response_wrapper(
-            batches.cancel,
+            split.cancel,
         )
         self.get = to_streamed_response_wrapper(
-            batches.get,
+            split.get,
         )
 
 
-class AsyncBatchesResourceWithStreamingResponse:
-    def __init__(self, batches: AsyncBatchesResource) -> None:
-        self._batches = batches
+class AsyncSplitResourceWithStreamingResponse:
+    def __init__(self, split: AsyncSplitResource) -> None:
+        self._split = split
 
         self.create = async_to_streamed_response_wrapper(
-            batches.create,
+            split.create,
         )
         self.list = async_to_streamed_response_wrapper(
-            batches.list,
+            split.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            split.delete,
         )
         self.cancel = async_to_streamed_response_wrapper(
-            batches.cancel,
+            split.cancel,
         )
         self.get = async_to_streamed_response_wrapper(
-            batches.get,
+            split.get,
         )

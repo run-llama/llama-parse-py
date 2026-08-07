@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     from .resources import (
         beta,
         files,
+        split,
         sheets,
         batches,
         extract,
@@ -50,8 +51,10 @@ if TYPE_CHECKING:
         retrievers,
         data_sources,
         configurations,
+        webhook_configs,
     )
     from .resources.files import FilesResource, AsyncFilesResource
+    from .resources.split import SplitResource, AsyncSplitResource
     from .resources.sheets import SheetsResource, AsyncSheetsResource
     from .resources.batches import BatchesResource, AsyncBatchesResource
     from .resources.extract import ExtractResource, AsyncExtractResource
@@ -62,6 +65,7 @@ if TYPE_CHECKING:
     from .resources.data_sinks import DataSinksResource, AsyncDataSinksResource
     from .resources.data_sources import DataSourcesResource, AsyncDataSourcesResource
     from .resources.configurations import ConfigurationsResource, AsyncConfigurationsResource
+    from .resources.webhook_configs import WebhookConfigsResource, AsyncWebhookConfigsResource
     from .resources.pipelines.pipelines import PipelinesResource, AsyncPipelinesResource
     from .resources.classifier.classifier import ClassifierResource, AsyncClassifierResource
     from .resources.retrievers.retrievers import RetrieversResource, AsyncRetrieversResource
@@ -155,6 +159,12 @@ class LlamaCloud(SyncAPIClient):
         return SheetsResource(self)
 
     @cached_property
+    def split(self) -> SplitResource:
+        from .resources.split import SplitResource
+
+        return SplitResource(self)
+
+    @cached_property
     def parsing(self) -> ParsingResource:
         from .resources.parsing import ParsingResource
 
@@ -189,6 +199,12 @@ class LlamaCloud(SyncAPIClient):
         from .resources.configurations import ConfigurationsResource
 
         return ConfigurationsResource(self)
+
+    @cached_property
+    def webhook_configs(self) -> WebhookConfigsResource:
+        from .resources.webhook_configs import WebhookConfigsResource
+
+        return WebhookConfigsResource(self)
 
     @cached_property
     def projects(self) -> ProjectsResource:
@@ -416,6 +432,12 @@ class AsyncLlamaCloud(AsyncAPIClient):
         return AsyncSheetsResource(self)
 
     @cached_property
+    def split(self) -> AsyncSplitResource:
+        from .resources.split import AsyncSplitResource
+
+        return AsyncSplitResource(self)
+
+    @cached_property
     def parsing(self) -> AsyncParsingResource:
         from .resources.parsing import AsyncParsingResource
 
@@ -450,6 +472,12 @@ class AsyncLlamaCloud(AsyncAPIClient):
         from .resources.configurations import AsyncConfigurationsResource
 
         return AsyncConfigurationsResource(self)
+
+    @cached_property
+    def webhook_configs(self) -> AsyncWebhookConfigsResource:
+        from .resources.webhook_configs import AsyncWebhookConfigsResource
+
+        return AsyncWebhookConfigsResource(self)
 
     @cached_property
     def projects(self) -> AsyncProjectsResource:
@@ -619,6 +647,12 @@ class LlamaCloudWithRawResponse:
         return SheetsResourceWithRawResponse(self._client.sheets)
 
     @cached_property
+    def split(self) -> split.SplitResourceWithRawResponse:
+        from .resources.split import SplitResourceWithRawResponse
+
+        return SplitResourceWithRawResponse(self._client.split)
+
+    @cached_property
     def parsing(self) -> parsing.ParsingResourceWithRawResponse:
         from .resources.parsing import ParsingResourceWithRawResponse
 
@@ -653,6 +687,12 @@ class LlamaCloudWithRawResponse:
         from .resources.configurations import ConfigurationsResourceWithRawResponse
 
         return ConfigurationsResourceWithRawResponse(self._client.configurations)
+
+    @cached_property
+    def webhook_configs(self) -> webhook_configs.WebhookConfigsResourceWithRawResponse:
+        from .resources.webhook_configs import WebhookConfigsResourceWithRawResponse
+
+        return WebhookConfigsResourceWithRawResponse(self._client.webhook_configs)
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithRawResponse:
@@ -710,6 +750,12 @@ class AsyncLlamaCloudWithRawResponse:
         return AsyncSheetsResourceWithRawResponse(self._client.sheets)
 
     @cached_property
+    def split(self) -> split.AsyncSplitResourceWithRawResponse:
+        from .resources.split import AsyncSplitResourceWithRawResponse
+
+        return AsyncSplitResourceWithRawResponse(self._client.split)
+
+    @cached_property
     def parsing(self) -> parsing.AsyncParsingResourceWithRawResponse:
         from .resources.parsing import AsyncParsingResourceWithRawResponse
 
@@ -744,6 +790,12 @@ class AsyncLlamaCloudWithRawResponse:
         from .resources.configurations import AsyncConfigurationsResourceWithRawResponse
 
         return AsyncConfigurationsResourceWithRawResponse(self._client.configurations)
+
+    @cached_property
+    def webhook_configs(self) -> webhook_configs.AsyncWebhookConfigsResourceWithRawResponse:
+        from .resources.webhook_configs import AsyncWebhookConfigsResourceWithRawResponse
+
+        return AsyncWebhookConfigsResourceWithRawResponse(self._client.webhook_configs)
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
@@ -801,6 +853,12 @@ class LlamaCloudWithStreamedResponse:
         return SheetsResourceWithStreamingResponse(self._client.sheets)
 
     @cached_property
+    def split(self) -> split.SplitResourceWithStreamingResponse:
+        from .resources.split import SplitResourceWithStreamingResponse
+
+        return SplitResourceWithStreamingResponse(self._client.split)
+
+    @cached_property
     def parsing(self) -> parsing.ParsingResourceWithStreamingResponse:
         from .resources.parsing import ParsingResourceWithStreamingResponse
 
@@ -835,6 +893,12 @@ class LlamaCloudWithStreamedResponse:
         from .resources.configurations import ConfigurationsResourceWithStreamingResponse
 
         return ConfigurationsResourceWithStreamingResponse(self._client.configurations)
+
+    @cached_property
+    def webhook_configs(self) -> webhook_configs.WebhookConfigsResourceWithStreamingResponse:
+        from .resources.webhook_configs import WebhookConfigsResourceWithStreamingResponse
+
+        return WebhookConfigsResourceWithStreamingResponse(self._client.webhook_configs)
 
     @cached_property
     def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
@@ -892,6 +956,12 @@ class AsyncLlamaCloudWithStreamedResponse:
         return AsyncSheetsResourceWithStreamingResponse(self._client.sheets)
 
     @cached_property
+    def split(self) -> split.AsyncSplitResourceWithStreamingResponse:
+        from .resources.split import AsyncSplitResourceWithStreamingResponse
+
+        return AsyncSplitResourceWithStreamingResponse(self._client.split)
+
+    @cached_property
     def parsing(self) -> parsing.AsyncParsingResourceWithStreamingResponse:
         from .resources.parsing import AsyncParsingResourceWithStreamingResponse
 
@@ -926,6 +996,12 @@ class AsyncLlamaCloudWithStreamedResponse:
         from .resources.configurations import AsyncConfigurationsResourceWithStreamingResponse
 
         return AsyncConfigurationsResourceWithStreamingResponse(self._client.configurations)
+
+    @cached_property
+    def webhook_configs(self) -> webhook_configs.AsyncWebhookConfigsResourceWithStreamingResponse:
+        from .resources.webhook_configs import AsyncWebhookConfigsResourceWithStreamingResponse
+
+        return AsyncWebhookConfigsResourceWithStreamingResponse(self._client.webhook_configs)
 
     @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:

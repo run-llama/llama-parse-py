@@ -10,10 +10,10 @@ import pytest
 from llama_cloud import LlamaCloud, AsyncLlamaCloud
 from tests.utils import assert_matches_type
 from llama_cloud.types import (
-    ClassifyGetResponse,
-    ClassifyListResponse,
-    ClassifyCancelResponse,
-    ClassifyCreateResponse,
+    SplitGetResponse,
+    SplitListResponse,
+    SplitCancelResponse,
+    SplitCreateResponse,
 )
 from llama_cloud._utils import parse_datetime
 from llama_cloud.pagination import SyncPaginatedCursor, AsyncPaginatedCursor
@@ -21,39 +21,34 @@ from llama_cloud.pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestClassify:
+class TestSplit:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: LlamaCloud) -> None:
-        classify = client.classify.create()
-        assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
+        split = client.split.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        )
+        assert_matches_type(SplitCreateResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: LlamaCloud) -> None:
-        classify = client.classify.create(
+        split = client.split.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             configuration={
-                "rules": [
+                "categories": [
                     {
-                        "description": "contains invoice number, line items, and total amount",
-                        "type": "invoice",
+                        "name": "x",
+                        "description": "x",
                     }
                 ],
-                "mode": "FAST",
-                "parsing_configuration": {
-                    "lang": "en",
-                    "max_pages": 10,
-                    "target_pages": "1,3,5-7",
-                },
+                "splitting_strategy": {"allow_uncategorized": "forbid"},
             },
             configuration_id="cfg-11111111-2222-3333-4444-555555555555",
-            file_id="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-            parse_job_id="pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
             webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
@@ -66,180 +61,235 @@ class TestClassify:
                 }
             ],
         )
-        assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
+        assert_matches_type(SplitCreateResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: LlamaCloud) -> None:
-        response = client.classify.with_raw_response.create()
+        response = client.split.with_raw_response.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        classify = response.parse()
-        assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
+        split = response.parse()
+        assert_matches_type(SplitCreateResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: LlamaCloud) -> None:
-        with client.classify.with_streaming_response.create() as response:
+        with client.split.with_streaming_response.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            classify = response.parse()
-            assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
+            split = response.parse()
+            assert_matches_type(SplitCreateResponse, split, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: LlamaCloud) -> None:
-        classify = client.classify.list()
-        assert_matches_type(SyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
+        split = client.split.list()
+        assert_matches_type(SyncPaginatedCursor[SplitListResponse], split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: LlamaCloud) -> None:
-        classify = client.classify.list(
-            configuration_id="cfg-11111111-2222-3333-4444-555555555555",
+        split = client.split.list(
             created_at_on_or_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_at_on_or_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             job_ids=["string", "string"],
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            page_size=1,
+            page_size=0,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="COMPLETED",
+            status="cancelled",
         )
-        assert_matches_type(SyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
+        assert_matches_type(SyncPaginatedCursor[SplitListResponse], split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: LlamaCloud) -> None:
-        response = client.classify.with_raw_response.list()
+        response = client.split.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        classify = response.parse()
-        assert_matches_type(SyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
+        split = response.parse()
+        assert_matches_type(SyncPaginatedCursor[SplitListResponse], split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: LlamaCloud) -> None:
-        with client.classify.with_streaming_response.list() as response:
+        with client.split.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            classify = response.parse()
-            assert_matches_type(SyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
+            split = response.parse()
+            assert_matches_type(SyncPaginatedCursor[SplitListResponse], split, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_cancel(self, client: LlamaCloud) -> None:
-        classify = client.classify.cancel(
-            job_id="job_id",
+    def test_method_delete(self, client: LlamaCloud) -> None:
+        split = client.split.delete(
+            split_job_id="split_job_id",
         )
-        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+        assert_matches_type(object, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_cancel_with_all_params(self, client: LlamaCloud) -> None:
-        classify = client.classify.cancel(
-            job_id="job_id",
+    def test_method_delete_with_all_params(self, client: LlamaCloud) -> None:
+        split = client.split.delete(
+            split_job_id="split_job_id",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+        assert_matches_type(object, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_cancel(self, client: LlamaCloud) -> None:
-        response = client.classify.with_raw_response.cancel(
-            job_id="job_id",
+    def test_raw_response_delete(self, client: LlamaCloud) -> None:
+        response = client.split.with_raw_response.delete(
+            split_job_id="split_job_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        classify = response.parse()
-        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+        split = response.parse()
+        assert_matches_type(object, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_cancel(self, client: LlamaCloud) -> None:
-        with client.classify.with_streaming_response.cancel(
-            job_id="job_id",
+    def test_streaming_response_delete(self, client: LlamaCloud) -> None:
+        with client.split.with_streaming_response.delete(
+            split_job_id="split_job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            classify = response.parse()
-            assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+            split = response.parse()
+            assert_matches_type(object, split, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: LlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `split_job_id` but received ''"):
+            client.split.with_raw_response.delete(
+                split_job_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_cancel(self, client: LlamaCloud) -> None:
+        split = client.split.cancel(
+            split_job_id="split_job_id",
+        )
+        assert_matches_type(SplitCancelResponse, split, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_cancel_with_all_params(self, client: LlamaCloud) -> None:
+        split = client.split.cancel(
+            split_job_id="split_job_id",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(SplitCancelResponse, split, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_cancel(self, client: LlamaCloud) -> None:
+        response = client.split.with_raw_response.cancel(
+            split_job_id="split_job_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        split = response.parse()
+        assert_matches_type(SplitCancelResponse, split, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_cancel(self, client: LlamaCloud) -> None:
+        with client.split.with_streaming_response.cancel(
+            split_job_id="split_job_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            split = response.parse()
+            assert_matches_type(SplitCancelResponse, split, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_cancel(self, client: LlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            client.classify.with_raw_response.cancel(
-                job_id="",
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `split_job_id` but received ''"):
+            client.split.with_raw_response.cancel(
+                split_job_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get(self, client: LlamaCloud) -> None:
-        classify = client.classify.get(
-            job_id="job_id",
+        split = client.split.get(
+            split_job_id="split_job_id",
         )
-        assert_matches_type(ClassifyGetResponse, classify, path=["response"])
+        assert_matches_type(SplitGetResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_with_all_params(self, client: LlamaCloud) -> None:
-        classify = client.classify.get(
-            job_id="job_id",
+        split = client.split.get(
+            split_job_id="split_job_id",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ClassifyGetResponse, classify, path=["response"])
+        assert_matches_type(SplitGetResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get(self, client: LlamaCloud) -> None:
-        response = client.classify.with_raw_response.get(
-            job_id="job_id",
+        response = client.split.with_raw_response.get(
+            split_job_id="split_job_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        classify = response.parse()
-        assert_matches_type(ClassifyGetResponse, classify, path=["response"])
+        split = response.parse()
+        assert_matches_type(SplitGetResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get(self, client: LlamaCloud) -> None:
-        with client.classify.with_streaming_response.get(
-            job_id="job_id",
+        with client.split.with_streaming_response.get(
+            split_job_id="split_job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            classify = response.parse()
-            assert_matches_type(ClassifyGetResponse, classify, path=["response"])
+            split = response.parse()
+            assert_matches_type(SplitGetResponse, split, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_get(self, client: LlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            client.classify.with_raw_response.get(
-                job_id="",
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `split_job_id` but received ''"):
+            client.split.with_raw_response.get(
+                split_job_id="",
             )
 
 
-class TestAsyncClassify:
+class TestAsyncSplit:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
@@ -247,33 +297,28 @@ class TestAsyncClassify:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncLlamaCloud) -> None:
-        classify = await async_client.classify.create()
-        assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
+        split = await async_client.split.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        )
+        assert_matches_type(SplitCreateResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        classify = await async_client.classify.create(
+        split = await async_client.split.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             configuration={
-                "rules": [
+                "categories": [
                     {
-                        "description": "contains invoice number, line items, and total amount",
-                        "type": "invoice",
+                        "name": "x",
+                        "description": "x",
                     }
                 ],
-                "mode": "FAST",
-                "parsing_configuration": {
-                    "lang": "en",
-                    "max_pages": 10,
-                    "target_pages": "1,3,5-7",
-                },
+                "splitting_strategy": {"allow_uncategorized": "forbid"},
             },
             configuration_id="cfg-11111111-2222-3333-4444-555555555555",
-            file_id="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-            parse_job_id="pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
             webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
@@ -286,174 +331,229 @@ class TestAsyncClassify:
                 }
             ],
         )
-        assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
+        assert_matches_type(SplitCreateResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.classify.with_raw_response.create()
+        response = await async_client.split.with_raw_response.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        classify = await response.parse()
-        assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
+        split = await response.parse()
+        assert_matches_type(SplitCreateResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.classify.with_streaming_response.create() as response:
+        async with async_client.split.with_streaming_response.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            classify = await response.parse()
-            assert_matches_type(ClassifyCreateResponse, classify, path=["response"])
+            split = await response.parse()
+            assert_matches_type(SplitCreateResponse, split, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLlamaCloud) -> None:
-        classify = await async_client.classify.list()
-        assert_matches_type(AsyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
+        split = await async_client.split.list()
+        assert_matches_type(AsyncPaginatedCursor[SplitListResponse], split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        classify = await async_client.classify.list(
-            configuration_id="cfg-11111111-2222-3333-4444-555555555555",
+        split = await async_client.split.list(
             created_at_on_or_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_at_on_or_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             job_ids=["string", "string"],
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            page_size=1,
+            page_size=0,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            status="COMPLETED",
+            status="cancelled",
         )
-        assert_matches_type(AsyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
+        assert_matches_type(AsyncPaginatedCursor[SplitListResponse], split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.classify.with_raw_response.list()
+        response = await async_client.split.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        classify = await response.parse()
-        assert_matches_type(AsyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
+        split = await response.parse()
+        assert_matches_type(AsyncPaginatedCursor[SplitListResponse], split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.classify.with_streaming_response.list() as response:
+        async with async_client.split.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            classify = await response.parse()
-            assert_matches_type(AsyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
+            split = await response.parse()
+            assert_matches_type(AsyncPaginatedCursor[SplitListResponse], split, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncLlamaCloud) -> None:
-        classify = await async_client.classify.cancel(
-            job_id="job_id",
+    async def test_method_delete(self, async_client: AsyncLlamaCloud) -> None:
+        split = await async_client.split.delete(
+            split_job_id="split_job_id",
         )
-        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+        assert_matches_type(object, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_cancel_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        classify = await async_client.classify.cancel(
-            job_id="job_id",
+    async def test_method_delete_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        split = await async_client.split.delete(
+            split_job_id="split_job_id",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+        assert_matches_type(object, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.classify.with_raw_response.cancel(
-            job_id="job_id",
+    async def test_raw_response_delete(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.split.with_raw_response.delete(
+            split_job_id="split_job_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        classify = await response.parse()
-        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+        split = await response.parse()
+        assert_matches_type(object, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.classify.with_streaming_response.cancel(
-            job_id="job_id",
+    async def test_streaming_response_delete(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.split.with_streaming_response.delete(
+            split_job_id="split_job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            classify = await response.parse()
-            assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+            split = await response.parse()
+            assert_matches_type(object, split, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `split_job_id` but received ''"):
+            await async_client.split.with_raw_response.delete(
+                split_job_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        split = await async_client.split.cancel(
+            split_job_id="split_job_id",
+        )
+        assert_matches_type(SplitCancelResponse, split, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_cancel_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        split = await async_client.split.cancel(
+            split_job_id="split_job_id",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(SplitCancelResponse, split, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.split.with_raw_response.cancel(
+            split_job_id="split_job_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        split = await response.parse()
+        assert_matches_type(SplitCancelResponse, split, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.split.with_streaming_response.cancel(
+            split_job_id="split_job_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            split = await response.parse()
+            assert_matches_type(SplitCancelResponse, split, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_cancel(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            await async_client.classify.with_raw_response.cancel(
-                job_id="",
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `split_job_id` but received ''"):
+            await async_client.split.with_raw_response.cancel(
+                split_job_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get(self, async_client: AsyncLlamaCloud) -> None:
-        classify = await async_client.classify.get(
-            job_id="job_id",
+        split = await async_client.split.get(
+            split_job_id="split_job_id",
         )
-        assert_matches_type(ClassifyGetResponse, classify, path=["response"])
+        assert_matches_type(SplitGetResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        classify = await async_client.classify.get(
-            job_id="job_id",
+        split = await async_client.split.get(
+            split_job_id="split_job_id",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ClassifyGetResponse, classify, path=["response"])
+        assert_matches_type(SplitGetResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.classify.with_raw_response.get(
-            job_id="job_id",
+        response = await async_client.split.with_raw_response.get(
+            split_job_id="split_job_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        classify = await response.parse()
-        assert_matches_type(ClassifyGetResponse, classify, path=["response"])
+        split = await response.parse()
+        assert_matches_type(SplitGetResponse, split, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.classify.with_streaming_response.get(
-            job_id="job_id",
+        async with async_client.split.with_streaming_response.get(
+            split_job_id="split_job_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            classify = await response.parse()
-            assert_matches_type(ClassifyGetResponse, classify, path=["response"])
+            split = await response.parse()
+            assert_matches_type(SplitGetResponse, split, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_get(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
-            await async_client.classify.with_raw_response.get(
-                job_id="",
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `split_job_id` but received ''"):
+            await async_client.split.with_raw_response.get(
+                split_job_id="",
             )

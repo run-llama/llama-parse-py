@@ -34,6 +34,7 @@ from ..types.parsing_get_response import ParsingGetResponse
 from ..types.parsing_list_response import ParsingListResponse
 from ..types.parsing_cancel_response import ParsingCancelResponse
 from ..types.parsing_create_response import ParsingCreateResponse
+from ..types.parsing_list_versions_response import ParsingListVersionsResponse
 
 __all__ = ["ParsingResource", "AsyncParsingResource"]
 
@@ -462,11 +463,30 @@ class ParsingResource(SyncAPIResource):
             cast_to=ParsingGetResponse,
         )
 
+    def list_versions(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParsingListVersionsResponse:
+        """List the parse versions accepted by each tier."""
+        return self._get(
+            "/api/v2/parse/versions",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ParsingListVersionsResponse,
+        )
+
     def parse(
         self,
         *,
-        tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[Literal["2026-01-08", "2025-12-31", "2025-12-18", "2025-12-11", "latest"], str],
+        tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
+        version: Union[Literal["latest", "2026-07-24", "2026-07-23", "2026-07-08", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -1197,11 +1217,30 @@ class AsyncParsingResource(AsyncAPIResource):
             cast_to=ParsingGetResponse,
         )
 
+    async def list_versions(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParsingListVersionsResponse:
+        """List the parse versions accepted by each tier."""
+        return await self._get(
+            "/api/v2/parse/versions",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ParsingListVersionsResponse,
+        )
+
     async def parse(
         self,
         *,
-        tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[Literal["2026-01-08", "2025-12-31", "2025-12-18", "2025-12-11", "latest"], str],
+        tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
+        version: Union[Literal["latest", "2026-07-24", "2026-07-23", "2026-07-08", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -1524,6 +1563,9 @@ class ParsingResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             parsing.get,
         )
+        self.list_versions = to_raw_response_wrapper(
+            parsing.list_versions,
+        )
 
 
 class AsyncParsingResourceWithRawResponse:
@@ -1541,6 +1583,9 @@ class AsyncParsingResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             parsing.get,
+        )
+        self.list_versions = async_to_raw_response_wrapper(
+            parsing.list_versions,
         )
 
 
@@ -1560,6 +1605,9 @@ class ParsingResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             parsing.get,
         )
+        self.list_versions = to_streamed_response_wrapper(
+            parsing.list_versions,
+        )
 
 
 class AsyncParsingResourceWithStreamingResponse:
@@ -1577,4 +1625,7 @@ class AsyncParsingResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             parsing.get,
+        )
+        self.list_versions = async_to_streamed_response_wrapper(
+            parsing.list_versions,
         )
