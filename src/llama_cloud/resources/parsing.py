@@ -417,13 +417,14 @@ class ParsingResource(SyncAPIResource):
         - `text` — plain text output
         - `markdown` — markdown output
         - `items` — structured page-by-page output
-        - `job_metadata` — usage and processing details
+        - `job_metadata` — processing details
+        - `usage` — credits billed against the job
 
         Content metadata fields (e.g. `text_content_metadata`) return presigned URLs for
         downloading large results.
 
         Args:
-          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata,
+          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata, usage,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
               metadata_content_metadata, forms_content_metadata, raw_words_content_metadata,
               xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata.
@@ -1151,13 +1152,14 @@ class AsyncParsingResource(AsyncAPIResource):
         - `text` — plain text output
         - `markdown` — markdown output
         - `items` — structured page-by-page output
-        - `job_metadata` — usage and processing details
+        - `job_metadata` — processing details
+        - `usage` — credits billed against the job
 
         Content metadata fields (e.g. `text_content_metadata`) return presigned URLs for
         downloading large results.
 
         Args:
-          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata,
+          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata, usage,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
               metadata_content_metadata, forms_content_metadata, raw_words_content_metadata,
               xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata.

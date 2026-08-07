@@ -365,11 +365,11 @@ class ExtractResource(SyncAPIResource):
         Get a single extraction job by ID.
 
         Returns the job status and results when complete. Use `expand=configuration` to
-        include the full configuration used, and `expand=extract_metadata` for per-field
-        metadata.
+        include the full configuration used, `expand=extract_metadata` for per-field
+        metadata, and `expand=usage` for credits billed against the job.
 
         Args:
-          expand: Additional fields to include: configuration, extract_metadata
+          expand: Additional fields to include: configuration, extract_metadata, usage
 
           extra_headers: Send extra headers
 
@@ -939,11 +939,11 @@ class AsyncExtractResource(AsyncAPIResource):
         Get a single extraction job by ID.
 
         Returns the job status and results when complete. Use `expand=configuration` to
-        include the full configuration used, and `expand=extract_metadata` for per-field
-        metadata.
+        include the full configuration used, `expand=extract_metadata` for per-field
+        metadata, and `expand=usage` for credits billed against the job.
 
         Args:
-          expand: Additional fields to include: configuration, extract_metadata
+          expand: Additional fields to include: configuration, extract_metadata, usage
 
           extra_headers: Send extra headers
 

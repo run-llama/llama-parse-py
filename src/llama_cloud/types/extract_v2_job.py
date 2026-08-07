@@ -10,7 +10,7 @@ from .extract_job_usage import ExtractJobUsage
 from .extract_job_metadata import ExtractJobMetadata
 from .extract_configuration import ExtractConfiguration
 
-__all__ = ["ExtractV2Job", "Metadata"]
+__all__ = ["ExtractV2Job", "Metadata", "Usage"]
 
 
 class Metadata(BaseModel):
@@ -30,6 +30,23 @@ class Metadata(BaseModel):
         def __getattr__(self, attr: str) -> object: ...
     else:
         __pydantic_extra__: Dict[str, object]
+
+
+class Usage(BaseModel):
+    """Usage recorded against an extract job.
+
+    A parse job can back several extract jobs, so each of them reports that
+    same parse cost in its total.
+    """
+
+    credits: Optional[float] = None
+    """Total credits billed against this job. Null until billing has recorded it."""
+
+    extract_credits: Optional[float] = None
+    """Credits billed for the extraction itself"""
+
+    parse_credits: Optional[float] = None
+    """Credits billed against the parse job backing this extract job"""
 
 
 class ExtractV2Job(BaseModel):
@@ -84,3 +101,10 @@ class ExtractV2Job(BaseModel):
 
     metadata: Optional[Metadata] = None
     """Job-level metadata."""
+
+    usage: Optional[Usage] = None
+    """Usage recorded against an extract job.
+
+    A parse job can back several extract jobs, so each of them reports that same
+    parse cost in its total.
+    """

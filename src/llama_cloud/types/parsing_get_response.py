@@ -18,6 +18,7 @@ from .heading_item import HeadingItem
 __all__ = [
     "ParsingGetResponse",
     "Job",
+    "JobUsage",
     "Forms",
     "FormsPage",
     "FormsPageFormsResultPage",
@@ -47,6 +48,13 @@ __all__ = [
 ]
 
 
+class JobUsage(BaseModel):
+    """Usage recorded against a job."""
+
+    credits: Optional[float] = None
+    """Total credits billed against this job. Null until billing has recorded it."""
+
+
 class Job(BaseModel):
     """Parse job status and metadata"""
 
@@ -73,6 +81,9 @@ class Job(BaseModel):
 
     updated_at: Optional[datetime] = None
     """Update datetime"""
+
+    usage: Optional[JobUsage] = None
+    """Usage recorded against a job."""
 
     user_metadata: Optional[Dict[str, str]] = None
     """Key/value tags associated with this job."""
