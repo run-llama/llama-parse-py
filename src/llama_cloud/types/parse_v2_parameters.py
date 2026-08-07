@@ -305,11 +305,10 @@ class OutputOptions(BaseModel):
     """
 
     images_to_save: Optional[List[Literal["embedded", "layout", "screenshot"]]] = None
-    """Image categories to extract and save.
-
-    Options: 'screenshot' (full page renders useful for visual QA), 'embedded'
-    (images found within the document), 'layout' (cropped regions from layout
-    detection like figures and diagrams). Empty list saves no images
+    """
+    Image categories to save: 'screenshot' (full page renders), 'embedded' (images
+    found within the document), 'layout' (cropped figures and diagrams). Defaults to
+    saving 'layout' when the output links to cropped images; pass [] to save none
     """
 
     markdown: Optional[OutputOptionsMarkdown] = None
