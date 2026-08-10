@@ -101,6 +101,12 @@ class FormsPageFormsResultPage(BaseModel):
     success: Literal[True]
     """Success indicator"""
 
+    page_height: Optional[float] = None
+    """Height of the page in points"""
+
+    page_width: Optional[float] = None
+    """Width of the page in points"""
+
 
 class FormsPageFailedFormsPage(BaseModel):
     """A page whose processing failed."""

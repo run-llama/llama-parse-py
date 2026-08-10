@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, List, Union, Optional
 from typing_extensions import Literal, TypeAlias, TypeAliasType
 
+from .b_box import BBox
 from .._compat import PYDANTIC_V1
 from .._models import BaseModel
 
@@ -29,6 +30,9 @@ class FormTable(BaseModel):
 
     id: Optional[str] = None
     """Identifier printed on the form, if any"""
+
+    bbox: Optional[List[BBox]] = None
+    """Bounding boxes of the table's fillable regions on the page."""
 
     columns: Optional[List[str]] = None
     """Printed column headers in order, if any"""
