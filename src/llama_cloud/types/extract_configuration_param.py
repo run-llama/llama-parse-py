@@ -32,6 +32,9 @@ class ExtractConfigurationParam(TypedDict, total=False):
     Returned under `extract_metadata` (auto-included when set).
     """
 
+    disable_cache: bool
+    """Disable reuse and storage of Extract results"""
+
     extraction_target: Literal["per_doc", "per_page", "per_table_row"]
     """
     Granularity of extraction: per_doc returns one object per document, per_page

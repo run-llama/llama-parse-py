@@ -30,6 +30,9 @@ class ExtractConfiguration(BaseModel):
     Returned under `extract_metadata` (auto-included when set).
     """
 
+    disable_cache: Optional[bool] = None
+    """Disable reuse and storage of Extract results"""
+
     extraction_target: Optional[Literal["per_doc", "per_page", "per_table_row"]] = None
     """
     Granularity of extraction: per_doc returns one object per document, per_page
