@@ -104,6 +104,14 @@ from .retrievers import (
     RetrieversResourceWithStreamingResponse,
     AsyncRetrieversResourceWithStreamingResponse,
 )
+from .v2_projects import (
+    V2ProjectsResource,
+    AsyncV2ProjectsResource,
+    V2ProjectsResourceWithRawResponse,
+    AsyncV2ProjectsResourceWithRawResponse,
+    V2ProjectsResourceWithStreamingResponse,
+    AsyncV2ProjectsResourceWithStreamingResponse,
+)
 from .data_sources import (
     DataSourcesResource,
     AsyncDataSourcesResource,
@@ -119,6 +127,14 @@ from .configurations import (
     AsyncConfigurationsResourceWithRawResponse,
     ConfigurationsResourceWithStreamingResponse,
     AsyncConfigurationsResourceWithStreamingResponse,
+)
+from .job_data_points import (
+    JobDataPointsResource,
+    AsyncJobDataPointsResource,
+    JobDataPointsResourceWithRawResponse,
+    AsyncJobDataPointsResourceWithRawResponse,
+    JobDataPointsResourceWithStreamingResponse,
+    AsyncJobDataPointsResourceWithStreamingResponse,
 )
 from .webhook_configs import (
     WebhookConfigsResource,
@@ -196,6 +212,18 @@ __all__ = [
     "AsyncProjectsResourceWithRawResponse",
     "ProjectsResourceWithStreamingResponse",
     "AsyncProjectsResourceWithStreamingResponse",
+    "V2ProjectsResource",
+    "AsyncV2ProjectsResource",
+    "V2ProjectsResourceWithRawResponse",
+    "AsyncV2ProjectsResourceWithRawResponse",
+    "V2ProjectsResourceWithStreamingResponse",
+    "AsyncV2ProjectsResourceWithStreamingResponse",
+    "JobDataPointsResource",
+    "AsyncJobDataPointsResource",
+    "JobDataPointsResourceWithRawResponse",
+    "AsyncJobDataPointsResourceWithRawResponse",
+    "JobDataPointsResourceWithStreamingResponse",
+    "AsyncJobDataPointsResourceWithStreamingResponse",
     "DataSinksResource",
     "AsyncDataSinksResource",
     "DataSinksResourceWithRawResponse",

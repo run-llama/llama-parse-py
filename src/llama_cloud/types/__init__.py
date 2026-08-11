@@ -71,6 +71,7 @@ from .presigned_url import PresignedURL as PresignedURL
 from .extract_v2_job import ExtractV2Job as ExtractV2Job
 from .fail_page_mode import FailPageMode as FailPageMode
 from .form_list_item import FormListItem as FormListItem
+from .job_data_point import JobDataPoint as JobDataPoint
 from .retrieval_mode import RetrievalMode as RetrievalMode
 from .classify_result import ClassifyResult as ClassifyResult
 from .file_get_params import FileGetParams as FileGetParams
@@ -120,6 +121,7 @@ from .classify_list_params import ClassifyListParams as ClassifyListParams
 from .configuration_create import ConfigurationCreate as ConfigurationCreate
 from .extract_job_metadata import ExtractJobMetadata as ExtractJobMetadata
 from .file_create_response import FileCreateResponse as FileCreateResponse
+from .file_retrieve_params import FileRetrieveParams as FileRetrieveParams
 from .parsing_get_response import ParsingGetResponse as ParsingGetResponse
 from .pipeline_list_params import PipelineListParams as PipelineListParams
 from .re_rank_config_param import ReRankConfigParam as ReRankConfigParam
@@ -142,6 +144,7 @@ from .project_list_response import ProjectListResponse as ProjectListResponse
 from .retriever_list_params import RetrieverListParams as RetrieverListParams
 from .split_cancel_response import SplitCancelResponse as SplitCancelResponse
 from .split_create_response import SplitCreateResponse as SplitCreateResponse
+from .v2_project_get_params import V2ProjectGetParams as V2ProjectGetParams
 from .vertex_text_embedding import VertexTextEmbedding as VertexTextEmbedding
 from .azure_openai_embedding import AzureOpenAIEmbedding as AzureOpenAIEmbedding
 from .classify_cancel_params import ClassifyCancelParams as ClassifyCancelParams
@@ -152,6 +155,7 @@ from .classify_v2_parameters import ClassifyV2Parameters as ClassifyV2Parameters
 from .cohere_embedding_param import CohereEmbeddingParam as CohereEmbeddingParam
 from .configuration_response import ConfigurationResponse as ConfigurationResponse
 from .data_sink_create_param import DataSinkCreateParam as DataSinkCreateParam
+from .file_retrieve_response import FileRetrieveResponse as FileRetrieveResponse
 from .gemini_embedding_param import GeminiEmbeddingParam as GeminiEmbeddingParam
 from .llama_parse_parameters import LlamaParseParameters as LlamaParseParameters
 from .metadata_filters_param import MetadataFiltersParam as MetadataFiltersParam
@@ -160,6 +164,7 @@ from .pipeline_create_params import PipelineCreateParams as PipelineCreateParams
 from .pipeline_list_response import PipelineListResponse as PipelineListResponse
 from .pipeline_update_params import PipelineUpdateParams as PipelineUpdateParams
 from .pipeline_upsert_params import PipelineUpsertParams as PipelineUpsertParams
+from .v2_project_list_params import V2ProjectListParams as V2ProjectListParams
 from .bedrock_embedding_param import BedrockEmbeddingParam as BedrockEmbeddingParam
 from .cohere_embedding_config import CohereEmbeddingConfig as CohereEmbeddingConfig
 from .data_sink_create_params import DataSinkCreateParams as DataSinkCreateParams
@@ -178,6 +183,7 @@ from .retriever_search_params import RetrieverSearchParams as RetrieverSearchPar
 from .retriever_update_params import RetrieverUpdateParams as RetrieverUpdateParams
 from .retriever_upsert_params import RetrieverUpsertParams as RetrieverUpsertParams
 from .sheet_delete_job_params import SheetDeleteJobParams as SheetDeleteJobParams
+from .v2_project_get_response import V2ProjectGetResponse as V2ProjectGetResponse
 from .webhook_config_response import WebhookConfigResponse as WebhookConfigResponse
 from .bedrock_embedding_config import BedrockEmbeddingConfig as BedrockEmbeddingConfig
 from .classify_cancel_response import ClassifyCancelResponse as ClassifyCancelResponse
@@ -188,6 +194,7 @@ from .pipeline_metadata_config import PipelineMetadataConfig as PipelineMetadata
 from .pipeline_retrieve_params import PipelineRetrieveParams as PipelineRetrieveParams
 from .retriever_pipeline_param import RetrieverPipelineParam as RetrieverPipelineParam
 from .untyped_parameters_param import UntypedParametersParam as UntypedParametersParam
+from .v2_project_list_response import V2ProjectListResponse as V2ProjectListResponse
 from .configuration_list_params import ConfigurationListParams as ConfigurationListParams
 from .data_source_create_params import DataSourceCreateParams as DataSourceCreateParams
 from .data_source_list_response import DataSourceListResponse as DataSourceListResponse
@@ -196,6 +203,7 @@ from .parse_v2_parameters_param import ParseV2ParametersParam as ParseV2Paramete
 from .sparse_model_config_param import SparseModelConfigParam as SparseModelConfigParam
 from .split_v1_parameters_param import SplitV1ParametersParam as SplitV1ParametersParam
 from .composite_retrieval_result import CompositeRetrievalResult as CompositeRetrievalResult
+from .job_data_point_list_params import JobDataPointListParams as JobDataPointListParams
 from .parsing_upload_file_params import ParsingUploadFileParams as ParsingUploadFileParams
 from .pipeline_get_status_params import PipelineGetStatusParams as PipelineGetStatusParams
 from .pipeline_retrieve_response import PipelineRetrieveResponse as PipelineRetrieveResponse

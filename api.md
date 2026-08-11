@@ -34,6 +34,7 @@ from llama_cloud.types import (
     File,
     PresignedURL,
     FileCreateResponse,
+    FileRetrieveResponse,
     FileListResponse,
     FileQueryResponse,
 )
@@ -42,6 +43,7 @@ from llama_cloud.types import (
 Methods:
 
 - <code title="post /api/v1/beta/files">client.files.<a href="./src/llama_cloud/resources/files.py">create</a>(\*\*<a href="src/llama_cloud/types/file_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/file_create_response.py">FileCreateResponse</a></code>
+- <code title="get /api/v1/beta/files/{file_id}">client.files.<a href="./src/llama_cloud/resources/files.py">retrieve</a>(file_id, \*\*<a href="src/llama_cloud/types/file_retrieve_params.py">params</a>) -> <a href="./src/llama_cloud/types/file_retrieve_response.py">FileRetrieveResponse</a></code>
 - <code title="get /api/v1/beta/files">client.files.<a href="./src/llama_cloud/resources/files.py">list</a>(\*\*<a href="src/llama_cloud/types/file_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/file_list_response.py">SyncPaginatedCursor[FileListResponse]</a></code>
 - <code title="delete /api/v1/beta/files/{file_id}">client.files.<a href="./src/llama_cloud/resources/files.py">delete</a>(file_id, \*\*<a href="src/llama_cloud/types/file_delete_params.py">params</a>) -> None</code>
 - <code title="get /api/v1/beta/files/{file_id}/content">client.files.<a href="./src/llama_cloud/resources/files.py">get</a>(file_id, \*\*<a href="src/llama_cloud/types/file_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/presigned_url.py">PresignedURL</a></code>
@@ -269,6 +271,31 @@ Methods:
 
 - <code title="get /api/v1/projects">client.projects.<a href="./src/llama_cloud/resources/projects.py">list</a>(\*\*<a href="src/llama_cloud/types/project_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/project_list_response.py">ProjectListResponse</a></code>
 - <code title="get /api/v1/projects/{project_id}">client.projects.<a href="./src/llama_cloud/resources/projects.py">get</a>(project_id, \*\*<a href="src/llama_cloud/types/project_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/project.py">Project</a></code>
+
+# V2Projects
+
+Types:
+
+```python
+from llama_cloud.types import V2ProjectListResponse, V2ProjectGetResponse
+```
+
+Methods:
+
+- <code title="get /api/v2/projects">client.v2_projects.<a href="./src/llama_cloud/resources/v2_projects.py">list</a>(\*\*<a href="src/llama_cloud/types/v2_project_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/v2_project_list_response.py">SyncPaginatedCursor[V2ProjectListResponse]</a></code>
+- <code title="get /api/v2/projects/{project_id}">client.v2_projects.<a href="./src/llama_cloud/resources/v2_projects.py">get</a>(project_id, \*\*<a href="src/llama_cloud/types/v2_project_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/v2_project_get_response.py">V2ProjectGetResponse</a></code>
+
+# JobDataPoints
+
+Types:
+
+```python
+from llama_cloud.types import JobDataPoint
+```
+
+Methods:
+
+- <code title="get /api/v1/job-data-points">client.job_data_points.<a href="./src/llama_cloud/resources/job_data_points.py">list</a>(\*\*<a href="src/llama_cloud/types/job_data_point_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/job_data_point.py">SyncPaginatedCursor[JobDataPoint]</a></code>
 
 # DataSinks
 
