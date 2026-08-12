@@ -74,7 +74,6 @@ from .form_list_item import FormListItem as FormListItem
 from .job_data_point import JobDataPoint as JobDataPoint
 from .retrieval_mode import RetrievalMode as RetrievalMode
 from .classify_result import ClassifyResult as ClassifyResult
-from .file_get_params import FileGetParams as FileGetParams
 from .batch_get_params import BatchGetParams as BatchGetParams
 from .cohere_embedding import CohereEmbedding as CohereEmbedding
 from .file_list_params import FileListParams as FileListParams
@@ -105,6 +104,7 @@ from .batch_create_params import BatchCreateParams as BatchCreateParams
 from .batch_list_response import BatchListResponse as BatchListResponse
 from .classify_get_params import ClassifyGetParams as ClassifyGetParams
 from .extract_list_params import ExtractListParams as ExtractListParams
+from .file_content_params import FileContentParams as FileContentParams
 from .file_query_response import FileQueryResponse as FileQueryResponse
 from .form_list_text_item import FormListTextItem as FormListTextItem
 from .parse_v2_parameters import ParseV2Parameters as ParseV2Parameters

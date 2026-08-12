@@ -46,7 +46,7 @@ Methods:
 - <code title="get /api/v1/beta/files/{file_id}">client.files.<a href="./src/llama_cloud/resources/files.py">retrieve</a>(file_id, \*\*<a href="src/llama_cloud/types/file_retrieve_params.py">params</a>) -> <a href="./src/llama_cloud/types/file_retrieve_response.py">FileRetrieveResponse</a></code>
 - <code title="get /api/v1/beta/files">client.files.<a href="./src/llama_cloud/resources/files.py">list</a>(\*\*<a href="src/llama_cloud/types/file_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/file_list_response.py">SyncPaginatedCursor[FileListResponse]</a></code>
 - <code title="delete /api/v1/beta/files/{file_id}">client.files.<a href="./src/llama_cloud/resources/files.py">delete</a>(file_id, \*\*<a href="src/llama_cloud/types/file_delete_params.py">params</a>) -> None</code>
-- <code title="get /api/v1/beta/files/{file_id}/content">client.files.<a href="./src/llama_cloud/resources/files.py">get</a>(file_id, \*\*<a href="src/llama_cloud/types/file_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/presigned_url.py">PresignedURL</a></code>
+- <code title="get /api/v1/beta/files/{file_id}/content">client.files.<a href="./src/llama_cloud/resources/files.py">content</a>(file_id, \*\*<a href="src/llama_cloud/types/file_content_params.py">params</a>) -> <a href="./src/llama_cloud/types/presigned_url.py">PresignedURL</a></code>
 - <code title="post /api/v1/beta/files/query">client.files.<a href="./src/llama_cloud/resources/files.py">query</a>(\*\*<a href="src/llama_cloud/types/file_query_params.py">params</a>) -> <a href="./src/llama_cloud/types/file_query_response.py">FileQueryResponse</a></code>
 
 # Sheets

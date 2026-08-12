@@ -8,11 +8,11 @@ from typing import Mapping, Optional, cast
 import httpx
 
 from ..types import (
-    file_get_params,
     file_list_params,
     file_query_params,
     file_create_params,
     file_delete_params,
+    file_content_params,
     file_retrieve_params,
 )
 from .._files import deepcopy_with_paths
@@ -302,7 +302,7 @@ class FilesResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def get(
+    def content(
         self,
         file_id: str,
         *,
@@ -343,7 +343,7 @@ class FilesResource(SyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    file_get_params.FileGetParams,
+                    file_content_params.FileContentParams,
                 ),
             ),
             cast_to=PresignedURL,
@@ -684,7 +684,7 @@ class AsyncFilesResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def get(
+    async def content(
         self,
         file_id: str,
         *,
@@ -725,7 +725,7 @@ class AsyncFilesResource(AsyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    file_get_params.FileGetParams,
+                    file_content_params.FileContentParams,
                 ),
             ),
             cast_to=PresignedURL,
@@ -817,8 +817,8 @@ class FilesResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             files.delete,
         )
-        self.get = to_raw_response_wrapper(
-            files.get,
+        self.content = to_raw_response_wrapper(
+            files.content,
         )
         self.query = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
@@ -843,8 +843,8 @@ class AsyncFilesResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             files.delete,
         )
-        self.get = async_to_raw_response_wrapper(
-            files.get,
+        self.content = async_to_raw_response_wrapper(
+            files.content,
         )
         self.query = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
@@ -869,8 +869,8 @@ class FilesResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             files.delete,
         )
-        self.get = to_streamed_response_wrapper(
-            files.get,
+        self.content = to_streamed_response_wrapper(
+            files.content,
         )
         self.query = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
@@ -895,8 +895,8 @@ class AsyncFilesResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             files.delete,
         )
-        self.get = async_to_streamed_response_wrapper(
-            files.get,
+        self.content = async_to_streamed_response_wrapper(
+            files.content,
         )
         self.query = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(

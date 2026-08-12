@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["FileGetParams"]
+__all__ = ["FileContentParams"]
 
 
-class FileGetParams(TypedDict, total=False):
+class FileContentParams(TypedDict, total=False):
     expires_at_seconds: Optional[int]
 
     organization_id: Optional[str]
