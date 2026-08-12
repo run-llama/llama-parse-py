@@ -1,5 +1,53 @@
 # Changelog
 
+## [2.14.0](https://github.com/run-llama/llama-parse-py/compare/v2.13.0...v2.14.0) (2026-08-12)
+
+> [!WARNING]
+> **Breaking change:** `files.get()` is renamed to `files.content()`. It returns the presigned download URL, as before.
+> `client.files.get(file_id)` no longer exists and raises `AttributeError` at runtime — replace it with `client.files.content(file_id)`.
+> `client.files.retrieve(file_id)` returns the file resource itself.
+> Released as a minor, not a major, because a major would force the sibling Go SDK's module path to `/v2`.
+
+
+### Features
+
+* **batches:** webhooks for /api/v2/batches ([#23148](https://github.com/run-llama/llama-parse-py/issues/23148)) ([f781ad3](https://github.com/run-llama/llama-parse-py/commit/f781ad394f63b7e4311cea3b2cfbfa329a59a918))
+* **classify:** accept webhook_configuration_ids on classify job create (LI-8138) ([#22943](https://github.com/run-llama/llama-parse-py/issues/22943)) ([d598c7c](https://github.com/run-llama/llama-parse-py/commit/d598c7c7c815b5eb1cc6b8777e2f25d75ec896e6))
+* **connector:** API + service layer for attaching a subscription to a directory ([#23502](https://github.com/run-llama/llama-parse-py/issues/23502)) ([cd905bb](https://github.com/run-llama/llama-parse-py/commit/cd905bb2d04ea7c08f2903d80e29d9a5b15233c1))
+* **connectors:** expose a directory's connector subscription, and resolve connected accounts ([#23831](https://github.com/run-llama/llama-parse-py/issues/23831)) ([b6d9a60](https://github.com/run-llama/llama-parse-py/commit/b6d9a608661ea4ae49eea2ddf3af6c42e6affc5e))
+* **extract:** accept webhook_configuration_ids on extract job create (LI-8138) ([#22907](https://github.com/run-llama/llama-parse-py/issues/22907)) ([aa6e771](https://github.com/run-llama/llama-parse-py/commit/aa6e77124a5ec2b76ecba80c78baec9c3fb41c27))
+* **extract:** opt-in spreadsheet mode for agentic_plus ([#22958](https://github.com/run-llama/llama-parse-py/issues/22958)) ([d036ed0](https://github.com/run-llama/llama-parse-py/commit/d036ed00e66973c2c45333e685f44d4dfa402492))
+* **extract:** pin turbo to a stable dated version; accept citations+confidence, reject only granular bboxes ([#22965](https://github.com/run-llama/llama-parse-py/issues/22965)) ([76130ca](https://github.com/run-llama/llama-parse-py/commit/76130ca09f4ba09944fa79f4ff7e2e36a6f2594b))
+* **extract:** reject parse_tier for parse-free tiers + pin turbo fallback to fast ([#22919](https://github.com/run-llama/llama-parse-py/issues/22919)) ([b0d665f](https://github.com/run-llama/llama-parse-py/commit/b0d665fbf687bca819da68db6dcb65846b7b9306))
+* **files:** rename files.get to files.content and restore files.retrieve ([db4a012](https://github.com/run-llama/llama-parse-py/commit/db4a012fe2d48f1f885b057d0fd97c53927890cb))
+* **forms:** emit bboxes in v2 forms output ([#23974](https://github.com/run-llama/llama-parse-py/issues/23974)) ([1768b9b](https://github.com/run-llama/llama-parse-py/commit/1768b9b13a252e782f808b47bc0e7fd4ed92b74f))
+* **parse,extract:** add expand=usage returning credits billed per job ([#23709](https://github.com/run-llama/llama-parse-py/issues/23709)) ([cb4716e](https://github.com/run-llama/llama-parse-py/commit/cb4716eeab5a8ea4d9e4dda18c9a22c25c760c14))
+* **parse:** extract Word revision annotations ([#23152](https://github.com/run-llama/llama-parse-py/issues/23152)) ([07a0e62](https://github.com/run-llama/llama-parse-py/commit/07a0e62754064179b44b8bead25bc173b9dd9d2c))
+* **parse:** make the output.pdf artifact opt-in on Parse v2 (output_options.save_output_pdf) ([#23510](https://github.com/run-llama/llama-parse-py/issues/23510)) ([7eb28a8](https://github.com/run-llama/llama-parse-py/commit/7eb28a8e1e3481ae50672b6563e3999fba2e7b4f))
+* **split:** accept webhook_configuration_ids on split job create (LI-8138) ([#22940](https://github.com/run-llama/llama-parse-py/issues/22940)) ([460d643](https://github.com/run-llama/llama-parse-py/commit/460d6436f46a3d902da976737b812eadc35f809e))
+
+
+### Bug Fixes
+
+* absorb production main into staging to unblock the release loop ([a305233](https://github.com/run-llama/llama-parse-py/commit/a305233bacea930d8ef45ce3c7639698e8800376))
+* **api:** name paginated + filter schemas instead of leaking generic parametrizations ([#23120](https://github.com/run-llama/llama-parse-py/issues/23120)) ([1eaeab3](https://github.com/run-llama/llama-parse-py/commit/1eaeab385484eb2c29550980733a360886e9c24b))
+* **llamaparse:** retry qwen context-overflow 400s with a shrinking OCR anchor ([#23817](https://github.com/run-llama/llama-parse-py/issues/23817)) ([b1bb4e3](https://github.com/run-llama/llama-parse-py/commit/b1bb4e302c48df4cc45229281ea83b9082a0ef8d))
+
+
+### Chores
+
+* **api:** regenerate OpenAPI specs for new agentic parse version ([#22763](https://github.com/run-llama/llama-parse-py/issues/22763)) ([967ac03](https://github.com/run-llama/llama-parse-py/commit/967ac03e167b579d3c42b729c42be413283bbb4a))
+
+
+### Documentation
+
+* **parse:** shorten the images_to_save field description ([#23807](https://github.com/run-llama/llama-parse-py/issues/23807)) ([9a45754](https://github.com/run-llama/llama-parse-py/commit/9a45754378eff75cae783ff5badbc9cd68220d49))
+
+
+### Refactors
+
+* remove Depends(get_db) from permissions endpoints ([#22635](https://github.com/run-llama/llama-parse-py/issues/22635)) ([98f87c6](https://github.com/run-llama/llama-parse-py/commit/98f87c6a11b1da1fe7a0c5e26d475c7cc228979e))
+
 ## [2.13.0](https://github.com/run-llama/llama-parse-py/compare/v2.12.0...v2.13.0) (2026-07-22)
 
 
