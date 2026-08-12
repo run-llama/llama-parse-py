@@ -16,6 +16,11 @@ class ParametersWebhookConfiguration(BaseModel):
     webhook_events: Optional[
         List[
             Literal[
+                "batch.cancelled",
+                "batch.error",
+                "batch.pending",
+                "batch.running",
+                "batch.success",
                 "classify.cancelled",
                 "classify.error",
                 "classify.partial_success",

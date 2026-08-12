@@ -52,14 +52,6 @@ from .agent_data import (
     AsyncAgentDataResourceWithStreamingResponse,
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from .batch.batch import (
-    BatchResource,
-    AsyncBatchResource,
-    BatchResourceWithRawResponse,
-    AsyncBatchResourceWithRawResponse,
-    BatchResourceWithStreamingResponse,
-    AsyncBatchResourceWithStreamingResponse,
-)
 from .directories.directories import (
     DirectoriesResource,
     AsyncDirectoriesResource,
@@ -96,10 +88,6 @@ class BetaResource(SyncAPIResource):
     @cached_property
     def directories(self) -> DirectoriesResource:
         return DirectoriesResource(self._client)
-
-    @cached_property
-    def batch(self) -> BatchResource:
-        return BatchResource(self._client)
 
     @cached_property
     def split(self) -> SplitResource:
@@ -149,10 +137,6 @@ class AsyncBetaResource(AsyncAPIResource):
     @cached_property
     def directories(self) -> AsyncDirectoriesResource:
         return AsyncDirectoriesResource(self._client)
-
-    @cached_property
-    def batch(self) -> AsyncBatchResource:
-        return AsyncBatchResource(self._client)
 
     @cached_property
     def split(self) -> AsyncSplitResource:
@@ -207,10 +191,6 @@ class BetaResourceWithRawResponse:
         return DirectoriesResourceWithRawResponse(self._beta.directories)
 
     @cached_property
-    def batch(self) -> BatchResourceWithRawResponse:
-        return BatchResourceWithRawResponse(self._beta.batch)
-
-    @cached_property
     def split(self) -> SplitResourceWithRawResponse:
         return SplitResourceWithRawResponse(self._beta.split)
 
@@ -242,10 +222,6 @@ class AsyncBetaResourceWithRawResponse:
     @cached_property
     def directories(self) -> AsyncDirectoriesResourceWithRawResponse:
         return AsyncDirectoriesResourceWithRawResponse(self._beta.directories)
-
-    @cached_property
-    def batch(self) -> AsyncBatchResourceWithRawResponse:
-        return AsyncBatchResourceWithRawResponse(self._beta.batch)
 
     @cached_property
     def split(self) -> AsyncSplitResourceWithRawResponse:
@@ -281,10 +257,6 @@ class BetaResourceWithStreamingResponse:
         return DirectoriesResourceWithStreamingResponse(self._beta.directories)
 
     @cached_property
-    def batch(self) -> BatchResourceWithStreamingResponse:
-        return BatchResourceWithStreamingResponse(self._beta.batch)
-
-    @cached_property
     def split(self) -> SplitResourceWithStreamingResponse:
         return SplitResourceWithStreamingResponse(self._beta.split)
 
@@ -316,10 +288,6 @@ class AsyncBetaResourceWithStreamingResponse:
     @cached_property
     def directories(self) -> AsyncDirectoriesResourceWithStreamingResponse:
         return AsyncDirectoriesResourceWithStreamingResponse(self._beta.directories)
-
-    @cached_property
-    def batch(self) -> AsyncBatchResourceWithStreamingResponse:
-        return AsyncBatchResourceWithStreamingResponse(self._beta.batch)
 
     @cached_property
     def split(self) -> AsyncSplitResourceWithStreamingResponse:

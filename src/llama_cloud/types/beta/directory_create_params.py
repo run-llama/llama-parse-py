@@ -16,6 +16,12 @@ class DirectoryCreateParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
+    connector_subscription_id: Optional[str]
+    """Connector Subscription whose files sync into this directory.
+
+    Omit for manual uploads.
+    """
+
     description: Optional[str]
     """Optional description shown to users."""
 

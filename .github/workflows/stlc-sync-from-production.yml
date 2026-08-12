@@ -1,15 +1,15 @@
 name: Sync from production
 
 on:
-  schedule:
-    # A poll, not a release — tune to how often releases/contributions land on
-    # production. Every few hours is plenty; daily is fine.
-    - cron: '17 */6 * * *'
+  # Cadence lives in run-llama/stainless .github/workflows/stlc-dispatch-backsync.yml,
+  # which dispatches this workflow with a CI_BOT App installation token. A `schedule:`
+  # here would fire it a second time and attribute that run to whoever last edited the
+  # cron. Verified 2026-08-07 by running both paths side by side: dispatched runs show
+  # llama-org-ci-bot[bot], scheduled runs showed a maintainer who had left the org.
   workflow_dispatch: {}
 
 permissions:
-  contents: write # push the back-sync branch on staging
-  pull-requests: write # open/merge the back-sync PR on staging
+  contents: read # checkout only — the push and the PR use the CI_BOT app token
 
 concurrency:
   group: stlc-sync-from-production
@@ -21,8 +21,6 @@ jobs:
     if: github.repository == 'run-llama/llamacloud-prod-python'
     env:
       PRODUCTION_REPO: run-llama/llama-parse-py
-      # The built-in token writes the branch + PR on this (staging) repo.
-      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Generate production-repo token (CI_BOT GitHub App, read-only)
         id: prod-token
@@ -34,10 +32,24 @@ jobs:
           repositories: llama-parse-py
           permission-contents: read
 
+      - name: Generate staging-repo token (CI_BOT GitHub App)
+        id: staging-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.CI_BOT_APP_ID }}
+          private-key: ${{ secrets.CI_BOT_PRIVATE_KEY }}
+          # owner/repositories omitted: the token scopes to this repository.
+          permission-contents: write
+          permission-pull-requests: write
+          # production/main carries .github/workflows changes; GITHUB_TOKEN can
+          # never push those.
+          permission-workflows: write
+
       - name: Check out staging
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Fetch production main
         env:
@@ -64,10 +76,17 @@ jobs:
 
       - name: Push production main to the back-sync branch on staging
         if: steps.diff.outputs.behind == 'true'
-        run: git push origin production/main:refs/heads/stlc/from-prod --force
+        env:
+          STAGING_REPO_TOKEN: ${{ steps.staging-token.outputs.token }}
+        run: |
+          git push \
+            "https://x-access-token:${STAGING_REPO_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            production/main:refs/heads/stlc/from-prod --force
 
       - name: Open or update the back-sync PR on staging
         if: steps.diff.outputs.behind == 'true'
+        env:
+          GH_TOKEN: ${{ steps.staging-token.outputs.token }}
         run: |
           EXISTING_PR=$(gh pr list --head stlc/from-prod --base main --state open --json number --jq '.[0].number')
           if [ -z "${EXISTING_PR}" ]; then

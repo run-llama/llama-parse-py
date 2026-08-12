@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from llama_cloud.types import (
     ClassifyGetResponse,
     ClassifyListResponse,
+    ClassifyCancelResponse,
     ClassifyCreateResponse,
 )
 from llama_cloud._utils import parse_datetime
@@ -54,6 +55,7 @@ class TestClassify:
             file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             parse_job_id="pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
+            webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
                 {
                     "webhook_events": ["parse.success", "parse.error"],
@@ -131,6 +133,58 @@ class TestClassify:
             assert_matches_type(SyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_cancel(self, client: LlamaCloud) -> None:
+        classify = client.classify.cancel(
+            job_id="job_id",
+        )
+        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_cancel_with_all_params(self, client: LlamaCloud) -> None:
+        classify = client.classify.cancel(
+            job_id="job_id",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_cancel(self, client: LlamaCloud) -> None:
+        response = client.classify.with_raw_response.cancel(
+            job_id="job_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        classify = response.parse()
+        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_cancel(self, client: LlamaCloud) -> None:
+        with client.classify.with_streaming_response.cancel(
+            job_id="job_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            classify = response.parse()
+            assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_cancel(self, client: LlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
+            client.classify.with_raw_response.cancel(
+                job_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -221,6 +275,7 @@ class TestAsyncClassify:
             file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             parse_job_id="pjb-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
+            webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
                 {
                     "webhook_events": ["parse.success", "parse.error"],
@@ -298,6 +353,58 @@ class TestAsyncClassify:
             assert_matches_type(AsyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        classify = await async_client.classify.cancel(
+            job_id="job_id",
+        )
+        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_cancel_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        classify = await async_client.classify.cancel(
+            job_id="job_id",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.classify.with_raw_response.cancel(
+            job_id="job_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        classify = await response.parse()
+        assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.classify.with_streaming_response.cancel(
+            job_id="job_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            classify = await response.parse()
+            assert_matches_type(ClassifyCancelResponse, classify, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
+            await async_client.classify.with_raw_response.cancel(
+                job_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

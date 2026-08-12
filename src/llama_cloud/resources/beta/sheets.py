@@ -289,6 +289,7 @@ class SheetsResource(SyncAPIResource):
         config: Optional[SheetsParsingConfigParam] | Omit = omit,
         configuration: Optional[SheetsParsingConfigParam] | Omit = omit,
         configuration_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[sheet_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -314,6 +315,8 @@ class SheetsResource(SyncAPIResource):
 
           configuration_id: Saved configuration ID
 
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
@@ -332,6 +335,7 @@ class SheetsResource(SyncAPIResource):
                     "config": config,
                     "configuration": configuration,
                     "configuration_id": configuration_id,
+                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 sheet_create_params.SheetCreateParams,
@@ -833,6 +837,7 @@ class AsyncSheetsResource(AsyncAPIResource):
         config: Optional[SheetsParsingConfigParam] | Omit = omit,
         configuration: Optional[SheetsParsingConfigParam] | Omit = omit,
         configuration_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[sheet_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -858,6 +863,8 @@ class AsyncSheetsResource(AsyncAPIResource):
 
           configuration_id: Saved configuration ID
 
+          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
@@ -876,6 +883,7 @@ class AsyncSheetsResource(AsyncAPIResource):
                     "config": config,
                     "configuration": configuration,
                     "configuration_id": configuration_id,
+                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 sheet_create_params.SheetCreateParams,

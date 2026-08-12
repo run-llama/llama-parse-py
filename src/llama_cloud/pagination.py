@@ -10,8 +10,6 @@ __all__ = [
     "AsyncPaginatedJobsHistory",
     "SyncPaginatedPipelineFiles",
     "AsyncPaginatedPipelineFiles",
-    "SyncPaginatedBatchItems",
-    "AsyncPaginatedBatchItems",
     "SyncPaginatedCloudDocuments",
     "AsyncPaginatedCloudDocuments",
     "SyncPaginatedQuotaConfigurations",
@@ -144,66 +142,6 @@ class AsyncPaginatedPipelineFiles(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
             return None
 
         if current_count < total_count:
-            return PageInfo(params={"offset": current_count})
-
-        return None
-
-
-class SyncPaginatedBatchItems(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
-    items: List[_T]
-    total_size: Optional[int] = None
-
-    @override
-    def _get_page_items(self) -> List[_T]:
-        items = self.items
-        if not items:
-            return []
-        return items
-
-    @override
-    def next_page_info(self) -> Optional[PageInfo]:
-        offset = self._options.params.get("offset") or 0
-        if not isinstance(offset, int):
-            raise ValueError(f'Expected "offset" param to be an integer but got {offset}')
-
-        length = len(self._get_page_items())
-        current_count = offset + length
-
-        total_size = self.total_size
-        if total_size is None:
-            return None
-
-        if current_count < total_size:
-            return PageInfo(params={"offset": current_count})
-
-        return None
-
-
-class AsyncPaginatedBatchItems(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
-    items: List[_T]
-    total_size: Optional[int] = None
-
-    @override
-    def _get_page_items(self) -> List[_T]:
-        items = self.items
-        if not items:
-            return []
-        return items
-
-    @override
-    def next_page_info(self) -> Optional[PageInfo]:
-        offset = self._options.params.get("offset") or 0
-        if not isinstance(offset, int):
-            raise ValueError(f'Expected "offset" param to be an integer but got {offset}')
-
-        length = len(self._get_page_items())
-        current_count = offset + length
-
-        total_size = self.total_size
-        if total_size is None:
-            return None
-
-        if current_count < total_size:
             return PageInfo(params={"offset": current_count})
 
         return None

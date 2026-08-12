@@ -72,6 +72,7 @@ class DirectoriesResource(SyncAPIResource):
         name: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        connector_subscription_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         system_metadata: Optional[Dict[str, object]] | Omit = omit,
         type: Literal["ephemeral", "user"] | Omit = omit,
@@ -87,6 +88,9 @@ class DirectoriesResource(SyncAPIResource):
 
         Args:
           name: Human-readable name for the directory.
+
+          connector_subscription_id: Connector Subscription whose files sync into this directory. Omit for manual
+              uploads.
 
           description: Optional description shown to users.
 
@@ -107,6 +111,7 @@ class DirectoriesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
+                    "connector_subscription_id": connector_subscription_id,
                     "description": description,
                     "system_metadata": system_metadata,
                     "type": type,
@@ -372,6 +377,7 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         name: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        connector_subscription_id: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         system_metadata: Optional[Dict[str, object]] | Omit = omit,
         type: Literal["ephemeral", "user"] | Omit = omit,
@@ -387,6 +393,9 @@ class AsyncDirectoriesResource(AsyncAPIResource):
 
         Args:
           name: Human-readable name for the directory.
+
+          connector_subscription_id: Connector Subscription whose files sync into this directory. Omit for manual
+              uploads.
 
           description: Optional description shown to users.
 
@@ -407,6 +416,7 @@ class AsyncDirectoriesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
+                    "connector_subscription_id": connector_subscription_id,
                     "description": description,
                     "system_metadata": system_metadata,
                     "type": type,

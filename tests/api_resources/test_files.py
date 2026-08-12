@@ -14,6 +14,7 @@ from llama_cloud.types import (
     FileListResponse,
     FileQueryResponse,
     FileCreateResponse,
+    FileRetrieveResponse,
 )
 from llama_cloud.pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 
@@ -73,6 +74,59 @@ class TestFiles:
             assert_matches_type(FileCreateResponse, file, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve(self, client: LlamaCloud) -> None:
+        file = client.files.retrieve(
+            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(FileRetrieveResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: LlamaCloud) -> None:
+        file = client.files.retrieve(
+            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            expand=["string", "string"],
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(FileRetrieveResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve(self, client: LlamaCloud) -> None:
+        response = client.files.with_raw_response.retrieve(
+            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        file = response.parse()
+        assert_matches_type(FileRetrieveResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve(self, client: LlamaCloud) -> None:
+        with client.files.with_streaming_response.retrieve(
+            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            file = response.parse()
+            assert_matches_type(FileRetrieveResponse, file, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_retrieve(self, client: LlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+            client.files.with_raw_response.retrieve(
+                file_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -172,16 +226,16 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get(self, client: LlamaCloud) -> None:
-        file = client.files.get(
+    def test_method_content(self, client: LlamaCloud) -> None:
+        file = client.files.content(
             file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(PresignedURL, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_with_all_params(self, client: LlamaCloud) -> None:
-        file = client.files.get(
+    def test_method_content_with_all_params(self, client: LlamaCloud) -> None:
+        file = client.files.content(
             file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             expires_at_seconds=0,
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -191,8 +245,8 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_get(self, client: LlamaCloud) -> None:
-        response = client.files.with_raw_response.get(
+    def test_raw_response_content(self, client: LlamaCloud) -> None:
+        response = client.files.with_raw_response.content(
             file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -203,8 +257,8 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_get(self, client: LlamaCloud) -> None:
-        with client.files.with_streaming_response.get(
+    def test_streaming_response_content(self, client: LlamaCloud) -> None:
+        with client.files.with_streaming_response.content(
             file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -217,9 +271,9 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_get(self, client: LlamaCloud) -> None:
+    def test_path_params_content(self, client: LlamaCloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            client.files.with_raw_response.get(
+            client.files.with_raw_response.content(
                 file_id="",
             )
 
@@ -334,6 +388,59 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_retrieve(self, async_client: AsyncLlamaCloud) -> None:
+        file = await async_client.files.retrieve(
+            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(FileRetrieveResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        file = await async_client.files.retrieve(
+            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            expand=["string", "string"],
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(FileRetrieveResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.files.with_raw_response.retrieve(
+            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        file = await response.parse()
+        assert_matches_type(FileRetrieveResponse, file, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.files.with_streaming_response.retrieve(
+            file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            file = await response.parse()
+            assert_matches_type(FileRetrieveResponse, file, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
+            await async_client.files.with_raw_response.retrieve(
+                file_id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_list(self, async_client: AsyncLlamaCloud) -> None:
         file = await async_client.files.list()
         assert_matches_type(AsyncPaginatedCursor[FileListResponse], file, path=["response"])
@@ -430,16 +537,16 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get(self, async_client: AsyncLlamaCloud) -> None:
-        file = await async_client.files.get(
+    async def test_method_content(self, async_client: AsyncLlamaCloud) -> None:
+        file = await async_client.files.content(
             file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(PresignedURL, file, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        file = await async_client.files.get(
+    async def test_method_content_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        file = await async_client.files.content(
             file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             expires_at_seconds=0,
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -449,8 +556,8 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_get(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.files.with_raw_response.get(
+    async def test_raw_response_content(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.files.with_raw_response.content(
             file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -461,8 +568,8 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_get(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.files.with_streaming_response.get(
+    async def test_streaming_response_content(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.files.with_streaming_response.content(
             file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -475,9 +582,9 @@ class TestAsyncFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_get(self, async_client: AsyncLlamaCloud) -> None:
+    async def test_path_params_content(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `file_id` but received ''"):
-            await async_client.files.with_raw_response.get(
+            await async_client.files.with_raw_response.content(
                 file_id="",
             )
 

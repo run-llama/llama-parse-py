@@ -16,6 +16,14 @@ from .files import (
     FilesResourceWithStreamingResponse,
     AsyncFilesResourceWithStreamingResponse,
 )
+from .split import (
+    SplitResource,
+    AsyncSplitResource,
+    SplitResourceWithRawResponse,
+    AsyncSplitResourceWithRawResponse,
+    SplitResourceWithStreamingResponse,
+    AsyncSplitResourceWithStreamingResponse,
+)
 from .sheets import (
     SheetsResource,
     AsyncSheetsResource,
@@ -96,6 +104,14 @@ from .retrievers import (
     RetrieversResourceWithStreamingResponse,
     AsyncRetrieversResourceWithStreamingResponse,
 )
+from .v2_projects import (
+    V2ProjectsResource,
+    AsyncV2ProjectsResource,
+    V2ProjectsResourceWithRawResponse,
+    AsyncV2ProjectsResourceWithRawResponse,
+    V2ProjectsResourceWithStreamingResponse,
+    AsyncV2ProjectsResourceWithStreamingResponse,
+)
 from .data_sources import (
     DataSourcesResource,
     AsyncDataSourcesResource,
@@ -112,6 +128,22 @@ from .configurations import (
     ConfigurationsResourceWithStreamingResponse,
     AsyncConfigurationsResourceWithStreamingResponse,
 )
+from .job_data_points import (
+    JobDataPointsResource,
+    AsyncJobDataPointsResource,
+    JobDataPointsResourceWithRawResponse,
+    AsyncJobDataPointsResourceWithRawResponse,
+    JobDataPointsResourceWithStreamingResponse,
+    AsyncJobDataPointsResourceWithStreamingResponse,
+)
+from .webhook_configs import (
+    WebhookConfigsResource,
+    AsyncWebhookConfigsResource,
+    WebhookConfigsResourceWithRawResponse,
+    AsyncWebhookConfigsResourceWithRawResponse,
+    WebhookConfigsResourceWithStreamingResponse,
+    AsyncWebhookConfigsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "FilesResource",
@@ -126,6 +158,12 @@ __all__ = [
     "AsyncSheetsResourceWithRawResponse",
     "SheetsResourceWithStreamingResponse",
     "AsyncSheetsResourceWithStreamingResponse",
+    "SplitResource",
+    "AsyncSplitResource",
+    "SplitResourceWithRawResponse",
+    "AsyncSplitResourceWithRawResponse",
+    "SplitResourceWithStreamingResponse",
+    "AsyncSplitResourceWithStreamingResponse",
     "ParsingResource",
     "AsyncParsingResource",
     "ParsingResourceWithRawResponse",
@@ -162,12 +200,30 @@ __all__ = [
     "AsyncConfigurationsResourceWithRawResponse",
     "ConfigurationsResourceWithStreamingResponse",
     "AsyncConfigurationsResourceWithStreamingResponse",
+    "WebhookConfigsResource",
+    "AsyncWebhookConfigsResource",
+    "WebhookConfigsResourceWithRawResponse",
+    "AsyncWebhookConfigsResourceWithRawResponse",
+    "WebhookConfigsResourceWithStreamingResponse",
+    "AsyncWebhookConfigsResourceWithStreamingResponse",
     "ProjectsResource",
     "AsyncProjectsResource",
     "ProjectsResourceWithRawResponse",
     "AsyncProjectsResourceWithRawResponse",
     "ProjectsResourceWithStreamingResponse",
     "AsyncProjectsResourceWithStreamingResponse",
+    "V2ProjectsResource",
+    "AsyncV2ProjectsResource",
+    "V2ProjectsResourceWithRawResponse",
+    "AsyncV2ProjectsResourceWithRawResponse",
+    "V2ProjectsResourceWithStreamingResponse",
+    "AsyncV2ProjectsResourceWithStreamingResponse",
+    "JobDataPointsResource",
+    "AsyncJobDataPointsResource",
+    "JobDataPointsResourceWithRawResponse",
+    "AsyncJobDataPointsResourceWithRawResponse",
+    "JobDataPointsResourceWithStreamingResponse",
+    "AsyncJobDataPointsResourceWithStreamingResponse",
     "DataSinksResource",
     "AsyncDataSinksResource",
     "DataSinksResourceWithRawResponse",

@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from llama_cloud.types import (
     BatchGetResponse,
     BatchListResponse,
+    BatchCancelResponse,
     BatchCreateResponse,
 )
 from llama_cloud._utils import parse_datetime
@@ -50,6 +51,16 @@ class TestBatches:
             source_directory_id="dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            webhook_configuration_ids=["whc-...", "whc-..."],
+            webhook_configurations=[
+                {
+                    "webhook_events": ["parse.success", "parse.error"],
+                    "webhook_headers": {"Authorization": "Bearer sk-..."},
+                    "webhook_output_format": "json",
+                    "webhook_signing_secret": "whsec_...",
+                    "webhook_url": "https://example.com/webhooks/llamacloud",
+                }
+            ],
         )
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 
@@ -133,6 +144,58 @@ class TestBatches:
             assert_matches_type(SyncPaginatedCursor[BatchListResponse], batch, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_cancel(self, client: LlamaCloud) -> None:
+        batch = client.batches.cancel(
+            batch_id="batch_id",
+        )
+        assert_matches_type(BatchCancelResponse, batch, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_cancel_with_all_params(self, client: LlamaCloud) -> None:
+        batch = client.batches.cancel(
+            batch_id="batch_id",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(BatchCancelResponse, batch, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_cancel(self, client: LlamaCloud) -> None:
+        response = client.batches.with_raw_response.cancel(
+            batch_id="batch_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        batch = response.parse()
+        assert_matches_type(BatchCancelResponse, batch, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_cancel(self, client: LlamaCloud) -> None:
+        with client.batches.with_streaming_response.cancel(
+            batch_id="batch_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            batch = response.parse()
+            assert_matches_type(BatchCancelResponse, batch, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_cancel(self, client: LlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `batch_id` but received ''"):
+            client.batches.with_raw_response.cancel(
+                batch_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -220,6 +283,16 @@ class TestAsyncBatches:
             source_directory_id="dir-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            webhook_configuration_ids=["whc-...", "whc-..."],
+            webhook_configurations=[
+                {
+                    "webhook_events": ["parse.success", "parse.error"],
+                    "webhook_headers": {"Authorization": "Bearer sk-..."},
+                    "webhook_output_format": "json",
+                    "webhook_signing_secret": "whsec_...",
+                    "webhook_url": "https://example.com/webhooks/llamacloud",
+                }
+            ],
         )
         assert_matches_type(BatchCreateResponse, batch, path=["response"])
 
@@ -303,6 +376,58 @@ class TestAsyncBatches:
             assert_matches_type(AsyncPaginatedCursor[BatchListResponse], batch, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        batch = await async_client.batches.cancel(
+            batch_id="batch_id",
+        )
+        assert_matches_type(BatchCancelResponse, batch, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_cancel_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        batch = await async_client.batches.cancel(
+            batch_id="batch_id",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(BatchCancelResponse, batch, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.batches.with_raw_response.cancel(
+            batch_id="batch_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        batch = await response.parse()
+        assert_matches_type(BatchCancelResponse, batch, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.batches.with_streaming_response.cancel(
+            batch_id="batch_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            batch = await response.parse()
+            assert_matches_type(BatchCancelResponse, batch, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_cancel(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `batch_id` but received ''"):
+            await async_client.batches.with_raw_response.cancel(
+                batch_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

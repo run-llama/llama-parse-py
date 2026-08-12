@@ -7,6 +7,7 @@ from typing_extensions import Literal, Annotated, TypeAlias, TypeAliasType
 
 from pydantic import Field as FieldInfo
 
+from .b_box import BBox
 from .._utils import PropertyInfo
 from .._compat import PYDANTIC_V1
 from .._models import BaseModel
@@ -34,6 +35,9 @@ class FormField(BaseModel):
 
     id: Optional[str] = None
     """Field number/letter printed on the form (e.g. '1a'), if any"""
+
+    bbox: Optional[List[BBox]] = None
+    """Bounding boxes of the field's fillable area on the page."""
 
     is_empty: Optional[bool] = FieldInfo(alias="isEmpty", default=None)
     """True for a printed-but-blank text field (mutually exclusive with value)"""

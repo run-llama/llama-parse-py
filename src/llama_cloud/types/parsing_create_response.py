@@ -6,7 +6,14 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["ParsingCreateResponse"]
+__all__ = ["ParsingCreateResponse", "Usage"]
+
+
+class Usage(BaseModel):
+    """Usage recorded against a job."""
+
+    credits: Optional[float] = None
+    """Total credits billed against this job. Null until billing has recorded it."""
 
 
 class ParsingCreateResponse(BaseModel):
@@ -35,6 +42,9 @@ class ParsingCreateResponse(BaseModel):
 
     updated_at: Optional[datetime] = None
     """Update datetime"""
+
+    usage: Optional[Usage] = None
+    """Usage recorded against a job."""
 
     user_metadata: Optional[Dict[str, str]] = None
     """Key/value tags associated with this job."""

@@ -48,7 +48,7 @@ class ParsingCreateParams(TypedDict, total=False):
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str]]
+    version: Required[Union[Literal["latest", "2026-08-08", "2026-07-24", "2026-07-08", "2026-06-15"], str]]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -56,8 +56,8 @@ class ParsingCreateParams(TypedDict, total=False):
     Current `latest` by tier:
 
     - `fast`: `2026-06-15`
-    - `cost_effective`: `2026-06-26`
-    - `agentic`: `2026-07-15`
+    - `cost_effective`: `2026-08-08`
+    - `agentic`: `2026-07-24`
     - `agentic_plus`: `2026-07-08`
 
     Full list: `GET /api/v2/parse/versions`.
@@ -332,6 +332,9 @@ class OutputOptionsMarkdown(TypedDict, total=False):
     When false, only the link text is included
     """
 
+    annotate_revisions: Optional[bool]
+    """Extract Word-style revisions and comments into structured page output"""
+
     inline_images: Optional[bool]
     """
     Embed images directly in markdown as base64 data URIs instead of extracting them
@@ -418,16 +421,22 @@ class OutputOptions(TypedDict, total=False):
     `GroundedJsonItem` shape.
     """
 
-    images_to_save: List[Literal["embedded", "layout", "screenshot"]]
-    """Image categories to extract and save.
-
-    Options: 'screenshot' (full page renders useful for visual QA), 'embedded'
-    (images found within the document), 'layout' (cropped regions from layout
-    detection like figures and diagrams). Empty list saves no images
+    images_to_save: Optional[List[Literal["embedded", "layout", "screenshot"]]]
+    """
+    Image categories to save: 'screenshot' (full page renders), 'embedded' (images
+    found within the document), 'layout' (cropped figures and diagrams). Defaults to
+    saving 'layout' when the output links to cropped images; pass [] to save none
     """
 
     markdown: OutputOptionsMarkdown
     """Markdown formatting options including table styles and link annotations"""
+
+    save_output_pdf: Optional[bool]
+    """
+    Save a PDF copy of the parsed document, retrievable via
+    `expand=output_pdf_content_metadata`. Not produced for spreadsheet, plain-text,
+    or audio inputs
+    """
 
     spatial_text: OutputOptionsSpatialText
     """Spatial text output options for preserving document layout structure"""
@@ -612,7 +621,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str, None]
+    version: Union[Literal["latest", "2026-08-08", "2026-07-24", "2026-07-08", "2026-06-15"], str, None]
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -621,8 +630,8 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     Current `latest` by tier:
 
     - `fast`: `2026-06-15`
-    - `cost_effective`: `2026-06-26`
-    - `agentic`: `2026-07-15`
+    - `cost_effective`: `2026-08-08`
+    - `agentic`: `2026-07-24`
     - `agentic_plus`: `2026-07-08`
 
     Full list: `GET /api/v2/parse/versions`.
