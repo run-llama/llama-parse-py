@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.13.0](https://github.com/run-llama/llama-parse-py/compare/v2.12.0...v2.13.0) (2026-07-22)
+
+
+### Features
+
+* **extract:** report num_pages_billed on extract job usage ([#22323](https://github.com/run-llama/llama-parse-py/issues/22323)) ([90b9a1b](https://github.com/run-llama/llama-parse-py/commit/90b9a1bd856de9168d4c956d21b9147eb7287fac))
+* **sheets:** cost_effective/agentic tiers and per-region billing ([#22508](https://github.com/run-llama/llama-parse-py/issues/22508)) ([2cdb29c](https://github.com/run-llama/llama-parse-py/commit/2cdb29c269ceac27b427ce955310f386ebd660c1))
+
 ## [2.12.0](https://github.com/run-llama/llama-parse-py/compare/v2.11.0...v2.12.0) (2026-07-21)
 
 
