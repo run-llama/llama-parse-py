@@ -16,6 +16,7 @@ from llama_cloud.types.pipelines import (
     DocumentCreateResponse,
     DocumentUpsertResponse,
     DocumentGetChunksResponse,
+    DocumentGetStatusCountsResponse,
 )
 
 # pyright: reportDeprecated=false
@@ -386,6 +387,66 @@ class TestDocuments:
                 client.pipelines.documents.with_raw_response.get_status(
                     document_id="",
                     pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get_status_counts(self, client: LlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            document = client.pipelines.documents.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+        assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get_status_counts_with_all_params(self, client: LlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            document = client.pipelines.documents.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                only_direct_upload=True,
+            )
+
+        assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_get_status_counts(self, client: LlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            response = client.pipelines.documents.with_raw_response.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = response.parse()
+        assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_get_status_counts(self, client: LlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            with client.pipelines.documents.with_streaming_response.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+                document = response.parse()
+                assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_get_status_counts(self, client: LlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                client.pipelines.documents.with_raw_response.get_status_counts(
+                    pipeline_id="",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -882,6 +943,66 @@ class TestAsyncDocuments:
                 await async_client.pipelines.documents.with_raw_response.get_status(
                     document_id="",
                     pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_status_counts(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            document = await async_client.pipelines.documents.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+        assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_status_counts_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            document = await async_client.pipelines.documents.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                only_direct_upload=True,
+            )
+
+        assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_get_status_counts(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.pipelines.documents.with_raw_response.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        document = await response.parse()
+        assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_get_status_counts(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            async with async_client.pipelines.documents.with_streaming_response.get_status_counts(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ) as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+                document = await response.parse()
+                assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_get_status_counts(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
+                await async_client.pipelines.documents.with_raw_response.get_status_counts(
+                    pipeline_id="",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

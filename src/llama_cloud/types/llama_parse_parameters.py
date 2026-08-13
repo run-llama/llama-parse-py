@@ -19,6 +19,11 @@ class WebhookConfiguration(BaseModel):
     webhook_events: Optional[
         List[
             Literal[
+                "batch.cancelled",
+                "batch.error",
+                "batch.pending",
+                "batch.running",
+                "batch.success",
                 "classify.cancelled",
                 "classify.error",
                 "classify.partial_success",
@@ -79,6 +84,8 @@ class LlamaParseParameters(BaseModel):
     aggressive_table_extraction: Optional[bool] = None
 
     annotate_links: Optional[bool] = None
+
+    annotate_revisions: Optional[bool] = None
 
     auto_mode: Optional[bool] = None
 

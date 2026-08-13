@@ -9,7 +9,6 @@ from .chat_list_params import ChatListParams as ChatListParams
 from .index_get_params import IndexGetParams as IndexGetParams
 from .sheet_get_params import SheetGetParams as SheetGetParams
 from .split_get_params import SplitGetParams as SplitGetParams
-from .batch_list_params import BatchListParams as BatchListParams
 from .index_list_params import IndexListParams as IndexListParams
 from .index_sync_params import IndexSyncParams as IndexSyncParams
 from .sheet_list_params import SheetListParams as SheetListParams
@@ -20,9 +19,6 @@ from .chat_list_response import ChatListResponse as ChatListResponse
 from .chat_stream_params import ChatStreamParams as ChatStreamParams
 from .index_get_response import IndexGetResponse as IndexGetResponse
 from .split_get_response import SplitGetResponse as SplitGetResponse
-from .batch_cancel_params import BatchCancelParams as BatchCancelParams
-from .batch_create_params import BatchCreateParams as BatchCreateParams
-from .batch_list_response import BatchListResponse as BatchListResponse
 from .index_create_params import IndexCreateParams as IndexCreateParams
 from .index_delete_params import IndexDeleteParams as IndexDeleteParams
 from .index_list_response import IndexListResponse as IndexListResponse
@@ -35,8 +31,6 @@ from .directory_get_params import DirectoryGetParams as DirectoryGetParams
 from .split_category_param import SplitCategoryParam as SplitCategoryParam
 from .split_document_input import SplitDocumentInput as SplitDocumentInput
 from .agent_data_get_params import AgentDataGetParams as AgentDataGetParams
-from .batch_cancel_response import BatchCancelResponse as BatchCancelResponse
-from .batch_create_response import BatchCreateResponse as BatchCreateResponse
 from .directory_list_params import DirectoryListParams as DirectoryListParams
 from .index_create_response import IndexCreateResponse as IndexCreateResponse
 from .retrieval_find_params import RetrievalFindParams as RetrievalFindParams
@@ -48,7 +42,6 @@ from .split_result_response import SplitResultResponse as SplitResultResponse
 from .chat_retrieve_response import ChatRetrieveResponse as ChatRetrieveResponse
 from .directory_get_response import DirectoryGetResponse as DirectoryGetResponse
 from .split_segment_response import SplitSegmentResponse as SplitSegmentResponse
-from .batch_get_status_params import BatchGetStatusParams as BatchGetStatusParams
 from .chat_get_summary_params import ChatGetSummaryParams as ChatGetSummaryParams
 from .directory_create_params import DirectoryCreateParams as DirectoryCreateParams
 from .directory_delete_params import DirectoryDeleteParams as DirectoryDeleteParams
@@ -62,7 +55,6 @@ from .agent_data_create_params import AgentDataCreateParams as AgentDataCreatePa
 from .agent_data_delete_params import AgentDataDeleteParams as AgentDataDeleteParams
 from .agent_data_search_params import AgentDataSearchParams as AgentDataSearchParams
 from .agent_data_update_params import AgentDataUpdateParams as AgentDataUpdateParams
-from .batch_get_status_response import BatchGetStatusResponse as BatchGetStatusResponse
 from .chat_get_summary_response import ChatGetSummaryResponse as ChatGetSummaryResponse
 from .directory_create_response import DirectoryCreateResponse as DirectoryCreateResponse
 from .directory_update_response import DirectoryUpdateResponse as DirectoryUpdateResponse

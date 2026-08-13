@@ -20,13 +20,17 @@ from ..._response import (
 )
 from ...pagination import SyncPaginatedCloudDocuments, AsyncPaginatedCloudDocuments
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.pipelines import document_list_params
+from ...types.pipelines import (
+    document_list_params,
+    document_get_status_counts_params,
+)
 from ...types.pipelines.cloud_document import CloudDocument
 from ...types.managed_ingestion_status_response import ManagedIngestionStatusResponse
 from ...types.pipelines.document_create_response import DocumentCreateResponse
 from ...types.pipelines.document_upsert_response import DocumentUpsertResponse
 from ...types.pipelines.cloud_document_create_param import CloudDocumentCreateParam
 from ...types.pipelines.document_get_chunks_response import DocumentGetChunksResponse
+from ...types.pipelines.document_get_status_counts_response import DocumentGetStatusCountsResponse
 
 __all__ = ["DocumentsResource", "AsyncDocumentsResource"]
 
@@ -306,6 +310,60 @@ class DocumentsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ManagedIngestionStatusResponse,
+        )
+
+    @typing_extensions.deprecated("deprecated")
+    def get_status_counts(
+        self,
+        pipeline_id: str,
+        *,
+        data_source_id: Optional[str] | Omit = omit,
+        file_id: Optional[str] | Omit = omit,
+        only_direct_upload: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DocumentGetStatusCountsResponse:
+        """
+        Count the documents in a pipeline, grouped by ingestion status.
+
+        Counts reflect each document's last recorded status rather than a freshly
+        computed one, so a document that changed status in the last few moments may
+        still be counted under its previous one. Use
+        `GET /pipelines/{pipeline_id}/documents/{document_id}/status` when a single
+        document's status has to be up to the moment.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not pipeline_id:
+            raise ValueError(f"Expected a non-empty value for `pipeline_id` but received {pipeline_id!r}")
+        return self._get(
+            path_template("/api/v1/pipelines/{pipeline_id}/documents/status-counts", pipeline_id=pipeline_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "data_source_id": data_source_id,
+                        "file_id": file_id,
+                        "only_direct_upload": only_direct_upload,
+                    },
+                    document_get_status_counts_params.DocumentGetStatusCountsParams,
+                ),
+            ),
+            cast_to=DocumentGetStatusCountsResponse,
         )
 
     @typing_extensions.deprecated("deprecated")
@@ -664,6 +722,60 @@ class AsyncDocumentsResource(AsyncAPIResource):
         )
 
     @typing_extensions.deprecated("deprecated")
+    async def get_status_counts(
+        self,
+        pipeline_id: str,
+        *,
+        data_source_id: Optional[str] | Omit = omit,
+        file_id: Optional[str] | Omit = omit,
+        only_direct_upload: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> DocumentGetStatusCountsResponse:
+        """
+        Count the documents in a pipeline, grouped by ingestion status.
+
+        Counts reflect each document's last recorded status rather than a freshly
+        computed one, so a document that changed status in the last few moments may
+        still be counted under its previous one. Use
+        `GET /pipelines/{pipeline_id}/documents/{document_id}/status` when a single
+        document's status has to be up to the moment.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not pipeline_id:
+            raise ValueError(f"Expected a non-empty value for `pipeline_id` but received {pipeline_id!r}")
+        return await self._get(
+            path_template("/api/v1/pipelines/{pipeline_id}/documents/status-counts", pipeline_id=pipeline_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "data_source_id": data_source_id,
+                        "file_id": file_id,
+                        "only_direct_upload": only_direct_upload,
+                    },
+                    document_get_status_counts_params.DocumentGetStatusCountsParams,
+                ),
+            ),
+            cast_to=DocumentGetStatusCountsResponse,
+        )
+
+    @typing_extensions.deprecated("deprecated")
     async def sync(
         self,
         document_id: str,
@@ -775,6 +887,11 @@ class DocumentsResourceWithRawResponse:
                 documents.get_status,  # pyright: ignore[reportDeprecated],
             )
         )
+        self.get_status_counts = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                documents.get_status_counts,  # pyright: ignore[reportDeprecated],
+            )
+        )
         self.sync = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
                 documents.sync,  # pyright: ignore[reportDeprecated],
@@ -819,6 +936,11 @@ class AsyncDocumentsResourceWithRawResponse:
         self.get_status = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
                 documents.get_status,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.get_status_counts = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                documents.get_status_counts,  # pyright: ignore[reportDeprecated],
             )
         )
         self.sync = (  # pyright: ignore[reportDeprecated]
@@ -867,6 +989,11 @@ class DocumentsResourceWithStreamingResponse:
                 documents.get_status,  # pyright: ignore[reportDeprecated],
             )
         )
+        self.get_status_counts = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                documents.get_status_counts,  # pyright: ignore[reportDeprecated],
+            )
+        )
         self.sync = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
                 documents.sync,  # pyright: ignore[reportDeprecated],
@@ -911,6 +1038,11 @@ class AsyncDocumentsResourceWithStreamingResponse:
         self.get_status = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(
                 documents.get_status,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.get_status_counts = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                documents.get_status_counts,  # pyright: ignore[reportDeprecated],
             )
         )
         self.sync = (  # pyright: ignore[reportDeprecated]

@@ -9,7 +9,13 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import parsing_get_params, parsing_list_params, parsing_create_params, parsing_upload_file_params
+from ..types import (
+    parsing_get_params,
+    parsing_list_params,
+    parsing_cancel_params,
+    parsing_create_params,
+    parsing_upload_file_params,
+)
 from .._files import to_httpx_files, async_to_httpx_files
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -26,7 +32,9 @@ from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.parsing_get_response import ParsingGetResponse
 from ..types.parsing_list_response import ParsingListResponse
+from ..types.parsing_cancel_response import ParsingCancelResponse
 from ..types.parsing_create_response import ParsingCreateResponse
+from ..types.parsing_list_versions_response import ParsingListVersionsResponse
 
 __all__ = ["ParsingResource", "AsyncParsingResource"]
 
@@ -55,7 +63,7 @@ class ParsingResource(SyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str],
+        version: Union[Literal["latest", "2026-08-08", "2026-07-24", "2026-07-08", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -111,8 +119,8 @@ class ParsingResource(SyncAPIResource):
               Current `latest` by tier:
 
               - `fast`: `2026-06-15`
-              - `cost_effective`: `2026-06-26`
-              - `agentic`: `2026-07-15`
+              - `cost_effective`: `2026-08-08`
+              - `agentic`: `2026-07-24`
               - `agentic_plus`: `2026-07-08`
 
               Full list: `GET /api/v2/parse/versions`.
@@ -338,6 +346,55 @@ class ParsingResource(SyncAPIResource):
             model=ParsingListResponse,
         )
 
+    def cancel(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParsingCancelResponse:
+        """Cancel a running parse job.
+
+        Stops processing and marks the job as CANCELLED.
+
+        Returns the updated job. Jobs
+        already in a terminal state (COMPLETED, FAILED, CANCELLED) cannot be cancelled.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return self._post(
+            path_template("/api/v2/parse/{job_id}/cancel", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    parsing_cancel_params.ParsingCancelParams,
+                ),
+            ),
+            cast_to=ParsingCancelResponse,
+        )
+
     def get(
         self,
         job_id: str,
@@ -361,13 +418,14 @@ class ParsingResource(SyncAPIResource):
         - `text` — plain text output
         - `markdown` — markdown output
         - `items` — structured page-by-page output
-        - `job_metadata` — usage and processing details
+        - `job_metadata` — processing details
+        - `usage` — credits billed against the job
 
         Content metadata fields (e.g. `text_content_metadata`) return presigned URLs for
         downloading large results.
 
         Args:
-          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata,
+          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata, usage,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
               metadata_content_metadata, forms_content_metadata, raw_words_content_metadata,
               xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata.
@@ -405,11 +463,30 @@ class ParsingResource(SyncAPIResource):
             cast_to=ParsingGetResponse,
         )
 
+    def list_versions(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParsingListVersionsResponse:
+        """List the parse versions accepted by each tier."""
+        return self._get(
+            "/api/v2/parse/versions",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ParsingListVersionsResponse,
+        )
+
     def parse(
         self,
         *,
-        tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[Literal["2026-01-08", "2025-12-31", "2025-12-18", "2025-12-11", "latest"], str],
+        tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
+        version: Union[Literal["latest", "2026-07-24", "2026-07-23", "2026-07-08", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -740,7 +817,7 @@ class AsyncParsingResource(AsyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str],
+        version: Union[Literal["latest", "2026-08-08", "2026-07-24", "2026-07-08", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -796,8 +873,8 @@ class AsyncParsingResource(AsyncAPIResource):
               Current `latest` by tier:
 
               - `fast`: `2026-06-15`
-              - `cost_effective`: `2026-06-26`
-              - `agentic`: `2026-07-15`
+              - `cost_effective`: `2026-08-08`
+              - `agentic`: `2026-07-24`
               - `agentic_plus`: `2026-07-08`
 
               Full list: `GET /api/v2/parse/versions`.
@@ -1023,6 +1100,55 @@ class AsyncParsingResource(AsyncAPIResource):
             model=ParsingListResponse,
         )
 
+    async def cancel(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParsingCancelResponse:
+        """Cancel a running parse job.
+
+        Stops processing and marks the job as CANCELLED.
+
+        Returns the updated job. Jobs
+        already in a terminal state (COMPLETED, FAILED, CANCELLED) cannot be cancelled.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return await self._post(
+            path_template("/api/v2/parse/{job_id}/cancel", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    parsing_cancel_params.ParsingCancelParams,
+                ),
+            ),
+            cast_to=ParsingCancelResponse,
+        )
+
     async def get(
         self,
         job_id: str,
@@ -1046,13 +1172,14 @@ class AsyncParsingResource(AsyncAPIResource):
         - `text` — plain text output
         - `markdown` — markdown output
         - `items` — structured page-by-page output
-        - `job_metadata` — usage and processing details
+        - `job_metadata` — processing details
+        - `usage` — credits billed against the job
 
         Content metadata fields (e.g. `text_content_metadata`) return presigned URLs for
         downloading large results.
 
         Args:
-          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata,
+          expand: Fields to include: text, markdown, items, metadata, forms, job_metadata, usage,
               text_content_metadata, markdown_content_metadata, items_content_metadata,
               metadata_content_metadata, forms_content_metadata, raw_words_content_metadata,
               xlsx_content_metadata, output_pdf_content_metadata, images_content_metadata.
@@ -1090,11 +1217,30 @@ class AsyncParsingResource(AsyncAPIResource):
             cast_to=ParsingGetResponse,
         )
 
+    async def list_versions(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ParsingListVersionsResponse:
+        """List the parse versions accepted by each tier."""
+        return await self._get(
+            "/api/v2/parse/versions",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ParsingListVersionsResponse,
+        )
+
     async def parse(
         self,
         *,
-        tier: Literal["fast", "cost_effective", "agentic", "agentic_plus"],
-        version: Union[Literal["2026-01-08", "2025-12-31", "2025-12-18", "2025-12-11", "latest"], str],
+        tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
+        version: Union[Literal["latest", "2026-07-24", "2026-07-23", "2026-07-08", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -1411,8 +1557,14 @@ class ParsingResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             parsing.list,
         )
+        self.cancel = to_raw_response_wrapper(
+            parsing.cancel,
+        )
         self.get = to_raw_response_wrapper(
             parsing.get,
+        )
+        self.list_versions = to_raw_response_wrapper(
+            parsing.list_versions,
         )
 
 
@@ -1426,8 +1578,14 @@ class AsyncParsingResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             parsing.list,
         )
+        self.cancel = async_to_raw_response_wrapper(
+            parsing.cancel,
+        )
         self.get = async_to_raw_response_wrapper(
             parsing.get,
+        )
+        self.list_versions = async_to_raw_response_wrapper(
+            parsing.list_versions,
         )
 
 
@@ -1441,8 +1599,14 @@ class ParsingResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             parsing.list,
         )
+        self.cancel = to_streamed_response_wrapper(
+            parsing.cancel,
+        )
         self.get = to_streamed_response_wrapper(
             parsing.get,
+        )
+        self.list_versions = to_streamed_response_wrapper(
+            parsing.list_versions,
         )
 
 
@@ -1456,6 +1620,12 @@ class AsyncParsingResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             parsing.list,
         )
+        self.cancel = async_to_streamed_response_wrapper(
+            parsing.cancel,
+        )
         self.get = async_to_streamed_response_wrapper(
             parsing.get,
+        )
+        self.list_versions = async_to_streamed_response_wrapper(
+            parsing.list_versions,
         )

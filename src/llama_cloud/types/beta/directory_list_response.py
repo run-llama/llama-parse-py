@@ -21,6 +21,12 @@ class DirectoryListResponse(BaseModel):
     project_id: str
     """Project the directory belongs to."""
 
+    connector_subscription_id: Optional[str] = None
+    """Connector Subscription whose files sync into this directory.
+
+    Null for a directory populated by manual uploads.
+    """
+
     created_at: Optional[datetime] = None
     """Creation datetime"""
 
