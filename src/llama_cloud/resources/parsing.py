@@ -70,7 +70,6 @@ class ParsingResource(SyncAPIResource):
         input_options: parsing_create_params.InputOptions | Omit = omit,
         output_options: parsing_create_params.OutputOptions | Omit = omit,
         page_ranges: parsing_create_params.PageRanges | Omit = omit,
-        preset: Optional[str] | Omit = omit,
         processing_control: parsing_create_params.ProcessingControl | Omit = omit,
         processing_options: parsing_create_params.ProcessingOptions | Omit = omit,
         source_url: Optional[str] | Omit = omit,
@@ -155,8 +154,6 @@ class ParsingResource(SyncAPIResource):
           output_options: Output formatting options for markdown, text, and extracted images
 
           page_ranges: Page selection: limit total pages or specify exact pages to process
-
-          preset: Named preset for specialized document parsing
 
           processing_control: Job execution controls including timeouts and failure thresholds
 
@@ -246,7 +243,6 @@ class ParsingResource(SyncAPIResource):
                     "input_options": input_options,
                     "output_options": output_options,
                     "page_ranges": page_ranges,
-                    "preset": preset,
                     "processing_control": processing_control,
                     "processing_options": processing_options,
                     "source_url": source_url,
@@ -759,7 +755,6 @@ class AsyncParsingResource(AsyncAPIResource):
         input_options: parsing_create_params.InputOptions | Omit = omit,
         output_options: parsing_create_params.OutputOptions | Omit = omit,
         page_ranges: parsing_create_params.PageRanges | Omit = omit,
-        preset: Optional[str] | Omit = omit,
         processing_control: parsing_create_params.ProcessingControl | Omit = omit,
         processing_options: parsing_create_params.ProcessingOptions | Omit = omit,
         source_url: Optional[str] | Omit = omit,
@@ -844,8 +839,6 @@ class AsyncParsingResource(AsyncAPIResource):
           output_options: Output formatting options for markdown, text, and extracted images
 
           page_ranges: Page selection: limit total pages or specify exact pages to process
-
-          preset: Named preset for specialized document parsing
 
           processing_control: Job execution controls including timeouts and failure thresholds
 
@@ -935,7 +928,6 @@ class AsyncParsingResource(AsyncAPIResource):
                     "input_options": input_options,
                     "output_options": output_options,
                     "page_ranges": page_ranges,
-                    "preset": preset,
                     "processing_control": processing_control,
                     "processing_options": processing_options,
                     "source_url": source_url,

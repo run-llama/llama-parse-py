@@ -867,9 +867,6 @@ class ParseV2Parameters(BaseModel):
     page_ranges: Optional[PageRanges] = None
     """Page selection: limit total pages or specify exact pages to process"""
 
-    preset: Optional[str] = None
-    """Named preset for specialized document parsing"""
-
     processing_control: Optional[ProcessingControl] = None
     """Job execution controls including timeouts and failure thresholds"""
 

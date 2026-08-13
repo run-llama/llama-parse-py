@@ -129,9 +129,6 @@ class ParsingCreateParams(TypedDict, total=False):
     page_ranges: PageRanges
     """Page selection: limit total pages or specify exact pages to process"""
 
-    preset: Optional[str]
-    """Named preset for specialized document parsing"""
-
     processing_control: ProcessingControl
     """Job execution controls including timeouts and failure thresholds"""
 

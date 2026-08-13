@@ -100,7 +100,6 @@ class TestParsing:
                 "max_pages": 1,
                 "target_pages": "target_pages",
             },
-            preset="preset",
             processing_control={
                 "job_failure_conditions": {
                     "allowed_page_failure_ratio": 1,
@@ -424,7 +423,6 @@ class TestAsyncParsing:
                 "max_pages": 1,
                 "target_pages": "target_pages",
             },
-            preset="preset",
             processing_control={
                 "job_failure_conditions": {
                     "allowed_page_failure_ratio": 1,
