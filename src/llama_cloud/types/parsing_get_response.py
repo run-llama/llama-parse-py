@@ -18,7 +18,6 @@ from .heading_item import HeadingItem
 __all__ = [
     "ParsingGetResponse",
     "Job",
-    "JobUsage",
     "Forms",
     "FormsPage",
     "FormsPageFormsResultPage",
@@ -30,11 +29,6 @@ __all__ = [
     "ItemsPage",
     "ItemsPageStructuredResultPage",
     "ItemsPageStructuredResultPageItem",
-    "ItemsPageStructuredResultPageRevision",
-    "ItemsPageStructuredResultPageRevisionRevisionBbox",
-    "ItemsPageStructuredResultPageRevisionTargetBbox",
-    "ItemsPageStructuredResultPageRevisionTargetSpan",
-    "ItemsPageStructuredResultPageRevisionTargetSpanTargetBbox",
     "ItemsPageFailedStructuredPage",
     "Markdown",
     "MarkdownPage",
@@ -46,13 +40,6 @@ __all__ = [
     "Text",
     "TextPage",
 ]
-
-
-class JobUsage(BaseModel):
-    """Usage recorded against a job."""
-
-    credits: Optional[float] = None
-    """Total credits billed against this job. Null until billing has recorded it."""
 
 
 class Job(BaseModel):
@@ -82,9 +69,6 @@ class Job(BaseModel):
     updated_at: Optional[datetime] = None
     """Update datetime"""
 
-    usage: Optional[JobUsage] = None
-    """Usage recorded against a job."""
-
     user_metadata: Optional[Dict[str, str]] = None
     """Key/value tags associated with this job."""
 
@@ -100,12 +84,6 @@ class FormsPageFormsResultPage(BaseModel):
 
     success: Literal[True]
     """Success indicator"""
-
-    page_height: Optional[float] = None
-    """Height of the page in points"""
-
-    page_width: Optional[float] = None
-    """Width of the page in points"""
 
 
 class FormsPageFailedFormsPage(BaseModel):
@@ -191,104 +169,7 @@ ItemsPageStructuredResultPageItem: TypeAlias = Annotated[
 ]
 
 
-class ItemsPageStructuredResultPageRevisionRevisionBbox(BaseModel):
-    """Bounding box of the printed revision balloon"""
-
-    h: float
-    """Height of the bounding box"""
-
-    w: float
-    """Width of the bounding box"""
-
-    x: float
-    """X coordinate of the bounding box"""
-
-    y: float
-    """Y coordinate of the bounding box"""
-
-
-class ItemsPageStructuredResultPageRevisionTargetBbox(BaseModel):
-    """Union bounding box of the target spans"""
-
-    h: float
-    """Height of the bounding box"""
-
-    w: float
-    """Width of the bounding box"""
-
-    x: float
-    """X coordinate of the bounding box"""
-
-    y: float
-    """Y coordinate of the bounding box"""
-
-
-class ItemsPageStructuredResultPageRevisionTargetSpanTargetBbox(BaseModel):
-    """Bounding box of this target span"""
-
-    h: float
-    """Height of the bounding box"""
-
-    w: float
-    """Width of the bounding box"""
-
-    x: float
-    """X coordinate of the bounding box"""
-
-    y: float
-    """Y coordinate of the bounding box"""
-
-
-class ItemsPageStructuredResultPageRevisionTargetSpan(BaseModel):
-    """One contiguous target span linked to a document revision."""
-
-    target: str
-    """Text covered by this target span"""
-
-    target_bbox: ItemsPageStructuredResultPageRevisionTargetSpanTargetBbox
-    """Bounding box of this target span"""
-
-    end_index: Optional[int] = None
-    """Exclusive end offset in final page markdown"""
-
-    start_index: Optional[int] = None
-    """Inclusive start offset in final page markdown"""
-
-
-class ItemsPageStructuredResultPageRevision(BaseModel):
-    """One extracted document revision linked to page content."""
-
-    content: str
-    """Revision or comment content"""
-
-    revision_bbox: ItemsPageStructuredResultPageRevisionRevisionBbox
-    """Bounding box of the printed revision balloon"""
-
-    target: str
-    """Best available target text in the page content"""
-
-    target_bbox: ItemsPageStructuredResultPageRevisionTargetBbox
-    """Union bounding box of the target spans"""
-
-    type: Literal["comment", "deleted", "formatted", "inserted", "moved_from", "moved_to"]
-    """Type of revision"""
-
-    author: Optional[str] = None
-    """Revision author, when available"""
-
-    end_index: Optional[int] = None
-    """Exclusive end offset in final page markdown"""
-
-    start_index: Optional[int] = None
-    """Inclusive start offset in final page markdown"""
-
-    target_spans: Optional[List[ItemsPageStructuredResultPageRevisionTargetSpan]] = None
-    """Disconnected target spans, when present"""
-
-
 class ItemsPageStructuredResultPage(BaseModel):
-    """Successfully parsed page in structured items output."""
-
     items: List[ItemsPageStructuredResultPageItem]
     """List of structured items on the page"""
 
@@ -303,9 +184,6 @@ class ItemsPageStructuredResultPage(BaseModel):
 
     success: Literal[True]
     """Success indicator"""
-
-    revisions: Optional[List[ItemsPageStructuredResultPageRevision]] = None
-    """Extracted revisions and comments on the page"""
 
 
 class ItemsPageFailedStructuredPage(BaseModel):

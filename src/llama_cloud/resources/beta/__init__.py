@@ -16,6 +16,14 @@ from .chat import (
     ChatResourceWithStreamingResponse,
     AsyncChatResourceWithStreamingResponse,
 )
+from .batch import (
+    BatchResource,
+    AsyncBatchResource,
+    BatchResourceWithRawResponse,
+    AsyncBatchResourceWithRawResponse,
+    BatchResourceWithStreamingResponse,
+    AsyncBatchResourceWithStreamingResponse,
+)
 from .split import (
     SplitResource,
     AsyncSplitResource,
@@ -102,6 +110,12 @@ __all__ = [
     "AsyncDirectoriesResourceWithRawResponse",
     "DirectoriesResourceWithStreamingResponse",
     "AsyncDirectoriesResourceWithStreamingResponse",
+    "BatchResource",
+    "AsyncBatchResource",
+    "BatchResourceWithRawResponse",
+    "AsyncBatchResourceWithRawResponse",
+    "BatchResourceWithStreamingResponse",
+    "AsyncBatchResourceWithStreamingResponse",
     "SplitResource",
     "AsyncSplitResource",
     "SplitResourceWithRawResponse",

@@ -5,8 +5,6 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-from .._types import SequenceNotStr
-
 __all__ = ["ExtractV2ParametersParam"]
 
 
@@ -23,20 +21,10 @@ class ExtractV2ParametersParam(TypedDict, total=False):
     """Product type."""
 
     cite_sources: bool
-    """Include citations in results.
-
-    Returned under `extract_metadata` (auto-included when set). Text-level on
-    `turbo` (no bounding boxes).
-    """
+    """Include citations in results"""
 
     confidence_scores: bool
-    """Include confidence scores in results.
-
-    Returned under `extract_metadata` (auto-included when set).
-    """
-
-    disable_cache: bool
-    """Disable reuse and storage of Extract results"""
+    """Include confidence scores in results"""
 
     extraction_target: Literal["per_doc", "per_page", "per_table_row"]
     """
@@ -50,35 +38,13 @@ class ExtractV2ParametersParam(TypedDict, total=False):
     parse_config_id: Optional[str]
     """
     Saved parse configuration ID to control how the document is parsed before
-    extraction. Turbo extract does not support parse configuration or produce a
-    parse output; use another tier if your workflow requires parsed text.
+    extraction
     """
 
     parse_tier: Optional[str]
     """Parse tier to use before extraction.
 
-    Defaults to the extract tier if not specified. Turbo extract does not support
-    parse configuration or produce a parse output; use another tier if your workflow
-    requires parsed text.
-    """
-
-    sheet_names: Optional[SequenceNotStr[str]]
-    """Optional worksheet names to extract when spreadsheet_mode is on.
-
-    Overrides target_pages for spreadsheets; omit to extract every sheet. Names are
-    matched exactly (case-sensitive) — pass them as a list, e.g. ["Sheet 1", "My
-    Sheet"].
-    """
-
-    spreadsheet_mode: bool
-    """Beta.
-
-    When true, extract structured data directly from a spreadsheet workbook
-    (.xlsx/.xls/.csv) — the agent reads cells straight from the workbook instead of
-    the standard document path. Off by default (spreadsheets keep the standard
-    path). Requires the agentic_plus tier. Billed on the standard per-page extract
-    rate, against a page count derived from workbook size. Citations and confidence
-    scores are not available in this mode.
+    Defaults to the extract tier if not specified.
     """
 
     system_prompt: Optional[str]

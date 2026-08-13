@@ -65,7 +65,6 @@ class TestSheets:
                     "use_experimental_processing": True,
                 },
                 configuration_id="cfg-11111111-2222-3333-4444-555555555555",
-                webhook_configuration_ids=["whc-...", "whc-..."],
                 webhook_configurations=[
                     {
                         "webhook_events": ["parse.success", "parse.error"],
@@ -408,7 +407,6 @@ class TestAsyncSheets:
                     "use_experimental_processing": True,
                 },
                 configuration_id="cfg-11111111-2222-3333-4444-555555555555",
-                webhook_configuration_ids=["whc-...", "whc-..."],
                 webhook_configurations=[
                     {
                         "webhook_events": ["parse.success", "parse.error"],

@@ -38,7 +38,6 @@ if TYPE_CHECKING:
     from .resources import (
         beta,
         files,
-        split,
         sheets,
         batches,
         extract,
@@ -49,14 +48,10 @@ if TYPE_CHECKING:
         classifier,
         data_sinks,
         retrievers,
-        v2_projects,
         data_sources,
         configurations,
-        job_data_points,
-        webhook_configs,
     )
     from .resources.files import FilesResource, AsyncFilesResource
-    from .resources.split import SplitResource, AsyncSplitResource
     from .resources.sheets import SheetsResource, AsyncSheetsResource
     from .resources.batches import BatchesResource, AsyncBatchesResource
     from .resources.extract import ExtractResource, AsyncExtractResource
@@ -65,11 +60,8 @@ if TYPE_CHECKING:
     from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.beta.beta import BetaResource, AsyncBetaResource
     from .resources.data_sinks import DataSinksResource, AsyncDataSinksResource
-    from .resources.v2_projects import V2ProjectsResource, AsyncV2ProjectsResource
     from .resources.data_sources import DataSourcesResource, AsyncDataSourcesResource
     from .resources.configurations import ConfigurationsResource, AsyncConfigurationsResource
-    from .resources.job_data_points import JobDataPointsResource, AsyncJobDataPointsResource
-    from .resources.webhook_configs import WebhookConfigsResource, AsyncWebhookConfigsResource
     from .resources.pipelines.pipelines import PipelinesResource, AsyncPipelinesResource
     from .resources.classifier.classifier import ClassifierResource, AsyncClassifierResource
     from .resources.retrievers.retrievers import RetrieversResource, AsyncRetrieversResource
@@ -163,12 +155,6 @@ class LlamaCloud(SyncAPIClient):
         return SheetsResource(self)
 
     @cached_property
-    def split(self) -> SplitResource:
-        from .resources.split import SplitResource
-
-        return SplitResource(self)
-
-    @cached_property
     def parsing(self) -> ParsingResource:
         from .resources.parsing import ParsingResource
 
@@ -205,28 +191,10 @@ class LlamaCloud(SyncAPIClient):
         return ConfigurationsResource(self)
 
     @cached_property
-    def webhook_configs(self) -> WebhookConfigsResource:
-        from .resources.webhook_configs import WebhookConfigsResource
-
-        return WebhookConfigsResource(self)
-
-    @cached_property
     def projects(self) -> ProjectsResource:
         from .resources.projects import ProjectsResource
 
         return ProjectsResource(self)
-
-    @cached_property
-    def v2_projects(self) -> V2ProjectsResource:
-        from .resources.v2_projects import V2ProjectsResource
-
-        return V2ProjectsResource(self)
-
-    @cached_property
-    def job_data_points(self) -> JobDataPointsResource:
-        from .resources.job_data_points import JobDataPointsResource
-
-        return JobDataPointsResource(self)
 
     @cached_property
     def data_sinks(self) -> DataSinksResource:
@@ -448,12 +416,6 @@ class AsyncLlamaCloud(AsyncAPIClient):
         return AsyncSheetsResource(self)
 
     @cached_property
-    def split(self) -> AsyncSplitResource:
-        from .resources.split import AsyncSplitResource
-
-        return AsyncSplitResource(self)
-
-    @cached_property
     def parsing(self) -> AsyncParsingResource:
         from .resources.parsing import AsyncParsingResource
 
@@ -490,28 +452,10 @@ class AsyncLlamaCloud(AsyncAPIClient):
         return AsyncConfigurationsResource(self)
 
     @cached_property
-    def webhook_configs(self) -> AsyncWebhookConfigsResource:
-        from .resources.webhook_configs import AsyncWebhookConfigsResource
-
-        return AsyncWebhookConfigsResource(self)
-
-    @cached_property
     def projects(self) -> AsyncProjectsResource:
         from .resources.projects import AsyncProjectsResource
 
         return AsyncProjectsResource(self)
-
-    @cached_property
-    def v2_projects(self) -> AsyncV2ProjectsResource:
-        from .resources.v2_projects import AsyncV2ProjectsResource
-
-        return AsyncV2ProjectsResource(self)
-
-    @cached_property
-    def job_data_points(self) -> AsyncJobDataPointsResource:
-        from .resources.job_data_points import AsyncJobDataPointsResource
-
-        return AsyncJobDataPointsResource(self)
 
     @cached_property
     def data_sinks(self) -> AsyncDataSinksResource:
@@ -675,12 +619,6 @@ class LlamaCloudWithRawResponse:
         return SheetsResourceWithRawResponse(self._client.sheets)
 
     @cached_property
-    def split(self) -> split.SplitResourceWithRawResponse:
-        from .resources.split import SplitResourceWithRawResponse
-
-        return SplitResourceWithRawResponse(self._client.split)
-
-    @cached_property
     def parsing(self) -> parsing.ParsingResourceWithRawResponse:
         from .resources.parsing import ParsingResourceWithRawResponse
 
@@ -717,28 +655,10 @@ class LlamaCloudWithRawResponse:
         return ConfigurationsResourceWithRawResponse(self._client.configurations)
 
     @cached_property
-    def webhook_configs(self) -> webhook_configs.WebhookConfigsResourceWithRawResponse:
-        from .resources.webhook_configs import WebhookConfigsResourceWithRawResponse
-
-        return WebhookConfigsResourceWithRawResponse(self._client.webhook_configs)
-
-    @cached_property
     def projects(self) -> projects.ProjectsResourceWithRawResponse:
         from .resources.projects import ProjectsResourceWithRawResponse
 
         return ProjectsResourceWithRawResponse(self._client.projects)
-
-    @cached_property
-    def v2_projects(self) -> v2_projects.V2ProjectsResourceWithRawResponse:
-        from .resources.v2_projects import V2ProjectsResourceWithRawResponse
-
-        return V2ProjectsResourceWithRawResponse(self._client.v2_projects)
-
-    @cached_property
-    def job_data_points(self) -> job_data_points.JobDataPointsResourceWithRawResponse:
-        from .resources.job_data_points import JobDataPointsResourceWithRawResponse
-
-        return JobDataPointsResourceWithRawResponse(self._client.job_data_points)
 
     @cached_property
     def data_sinks(self) -> data_sinks.DataSinksResourceWithRawResponse:
@@ -790,12 +710,6 @@ class AsyncLlamaCloudWithRawResponse:
         return AsyncSheetsResourceWithRawResponse(self._client.sheets)
 
     @cached_property
-    def split(self) -> split.AsyncSplitResourceWithRawResponse:
-        from .resources.split import AsyncSplitResourceWithRawResponse
-
-        return AsyncSplitResourceWithRawResponse(self._client.split)
-
-    @cached_property
     def parsing(self) -> parsing.AsyncParsingResourceWithRawResponse:
         from .resources.parsing import AsyncParsingResourceWithRawResponse
 
@@ -832,28 +746,10 @@ class AsyncLlamaCloudWithRawResponse:
         return AsyncConfigurationsResourceWithRawResponse(self._client.configurations)
 
     @cached_property
-    def webhook_configs(self) -> webhook_configs.AsyncWebhookConfigsResourceWithRawResponse:
-        from .resources.webhook_configs import AsyncWebhookConfigsResourceWithRawResponse
-
-        return AsyncWebhookConfigsResourceWithRawResponse(self._client.webhook_configs)
-
-    @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithRawResponse:
         from .resources.projects import AsyncProjectsResourceWithRawResponse
 
         return AsyncProjectsResourceWithRawResponse(self._client.projects)
-
-    @cached_property
-    def v2_projects(self) -> v2_projects.AsyncV2ProjectsResourceWithRawResponse:
-        from .resources.v2_projects import AsyncV2ProjectsResourceWithRawResponse
-
-        return AsyncV2ProjectsResourceWithRawResponse(self._client.v2_projects)
-
-    @cached_property
-    def job_data_points(self) -> job_data_points.AsyncJobDataPointsResourceWithRawResponse:
-        from .resources.job_data_points import AsyncJobDataPointsResourceWithRawResponse
-
-        return AsyncJobDataPointsResourceWithRawResponse(self._client.job_data_points)
 
     @cached_property
     def data_sinks(self) -> data_sinks.AsyncDataSinksResourceWithRawResponse:
@@ -905,12 +801,6 @@ class LlamaCloudWithStreamedResponse:
         return SheetsResourceWithStreamingResponse(self._client.sheets)
 
     @cached_property
-    def split(self) -> split.SplitResourceWithStreamingResponse:
-        from .resources.split import SplitResourceWithStreamingResponse
-
-        return SplitResourceWithStreamingResponse(self._client.split)
-
-    @cached_property
     def parsing(self) -> parsing.ParsingResourceWithStreamingResponse:
         from .resources.parsing import ParsingResourceWithStreamingResponse
 
@@ -947,28 +837,10 @@ class LlamaCloudWithStreamedResponse:
         return ConfigurationsResourceWithStreamingResponse(self._client.configurations)
 
     @cached_property
-    def webhook_configs(self) -> webhook_configs.WebhookConfigsResourceWithStreamingResponse:
-        from .resources.webhook_configs import WebhookConfigsResourceWithStreamingResponse
-
-        return WebhookConfigsResourceWithStreamingResponse(self._client.webhook_configs)
-
-    @cached_property
     def projects(self) -> projects.ProjectsResourceWithStreamingResponse:
         from .resources.projects import ProjectsResourceWithStreamingResponse
 
         return ProjectsResourceWithStreamingResponse(self._client.projects)
-
-    @cached_property
-    def v2_projects(self) -> v2_projects.V2ProjectsResourceWithStreamingResponse:
-        from .resources.v2_projects import V2ProjectsResourceWithStreamingResponse
-
-        return V2ProjectsResourceWithStreamingResponse(self._client.v2_projects)
-
-    @cached_property
-    def job_data_points(self) -> job_data_points.JobDataPointsResourceWithStreamingResponse:
-        from .resources.job_data_points import JobDataPointsResourceWithStreamingResponse
-
-        return JobDataPointsResourceWithStreamingResponse(self._client.job_data_points)
 
     @cached_property
     def data_sinks(self) -> data_sinks.DataSinksResourceWithStreamingResponse:
@@ -1020,12 +892,6 @@ class AsyncLlamaCloudWithStreamedResponse:
         return AsyncSheetsResourceWithStreamingResponse(self._client.sheets)
 
     @cached_property
-    def split(self) -> split.AsyncSplitResourceWithStreamingResponse:
-        from .resources.split import AsyncSplitResourceWithStreamingResponse
-
-        return AsyncSplitResourceWithStreamingResponse(self._client.split)
-
-    @cached_property
     def parsing(self) -> parsing.AsyncParsingResourceWithStreamingResponse:
         from .resources.parsing import AsyncParsingResourceWithStreamingResponse
 
@@ -1062,28 +928,10 @@ class AsyncLlamaCloudWithStreamedResponse:
         return AsyncConfigurationsResourceWithStreamingResponse(self._client.configurations)
 
     @cached_property
-    def webhook_configs(self) -> webhook_configs.AsyncWebhookConfigsResourceWithStreamingResponse:
-        from .resources.webhook_configs import AsyncWebhookConfigsResourceWithStreamingResponse
-
-        return AsyncWebhookConfigsResourceWithStreamingResponse(self._client.webhook_configs)
-
-    @cached_property
     def projects(self) -> projects.AsyncProjectsResourceWithStreamingResponse:
         from .resources.projects import AsyncProjectsResourceWithStreamingResponse
 
         return AsyncProjectsResourceWithStreamingResponse(self._client.projects)
-
-    @cached_property
-    def v2_projects(self) -> v2_projects.AsyncV2ProjectsResourceWithStreamingResponse:
-        from .resources.v2_projects import AsyncV2ProjectsResourceWithStreamingResponse
-
-        return AsyncV2ProjectsResourceWithStreamingResponse(self._client.v2_projects)
-
-    @cached_property
-    def job_data_points(self) -> job_data_points.AsyncJobDataPointsResourceWithStreamingResponse:
-        from .resources.job_data_points import AsyncJobDataPointsResourceWithStreamingResponse
-
-        return AsyncJobDataPointsResourceWithStreamingResponse(self._client.job_data_points)
 
     @cached_property
     def data_sinks(self) -> data_sinks.AsyncDataSinksResourceWithStreamingResponse:

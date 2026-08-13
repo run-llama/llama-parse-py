@@ -7,14 +7,7 @@ from typing import Mapping, Optional, cast
 
 import httpx
 
-from ..types import (
-    file_list_params,
-    file_query_params,
-    file_create_params,
-    file_delete_params,
-    file_content_params,
-    file_retrieve_params,
-)
+from ..types import file_get_params, file_list_params, file_query_params, file_create_params, file_delete_params
 from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, SequenceNotStr, omit, not_given
 from .._utils import extract_files, path_template, maybe_transform, async_maybe_transform
@@ -32,7 +25,6 @@ from ..types.presigned_url import PresignedURL
 from ..types.file_list_response import FileListResponse
 from ..types.file_query_response import FileQueryResponse
 from ..types.file_create_response import FileCreateResponse
-from ..types.file_retrieve_response import FileRetrieveResponse
 
 __all__ = ["FilesResource", "AsyncFilesResource"]
 
@@ -129,55 +121,6 @@ class FilesResource(SyncAPIResource):
                 ),
             ),
             cast_to=FileCreateResponse,
-        )
-
-    def retrieve(
-        self,
-        file_id: str,
-        *,
-        expand: Optional[SequenceNotStr[str]] | Omit = omit,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FileRetrieveResponse:
-        """
-        Get file metadata by ID.
-
-        Args:
-          expand: Fields to expand.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not file_id:
-            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        return self._get(
-            path_template("/api/v1/beta/files/{file_id}", file_id=file_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "expand": expand,
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    file_retrieve_params.FileRetrieveParams,
-                ),
-            ),
-            cast_to=FileRetrieveResponse,
         )
 
     def list(
@@ -302,7 +245,7 @@ class FilesResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def content(
+    def get(
         self,
         file_id: str,
         *,
@@ -343,7 +286,7 @@ class FilesResource(SyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    file_content_params.FileContentParams,
+                    file_get_params.FileGetParams,
                 ),
             ),
             cast_to=PresignedURL,
@@ -513,55 +456,6 @@ class AsyncFilesResource(AsyncAPIResource):
             cast_to=FileCreateResponse,
         )
 
-    async def retrieve(
-        self,
-        file_id: str,
-        *,
-        expand: Optional[SequenceNotStr[str]] | Omit = omit,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> FileRetrieveResponse:
-        """
-        Get file metadata by ID.
-
-        Args:
-          expand: Fields to expand.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not file_id:
-            raise ValueError(f"Expected a non-empty value for `file_id` but received {file_id!r}")
-        return await self._get(
-            path_template("/api/v1/beta/files/{file_id}", file_id=file_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "expand": expand,
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    file_retrieve_params.FileRetrieveParams,
-                ),
-            ),
-            cast_to=FileRetrieveResponse,
-        )
-
     def list(
         self,
         *,
@@ -684,7 +578,7 @@ class AsyncFilesResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def content(
+    async def get(
         self,
         file_id: str,
         *,
@@ -725,7 +619,7 @@ class AsyncFilesResource(AsyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    file_content_params.FileContentParams,
+                    file_get_params.FileGetParams,
                 ),
             ),
             cast_to=PresignedURL,
@@ -808,17 +702,14 @@ class FilesResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             files.create,
         )
-        self.retrieve = to_raw_response_wrapper(
-            files.retrieve,
-        )
         self.list = to_raw_response_wrapper(
             files.list,
         )
         self.delete = to_raw_response_wrapper(
             files.delete,
         )
-        self.content = to_raw_response_wrapper(
-            files.content,
+        self.get = to_raw_response_wrapper(
+            files.get,
         )
         self.query = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
@@ -834,17 +725,14 @@ class AsyncFilesResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             files.create,
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            files.retrieve,
-        )
         self.list = async_to_raw_response_wrapper(
             files.list,
         )
         self.delete = async_to_raw_response_wrapper(
             files.delete,
         )
-        self.content = async_to_raw_response_wrapper(
-            files.content,
+        self.get = async_to_raw_response_wrapper(
+            files.get,
         )
         self.query = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
@@ -860,17 +748,14 @@ class FilesResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             files.create,
         )
-        self.retrieve = to_streamed_response_wrapper(
-            files.retrieve,
-        )
         self.list = to_streamed_response_wrapper(
             files.list,
         )
         self.delete = to_streamed_response_wrapper(
             files.delete,
         )
-        self.content = to_streamed_response_wrapper(
-            files.content,
+        self.get = to_streamed_response_wrapper(
+            files.get,
         )
         self.query = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
@@ -886,17 +771,14 @@ class AsyncFilesResourceWithStreamingResponse:
         self.create = async_to_streamed_response_wrapper(
             files.create,
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            files.retrieve,
-        )
         self.list = async_to_streamed_response_wrapper(
             files.list,
         )
         self.delete = async_to_streamed_response_wrapper(
             files.delete,
         )
-        self.content = async_to_streamed_response_wrapper(
-            files.content,
+        self.get = async_to_streamed_response_wrapper(
+            files.get,
         )
         self.query = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(

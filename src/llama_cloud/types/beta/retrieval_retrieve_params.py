@@ -10,7 +10,7 @@ from ..._types import SequenceNotStr
 __all__ = [
     "RetrievalRetrieveParams",
     "CustomFilters",
-    "CustomFiltersValueFilter",
+    "CustomFiltersFilterTypeUnionStrIntBoolFloat",
     "CustomFiltersUnionMember1",
     "Rerank",
     "StaticFilters",
@@ -54,23 +54,19 @@ class RetrievalRetrieveParams(TypedDict, total=False):
     """Weight of the vector search pipeline (0-1)."""
 
 
-class CustomFiltersValueFilter(TypedDict, total=False):
-    """Filter on a single metadata field value."""
-
+class CustomFiltersFilterTypeUnionStrIntBoolFloat(TypedDict, total=False):
     operator: Required[Literal["eq", "gt", "gte", "in", "lt", "lte", "ne", "nin"]]
 
     value: Required[Union[str, bool, float, SequenceNotStr[Union[str, bool, float]]]]
 
 
 class CustomFiltersUnionMember1(TypedDict, total=False):
-    """One bound of a numeric range filter on a metadata field."""
-
     operator: Required[Literal["eq", "gt", "gte", "in", "lt", "lte", "ne", "nin"]]
 
     value: Required[Union[float, Iterable[float]]]
 
 
-CustomFilters: TypeAlias = Union[CustomFiltersValueFilter, Iterable[CustomFiltersUnionMember1]]
+CustomFilters: TypeAlias = Union[CustomFiltersFilterTypeUnionStrIntBoolFloat, Iterable[CustomFiltersUnionMember1]]
 
 
 class Rerank(TypedDict, total=False):
@@ -84,8 +80,6 @@ class Rerank(TypedDict, total=False):
 
 
 class StaticFiltersParsedDirectoryFileID(TypedDict, total=False):
-    """Filter on a string field."""
-
     operator: Required[Literal["eq", "gt", "gte", "in", "lt", "lte", "ne", "nin"]]
 
     value: Required[Union[str, SequenceNotStr[str]]]
@@ -95,4 +89,3 @@ class StaticFilters(TypedDict, total=False):
     """Filters on built-in document fields (page range, chunk index, etc.)."""
 
     parsed_directory_file_id: Optional[StaticFiltersParsedDirectoryFileID]
-    """Filter on a string field."""

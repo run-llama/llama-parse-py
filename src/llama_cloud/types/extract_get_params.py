@@ -12,7 +12,7 @@ __all__ = ["ExtractGetParams"]
 
 class ExtractGetParams(TypedDict, total=False):
     expand: SequenceNotStr[str]
-    """Additional fields to include: configuration, extract_metadata, usage"""
+    """Additional fields to include: configuration, extract_metadata"""
 
     organization_id: Optional[str]
 

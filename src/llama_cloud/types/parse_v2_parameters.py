@@ -215,9 +215,6 @@ class OutputOptionsMarkdown(BaseModel):
     When false, only the link text is included
     """
 
-    annotate_revisions: Optional[bool] = None
-    """Extract Word-style revisions and comments into structured page output"""
-
     inline_images: Optional[bool] = None
     """
     Embed images directly in markdown as base64 data URIs instead of extracting them
@@ -305,21 +302,15 @@ class OutputOptions(BaseModel):
     """
 
     images_to_save: Optional[List[Literal["embedded", "layout", "screenshot"]]] = None
-    """
-    Image categories to save: 'screenshot' (full page renders), 'embedded' (images
-    found within the document), 'layout' (cropped figures and diagrams). Defaults to
-    saving 'layout' when the output links to cropped images; pass [] to save none
+    """Image categories to extract and save.
+
+    Options: 'screenshot' (full page renders useful for visual QA), 'embedded'
+    (images found within the document), 'layout' (cropped regions from layout
+    detection like figures and diagrams). Empty list saves no images
     """
 
     markdown: Optional[OutputOptionsMarkdown] = None
     """Markdown formatting options including table styles and link annotations"""
-
-    save_output_pdf: Optional[bool] = None
-    """
-    Save a PDF copy of the parsed document, retrievable via
-    `expand=output_pdf_content_metadata`. Not produced for spreadsheet, plain-text,
-    or audio inputs
-    """
 
     spatial_text: Optional[OutputOptionsSpatialText] = None
     """Spatial text output options for preserving document layout structure"""
@@ -504,7 +495,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]] = None
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-08-08", "2026-07-24", "2026-07-08", "2026-06-15"], str, None] = None
+    version: Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str, None] = None
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -513,8 +504,8 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2026-06-15`
-    - `cost_effective`: `2026-08-08`
-    - `agentic`: `2026-07-24`
+    - `cost_effective`: `2026-06-26`
+    - `agentic`: `2026-07-15`
     - `agentic_plus`: `2026-07-08`
 
     Full list: `GET /api/v2/parse/versions`.
@@ -815,7 +806,7 @@ class ParseV2Parameters(BaseModel):
     highest accuracy)
     """
 
-    version: Union[Literal["latest", "2026-08-08", "2026-07-24", "2026-07-08", "2026-06-15"], str]
+    version: Union[Literal["latest", "2026-07-15", "2026-07-08", "2026-06-26", "2026-06-15"], str]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -823,8 +814,8 @@ class ParseV2Parameters(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2026-06-15`
-    - `cost_effective`: `2026-08-08`
-    - `agentic`: `2026-07-24`
+    - `cost_effective`: `2026-06-26`
+    - `agentic`: `2026-07-15`
     - `agentic_plus`: `2026-07-08`
 
     Full list: `GET /api/v2/parse/versions`.
@@ -875,6 +866,9 @@ class ParseV2Parameters(BaseModel):
 
     page_ranges: Optional[PageRanges] = None
     """Page selection: limit total pages or specify exact pages to process"""
+
+    preset: Optional[str] = None
+    """Named preset for specialized document parsing"""
 
     processing_control: Optional[ProcessingControl] = None
     """Job execution controls including timeouts and failure thresholds"""

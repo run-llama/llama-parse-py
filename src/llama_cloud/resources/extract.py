@@ -11,7 +11,6 @@ import httpx
 from ..types import (
     extract_get_params,
     extract_list_params,
-    extract_cancel_params,
     extract_create_params,
     extract_delete_params,
     extract_generate_schema_params,
@@ -71,7 +70,6 @@ class ExtractResource(SyncAPIResource):
         project_id: Optional[str] | Omit = omit,
         configuration: Optional[ExtractConfigurationParam] | Omit = omit,
         configuration_id: Optional[str] | Omit = omit,
-        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -108,8 +106,6 @@ class ExtractResource(SyncAPIResource):
 
           configuration_id: Saved configuration ID
 
-          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
-
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
@@ -127,7 +123,6 @@ class ExtractResource(SyncAPIResource):
                     "file_input": file_input,
                     "configuration": configuration,
                     "configuration_id": configuration_id,
-                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 extract_create_params.ExtractCreateParams,
@@ -284,54 +279,6 @@ class ExtractResource(SyncAPIResource):
             cast_to=object,
         )
 
-    def cancel(
-        self,
-        job_id: str,
-        *,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractV2Job:
-        """
-        Cancel a running extraction job.
-
-        Stops processing and marks the job as CANCELLED. Returns the updated job. Jobs
-        already in a terminal state (COMPLETED, FAILED, CANCELLED) cannot be cancelled.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return self._post(
-            path_template("/api/v2/extract/{job_id}/cancel", job_id=job_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    extract_cancel_params.ExtractCancelParams,
-                ),
-            ),
-            cast_to=ExtractV2Job,
-        )
-
     def generate_schema(
         self,
         *,
@@ -414,11 +361,11 @@ class ExtractResource(SyncAPIResource):
         Get a single extraction job by ID.
 
         Returns the job status and results when complete. Use `expand=configuration` to
-        include the full configuration used, `expand=extract_metadata` for per-field
-        metadata, and `expand=usage` for credits billed against the job.
+        include the full configuration used, and `expand=extract_metadata` for per-field
+        metadata.
 
         Args:
-          expand: Additional fields to include: configuration, extract_metadata, usage
+          expand: Additional fields to include: configuration, extract_metadata
 
           extra_headers: Send extra headers
 
@@ -693,7 +640,6 @@ class AsyncExtractResource(AsyncAPIResource):
         project_id: Optional[str] | Omit = omit,
         configuration: Optional[ExtractConfigurationParam] | Omit = omit,
         configuration_id: Optional[str] | Omit = omit,
-        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -730,8 +676,6 @@ class AsyncExtractResource(AsyncAPIResource):
 
           configuration_id: Saved configuration ID
 
-          webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
-
           webhook_configurations: Outbound webhook endpoints to notify on job status changes
 
           extra_headers: Send extra headers
@@ -749,7 +693,6 @@ class AsyncExtractResource(AsyncAPIResource):
                     "file_input": file_input,
                     "configuration": configuration,
                     "configuration_id": configuration_id,
-                    "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
                 },
                 extract_create_params.ExtractCreateParams,
@@ -906,54 +849,6 @@ class AsyncExtractResource(AsyncAPIResource):
             cast_to=object,
         )
 
-    async def cancel(
-        self,
-        job_id: str,
-        *,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractV2Job:
-        """
-        Cancel a running extraction job.
-
-        Stops processing and marks the job as CANCELLED. Returns the updated job. Jobs
-        already in a terminal state (COMPLETED, FAILED, CANCELLED) cannot be cancelled.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return await self._post(
-            path_template("/api/v2/extract/{job_id}/cancel", job_id=job_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    extract_cancel_params.ExtractCancelParams,
-                ),
-            ),
-            cast_to=ExtractV2Job,
-        )
-
     async def generate_schema(
         self,
         *,
@@ -1036,11 +931,11 @@ class AsyncExtractResource(AsyncAPIResource):
         Get a single extraction job by ID.
 
         Returns the job status and results when complete. Use `expand=configuration` to
-        include the full configuration used, `expand=extract_metadata` for per-field
-        metadata, and `expand=usage` for credits billed against the job.
+        include the full configuration used, and `expand=extract_metadata` for per-field
+        metadata.
 
         Args:
-          expand: Additional fields to include: configuration, extract_metadata, usage
+          expand: Additional fields to include: configuration, extract_metadata
 
           extra_headers: Send extra headers
 
@@ -1300,9 +1195,6 @@ class ExtractResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             extract.delete,
         )
-        self.cancel = to_raw_response_wrapper(
-            extract.cancel,
-        )
         self.generate_schema = to_raw_response_wrapper(
             extract.generate_schema,
         )
@@ -1326,9 +1218,6 @@ class AsyncExtractResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             extract.delete,
-        )
-        self.cancel = async_to_raw_response_wrapper(
-            extract.cancel,
         )
         self.generate_schema = async_to_raw_response_wrapper(
             extract.generate_schema,
@@ -1354,9 +1243,6 @@ class ExtractResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             extract.delete,
         )
-        self.cancel = to_streamed_response_wrapper(
-            extract.cancel,
-        )
         self.generate_schema = to_streamed_response_wrapper(
             extract.generate_schema,
         )
@@ -1380,9 +1266,6 @@ class AsyncExtractResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             extract.delete,
-        )
-        self.cancel = async_to_streamed_response_wrapper(
-            extract.cancel,
         )
         self.generate_schema = async_to_streamed_response_wrapper(
             extract.generate_schema,
