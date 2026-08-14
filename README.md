@@ -127,6 +127,7 @@ except llama_cloud.APIStatusError as e:
 | 401         | `AuthenticationError`      |
 | 403         | `PermissionDeniedError`    |
 | 404         | `NotFoundError`            |
+| 409         | `ConflictError`            |
 | 422         | `UnprocessableEntityError` |
 | 429         | `RateLimitError`           |
 | >=500       | `InternalServerError`      |
@@ -134,50 +135,51 @@ except llama_cloud.APIStatusError as e:
 
 ## Retries and Timeouts
 
-The SDK automatically retries requests 2 times on connection errors, timeouts, rate limits, and 5xx errors. Requests timeout after 1 minute by default. Functions that combine multiple API calls (e.g. `client.parsing.parse()`) will have larger timeouts by default to account for the multiple requests and polling.
+The SDK automatically retries requests 5 times on connection errors, timeouts, request-timeout (408) and conflict (409) responses, rate limits, and 5xx errors. Requests timeout after 1 minute by default. Functions that combine multiple API calls (e.g. `client.parsing.parse()`) will have larger timeouts by default to account for the multiple requests and polling.
 
 ```python
 client = LlamaCloud(
-    # default is 2
+    # default is 5
     max_retries=0,
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).beta.indexes.list(
+client.with_options(max_retries=2).beta.indexes.list(
     project_id="my-project-id",
 )
 ```
 
 ## Pagination
 
-List methods support auto-pagination with `for` loops:
+List methods that return a page object support auto-pagination with `for` loops:
 
 ```python
-for run in client.extraction.runs.list(
-    extraction_agent_id="agent-id",
-    limit=20,
-):
-    print(run)
+for job in client.extract.list(page_size=20):
+    print(job)
 ```
 
 Or fetch one page at a time:
 
 ```python
-page = client.extraction.runs.list(extraction_agent_id="agent-id", limit=20)
-for run in page.items:
-    print(run)
+page = client.extract.list(page_size=20)
+for job in page.items:
+    print(job)
 
 while page.has_next_page():
     page = page.get_next_page()
 ```
 
-## Logging
+Some page types name their item field after the resource (`page.files`, `page.documents`) rather than `page.items`; `.has_next_page()` and `.get_next_page()` are available on every page type. List methods whose return type is not a page return the whole result set from a single request and support none of this; see [api.md](api.md) for each method's return type.
 
-Configure logging via the `LLAMA_CLOUD_LOG` environment variable or the `log` option:
+## Timeouts
+
+Configure request timeouts with the `timeout` option:
 
 ```python
+import httpx
+
 client = LlamaCloud(
-    log="debug",  # "debug" | "info" | "warn" | "error" | "off"
+    timeout=20.0,  # 20 seconds
 )
 
 # More granular control:
@@ -193,7 +195,7 @@ client.with_options(timeout=5.0).beta.indexes.list(
 
 On timeout, an `APITimeoutError` is thrown.
 
-Note that requests that time out are [retried twice by default](#retries).
+Note that requests that time out are [retried up to five times by default](#retries-and-timeouts).
 
 ## Advanced
 
@@ -234,8 +236,8 @@ response = client.beta.indexes.with_raw_response.list(
 )
 print(response.headers.get('X-My-Header'))
 
-index = response.parse()  # get the object that `beta.indexes.list()` would have returned
-print(index.id)
+page = response.parse()  # get the object that `beta.indexes.list()` would have returned
+print(page.items[0].id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/run-llama/llama-parse-py/tree/main/src/llama_cloud/_response.py) object.
