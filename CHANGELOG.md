@@ -1,5 +1,25 @@
 # Changelog
 
+## [2.14.1](https://github.com/run-llama/llama-parse-py/compare/v2.14.0...v2.14.1) (2026-08-20)
+
+
+### Bug Fixes
+
+* **parse:** restore inline_images on cost_effective (new version 2026-08-11) ([#23804](https://github.com/run-llama/llama-parse-py/issues/23804)) ([f9fb346](https://github.com/run-llama/llama-parse-py/commit/f9fb3468c94557915103103fa3a471cdae408d14))
+* **python:** restore the API surface deleted by a stale-gen-head rebuild (LI-8886) ([dd487df](https://github.com/run-llama/llama-parse-py/commit/dd487df15393bfeb2596dfbae41e98269f9035fa))
+* route security reports to support@runllama.ai; name LlamaIndex, Inc. in LICENSE ([#12](https://github.com/run-llama/llama-parse-py/issues/12)) ([f90563e](https://github.com/run-llama/llama-parse-py/commit/f90563e5dc10f8a1c433c286e03b4f0884731452))
+
+
+### Chores
+
+* seal the back-sync, promote and CHANGELOG state as custom code ([6551775](https://github.com/run-llama/llama-parse-py/commit/6551775dea45da3dd6cfd832e09f2d20473c9790))
+* seal the LlamaIndex-owned release-doctor, LICENSE and SECURITY edits as custom code ([baa220a](https://github.com/run-llama/llama-parse-py/commit/baa220a032f93c2c7b61f202d9bb92b716cc1449))
+
+
+### Documentation
+
+* fix non-compiling README examples (LI-8881) ([8b50146](https://github.com/run-llama/llama-parse-py/commit/8b501460ea47804417c9cf71cc4d51a77a995555))
+
 ## [2.14.0](https://github.com/run-llama/llama-parse-py/compare/v2.13.0...v2.14.0) (2026-08-12)
 
 > [!WARNING]
