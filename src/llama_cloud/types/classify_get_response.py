@@ -29,8 +29,8 @@ class ClassifyGetResponse(BaseModel):
     project_id: str
     """Project this job belongs to"""
 
-    status: Literal["COMPLETED", "FAILED", "PENDING", "RUNNING"]
-    """Current job status: PENDING, RUNNING, COMPLETED, or FAILED"""
+    status: Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING"]
+    """Current job status: PENDING, RUNNING, COMPLETED, FAILED, or CANCELLED"""
 
     user_id: str
     """User who created this job"""

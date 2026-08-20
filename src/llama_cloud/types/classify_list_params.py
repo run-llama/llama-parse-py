@@ -35,5 +35,5 @@ class ClassifyListParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
-    status: Optional[Literal["COMPLETED", "FAILED", "PENDING", "RUNNING"]]
+    status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING"]]
     """Filter by job status"""
