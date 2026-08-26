@@ -24,14 +24,6 @@ from .split import (
     SplitResourceWithStreamingResponse,
     AsyncSplitResourceWithStreamingResponse,
 )
-from .sheets import (
-    SheetsResource,
-    AsyncSheetsResource,
-    SheetsResourceWithRawResponse,
-    AsyncSheetsResourceWithRawResponse,
-    SheetsResourceWithStreamingResponse,
-    AsyncSheetsResourceWithStreamingResponse,
-)
 from .batches import (
     BatchesResource,
     AsyncBatchesResource,
@@ -152,12 +144,6 @@ __all__ = [
     "AsyncFilesResourceWithRawResponse",
     "FilesResourceWithStreamingResponse",
     "AsyncFilesResourceWithStreamingResponse",
-    "SheetsResource",
-    "AsyncSheetsResource",
-    "SheetsResourceWithRawResponse",
-    "AsyncSheetsResourceWithRawResponse",
-    "SheetsResourceWithStreamingResponse",
-    "AsyncSheetsResourceWithStreamingResponse",
     "SplitResource",
     "AsyncSplitResource",
     "SplitResourceWithRawResponse",
