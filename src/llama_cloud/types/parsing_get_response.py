@@ -39,9 +39,12 @@ __all__ = [
     "Markdown",
     "MarkdownPage",
     "MarkdownPageMarkdownResultPage",
+    "MarkdownPageMarkdownResultPageLineNumber",
     "MarkdownPageFailedMarkdownPage",
     "Metadata",
     "MetadataPage",
+    "MetadataDocument",
+    "MetadataDocumentConfidenceBreakdown",
     "ResultContentMetadata",
     "Text",
     "TextPage",
@@ -329,6 +332,19 @@ class Items(BaseModel):
     """List of structured pages or failed page entries"""
 
 
+class MarkdownPageMarkdownResultPageLineNumber(BaseModel):
+    """Source line number linked to final page markdown."""
+
+    end_index: int
+    """Zero-based exclusive UTF-16 code-unit offset in final page markdown"""
+
+    line_number: str
+    """Printed source line number"""
+
+    start_index: int
+    """Zero-based inclusive UTF-16 code-unit offset in final page markdown"""
+
+
 class MarkdownPageMarkdownResultPage(BaseModel):
     markdown: str
     """Markdown content of the page"""
@@ -344,6 +360,9 @@ class MarkdownPageMarkdownResultPage(BaseModel):
 
     header: Optional[str] = None
     """Header of the page in markdown"""
+
+    line_numbers: Optional[List[MarkdownPageMarkdownResultPageLineNumber]] = None
+    """Printed line numbers linked to final page markdown"""
 
 
 class MarkdownPageFailedMarkdownPage(BaseModel):
@@ -395,11 +414,40 @@ class MetadataPage(BaseModel):
     """Whether auto mode was triggered for the page"""
 
 
+class MetadataDocumentConfidenceBreakdown(BaseModel):
+    """Coverage and worst-page details for document confidence."""
+
+    min_page_score: float
+    """Lowest confidence score among pages scored by the high-effort confidence judge"""
+
+    scored_pages: int
+    """Number of pages successfully scored by the high-effort confidence judge"""
+
+    total_pages: int
+    """Total number of pages in the parsed document"""
+
+
+class MetadataDocument(BaseModel):
+    """Document-level metadata information."""
+
+    confidence: Optional[float] = None
+    """
+    Mean confidence score across pages scored by the high-effort confidence judge
+    (0-1)
+    """
+
+    confidence_breakdown: Optional[MetadataDocumentConfidenceBreakdown] = None
+    """Coverage and worst-page details for document confidence."""
+
+
 class Metadata(BaseModel):
     """Result containing metadata (page level and general) for the parsed document."""
 
     pages: List[MetadataPage]
     """List of page metadata entries"""
+
+    document: Optional[MetadataDocument] = None
+    """Document-level metadata information."""
 
 
 class ResultContentMetadata(BaseModel):

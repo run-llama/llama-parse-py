@@ -79,6 +79,7 @@ class TestParsing:
                 "granular_bboxes": ["word", "line", "cell"],
                 "images_to_save": ["embedded"],
                 "markdown": {
+                    "annotate_line_numbers": True,
                     "annotate_links": True,
                     "annotate_revisions": True,
                     "inline_images": True,
@@ -484,6 +485,7 @@ class TestAsyncParsing:
                 "granular_bboxes": ["word", "line", "cell"],
                 "images_to_save": ["embedded"],
                 "markdown": {
+                    "annotate_line_numbers": True,
                     "annotate_links": True,
                     "annotate_revisions": True,
                     "inline_images": True,

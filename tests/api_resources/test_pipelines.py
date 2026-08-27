@@ -72,6 +72,7 @@ class TestPipelines:
                 llama_parse_parameters={
                     "adaptive_long_table": True,
                     "aggressive_table_extraction": True,
+                    "annotate_line_numbers": True,
                     "annotate_links": True,
                     "annotate_revisions": True,
                     "auto_mode": True,
@@ -406,6 +407,7 @@ class TestPipelines:
                 llama_parse_parameters={
                     "adaptive_long_table": True,
                     "aggressive_table_extraction": True,
+                    "annotate_line_numbers": True,
                     "annotate_links": True,
                     "annotate_revisions": True,
                     "auto_mode": True,
@@ -862,6 +864,7 @@ class TestPipelines:
                 llama_parse_parameters={
                     "adaptive_long_table": True,
                     "aggressive_table_extraction": True,
+                    "annotate_line_numbers": True,
                     "annotate_links": True,
                     "annotate_revisions": True,
                     "auto_mode": True,
@@ -1117,6 +1120,7 @@ class TestAsyncPipelines:
                 llama_parse_parameters={
                     "adaptive_long_table": True,
                     "aggressive_table_extraction": True,
+                    "annotate_line_numbers": True,
                     "annotate_links": True,
                     "annotate_revisions": True,
                     "auto_mode": True,
@@ -1451,6 +1455,7 @@ class TestAsyncPipelines:
                 llama_parse_parameters={
                     "adaptive_long_table": True,
                     "aggressive_table_extraction": True,
+                    "annotate_line_numbers": True,
                     "annotate_links": True,
                     "annotate_revisions": True,
                     "auto_mode": True,
@@ -1907,6 +1912,7 @@ class TestAsyncPipelines:
                 llama_parse_parameters={
                     "adaptive_long_table": True,
                     "aggressive_table_extraction": True,
+                    "annotate_line_numbers": True,
                     "annotate_links": True,
                     "annotate_revisions": True,
                     "auto_mode": True,
