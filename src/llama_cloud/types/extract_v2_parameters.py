@@ -91,7 +91,7 @@ class ExtractV2Parameters(BaseModel):
     tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "turbo"]] = None
     """
     Extract tier: cost_effective (5 credits/page), agentic (15 credits/page),
-    agentic_plus (50 credits/page), or turbo (35 credits/page, experimental)
+    agentic_plus (50 credits/page), or turbo (35 credits/page)
     """
 
     version: Optional[str] = None
