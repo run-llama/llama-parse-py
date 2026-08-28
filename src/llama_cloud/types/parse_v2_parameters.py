@@ -209,6 +209,9 @@ class OutputOptionsMarkdownTables(BaseModel):
 class OutputOptionsMarkdown(BaseModel):
     """Markdown formatting options including table styles and link annotations"""
 
+    annotate_line_numbers: Optional[bool] = None
+    """Detect printed gutter line numbers and return their Markdown offsets"""
+
     annotate_links: Optional[bool] = None
     """Add link annotations to markdown output in the format [text](url).
 

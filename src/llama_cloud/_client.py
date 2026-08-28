@@ -39,7 +39,6 @@ if TYPE_CHECKING:
         beta,
         files,
         split,
-        sheets,
         batches,
         extract,
         parsing,
@@ -57,7 +56,6 @@ if TYPE_CHECKING:
     )
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.split import SplitResource, AsyncSplitResource
-    from .resources.sheets import SheetsResource, AsyncSheetsResource
     from .resources.batches import BatchesResource, AsyncBatchesResource
     from .resources.extract import ExtractResource, AsyncExtractResource
     from .resources.parsing import ParsingResource, AsyncParsingResource
@@ -155,12 +153,6 @@ class LlamaCloud(SyncAPIClient):
         from .resources.files import FilesResource
 
         return FilesResource(self)
-
-    @cached_property
-    def sheets(self) -> SheetsResource:
-        from .resources.sheets import SheetsResource
-
-        return SheetsResource(self)
 
     @cached_property
     def split(self) -> SplitResource:
@@ -442,12 +434,6 @@ class AsyncLlamaCloud(AsyncAPIClient):
         return AsyncFilesResource(self)
 
     @cached_property
-    def sheets(self) -> AsyncSheetsResource:
-        from .resources.sheets import AsyncSheetsResource
-
-        return AsyncSheetsResource(self)
-
-    @cached_property
     def split(self) -> AsyncSplitResource:
         from .resources.split import AsyncSplitResource
 
@@ -669,12 +655,6 @@ class LlamaCloudWithRawResponse:
         return FilesResourceWithRawResponse(self._client.files)
 
     @cached_property
-    def sheets(self) -> sheets.SheetsResourceWithRawResponse:
-        from .resources.sheets import SheetsResourceWithRawResponse
-
-        return SheetsResourceWithRawResponse(self._client.sheets)
-
-    @cached_property
     def split(self) -> split.SplitResourceWithRawResponse:
         from .resources.split import SplitResourceWithRawResponse
 
@@ -782,12 +762,6 @@ class AsyncLlamaCloudWithRawResponse:
         from .resources.files import AsyncFilesResourceWithRawResponse
 
         return AsyncFilesResourceWithRawResponse(self._client.files)
-
-    @cached_property
-    def sheets(self) -> sheets.AsyncSheetsResourceWithRawResponse:
-        from .resources.sheets import AsyncSheetsResourceWithRawResponse
-
-        return AsyncSheetsResourceWithRawResponse(self._client.sheets)
 
     @cached_property
     def split(self) -> split.AsyncSplitResourceWithRawResponse:
@@ -899,12 +873,6 @@ class LlamaCloudWithStreamedResponse:
         return FilesResourceWithStreamingResponse(self._client.files)
 
     @cached_property
-    def sheets(self) -> sheets.SheetsResourceWithStreamingResponse:
-        from .resources.sheets import SheetsResourceWithStreamingResponse
-
-        return SheetsResourceWithStreamingResponse(self._client.sheets)
-
-    @cached_property
     def split(self) -> split.SplitResourceWithStreamingResponse:
         from .resources.split import SplitResourceWithStreamingResponse
 
@@ -1012,12 +980,6 @@ class AsyncLlamaCloudWithStreamedResponse:
         from .resources.files import AsyncFilesResourceWithStreamingResponse
 
         return AsyncFilesResourceWithStreamingResponse(self._client.files)
-
-    @cached_property
-    def sheets(self) -> sheets.AsyncSheetsResourceWithStreamingResponse:
-        from .resources.sheets import AsyncSheetsResourceWithStreamingResponse
-
-        return AsyncSheetsResourceWithStreamingResponse(self._client.sheets)
 
     @cached_property
     def split(self) -> split.AsyncSplitResourceWithStreamingResponse:

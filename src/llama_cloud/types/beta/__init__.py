@@ -3,15 +3,12 @@
 from __future__ import annotations
 
 from .agent_data import AgentData as AgentData
-from .sheets_job import SheetsJob as SheetsJob
 from .split_category import SplitCategory as SplitCategory
 from .chat_list_params import ChatListParams as ChatListParams
 from .index_get_params import IndexGetParams as IndexGetParams
-from .sheet_get_params import SheetGetParams as SheetGetParams
 from .split_get_params import SplitGetParams as SplitGetParams
 from .index_list_params import IndexListParams as IndexListParams
 from .index_sync_params import IndexSyncParams as IndexSyncParams
-from .sheet_list_params import SheetListParams as SheetListParams
 from .split_list_params import SplitListParams as SplitListParams
 from .chat_create_params import ChatCreateParams as ChatCreateParams
 from .chat_delete_params import ChatDeleteParams as ChatDeleteParams
@@ -22,7 +19,6 @@ from .split_get_response import SplitGetResponse as SplitGetResponse
 from .index_create_params import IndexCreateParams as IndexCreateParams
 from .index_delete_params import IndexDeleteParams as IndexDeleteParams
 from .index_list_response import IndexListResponse as IndexListResponse
-from .sheet_create_params import SheetCreateParams as SheetCreateParams
 from .split_create_params import SplitCreateParams as SplitCreateParams
 from .split_list_response import SplitListResponse as SplitListResponse
 from .chat_create_response import ChatCreateResponse as ChatCreateResponse
@@ -36,7 +32,6 @@ from .index_create_response import IndexCreateResponse as IndexCreateResponse
 from .retrieval_find_params import RetrievalFindParams as RetrievalFindParams
 from .retrieval_grep_params import RetrievalGrepParams as RetrievalGrepParams
 from .retrieval_read_params import RetrievalReadParams as RetrievalReadParams
-from .sheets_parsing_config import SheetsParsingConfig as SheetsParsingConfig
 from .split_create_response import SplitCreateResponse as SplitCreateResponse
 from .split_result_response import SplitResultResponse as SplitResultResponse
 from .chat_retrieve_response import ChatRetrieveResponse as ChatRetrieveResponse
@@ -50,7 +45,6 @@ from .directory_update_params import DirectoryUpdateParams as DirectoryUpdatePar
 from .retrieval_find_response import RetrievalFindResponse as RetrievalFindResponse
 from .retrieval_grep_response import RetrievalGrepResponse as RetrievalGrepResponse
 from .retrieval_read_response import RetrievalReadResponse as RetrievalReadResponse
-from .sheet_delete_job_params import SheetDeleteJobParams as SheetDeleteJobParams
 from .agent_data_create_params import AgentDataCreateParams as AgentDataCreateParams
 from .agent_data_delete_params import AgentDataDeleteParams as AgentDataDeleteParams
 from .agent_data_search_params import AgentDataSearchParams as AgentDataSearchParams
@@ -63,8 +57,6 @@ from .agent_data_delete_response import AgentDataDeleteResponse as AgentDataDele
 from .split_document_input_param import SplitDocumentInputParam as SplitDocumentInputParam
 from .agent_data_aggregate_params import AgentDataAggregateParams as AgentDataAggregateParams
 from .retrieval_retrieve_response import RetrievalRetrieveResponse as RetrievalRetrieveResponse
-from .sheets_parsing_config_param import SheetsParsingConfigParam as SheetsParsingConfigParam
 from .agent_data_aggregate_response import AgentDataAggregateResponse as AgentDataAggregateResponse
-from .sheet_get_result_table_params import SheetGetResultTableParams as SheetGetResultTableParams
 from .agent_data_delete_by_query_params import AgentDataDeleteByQueryParams as AgentDataDeleteByQueryParams
 from .agent_data_delete_by_query_response import AgentDataDeleteByQueryResponse as AgentDataDeleteByQueryResponse

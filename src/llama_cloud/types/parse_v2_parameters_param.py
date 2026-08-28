@@ -211,6 +211,9 @@ class OutputOptionsMarkdownTables(TypedDict, total=False):
 class OutputOptionsMarkdown(TypedDict, total=False):
     """Markdown formatting options including table styles and link annotations"""
 
+    annotate_line_numbers: Optional[bool]
+    """Detect printed gutter line numbers and return their Markdown offsets"""
+
     annotate_links: Optional[bool]
     """Add link annotations to markdown output in the format [text](url).
 

@@ -49,16 +49,6 @@ Methods:
 - <code title="get /api/v1/beta/files/{file_id}/content">client.files.<a href="./src/llama_cloud/resources/files.py">content</a>(file_id, \*\*<a href="src/llama_cloud/types/file_content_params.py">params</a>) -> <a href="./src/llama_cloud/types/presigned_url.py">PresignedURL</a></code>
 - <code title="post /api/v1/beta/files/query">client.files.<a href="./src/llama_cloud/resources/files.py">query</a>(\*\*<a href="src/llama_cloud/types/file_query_params.py">params</a>) -> <a href="./src/llama_cloud/types/file_query_response.py">FileQueryResponse</a></code>
 
-# Sheets
-
-Methods:
-
-- <code title="post /api/v1/sheets/jobs">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">create</a>(\*\*<a href="src/llama_cloud/types/sheet_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/sheets_job.py">SheetsJob</a></code>
-- <code title="get /api/v1/sheets/jobs">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">list</a>(\*\*<a href="src/llama_cloud/types/sheet_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/sheets_job.py">SyncPaginatedCursor[SheetsJob]</a></code>
-- <code title="delete /api/v1/sheets/jobs/{spreadsheet_job_id}">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">delete_job</a>(spreadsheet_job_id, \*\*<a href="src/llama_cloud/types/sheet_delete_job_params.py">params</a>) -> object</code>
-- <code title="get /api/v1/sheets/jobs/{spreadsheet_job_id}">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">get</a>(spreadsheet_job_id, \*\*<a href="src/llama_cloud/types/sheet_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/sheets_job.py">SheetsJob</a></code>
-- <code title="get /api/v1/sheets/jobs/{spreadsheet_job_id}/regions/{region_id}/result/{region_type}">client.sheets.<a href="./src/llama_cloud/resources/sheets.py">get_result_table</a>(region_type, \*, spreadsheet_job_id, region_id, \*\*<a href="src/llama_cloud/types/sheet_get_result_table_params.py">params</a>) -> <a href="./src/llama_cloud/types/presigned_url.py">PresignedURL</a></code>
-
 # Split
 
 Types:
@@ -603,22 +593,6 @@ Methods:
 - <code title="post /api/v1/beta/agent-data/:delete">client.beta.agent_data.<a href="./src/llama_cloud/resources/beta/agent_data.py">delete_by_query</a>(\*\*<a href="src/llama_cloud/types/beta/agent_data_delete_by_query_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/agent_data_delete_by_query_response.py">AgentDataDeleteByQueryResponse</a></code>
 - <code title="get /api/v1/beta/agent-data/{item_id}">client.beta.agent_data.<a href="./src/llama_cloud/resources/beta/agent_data.py">get</a>(item_id, \*\*<a href="src/llama_cloud/types/beta/agent_data_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/agent_data.py">AgentData</a></code>
 - <code title="post /api/v1/beta/agent-data/:search">client.beta.agent_data.<a href="./src/llama_cloud/resources/beta/agent_data.py">search</a>(\*\*<a href="src/llama_cloud/types/beta/agent_data_search_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/agent_data.py">SyncPaginatedCursorPost[AgentData]</a></code>
-
-## Sheets
-
-Types:
-
-```python
-from llama_cloud.types.beta import SheetsJob, SheetsParsingConfig
-```
-
-Methods:
-
-- <code title="post /api/v1/beta/sheets/jobs">client.beta.sheets.<a href="./src/llama_cloud/resources/beta/sheets.py">create</a>(\*\*<a href="src/llama_cloud/types/beta/sheet_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/sheets_job.py">SheetsJob</a></code>
-- <code title="get /api/v1/beta/sheets/jobs">client.beta.sheets.<a href="./src/llama_cloud/resources/beta/sheets.py">list</a>(\*\*<a href="src/llama_cloud/types/beta/sheet_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/sheets_job.py">SyncPaginatedCursor[SheetsJob]</a></code>
-- <code title="delete /api/v1/beta/sheets/jobs/{spreadsheet_job_id}">client.beta.sheets.<a href="./src/llama_cloud/resources/beta/sheets.py">delete_job</a>(spreadsheet_job_id, \*\*<a href="src/llama_cloud/types/beta/sheet_delete_job_params.py">params</a>) -> object</code>
-- <code title="get /api/v1/beta/sheets/jobs/{spreadsheet_job_id}">client.beta.sheets.<a href="./src/llama_cloud/resources/beta/sheets.py">get</a>(spreadsheet_job_id, \*\*<a href="src/llama_cloud/types/beta/sheet_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/sheets_job.py">SheetsJob</a></code>
-- <code title="get /api/v1/beta/sheets/jobs/{spreadsheet_job_id}/regions/{region_id}/result/{region_type}">client.beta.sheets.<a href="./src/llama_cloud/resources/beta/sheets.py">get_result_table</a>(region_type, \*, spreadsheet_job_id, region_id, \*\*<a href="src/llama_cloud/types/beta/sheet_get_result_table_params.py">params</a>) -> <a href="./src/llama_cloud/types/presigned_url.py">PresignedURL</a></code>
 
 ## Directories
 
