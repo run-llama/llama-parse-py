@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.15.0](https://github.com/run-llama/llama-parse-py/compare/v2.14.1...v2.15.0) (2026-08-28)
+
+
+### Features
+
+* **extract:** publish the turbo tier on the public API surface (LI-8873) ([32faf41](https://github.com/run-llama/llama-parse-py/commit/32faf411ea420a701df13034914d7da28d9f9b96))
+
 ## [2.14.1](https://github.com/run-llama/llama-parse-py/compare/v2.14.0...v2.14.1) (2026-08-20)
 
 
