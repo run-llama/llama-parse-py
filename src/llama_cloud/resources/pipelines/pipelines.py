@@ -469,6 +469,8 @@ class PipelinesResource(SyncAPIResource):
         """
         Search for pipelines by name, type, or project.
 
+        Deprecated: use `GET /api/v2/pipelines`, which is paginated.
+
         Args:
           pipeline_type: Enum for representing the type of a pipeline
 
@@ -1099,6 +1101,8 @@ class AsyncPipelinesResource(AsyncAPIResource):
     ) -> PipelineListResponse:
         """
         Search for pipelines by name, type, or project.
+
+        Deprecated: use `GET /api/v2/pipelines`, which is paginated.
 
         Args:
           pipeline_type: Enum for representing the type of a pipeline
