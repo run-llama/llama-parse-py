@@ -54,7 +54,7 @@ class ExtractV2ParametersParam(TypedDict, total=False):
     parse output; use another tier if your workflow requires parsed text.
     """
 
-    parse_tier: Optional[str]
+    parse_tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]]
     """Parse tier to use before extraction.
 
     Defaults to the extract tier if not specified. Turbo extract does not support

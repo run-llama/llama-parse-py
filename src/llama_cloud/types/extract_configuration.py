@@ -49,7 +49,7 @@ class ExtractConfiguration(BaseModel):
     parse output; use another tier if your workflow requires parsed text.
     """
 
-    parse_tier: Optional[str] = None
+    parse_tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]] = None
     """Parse tier to use before extraction.
 
     Defaults to the extract tier if not specified. Turbo extract does not support
