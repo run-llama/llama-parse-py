@@ -5,10 +5,8 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["PipelineGetStatusParams"]
+__all__ = ["DataSinkDeleteParams"]
 
 
-class PipelineGetStatusParams(TypedDict, total=False):
-    full_details: Optional[bool]
-
+class DataSinkDeleteParams(TypedDict, total=False):
     project_id: Optional[str]

@@ -377,6 +377,7 @@ class TestPipelines:
         with pytest.warns(DeprecationWarning):
             pipeline = client.pipelines.update(
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 data_sink={
                     "component": {"foo": "bar"},
                     "name": "name",
@@ -669,7 +670,18 @@ class TestPipelines:
     def test_method_delete(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             pipeline = client.pipelines.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+        assert pipeline is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: LlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            pipeline = client.pipelines.delete(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert pipeline is None
@@ -679,7 +691,7 @@ class TestPipelines:
     def test_raw_response_delete(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.pipelines.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -692,7 +704,7 @@ class TestPipelines:
     def test_streaming_response_delete(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             with client.pipelines.with_streaming_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -708,7 +720,7 @@ class TestPipelines:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 client.pipelines.with_raw_response.delete(
-                    "",
+                    pipeline_id="",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -716,7 +728,18 @@ class TestPipelines:
     def test_method_get(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             pipeline = client.pipelines.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+        assert_matches_type(Pipeline, pipeline, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get_with_all_params(self, client: LlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            pipeline = client.pipelines.get(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(Pipeline, pipeline, path=["response"])
@@ -726,7 +749,7 @@ class TestPipelines:
     def test_raw_response_get(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.pipelines.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -739,7 +762,7 @@ class TestPipelines:
     def test_streaming_response_get(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             with client.pipelines.with_streaming_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -755,7 +778,7 @@ class TestPipelines:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 client.pipelines.with_raw_response.get(
-                    "",
+                    pipeline_id="",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -775,6 +798,7 @@ class TestPipelines:
             pipeline = client.pipelines.get_status(
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 full_details=True,
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(ManagedIngestionStatusResponse, pipeline, path=["response"])
@@ -1425,6 +1449,7 @@ class TestAsyncPipelines:
         with pytest.warns(DeprecationWarning):
             pipeline = await async_client.pipelines.update(
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 data_sink={
                     "component": {"foo": "bar"},
                     "name": "name",
@@ -1717,7 +1742,18 @@ class TestAsyncPipelines:
     async def test_method_delete(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             pipeline = await async_client.pipelines.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+        assert pipeline is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            pipeline = await async_client.pipelines.delete(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert pipeline is None
@@ -1727,7 +1763,7 @@ class TestAsyncPipelines:
     async def test_raw_response_delete(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.pipelines.with_raw_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -1740,7 +1776,7 @@ class TestAsyncPipelines:
     async def test_streaming_response_delete(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.pipelines.with_streaming_response.delete(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1756,7 +1792,7 @@ class TestAsyncPipelines:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 await async_client.pipelines.with_raw_response.delete(
-                    "",
+                    pipeline_id="",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1764,7 +1800,18 @@ class TestAsyncPipelines:
     async def test_method_get(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             pipeline = await async_client.pipelines.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
+        assert_matches_type(Pipeline, pipeline, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.warns(DeprecationWarning):
+            pipeline = await async_client.pipelines.get(
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(Pipeline, pipeline, path=["response"])
@@ -1774,7 +1821,7 @@ class TestAsyncPipelines:
     async def test_raw_response_get(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.pipelines.with_raw_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -1787,7 +1834,7 @@ class TestAsyncPipelines:
     async def test_streaming_response_get(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.pipelines.with_streaming_response.get(
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1803,7 +1850,7 @@ class TestAsyncPipelines:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 await async_client.pipelines.with_raw_response.get(
-                    "",
+                    pipeline_id="",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1823,6 +1870,7 @@ class TestAsyncPipelines:
             pipeline = await async_client.pipelines.get_status(
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 full_details=True,
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(ManagedIngestionStatusResponse, pipeline, path=["response"])

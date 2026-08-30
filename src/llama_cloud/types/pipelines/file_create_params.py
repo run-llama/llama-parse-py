@@ -11,6 +11,8 @@ __all__ = ["FileCreateParams", "Body"]
 class FileCreateParams(TypedDict, total=False):
     body: Required[Iterable[Body]]
 
+    project_id: Optional[str]
+
 
 class Body(TypedDict, total=False):
     """Schema for creating a file that is associated with a pipeline."""

@@ -11,5 +11,7 @@ __all__ = ["FileUpdateParams"]
 class FileUpdateParams(TypedDict, total=False):
     pipeline_id: Required[str]
 
+    project_id: Optional[str]
+
     custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
     """Custom metadata for the file"""

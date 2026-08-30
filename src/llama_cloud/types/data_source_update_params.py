@@ -37,6 +37,8 @@ class DataSourceUpdateParams(TypedDict, total=False):
         ]
     ]
 
+    project_id: Optional[str]
+
     component: Optional[Component]
     """Component that implements the data source"""
 

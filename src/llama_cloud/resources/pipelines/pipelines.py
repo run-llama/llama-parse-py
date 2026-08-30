@@ -34,8 +34,10 @@ from .images import (
 from ...types import (
     PipelineType,
     RetrievalMode,
+    pipeline_get_params,
     pipeline_list_params,
     pipeline_create_params,
+    pipeline_delete_params,
     pipeline_update_params,
     pipeline_upsert_params,
     pipeline_retrieve_params,
@@ -365,6 +367,7 @@ class PipelinesResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         data_sink: Optional[DataSinkCreateParam] | Omit = omit,
         data_sink_id: Optional[str] | Omit = omit,
         embedding_config: Optional[pipeline_update_params.EmbeddingConfig] | Omit = omit,
@@ -445,7 +448,11 @@ class PipelinesResource(SyncAPIResource):
                 pipeline_update_params.PipelineUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, pipeline_update_params.PipelineUpdateParams),
             ),
             cast_to=Pipeline,
         )
@@ -508,6 +515,7 @@ class PipelinesResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -536,7 +544,11 @@ class PipelinesResource(SyncAPIResource):
         return self._delete(
             path_template("/api/v1/pipelines/{pipeline_id}", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, pipeline_delete_params.PipelineDeleteParams),
             ),
             cast_to=NoneType,
         )
@@ -546,6 +558,7 @@ class PipelinesResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -570,7 +583,11 @@ class PipelinesResource(SyncAPIResource):
         return self._get(
             path_template("/api/v1/pipelines/{pipeline_id}", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, pipeline_get_params.PipelineGetParams),
             ),
             cast_to=Pipeline,
         )
@@ -581,6 +598,7 @@ class PipelinesResource(SyncAPIResource):
         pipeline_id: str,
         *,
         full_details: Optional[bool] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -613,7 +631,11 @@ class PipelinesResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"full_details": full_details}, pipeline_get_status_params.PipelineGetStatusParams
+                    {
+                        "full_details": full_details,
+                        "project_id": project_id,
+                    },
+                    pipeline_get_status_params.PipelineGetStatusParams,
                 ),
             ),
             cast_to=ManagedIngestionStatusResponse,
@@ -998,6 +1020,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         data_sink: Optional[DataSinkCreateParam] | Omit = omit,
         data_sink_id: Optional[str] | Omit = omit,
         embedding_config: Optional[pipeline_update_params.EmbeddingConfig] | Omit = omit,
@@ -1078,7 +1101,13 @@ class AsyncPipelinesResource(AsyncAPIResource):
                 pipeline_update_params.PipelineUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, pipeline_update_params.PipelineUpdateParams
+                ),
             ),
             cast_to=Pipeline,
         )
@@ -1141,6 +1170,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1169,7 +1199,13 @@ class AsyncPipelinesResource(AsyncAPIResource):
         return await self._delete(
             path_template("/api/v1/pipelines/{pipeline_id}", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, pipeline_delete_params.PipelineDeleteParams
+                ),
             ),
             cast_to=NoneType,
         )
@@ -1179,6 +1215,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1203,7 +1240,11 @@ class AsyncPipelinesResource(AsyncAPIResource):
         return await self._get(
             path_template("/api/v1/pipelines/{pipeline_id}", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"project_id": project_id}, pipeline_get_params.PipelineGetParams),
             ),
             cast_to=Pipeline,
         )
@@ -1214,6 +1255,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
         pipeline_id: str,
         *,
         full_details: Optional[bool] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1246,7 +1288,11 @@ class AsyncPipelinesResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"full_details": full_details}, pipeline_get_status_params.PipelineGetStatusParams
+                    {
+                        "full_details": full_details,
+                        "project_id": project_id,
+                    },
+                    pipeline_get_status_params.PipelineGetStatusParams,
                 ),
             ),
             cast_to=ManagedIngestionStatusResponse,

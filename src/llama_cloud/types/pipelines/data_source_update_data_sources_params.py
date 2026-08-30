@@ -11,6 +11,8 @@ __all__ = ["DataSourceUpdateDataSourcesParams", "Body"]
 class DataSourceUpdateDataSourcesParams(TypedDict, total=False):
     body: Required[Iterable[Body]]
 
+    project_id: Optional[str]
+
 
 class Body(TypedDict, total=False):
     """Schema for creating an association between a data source and a pipeline."""

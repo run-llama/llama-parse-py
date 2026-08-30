@@ -12,3 +12,5 @@ class FileGetStatusCountsParams(TypedDict, total=False):
     data_source_id: Optional[str]
 
     only_manually_uploaded: bool
+
+    project_id: Optional[str]

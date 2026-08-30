@@ -106,6 +106,7 @@ from .file_query_response import FileQueryResponse as FileQueryResponse
 from .form_list_text_item import FormListTextItem as FormListTextItem
 from .parse_v2_parameters import ParseV2Parameters as ParseV2Parameters
 from .parsing_list_params import ParsingListParams as ParsingListParams
+from .pipeline_get_params import PipelineGetParams as PipelineGetParams
 from .project_list_params import ProjectListParams as ProjectListParams
 from .sparse_model_config import SparseModelConfig as SparseModelConfig
 from .split_cancel_params import SplitCancelParams as SplitCancelParams
@@ -115,6 +116,7 @@ from .split_list_response import SplitListResponse as SplitListResponse
 from .split_v1_parameters import SplitV1Parameters as SplitV1Parameters
 from .classify_list_params import ClassifyListParams as ClassifyListParams
 from .configuration_create import ConfigurationCreate as ConfigurationCreate
+from .data_sink_get_params import DataSinkGetParams as DataSinkGetParams
 from .extract_job_metadata import ExtractJobMetadata as ExtractJobMetadata
 from .file_create_response import FileCreateResponse as FileCreateResponse
 from .file_retrieve_params import FileRetrieveParams as FileRetrieveParams
@@ -151,12 +153,14 @@ from .classify_v2_parameters import ClassifyV2Parameters as ClassifyV2Parameters
 from .cohere_embedding_param import CohereEmbeddingParam as CohereEmbeddingParam
 from .configuration_response import ConfigurationResponse as ConfigurationResponse
 from .data_sink_create_param import DataSinkCreateParam as DataSinkCreateParam
+from .data_source_get_params import DataSourceGetParams as DataSourceGetParams
 from .file_retrieve_response import FileRetrieveResponse as FileRetrieveResponse
 from .gemini_embedding_param import GeminiEmbeddingParam as GeminiEmbeddingParam
 from .llama_parse_parameters import LlamaParseParameters as LlamaParseParameters
 from .metadata_filters_param import MetadataFiltersParam as MetadataFiltersParam
 from .openai_embedding_param import OpenAIEmbeddingParam as OpenAIEmbeddingParam
 from .pipeline_create_params import PipelineCreateParams as PipelineCreateParams
+from .pipeline_delete_params import PipelineDeleteParams as PipelineDeleteParams
 from .pipeline_list_response import PipelineListResponse as PipelineListResponse
 from .pipeline_update_params import PipelineUpdateParams as PipelineUpdateParams
 from .pipeline_upsert_params import PipelineUpsertParams as PipelineUpsertParams
@@ -164,6 +168,7 @@ from .v2_project_list_params import V2ProjectListParams as V2ProjectListParams
 from .bedrock_embedding_param import BedrockEmbeddingParam as BedrockEmbeddingParam
 from .cohere_embedding_config import CohereEmbeddingConfig as CohereEmbeddingConfig
 from .data_sink_create_params import DataSinkCreateParams as DataSinkCreateParams
+from .data_sink_delete_params import DataSinkDeleteParams as DataSinkDeleteParams
 from .data_sink_list_response import DataSinkListResponse as DataSinkListResponse
 from .data_sink_update_params import DataSinkUpdateParams as DataSinkUpdateParams
 from .data_source_list_params import DataSourceListParams as DataSourceListParams
@@ -192,6 +197,7 @@ from .untyped_parameters_param import UntypedParametersParam as UntypedParameter
 from .v2_project_list_response import V2ProjectListResponse as V2ProjectListResponse
 from .configuration_list_params import ConfigurationListParams as ConfigurationListParams
 from .data_source_create_params import DataSourceCreateParams as DataSourceCreateParams
+from .data_source_delete_params import DataSourceDeleteParams as DataSourceDeleteParams
 from .data_source_list_response import DataSourceListResponse as DataSourceListResponse
 from .data_source_update_params import DataSourceUpdateParams as DataSourceUpdateParams
 from .parse_v2_parameters_param import ParseV2ParametersParam as ParseV2ParametersParam

@@ -13,4 +13,6 @@ __all__ = ["DataSourceSyncParams"]
 class DataSourceSyncParams(TypedDict, total=False):
     pipeline_id: Required[str]
 
+    project_id: Optional[str]
+
     pipeline_file_ids: Optional[SequenceNotStr[str]]

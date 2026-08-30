@@ -21,6 +21,8 @@ class DataSinkUpdateParams(TypedDict, total=False):
         Literal["ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT"]
     ]
 
+    project_id: Optional[str]
+
     component: Optional[Component]
     """Component that implements the data sink"""
 
