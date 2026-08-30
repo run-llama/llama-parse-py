@@ -214,8 +214,9 @@ class FilesResource(SyncAPIResource):
 
           file_name: Filter by file name (exact match).
 
-          order_by: A comma-separated list of fields to order by, sorted in ascending order. Use
-              'field_name desc' to specify descending order.
+          order_by: Order the results. One of 'name' (ascending), 'id' (ascending) or 'created_at'
+              (descending). An explicit asc/desc modifier and multi-field ordering are not
+              supported; anything else is rejected.
 
           page_size: The maximum number of items to return. Defaults to 50, maximum is 1000.
 
@@ -596,8 +597,9 @@ class AsyncFilesResource(AsyncAPIResource):
 
           file_name: Filter by file name (exact match).
 
-          order_by: A comma-separated list of fields to order by, sorted in ascending order. Use
-              'field_name desc' to specify descending order.
+          order_by: Order the results. One of 'name' (ascending), 'id' (ascending) or 'created_at'
+              (descending). An explicit asc/desc modifier and multi-field ordering are not
+              supported; anything else is rejected.
 
           page_size: The maximum number of items to return. Defaults to 50, maximum is 1000.
 
