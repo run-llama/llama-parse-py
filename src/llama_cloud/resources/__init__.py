@@ -72,14 +72,6 @@ from .pipelines import (
     PipelinesResourceWithStreamingResponse,
     AsyncPipelinesResourceWithStreamingResponse,
 )
-from .classifier import (
-    ClassifierResource,
-    AsyncClassifierResource,
-    ClassifierResourceWithRawResponse,
-    AsyncClassifierResourceWithRawResponse,
-    ClassifierResourceWithStreamingResponse,
-    AsyncClassifierResourceWithStreamingResponse,
-)
 from .data_sinks import (
     DataSinksResource,
     AsyncDataSinksResource,
@@ -162,12 +154,6 @@ __all__ = [
     "AsyncExtractResourceWithRawResponse",
     "ExtractResourceWithStreamingResponse",
     "AsyncExtractResourceWithStreamingResponse",
-    "ClassifierResource",
-    "AsyncClassifierResource",
-    "ClassifierResourceWithRawResponse",
-    "AsyncClassifierResourceWithRawResponse",
-    "ClassifierResourceWithStreamingResponse",
-    "AsyncClassifierResourceWithStreamingResponse",
     "BatchesResource",
     "AsyncBatchesResource",
     "BatchesResourceWithRawResponse",
