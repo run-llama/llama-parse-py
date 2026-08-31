@@ -48,7 +48,7 @@ class RetrievalRetrieveParams(TypedDict, total=False):
     """Filters on built-in document fields (page range, chunk index, etc.)."""
 
     top_k: Optional[int]
-    """Maximum number of results to return."""
+    """Maximum number of results to return. Values above 500 are capped at 500."""
 
     vector_pipeline_weight: Optional[float]
     """Weight of the vector search pipeline (0-1)."""

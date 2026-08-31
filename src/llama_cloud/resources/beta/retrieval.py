@@ -90,7 +90,7 @@ class RetrievalResource(SyncAPIResource):
 
           static_filters: Filters on built-in document fields (page range, chunk index, etc.).
 
-          top_k: Maximum number of results to return.
+          top_k: Maximum number of results to return. Values above 500 are capped at 500.
 
           vector_pipeline_weight: Weight of the vector search pipeline (0-1).
 
@@ -411,7 +411,7 @@ class AsyncRetrievalResource(AsyncAPIResource):
 
           static_filters: Filters on built-in document fields (page range, chunk index, etc.).
 
-          top_k: Maximum number of results to return.
+          top_k: Maximum number of results to return. Values above 500 are capped at 500.
 
           vector_pipeline_weight: Weight of the vector search pipeline (0-1).
 

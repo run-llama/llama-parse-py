@@ -47,7 +47,7 @@ class TestRetrieval:
                 }
             },
             full_text_pipeline_weight=0,
-            num_candidates=0,
+            num_candidates=1,
             rerank={
                 "enabled": True,
                 "top_n": 5,
@@ -275,7 +275,7 @@ class TestAsyncRetrieval:
                 }
             },
             full_text_pipeline_weight=0,
-            num_candidates=0,
+            num_candidates=1,
             rerank={
                 "enabled": True,
                 "top_n": 5,
