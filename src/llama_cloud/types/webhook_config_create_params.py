@@ -55,7 +55,11 @@ class WebhookConfigCreateParams(TypedDict, total=False):
             ]
         ]
     ]
-    """Events to subscribe to. If null, all events are delivered."""
+    """Events to subscribe to.
+
+    If null, all events are delivered. An empty list subscribes to nothing and is
+    rejected.
+    """
 
     webhook_headers: Optional[Dict[str, str]]
     """Custom HTTP headers sent with each webhook request."""
