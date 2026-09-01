@@ -51,7 +51,10 @@ class TestSplit:
                         "description": "x",
                     }
                 ],
-                "splitting_strategy": {"allow_uncategorized": "forbid"},
+                "splitting_strategy": {
+                    "allow_uncategorized": "forbid",
+                    "min_pages_per_split": 1,
+                },
             },
             configuration_id="configuration_id",
         )
@@ -218,7 +221,10 @@ class TestAsyncSplit:
                         "description": "x",
                     }
                 ],
-                "splitting_strategy": {"allow_uncategorized": "forbid"},
+                "splitting_strategy": {
+                    "allow_uncategorized": "forbid",
+                    "min_pages_per_split": 1,
+                },
             },
             configuration_id="configuration_id",
         )

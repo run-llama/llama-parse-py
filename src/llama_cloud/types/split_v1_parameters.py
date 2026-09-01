@@ -20,6 +20,12 @@ class SplittingStrategy(BaseModel):
     classified as 'uncategorized' but are excluded from results.
     """
 
+    min_pages_per_split: Optional[int] = None
+    """Minimum pages per segment.
+
+    Shorter segments are merged into an adjacent segment; 1 disables merging.
+    """
+
 
 class SplitV1Parameters(BaseModel):
     """Typed parameters for a *split v1* product configuration."""

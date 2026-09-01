@@ -37,6 +37,12 @@ class ConfigurationSplittingStrategy(TypedDict, total=False):
     classified as 'uncategorized' but are excluded from results.
     """
 
+    min_pages_per_split: int
+    """Minimum pages per segment.
+
+    Shorter segments are merged into an adjacent segment; 1 disables merging.
+    """
+
 
 class Configuration(TypedDict, total=False):
     """Split configuration with categories and splitting strategy."""

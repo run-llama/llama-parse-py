@@ -46,7 +46,10 @@ class TestSplit:
                         "description": "x",
                     }
                 ],
-                "splitting_strategy": {"allow_uncategorized": "forbid"},
+                "splitting_strategy": {
+                    "allow_uncategorized": "forbid",
+                    "min_pages_per_split": 1,
+                },
             },
             configuration_id="cfg-11111111-2222-3333-4444-555555555555",
             transaction_id="tx-unique-idempotency-key",
@@ -316,7 +319,10 @@ class TestAsyncSplit:
                         "description": "x",
                     }
                 ],
-                "splitting_strategy": {"allow_uncategorized": "forbid"},
+                "splitting_strategy": {
+                    "allow_uncategorized": "forbid",
+                    "min_pages_per_split": 1,
+                },
             },
             configuration_id="cfg-11111111-2222-3333-4444-555555555555",
             transaction_id="tx-unique-idempotency-key",
