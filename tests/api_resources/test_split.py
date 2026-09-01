@@ -48,6 +48,7 @@ class TestSplit:
                 ],
                 "splitting_strategy": {
                     "allow_uncategorized": "forbid",
+                    "custom_instructions": "Start a new segment at every signature page.",
                     "min_pages_per_split": 1,
                 },
             },
@@ -321,6 +322,7 @@ class TestAsyncSplit:
                 ],
                 "splitting_strategy": {
                     "allow_uncategorized": "forbid",
+                    "custom_instructions": "Start a new segment at every signature page.",
                     "min_pages_per_split": 1,
                 },
             },

@@ -20,6 +20,9 @@ class SplittingStrategy(BaseModel):
     classified as 'uncategorized' but are excluded from results.
     """
 
+    custom_instructions: Optional[str] = None
+    """Free-form guidance for where segment boundaries are placed."""
+
     min_pages_per_split: Optional[int] = None
     """Minimum pages per segment.
 

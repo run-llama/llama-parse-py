@@ -37,6 +37,9 @@ class ConfigurationSplittingStrategy(TypedDict, total=False):
     classified as 'uncategorized' but are excluded from results.
     """
 
+    custom_instructions: Optional[str]
+    """Free-form guidance for where segment boundaries are placed."""
+
     min_pages_per_split: int
     """Minimum pages per segment.
 
