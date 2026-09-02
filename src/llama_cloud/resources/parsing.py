@@ -473,7 +473,7 @@ class ParsingResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ParsingListVersionsResponse:
-        """List the parse versions accepted by each tier."""
+        """List the parse versions accepted by each tier and what `latest` resolves to."""
         return self._get(
             "/api/v2/parse/versions",
             options=make_request_options(
@@ -1227,7 +1227,7 @@ class AsyncParsingResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ParsingListVersionsResponse:
-        """List the parse versions accepted by each tier."""
+        """List the parse versions accepted by each tier and what `latest` resolves to."""
         return await self._get(
             "/api/v2/parse/versions",
             options=make_request_options(
