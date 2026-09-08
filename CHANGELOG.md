@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.16.1](https://github.com/run-llama/llama-parse-py/compare/v2.16.0...v2.16.1) (2026-09-08)
+
+
+### Documentation
+
+* **changelog:** record the classifier v1 removal and the missing 2.16.0 feature line ([51a85e3](https://github.com/run-llama/llama-parse-py/commit/51a85e3b33cbe074e1a49414aaffde1a860ce91f))
+* **changelog:** record the classifier v1 removal and the missing 2.16.0 feature line ([8930315](https://github.com/run-llama/llama-parse-py/commit/89303151995387139d4917b741c81a89fb75c426))
+
 ## [2.16.0](https://github.com/run-llama/llama-parse-py/compare/v2.15.0...v2.16.0) (2026-09-08)
 
 
