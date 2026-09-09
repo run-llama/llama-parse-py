@@ -3,20 +3,16 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
 
-__all__ = ["PipelineListPaginatedParams"]
+__all__ = ["JobListParams"]
 
 
-class PipelineListPaginatedParams(TypedDict, total=False):
-    name: Optional[str]
-
+class JobListParams(TypedDict, total=False):
     organization_id: Optional[str]
 
     page_size: Optional[int]
 
     page_token: Optional[str]
-
-    pipeline_type: Optional[Literal["MANAGED", "PLAYGROUND"]]
 
     project_id: Optional[str]

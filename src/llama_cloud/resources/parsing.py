@@ -14,7 +14,6 @@ from ..types import (
     parsing_list_params,
     parsing_cancel_params,
     parsing_create_params,
-    parsing_delete_params,
     parsing_upload_file_params,
 )
 from .._files import to_httpx_files, async_to_httpx_files
@@ -35,7 +34,6 @@ from ..types.parsing_get_response import ParsingGetResponse
 from ..types.parsing_list_response import ParsingListResponse
 from ..types.parsing_cancel_response import ParsingCancelResponse
 from ..types.parsing_create_response import ParsingCreateResponse
-from ..types.parsing_delete_response import ParsingDeleteResponse
 from ..types.parsing_list_versions_response import ParsingListVersionsResponse
 
 __all__ = ["ParsingResource", "AsyncParsingResource"]
@@ -65,7 +63,7 @@ class ParsingResource(SyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-09-07", "2026-08-19", "2026-06-15"], str],
+        version: Union[Literal["latest", "2026-09-09", "2026-08-19", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -122,7 +120,7 @@ class ParsingResource(SyncAPIResource):
 
               - `fast`: `2026-06-15`
               - `cost_effective`: `2026-08-19`
-              - `agentic`: `2026-09-07`
+              - `agentic`: `2026-09-09`
               - `agentic_plus`: `2026-08-19`
 
               Full list: `GET /api/v2/parse/versions`.
@@ -348,56 +346,6 @@ class ParsingResource(SyncAPIResource):
             model=ParsingListResponse,
         )
 
-    def delete(
-        self,
-        job_id: str,
-        *,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ParsingDeleteResponse:
-        """
-        Delete a parse job and its results.
-
-        The job must be in a terminal state (COMPLETED, FAILED, CANCELLED). Cancel a job
-        that is still running before deleting it.
-
-        Returns the identifiers of the deleted job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return self._delete(
-            path_template("/api/v2/parse/{job_id}", job_id=job_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    parsing_delete_params.ParsingDeleteParams,
-                ),
-            ),
-            cast_to=ParsingDeleteResponse,
-        )
-
     def cancel(
         self,
         job_id: str,
@@ -525,7 +473,7 @@ class ParsingResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ParsingListVersionsResponse:
-        """List the parse versions accepted by each tier and what `latest` resolves to."""
+        """List the parse versions accepted by each tier."""
         return self._get(
             "/api/v2/parse/versions",
             options=make_request_options(
@@ -869,7 +817,7 @@ class AsyncParsingResource(AsyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-09-07", "2026-08-19", "2026-06-15"], str],
+        version: Union[Literal["latest", "2026-09-09", "2026-08-19", "2026-06-15"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -926,7 +874,7 @@ class AsyncParsingResource(AsyncAPIResource):
 
               - `fast`: `2026-06-15`
               - `cost_effective`: `2026-08-19`
-              - `agentic`: `2026-09-07`
+              - `agentic`: `2026-09-09`
               - `agentic_plus`: `2026-08-19`
 
               Full list: `GET /api/v2/parse/versions`.
@@ -1152,56 +1100,6 @@ class AsyncParsingResource(AsyncAPIResource):
             model=ParsingListResponse,
         )
 
-    async def delete(
-        self,
-        job_id: str,
-        *,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ParsingDeleteResponse:
-        """
-        Delete a parse job and its results.
-
-        The job must be in a terminal state (COMPLETED, FAILED, CANCELLED). Cancel a job
-        that is still running before deleting it.
-
-        Returns the identifiers of the deleted job.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-        return await self._delete(
-            path_template("/api/v2/parse/{job_id}", job_id=job_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    parsing_delete_params.ParsingDeleteParams,
-                ),
-            ),
-            cast_to=ParsingDeleteResponse,
-        )
-
     async def cancel(
         self,
         job_id: str,
@@ -1329,7 +1227,7 @@ class AsyncParsingResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ParsingListVersionsResponse:
-        """List the parse versions accepted by each tier and what `latest` resolves to."""
+        """List the parse versions accepted by each tier."""
         return await self._get(
             "/api/v2/parse/versions",
             options=make_request_options(
@@ -1659,9 +1557,6 @@ class ParsingResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             parsing.list,
         )
-        self.delete = to_raw_response_wrapper(
-            parsing.delete,
-        )
         self.cancel = to_raw_response_wrapper(
             parsing.cancel,
         )
@@ -1682,9 +1577,6 @@ class AsyncParsingResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             parsing.list,
-        )
-        self.delete = async_to_raw_response_wrapper(
-            parsing.delete,
         )
         self.cancel = async_to_raw_response_wrapper(
             parsing.cancel,
@@ -1707,9 +1599,6 @@ class ParsingResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             parsing.list,
         )
-        self.delete = to_streamed_response_wrapper(
-            parsing.delete,
-        )
         self.cancel = to_streamed_response_wrapper(
             parsing.cancel,
         )
@@ -1730,9 +1619,6 @@ class AsyncParsingResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             parsing.list,
-        )
-        self.delete = async_to_streamed_response_wrapper(
-            parsing.delete,
         )
         self.cancel = async_to_streamed_response_wrapper(
             parsing.cancel,

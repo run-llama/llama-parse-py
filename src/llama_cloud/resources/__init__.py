@@ -24,6 +24,14 @@ from .split import (
     SplitResourceWithStreamingResponse,
     AsyncSplitResourceWithStreamingResponse,
 )
+from .sheets import (
+    SheetsResource,
+    AsyncSheetsResource,
+    SheetsResourceWithRawResponse,
+    AsyncSheetsResourceWithRawResponse,
+    SheetsResourceWithStreamingResponse,
+    AsyncSheetsResourceWithStreamingResponse,
+)
 from .batches import (
     BatchesResource,
     AsyncBatchesResource,
@@ -71,6 +79,14 @@ from .pipelines import (
     AsyncPipelinesResourceWithRawResponse,
     PipelinesResourceWithStreamingResponse,
     AsyncPipelinesResourceWithStreamingResponse,
+)
+from .classifier import (
+    ClassifierResource,
+    AsyncClassifierResource,
+    ClassifierResourceWithRawResponse,
+    AsyncClassifierResourceWithRawResponse,
+    ClassifierResourceWithStreamingResponse,
+    AsyncClassifierResourceWithStreamingResponse,
 )
 from .data_sinks import (
     DataSinksResource,
@@ -136,6 +152,12 @@ __all__ = [
     "AsyncFilesResourceWithRawResponse",
     "FilesResourceWithStreamingResponse",
     "AsyncFilesResourceWithStreamingResponse",
+    "SheetsResource",
+    "AsyncSheetsResource",
+    "SheetsResourceWithRawResponse",
+    "AsyncSheetsResourceWithRawResponse",
+    "SheetsResourceWithStreamingResponse",
+    "AsyncSheetsResourceWithStreamingResponse",
     "SplitResource",
     "AsyncSplitResource",
     "SplitResourceWithRawResponse",
@@ -154,6 +176,12 @@ __all__ = [
     "AsyncExtractResourceWithRawResponse",
     "ExtractResourceWithStreamingResponse",
     "AsyncExtractResourceWithStreamingResponse",
+    "ClassifierResource",
+    "AsyncClassifierResource",
+    "ClassifierResourceWithRawResponse",
+    "AsyncClassifierResourceWithRawResponse",
+    "ClassifierResourceWithStreamingResponse",
+    "AsyncClassifierResourceWithStreamingResponse",
     "BatchesResource",
     "AsyncBatchesResource",
     "BatchesResourceWithRawResponse",

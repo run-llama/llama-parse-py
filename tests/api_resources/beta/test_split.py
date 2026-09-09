@@ -51,11 +51,7 @@ class TestSplit:
                         "description": "x",
                     }
                 ],
-                "splitting_strategy": {
-                    "allow_uncategorized": "forbid",
-                    "custom_instructions": "Start a new segment at every signature page.",
-                    "min_pages_per_split": 1,
-                },
+                "splitting_strategy": {"allow_uncategorized": "forbid"},
             },
             configuration_id="configuration_id",
         )
@@ -222,11 +218,7 @@ class TestAsyncSplit:
                         "description": "x",
                     }
                 ],
-                "splitting_strategy": {
-                    "allow_uncategorized": "forbid",
-                    "custom_instructions": "Start a new segment at every signature page.",
-                    "min_pages_per_split": 1,
-                },
+                "splitting_strategy": {"allow_uncategorized": "forbid"},
             },
             configuration_id="configuration_id",
         )

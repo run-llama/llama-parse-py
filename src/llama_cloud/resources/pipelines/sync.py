@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Optional
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._types import Body, Query, Headers, NotGiven, not_given
+from ..._utils import path_template
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -19,7 +18,6 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.pipeline import Pipeline
-from ...types.pipelines import sync_cancel_params, sync_create_params
 
 __all__ = ["SyncResource", "AsyncSyncResource"]
 
@@ -49,7 +47,6 @@ class SyncResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -77,11 +74,7 @@ class SyncResource(SyncAPIResource):
         return self._post(
             path_template("/api/v1/pipelines/{pipeline_id}/sync", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, sync_create_params.SyncCreateParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )
@@ -91,7 +84,6 @@ class SyncResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -116,11 +108,7 @@ class SyncResource(SyncAPIResource):
         return self._post(
             path_template("/api/v1/pipelines/{pipeline_id}/sync/cancel", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, sync_cancel_params.SyncCancelParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )
@@ -151,7 +139,6 @@ class AsyncSyncResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -179,11 +166,7 @@ class AsyncSyncResource(AsyncAPIResource):
         return await self._post(
             path_template("/api/v1/pipelines/{pipeline_id}/sync", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"project_id": project_id}, sync_create_params.SyncCreateParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )
@@ -193,7 +176,6 @@ class AsyncSyncResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -218,11 +200,7 @@ class AsyncSyncResource(AsyncAPIResource):
         return await self._post(
             path_template("/api/v1/pipelines/{pipeline_id}/sync/cancel", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"project_id": project_id}, sync_cancel_params.SyncCancelParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )

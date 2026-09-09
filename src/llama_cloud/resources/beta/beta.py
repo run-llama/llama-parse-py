@@ -18,6 +18,14 @@ from .split import (
     SplitResourceWithStreamingResponse,
     AsyncSplitResourceWithStreamingResponse,
 )
+from .sheets import (
+    SheetsResource,
+    AsyncSheetsResource,
+    SheetsResourceWithRawResponse,
+    AsyncSheetsResourceWithRawResponse,
+    SheetsResourceWithStreamingResponse,
+    AsyncSheetsResourceWithStreamingResponse,
+)
 from .indexes import (
     IndexesResource,
     AsyncIndexesResource,
@@ -74,6 +82,10 @@ class BetaResource(SyncAPIResource):
         return AgentDataResource(self._client)
 
     @cached_property
+    def sheets(self) -> SheetsResource:
+        return SheetsResource(self._client)
+
+    @cached_property
     def directories(self) -> DirectoriesResource:
         return DirectoriesResource(self._client)
 
@@ -117,6 +129,10 @@ class AsyncBetaResource(AsyncAPIResource):
     @cached_property
     def agent_data(self) -> AsyncAgentDataResource:
         return AsyncAgentDataResource(self._client)
+
+    @cached_property
+    def sheets(self) -> AsyncSheetsResource:
+        return AsyncSheetsResource(self._client)
 
     @cached_property
     def directories(self) -> AsyncDirectoriesResource:
@@ -167,6 +183,10 @@ class BetaResourceWithRawResponse:
         return AgentDataResourceWithRawResponse(self._beta.agent_data)
 
     @cached_property
+    def sheets(self) -> SheetsResourceWithRawResponse:
+        return SheetsResourceWithRawResponse(self._beta.sheets)
+
+    @cached_property
     def directories(self) -> DirectoriesResourceWithRawResponse:
         return DirectoriesResourceWithRawResponse(self._beta.directories)
 
@@ -194,6 +214,10 @@ class AsyncBetaResourceWithRawResponse:
     @cached_property
     def agent_data(self) -> AsyncAgentDataResourceWithRawResponse:
         return AsyncAgentDataResourceWithRawResponse(self._beta.agent_data)
+
+    @cached_property
+    def sheets(self) -> AsyncSheetsResourceWithRawResponse:
+        return AsyncSheetsResourceWithRawResponse(self._beta.sheets)
 
     @cached_property
     def directories(self) -> AsyncDirectoriesResourceWithRawResponse:
@@ -225,6 +249,10 @@ class BetaResourceWithStreamingResponse:
         return AgentDataResourceWithStreamingResponse(self._beta.agent_data)
 
     @cached_property
+    def sheets(self) -> SheetsResourceWithStreamingResponse:
+        return SheetsResourceWithStreamingResponse(self._beta.sheets)
+
+    @cached_property
     def directories(self) -> DirectoriesResourceWithStreamingResponse:
         return DirectoriesResourceWithStreamingResponse(self._beta.directories)
 
@@ -252,6 +280,10 @@ class AsyncBetaResourceWithStreamingResponse:
     @cached_property
     def agent_data(self) -> AsyncAgentDataResourceWithStreamingResponse:
         return AsyncAgentDataResourceWithStreamingResponse(self._beta.agent_data)
+
+    @cached_property
+    def sheets(self) -> AsyncSheetsResourceWithStreamingResponse:
+        return AsyncSheetsResourceWithStreamingResponse(self._beta.sheets)
 
     @cached_property
     def directories(self) -> AsyncDirectoriesResourceWithStreamingResponse:

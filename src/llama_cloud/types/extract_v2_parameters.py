@@ -52,7 +52,7 @@ class ExtractV2Parameters(BaseModel):
     parse output; use another tier if your workflow requires parsed text.
     """
 
-    parse_tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]] = None
+    parse_tier: Optional[str] = None
     """Parse tier to use before extraction.
 
     Defaults to the extract tier if not specified. Turbo extract does not support
@@ -88,10 +88,10 @@ class ExtractV2Parameters(BaseModel):
     Omit to process all pages.
     """
 
-    tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "turbo"]] = None
+    tier: Optional[Literal["agentic", "agentic_plus", "cost_effective"]] = None
     """
-    Extract tier: cost_effective (5 credits/page), agentic (15 credits/page),
-    agentic_plus (50 credits/page), or turbo (35 credits/page)
+    Extract tier: cost_effective (5 credits/page), agentic (15 credits/page), or
+    agentic_plus (50 credits/page)
     """
 
     version: Optional[str] = None

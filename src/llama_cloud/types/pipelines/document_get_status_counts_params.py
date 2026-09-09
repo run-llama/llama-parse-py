@@ -14,5 +14,3 @@ class DocumentGetStatusCountsParams(TypedDict, total=False):
     file_id: Optional[str]
 
     only_direct_upload: bool
-
-    project_id: Optional[str]

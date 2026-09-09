@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Required, TypedDict
 
 from ..._types import FileTypes
@@ -12,5 +11,3 @@ __all__ = ["MetadataCreateParams"]
 
 class MetadataCreateParams(TypedDict, total=False):
     upload_file: Required[FileTypes]
-
-    project_id: Optional[str]

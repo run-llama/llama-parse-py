@@ -10,5 +10,3 @@ __all__ = ["PipelineGetStatusParams"]
 
 class PipelineGetStatusParams(TypedDict, total=False):
     full_details: Optional[bool]
-
-    project_id: Optional[str]

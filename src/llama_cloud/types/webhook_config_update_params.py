@@ -52,7 +52,7 @@ class WebhookConfigUpdateParams(TypedDict, total=False):
             ]
         ]
     ]
-    """Updated event subscriptions. Omit to leave unchanged; [] is rejected."""
+    """Updated event subscriptions."""
 
     webhook_headers: Optional[Dict[str, str]]
     """Updated headers."""

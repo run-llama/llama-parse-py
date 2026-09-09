@@ -17,8 +17,6 @@ class DocumentListParams(TypedDict, total=False):
 
     only_direct_upload: Optional[bool]
 
-    project_id: Optional[str]
-
     skip: int
 
     status_refresh_policy: Literal["cached", "ttl"]
