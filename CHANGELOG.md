@@ -1,5 +1,32 @@
 # Changelog
 
+## [2.16.0](https://github.com/run-llama/llama-parse-py/compare/v2.15.0...v2.16.0) (2026-09-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **classifier:** the classify v1 job methods (`client.classifier.jobs.create`, `.list`, `.get`, `.get_results`) are removed. The `/api/v1/classifier/jobs*` routes were unpublished from the API surface; use `client.classify` instead.
+
+### Features
+
+* **api:** add paginated GET /api/v2/pipelines, deprecate the v1 list ([#25587](https://github.com/run-llama/llama-parse-py/issues/25587)) ([5570f91](https://github.com/run-llama/llama-parse-py/commit/5570f91b7053e54650e44ead7132c72efa797922))
+* **api:** map DELETE /api/v2/parse/{job_id} and GET /api/v2/pipelines into the SDKs (LI-9569) ([4f8b659](https://github.com/run-llama/llama-parse-py/commit/4f8b6596993b93bd156c78bfd0a1826a16f819a5))
+* **api:** return what Parse `latest` resolves to on GET /api/v2/parse/versions ([#25824](https://github.com/run-llama/llama-parse-py/issues/25824)) ([404907f](https://github.com/run-llama/llama-parse-py/commit/404907f388951a860d9466fe81519258c3cf4f64))
+* **llamaparse:** agentic 2026-09-07 — heading rules: own-line titles, furniture, document-wide levels ([#26146](https://github.com/run-llama/llama-parse-py/issues/26146)) ([ca98a0d](https://github.com/run-llama/llama-parse-py/commit/ca98a0d15a3c37cd57f9656a95f6572d668f4e51))
+* **split:** expose custom_instructions on the public Split API ([#25680](https://github.com/run-llama/llama-parse-py/issues/25680)) ([13d1063](https://github.com/run-llama/llama-parse-py/commit/13d106397e669c409edff1784625729a69765b9b))
+
+
+### Documentation
+
+* **extract:** drop the experimental label and removal caveat from turbo ([#25539](https://github.com/run-llama/llama-parse-py/issues/25539)) ([ac3a021](https://github.com/run-llama/llama-parse-py/commit/ac3a0210d30aaa23e80eaded3f762ad78054dd16))
+
+## [2.15.0](https://github.com/run-llama/llama-parse-py/compare/v2.14.1...v2.15.0) (2026-08-28)
+
+
+### Features
+
+* **extract:** publish the turbo tier on the public API surface (LI-8873) ([32faf41](https://github.com/run-llama/llama-parse-py/commit/32faf411ea420a701df13034914d7da28d9f9b96))
+
 ## [2.14.1](https://github.com/run-llama/llama-parse-py/compare/v2.14.0...v2.14.1) (2026-08-20)
 
 
