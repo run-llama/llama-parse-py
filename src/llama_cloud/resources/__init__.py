@@ -144,6 +144,14 @@ from .webhook_configs import (
     WebhookConfigsResourceWithStreamingResponse,
     AsyncWebhookConfigsResourceWithStreamingResponse,
 )
+from .extraction_agents import (
+    ExtractionAgentsResource,
+    AsyncExtractionAgentsResource,
+    ExtractionAgentsResourceWithRawResponse,
+    AsyncExtractionAgentsResourceWithRawResponse,
+    ExtractionAgentsResourceWithStreamingResponse,
+    AsyncExtractionAgentsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "FilesResource",
@@ -230,6 +238,12 @@ __all__ = [
     "AsyncDataSinksResourceWithRawResponse",
     "DataSinksResourceWithStreamingResponse",
     "AsyncDataSinksResourceWithStreamingResponse",
+    "ExtractionAgentsResource",
+    "AsyncExtractionAgentsResource",
+    "ExtractionAgentsResourceWithRawResponse",
+    "AsyncExtractionAgentsResourceWithRawResponse",
+    "ExtractionAgentsResourceWithStreamingResponse",
+    "AsyncExtractionAgentsResourceWithStreamingResponse",
     "DataSourcesResource",
     "AsyncDataSourcesResource",
     "DataSourcesResourceWithRawResponse",

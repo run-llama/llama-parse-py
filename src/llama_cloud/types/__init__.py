@@ -66,6 +66,7 @@ from .form_section import FormSection as FormSection
 from .heading_item import HeadingItem as HeadingItem
 from .message_role import MessageRole as MessageRole
 from .parsing_mode import ParsingMode as ParsingMode
+from .extract_agent import ExtractAgent as ExtractAgent
 from .pipeline_type import PipelineType as PipelineType
 from .presigned_url import PresignedURL as PresignedURL
 from .extract_v2_job import ExtractV2Job as ExtractV2Job
@@ -220,6 +221,7 @@ from .vertex_text_embedding_param import VertexTextEmbeddingParam as VertexTextE
 from .azure_openai_embedding_param import AzureOpenAIEmbeddingParam as AzureOpenAIEmbeddingParam
 from .classify_configuration_param import ClassifyConfigurationParam as ClassifyConfigurationParam
 from .classify_v2_parameters_param import ClassifyV2ParametersParam as ClassifyV2ParametersParam
+from .extraction_agent_list_params import ExtractionAgentListParams as ExtractionAgentListParams
 from .llama_parse_parameters_param import LlamaParseParametersParam as LlamaParseParametersParam
 from .webhook_config_create_params import WebhookConfigCreateParams as WebhookConfigCreateParams
 from .webhook_config_delete_params import WebhookConfigDeleteParams as WebhookConfigDeleteParams
@@ -240,6 +242,7 @@ from .extract_validate_schema_params import ExtractValidateSchemaParams as Extra
 from .parsing_list_versions_response import ParsingListVersionsResponse as ParsingListVersionsResponse
 from .pipeline_metadata_config_param import PipelineMetadataConfigParam as PipelineMetadataConfigParam
 from .webhook_config_retrieve_params import WebhookConfigRetrieveParams as WebhookConfigRetrieveParams
+from .data_sink_list_paginated_params import DataSinkListPaginatedParams as DataSinkListPaginatedParams
 from .page_screenshot_node_with_score import PageScreenshotNodeWithScore as PageScreenshotNodeWithScore
 from .vertex_ai_embedding_config_param import VertexAIEmbeddingConfigParam as VertexAIEmbeddingConfigParam
 from .managed_ingestion_status_response import ManagedIngestionStatusResponse as ManagedIngestionStatusResponse
