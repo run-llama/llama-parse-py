@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Optional
 from typing_extensions import Literal
 
@@ -150,6 +151,7 @@ class DataSinksResource(SyncAPIResource):
             cast_to=DataSink,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -162,8 +164,11 @@ class DataSinksResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DataSinkListResponse:
-        """
-        List data sinks for a given project.
+        """List a project's data sinks.
+
+        Returns at most the first 50.
+
+        Deprecated: use `GET /api/v1/beta/data-sinks`, which is paginated.
 
         Args:
           extra_headers: Send extra headers
@@ -385,6 +390,7 @@ class AsyncDataSinksResource(AsyncAPIResource):
             cast_to=DataSink,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -397,8 +403,11 @@ class AsyncDataSinksResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DataSinkListResponse:
-        """
-        List data sinks for a given project.
+        """List a project's data sinks.
+
+        Returns at most the first 50.
+
+        Deprecated: use `GET /api/v1/beta/data-sinks`, which is paginated.
 
         Args:
           extra_headers: Send extra headers
@@ -505,8 +514,10 @@ class DataSinksResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             data_sinks.update,
         )
-        self.list = to_raw_response_wrapper(
-            data_sinks.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                data_sinks.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_raw_response_wrapper(
             data_sinks.delete,
@@ -526,8 +537,10 @@ class AsyncDataSinksResourceWithRawResponse:
         self.update = async_to_raw_response_wrapper(
             data_sinks.update,
         )
-        self.list = async_to_raw_response_wrapper(
-            data_sinks.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                data_sinks.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_raw_response_wrapper(
             data_sinks.delete,
@@ -547,8 +560,10 @@ class DataSinksResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             data_sinks.update,
         )
-        self.list = to_streamed_response_wrapper(
-            data_sinks.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                data_sinks.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_streamed_response_wrapper(
             data_sinks.delete,
@@ -568,8 +583,10 @@ class AsyncDataSinksResourceWithStreamingResponse:
         self.update = async_to_streamed_response_wrapper(
             data_sinks.update,
         )
-        self.list = async_to_streamed_response_wrapper(
-            data_sinks.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                data_sinks.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_streamed_response_wrapper(
             data_sinks.delete,
