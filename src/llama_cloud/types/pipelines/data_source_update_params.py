@@ -11,7 +11,5 @@ __all__ = ["DataSourceUpdateParams"]
 class DataSourceUpdateParams(TypedDict, total=False):
     pipeline_id: Required[str]
 
-    project_id: Optional[str]
-
     sync_interval: Optional[float]
     """The interval at which the data source should be synced."""

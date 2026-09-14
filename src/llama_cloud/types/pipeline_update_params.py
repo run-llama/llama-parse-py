@@ -23,8 +23,6 @@ __all__ = ["PipelineUpdateParams", "EmbeddingConfig", "TransformConfig"]
 
 
 class PipelineUpdateParams(TypedDict, total=False):
-    project_id: Optional[str]
-
     data_sink: Optional[DataSinkCreateParam]
     """Schema for creating a data sink."""
 

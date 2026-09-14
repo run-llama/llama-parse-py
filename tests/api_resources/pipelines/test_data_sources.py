@@ -42,7 +42,6 @@ class TestDataSources:
             data_source = client.pipelines.data_sources.update(
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 sync_interval=0,
             )
 
@@ -99,18 +98,7 @@ class TestDataSources:
     def test_method_get_data_sources(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             data_source = client.pipelines.data_sources.get_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(DataSourceGetDataSourcesResponse, data_source, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_get_data_sources_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            data_source = client.pipelines.data_sources.get_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(DataSourceGetDataSourcesResponse, data_source, path=["response"])
@@ -120,7 +108,7 @@ class TestDataSources:
     def test_raw_response_get_data_sources(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.pipelines.data_sources.with_raw_response.get_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -133,7 +121,7 @@ class TestDataSources:
     def test_streaming_response_get_data_sources(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             with client.pipelines.data_sources.with_streaming_response.get_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -149,7 +137,7 @@ class TestDataSources:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 client.pipelines.data_sources.with_raw_response.get_data_sources(
-                    pipeline_id="",
+                    "",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -159,18 +147,6 @@ class TestDataSources:
             data_source = client.pipelines.data_sources.get_status(
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(ManagedIngestionStatusResponse, data_source, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_get_status_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            data_source = client.pipelines.data_sources.get_status(
-                data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(ManagedIngestionStatusResponse, data_source, path=["response"])
@@ -239,7 +215,6 @@ class TestDataSources:
             data_source = client.pipelines.data_sources.sync(
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_file_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             )
 
@@ -298,23 +273,6 @@ class TestDataSources:
             data_source = client.pipelines.data_sources.update_data_sources(
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 body=[{"data_source_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-            )
-
-        assert_matches_type(DataSourceUpdateDataSourcesResponse, data_source, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_update_data_sources_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            data_source = client.pipelines.data_sources.update_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body=[
-                    {
-                        "data_source_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "sync_interval": 0,
-                    }
-                ],
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(DataSourceUpdateDataSourcesResponse, data_source, path=["response"])
@@ -383,7 +341,6 @@ class TestAsyncDataSources:
             data_source = await async_client.pipelines.data_sources.update(
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 sync_interval=0,
             )
 
@@ -440,18 +397,7 @@ class TestAsyncDataSources:
     async def test_method_get_data_sources(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             data_source = await async_client.pipelines.data_sources.get_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(DataSourceGetDataSourcesResponse, data_source, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_get_data_sources_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            data_source = await async_client.pipelines.data_sources.get_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(DataSourceGetDataSourcesResponse, data_source, path=["response"])
@@ -461,7 +407,7 @@ class TestAsyncDataSources:
     async def test_raw_response_get_data_sources(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.pipelines.data_sources.with_raw_response.get_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -474,7 +420,7 @@ class TestAsyncDataSources:
     async def test_streaming_response_get_data_sources(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.pipelines.data_sources.with_streaming_response.get_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -490,7 +436,7 @@ class TestAsyncDataSources:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 await async_client.pipelines.data_sources.with_raw_response.get_data_sources(
-                    pipeline_id="",
+                    "",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -500,18 +446,6 @@ class TestAsyncDataSources:
             data_source = await async_client.pipelines.data_sources.get_status(
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(ManagedIngestionStatusResponse, data_source, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_get_status_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            data_source = await async_client.pipelines.data_sources.get_status(
-                data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(ManagedIngestionStatusResponse, data_source, path=["response"])
@@ -580,7 +514,6 @@ class TestAsyncDataSources:
             data_source = await async_client.pipelines.data_sources.sync(
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_file_ids=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             )
 
@@ -639,23 +572,6 @@ class TestAsyncDataSources:
             data_source = await async_client.pipelines.data_sources.update_data_sources(
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 body=[{"data_source_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-            )
-
-        assert_matches_type(DataSourceUpdateDataSourcesResponse, data_source, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_update_data_sources_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            data_source = await async_client.pipelines.data_sources.update_data_sources(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body=[
-                    {
-                        "data_source_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "sync_interval": 0,
-                    }
-                ],
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(DataSourceUpdateDataSourcesResponse, data_source, path=["response"])

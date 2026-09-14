@@ -22,8 +22,6 @@ from ...types.pipeline import Pipeline
 from ...types.pipelines import (
     data_source_sync_params,
     data_source_update_params,
-    data_source_get_status_params,
-    data_source_get_data_sources_params,
     data_source_update_data_sources_params,
 )
 from ...types.pipelines.pipeline_data_source import PipelineDataSource
@@ -60,7 +58,6 @@ class DataSourcesResource(SyncAPIResource):
         data_source_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         sync_interval: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -95,11 +92,7 @@ class DataSourcesResource(SyncAPIResource):
             ),
             body=maybe_transform({"sync_interval": sync_interval}, data_source_update_params.DataSourceUpdateParams),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, data_source_update_params.DataSourceUpdateParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=PipelineDataSource,
         )
@@ -109,7 +102,6 @@ class DataSourcesResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -134,13 +126,7 @@ class DataSourcesResource(SyncAPIResource):
         return self._get(
             path_template("/api/v1/pipelines/{pipeline_id}/data-sources", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"project_id": project_id}, data_source_get_data_sources_params.DataSourceGetDataSourcesParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DataSourceGetDataSourcesResponse,
         )
@@ -151,7 +137,6 @@ class DataSourcesResource(SyncAPIResource):
         data_source_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -182,13 +167,7 @@ class DataSourcesResource(SyncAPIResource):
                 data_source_id=data_source_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"project_id": project_id}, data_source_get_status_params.DataSourceGetStatusParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ManagedIngestionStatusResponse,
         )
@@ -199,7 +178,6 @@ class DataSourcesResource(SyncAPIResource):
         data_source_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         pipeline_file_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -235,11 +213,7 @@ class DataSourcesResource(SyncAPIResource):
                 {"pipeline_file_ids": pipeline_file_ids}, data_source_sync_params.DataSourceSyncParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, data_source_sync_params.DataSourceSyncParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )
@@ -250,7 +224,6 @@ class DataSourcesResource(SyncAPIResource):
         pipeline_id: str,
         *,
         body: Iterable[data_source_update_data_sources_params.Body],
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -276,13 +249,7 @@ class DataSourcesResource(SyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/data-sources", pipeline_id=pipeline_id),
             body=maybe_transform(body, Iterable[data_source_update_data_sources_params.Body]),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {"project_id": project_id}, data_source_update_data_sources_params.DataSourceUpdateDataSourcesParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DataSourceUpdateDataSourcesResponse,
         )
@@ -314,7 +281,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         data_source_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         sync_interval: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -351,13 +317,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
                 {"sync_interval": sync_interval}, data_source_update_params.DataSourceUpdateParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, data_source_update_params.DataSourceUpdateParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=PipelineDataSource,
         )
@@ -367,7 +327,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -392,13 +351,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         return await self._get(
             path_template("/api/v1/pipelines/{pipeline_id}/data-sources", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, data_source_get_data_sources_params.DataSourceGetDataSourcesParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DataSourceGetDataSourcesResponse,
         )
@@ -409,7 +362,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         data_source_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -440,13 +392,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
                 data_source_id=data_source_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, data_source_get_status_params.DataSourceGetStatusParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ManagedIngestionStatusResponse,
         )
@@ -457,7 +403,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         data_source_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         pipeline_file_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -493,13 +438,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
                 {"pipeline_file_ids": pipeline_file_ids}, data_source_sync_params.DataSourceSyncParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, data_source_sync_params.DataSourceSyncParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )
@@ -510,7 +449,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         pipeline_id: str,
         *,
         body: Iterable[data_source_update_data_sources_params.Body],
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -536,13 +474,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/data-sources", pipeline_id=pipeline_id),
             body=await async_maybe_transform(body, Iterable[data_source_update_data_sources_params.Body]),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, data_source_update_data_sources_params.DataSourceUpdateDataSourcesParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DataSourceUpdateDataSourcesResponse,
         )

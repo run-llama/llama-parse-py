@@ -265,18 +265,6 @@ Methods:
 - <code title="get /api/v2/projects">client.v2_projects.<a href="./src/llama_cloud/resources/v2_projects.py">list</a>(\*\*<a href="src/llama_cloud/types/v2_project_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/v2_project_list_response.py">SyncPaginatedCursor[V2ProjectListResponse]</a></code>
 - <code title="get /api/v2/projects/{project_id}">client.v2_projects.<a href="./src/llama_cloud/resources/v2_projects.py">get</a>(project_id, \*\*<a href="src/llama_cloud/types/v2_project_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/v2_project_get_response.py">V2ProjectGetResponse</a></code>
 
-# JobDataPoints
-
-Types:
-
-```python
-from llama_cloud.types import JobDataPoint
-```
-
-Methods:
-
-- <code title="get /api/v1/job-data-points">client.job_data_points.<a href="./src/llama_cloud/resources/job_data_points.py">list</a>(\*\*<a href="src/llama_cloud/types/job_data_point_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/job_data_point.py">SyncPaginatedCursor[JobDataPoint]</a></code>
-
 # DataSinks
 
 Types:
@@ -292,6 +280,19 @@ Methods:
 - <code title="get /api/v1/data-sinks">client.data_sinks.<a href="./src/llama_cloud/resources/data_sinks.py">list</a>(\*\*<a href="src/llama_cloud/types/data_sink_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/data_sink_list_response.py">DataSinkListResponse</a></code>
 - <code title="delete /api/v1/data-sinks/{data_sink_id}">client.data_sinks.<a href="./src/llama_cloud/resources/data_sinks.py">delete</a>(data_sink_id, \*\*<a href="src/llama_cloud/types/data_sink_delete_params.py">params</a>) -> None</code>
 - <code title="get /api/v1/data-sinks/{data_sink_id}">client.data_sinks.<a href="./src/llama_cloud/resources/data_sinks.py">get</a>(data_sink_id, \*\*<a href="src/llama_cloud/types/data_sink_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/data_sink.py">DataSink</a></code>
+- <code title="get /api/v1/beta/data-sinks">client.data_sinks.<a href="./src/llama_cloud/resources/data_sinks.py">list_paginated</a>(\*\*<a href="src/llama_cloud/types/data_sink_list_paginated_params.py">params</a>) -> <a href="./src/llama_cloud/types/data_sink.py">SyncPaginatedCursor[DataSink]</a></code>
+
+# ExtractionAgents
+
+Types:
+
+```python
+from llama_cloud.types import ExtractAgent
+```
+
+Methods:
+
+- <code title="get /api/v1/beta/extraction-agents">client.extraction_agents.<a href="./src/llama_cloud/resources/extraction_agents.py">list</a>(\*\*<a href="src/llama_cloud/types/extraction_agent_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_agent.py">SyncPaginatedCursor[ExtractAgent]</a></code>
 
 # DataSources
 

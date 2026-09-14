@@ -39,22 +39,25 @@ if TYPE_CHECKING:
         beta,
         files,
         split,
+        sheets,
         batches,
         extract,
         parsing,
         classify,
         projects,
         pipelines,
+        classifier,
         data_sinks,
         retrievers,
         v2_projects,
         data_sources,
         configurations,
-        job_data_points,
         webhook_configs,
+        extraction_agents,
     )
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.split import SplitResource, AsyncSplitResource
+    from .resources.sheets import SheetsResource, AsyncSheetsResource
     from .resources.batches import BatchesResource, AsyncBatchesResource
     from .resources.extract import ExtractResource, AsyncExtractResource
     from .resources.parsing import ParsingResource, AsyncParsingResource
@@ -65,9 +68,10 @@ if TYPE_CHECKING:
     from .resources.v2_projects import V2ProjectsResource, AsyncV2ProjectsResource
     from .resources.data_sources import DataSourcesResource, AsyncDataSourcesResource
     from .resources.configurations import ConfigurationsResource, AsyncConfigurationsResource
-    from .resources.job_data_points import JobDataPointsResource, AsyncJobDataPointsResource
     from .resources.webhook_configs import WebhookConfigsResource, AsyncWebhookConfigsResource
+    from .resources.extraction_agents import ExtractionAgentsResource, AsyncExtractionAgentsResource
     from .resources.pipelines.pipelines import PipelinesResource, AsyncPipelinesResource
+    from .resources.classifier.classifier import ClassifierResource, AsyncClassifierResource
     from .resources.retrievers.retrievers import RetrieversResource, AsyncRetrieversResource
 
 __all__ = [
@@ -153,6 +157,12 @@ class LlamaCloud(SyncAPIClient):
         return FilesResource(self)
 
     @cached_property
+    def sheets(self) -> SheetsResource:
+        from .resources.sheets import SheetsResource
+
+        return SheetsResource(self)
+
+    @cached_property
     def split(self) -> SplitResource:
         from .resources.split import SplitResource
 
@@ -169,6 +179,12 @@ class LlamaCloud(SyncAPIClient):
         from .resources.extract import ExtractResource
 
         return ExtractResource(self)
+
+    @cached_property
+    def classifier(self) -> ClassifierResource:
+        from .resources.classifier import ClassifierResource
+
+        return ClassifierResource(self)
 
     @cached_property
     def batches(self) -> BatchesResource:
@@ -207,16 +223,16 @@ class LlamaCloud(SyncAPIClient):
         return V2ProjectsResource(self)
 
     @cached_property
-    def job_data_points(self) -> JobDataPointsResource:
-        from .resources.job_data_points import JobDataPointsResource
-
-        return JobDataPointsResource(self)
-
-    @cached_property
     def data_sinks(self) -> DataSinksResource:
         from .resources.data_sinks import DataSinksResource
 
         return DataSinksResource(self)
+
+    @cached_property
+    def extraction_agents(self) -> ExtractionAgentsResource:
+        from .resources.extraction_agents import ExtractionAgentsResource
+
+        return ExtractionAgentsResource(self)
 
     @cached_property
     def data_sources(self) -> DataSourcesResource:
@@ -426,6 +442,12 @@ class AsyncLlamaCloud(AsyncAPIClient):
         return AsyncFilesResource(self)
 
     @cached_property
+    def sheets(self) -> AsyncSheetsResource:
+        from .resources.sheets import AsyncSheetsResource
+
+        return AsyncSheetsResource(self)
+
+    @cached_property
     def split(self) -> AsyncSplitResource:
         from .resources.split import AsyncSplitResource
 
@@ -442,6 +464,12 @@ class AsyncLlamaCloud(AsyncAPIClient):
         from .resources.extract import AsyncExtractResource
 
         return AsyncExtractResource(self)
+
+    @cached_property
+    def classifier(self) -> AsyncClassifierResource:
+        from .resources.classifier import AsyncClassifierResource
+
+        return AsyncClassifierResource(self)
 
     @cached_property
     def batches(self) -> AsyncBatchesResource:
@@ -480,16 +508,16 @@ class AsyncLlamaCloud(AsyncAPIClient):
         return AsyncV2ProjectsResource(self)
 
     @cached_property
-    def job_data_points(self) -> AsyncJobDataPointsResource:
-        from .resources.job_data_points import AsyncJobDataPointsResource
-
-        return AsyncJobDataPointsResource(self)
-
-    @cached_property
     def data_sinks(self) -> AsyncDataSinksResource:
         from .resources.data_sinks import AsyncDataSinksResource
 
         return AsyncDataSinksResource(self)
+
+    @cached_property
+    def extraction_agents(self) -> AsyncExtractionAgentsResource:
+        from .resources.extraction_agents import AsyncExtractionAgentsResource
+
+        return AsyncExtractionAgentsResource(self)
 
     @cached_property
     def data_sources(self) -> AsyncDataSourcesResource:
@@ -641,6 +669,12 @@ class LlamaCloudWithRawResponse:
         return FilesResourceWithRawResponse(self._client.files)
 
     @cached_property
+    def sheets(self) -> sheets.SheetsResourceWithRawResponse:
+        from .resources.sheets import SheetsResourceWithRawResponse
+
+        return SheetsResourceWithRawResponse(self._client.sheets)
+
+    @cached_property
     def split(self) -> split.SplitResourceWithRawResponse:
         from .resources.split import SplitResourceWithRawResponse
 
@@ -657,6 +691,12 @@ class LlamaCloudWithRawResponse:
         from .resources.extract import ExtractResourceWithRawResponse
 
         return ExtractResourceWithRawResponse(self._client.extract)
+
+    @cached_property
+    def classifier(self) -> classifier.ClassifierResourceWithRawResponse:
+        from .resources.classifier import ClassifierResourceWithRawResponse
+
+        return ClassifierResourceWithRawResponse(self._client.classifier)
 
     @cached_property
     def batches(self) -> batches.BatchesResourceWithRawResponse:
@@ -695,16 +735,16 @@ class LlamaCloudWithRawResponse:
         return V2ProjectsResourceWithRawResponse(self._client.v2_projects)
 
     @cached_property
-    def job_data_points(self) -> job_data_points.JobDataPointsResourceWithRawResponse:
-        from .resources.job_data_points import JobDataPointsResourceWithRawResponse
-
-        return JobDataPointsResourceWithRawResponse(self._client.job_data_points)
-
-    @cached_property
     def data_sinks(self) -> data_sinks.DataSinksResourceWithRawResponse:
         from .resources.data_sinks import DataSinksResourceWithRawResponse
 
         return DataSinksResourceWithRawResponse(self._client.data_sinks)
+
+    @cached_property
+    def extraction_agents(self) -> extraction_agents.ExtractionAgentsResourceWithRawResponse:
+        from .resources.extraction_agents import ExtractionAgentsResourceWithRawResponse
+
+        return ExtractionAgentsResourceWithRawResponse(self._client.extraction_agents)
 
     @cached_property
     def data_sources(self) -> data_sources.DataSourcesResourceWithRawResponse:
@@ -744,6 +784,12 @@ class AsyncLlamaCloudWithRawResponse:
         return AsyncFilesResourceWithRawResponse(self._client.files)
 
     @cached_property
+    def sheets(self) -> sheets.AsyncSheetsResourceWithRawResponse:
+        from .resources.sheets import AsyncSheetsResourceWithRawResponse
+
+        return AsyncSheetsResourceWithRawResponse(self._client.sheets)
+
+    @cached_property
     def split(self) -> split.AsyncSplitResourceWithRawResponse:
         from .resources.split import AsyncSplitResourceWithRawResponse
 
@@ -760,6 +806,12 @@ class AsyncLlamaCloudWithRawResponse:
         from .resources.extract import AsyncExtractResourceWithRawResponse
 
         return AsyncExtractResourceWithRawResponse(self._client.extract)
+
+    @cached_property
+    def classifier(self) -> classifier.AsyncClassifierResourceWithRawResponse:
+        from .resources.classifier import AsyncClassifierResourceWithRawResponse
+
+        return AsyncClassifierResourceWithRawResponse(self._client.classifier)
 
     @cached_property
     def batches(self) -> batches.AsyncBatchesResourceWithRawResponse:
@@ -798,16 +850,16 @@ class AsyncLlamaCloudWithRawResponse:
         return AsyncV2ProjectsResourceWithRawResponse(self._client.v2_projects)
 
     @cached_property
-    def job_data_points(self) -> job_data_points.AsyncJobDataPointsResourceWithRawResponse:
-        from .resources.job_data_points import AsyncJobDataPointsResourceWithRawResponse
-
-        return AsyncJobDataPointsResourceWithRawResponse(self._client.job_data_points)
-
-    @cached_property
     def data_sinks(self) -> data_sinks.AsyncDataSinksResourceWithRawResponse:
         from .resources.data_sinks import AsyncDataSinksResourceWithRawResponse
 
         return AsyncDataSinksResourceWithRawResponse(self._client.data_sinks)
+
+    @cached_property
+    def extraction_agents(self) -> extraction_agents.AsyncExtractionAgentsResourceWithRawResponse:
+        from .resources.extraction_agents import AsyncExtractionAgentsResourceWithRawResponse
+
+        return AsyncExtractionAgentsResourceWithRawResponse(self._client.extraction_agents)
 
     @cached_property
     def data_sources(self) -> data_sources.AsyncDataSourcesResourceWithRawResponse:
@@ -847,6 +899,12 @@ class LlamaCloudWithStreamedResponse:
         return FilesResourceWithStreamingResponse(self._client.files)
 
     @cached_property
+    def sheets(self) -> sheets.SheetsResourceWithStreamingResponse:
+        from .resources.sheets import SheetsResourceWithStreamingResponse
+
+        return SheetsResourceWithStreamingResponse(self._client.sheets)
+
+    @cached_property
     def split(self) -> split.SplitResourceWithStreamingResponse:
         from .resources.split import SplitResourceWithStreamingResponse
 
@@ -863,6 +921,12 @@ class LlamaCloudWithStreamedResponse:
         from .resources.extract import ExtractResourceWithStreamingResponse
 
         return ExtractResourceWithStreamingResponse(self._client.extract)
+
+    @cached_property
+    def classifier(self) -> classifier.ClassifierResourceWithStreamingResponse:
+        from .resources.classifier import ClassifierResourceWithStreamingResponse
+
+        return ClassifierResourceWithStreamingResponse(self._client.classifier)
 
     @cached_property
     def batches(self) -> batches.BatchesResourceWithStreamingResponse:
@@ -901,16 +965,16 @@ class LlamaCloudWithStreamedResponse:
         return V2ProjectsResourceWithStreamingResponse(self._client.v2_projects)
 
     @cached_property
-    def job_data_points(self) -> job_data_points.JobDataPointsResourceWithStreamingResponse:
-        from .resources.job_data_points import JobDataPointsResourceWithStreamingResponse
-
-        return JobDataPointsResourceWithStreamingResponse(self._client.job_data_points)
-
-    @cached_property
     def data_sinks(self) -> data_sinks.DataSinksResourceWithStreamingResponse:
         from .resources.data_sinks import DataSinksResourceWithStreamingResponse
 
         return DataSinksResourceWithStreamingResponse(self._client.data_sinks)
+
+    @cached_property
+    def extraction_agents(self) -> extraction_agents.ExtractionAgentsResourceWithStreamingResponse:
+        from .resources.extraction_agents import ExtractionAgentsResourceWithStreamingResponse
+
+        return ExtractionAgentsResourceWithStreamingResponse(self._client.extraction_agents)
 
     @cached_property
     def data_sources(self) -> data_sources.DataSourcesResourceWithStreamingResponse:
@@ -950,6 +1014,12 @@ class AsyncLlamaCloudWithStreamedResponse:
         return AsyncFilesResourceWithStreamingResponse(self._client.files)
 
     @cached_property
+    def sheets(self) -> sheets.AsyncSheetsResourceWithStreamingResponse:
+        from .resources.sheets import AsyncSheetsResourceWithStreamingResponse
+
+        return AsyncSheetsResourceWithStreamingResponse(self._client.sheets)
+
+    @cached_property
     def split(self) -> split.AsyncSplitResourceWithStreamingResponse:
         from .resources.split import AsyncSplitResourceWithStreamingResponse
 
@@ -966,6 +1036,12 @@ class AsyncLlamaCloudWithStreamedResponse:
         from .resources.extract import AsyncExtractResourceWithStreamingResponse
 
         return AsyncExtractResourceWithStreamingResponse(self._client.extract)
+
+    @cached_property
+    def classifier(self) -> classifier.AsyncClassifierResourceWithStreamingResponse:
+        from .resources.classifier import AsyncClassifierResourceWithStreamingResponse
+
+        return AsyncClassifierResourceWithStreamingResponse(self._client.classifier)
 
     @cached_property
     def batches(self) -> batches.AsyncBatchesResourceWithStreamingResponse:
@@ -1004,16 +1080,16 @@ class AsyncLlamaCloudWithStreamedResponse:
         return AsyncV2ProjectsResourceWithStreamingResponse(self._client.v2_projects)
 
     @cached_property
-    def job_data_points(self) -> job_data_points.AsyncJobDataPointsResourceWithStreamingResponse:
-        from .resources.job_data_points import AsyncJobDataPointsResourceWithStreamingResponse
-
-        return AsyncJobDataPointsResourceWithStreamingResponse(self._client.job_data_points)
-
-    @cached_property
     def data_sinks(self) -> data_sinks.AsyncDataSinksResourceWithStreamingResponse:
         from .resources.data_sinks import AsyncDataSinksResourceWithStreamingResponse
 
         return AsyncDataSinksResourceWithStreamingResponse(self._client.data_sinks)
+
+    @cached_property
+    def extraction_agents(self) -> extraction_agents.AsyncExtractionAgentsResourceWithStreamingResponse:
+        from .resources.extraction_agents import AsyncExtractionAgentsResourceWithStreamingResponse
+
+        return AsyncExtractionAgentsResourceWithStreamingResponse(self._client.extraction_agents)
 
     @cached_property
     def data_sources(self) -> data_sources.AsyncDataSourcesResourceWithStreamingResponse:

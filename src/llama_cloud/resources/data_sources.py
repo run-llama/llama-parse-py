@@ -7,13 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
-    data_source_get_params,
-    data_source_list_params,
-    data_source_create_params,
-    data_source_delete_params,
-    data_source_update_params,
-)
+from ..types import data_source_list_params, data_source_create_params, data_source_update_params
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -142,7 +136,6 @@ class DataSourcesResource(SyncAPIResource):
             "S3",
             "SLACK",
         ],
-        project_id: Optional[str] | Omit = omit,
         component: Optional[data_source_update_params.Component] | Omit = omit,
         custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
         | Omit = omit,
@@ -186,11 +179,7 @@ class DataSourcesResource(SyncAPIResource):
                 data_source_update_params.DataSourceUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, data_source_update_params.DataSourceUpdateParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DataSource,
         )
@@ -243,7 +232,6 @@ class DataSourcesResource(SyncAPIResource):
         self,
         data_source_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -269,11 +257,7 @@ class DataSourcesResource(SyncAPIResource):
         return self._delete(
             path_template("/api/v1/data-sources/{data_source_id}", data_source_id=data_source_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, data_source_delete_params.DataSourceDeleteParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
@@ -282,7 +266,6 @@ class DataSourcesResource(SyncAPIResource):
         self,
         data_source_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -307,11 +290,7 @@ class DataSourcesResource(SyncAPIResource):
         return self._get(
             path_template("/api/v1/data-sources/{data_source_id}", data_source_id=data_source_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, data_source_get_params.DataSourceGetParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DataSource,
         )
@@ -428,7 +407,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
             "S3",
             "SLACK",
         ],
-        project_id: Optional[str] | Omit = omit,
         component: Optional[data_source_update_params.Component] | Omit = omit,
         custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
         | Omit = omit,
@@ -472,13 +450,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
                 data_source_update_params.DataSourceUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, data_source_update_params.DataSourceUpdateParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DataSource,
         )
@@ -531,7 +503,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         self,
         data_source_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -557,13 +528,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         return await self._delete(
             path_template("/api/v1/data-sources/{data_source_id}", data_source_id=data_source_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, data_source_delete_params.DataSourceDeleteParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
@@ -572,7 +537,6 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         self,
         data_source_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -597,13 +561,7 @@ class AsyncDataSourcesResource(AsyncAPIResource):
         return await self._get(
             path_template("/api/v1/data-sources/{data_source_id}", data_source_id=data_source_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, data_source_get_params.DataSourceGetParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DataSource,
         )

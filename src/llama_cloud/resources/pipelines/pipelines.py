@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import typing_extensions
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal
 
 import httpx
 
@@ -35,15 +34,12 @@ from .images import (
 from ...types import (
     PipelineType,
     RetrievalMode,
-    pipeline_get_params,
     pipeline_list_params,
     pipeline_create_params,
-    pipeline_delete_params,
     pipeline_update_params,
     pipeline_upsert_params,
     pipeline_retrieve_params,
     pipeline_get_status_params,
-    pipeline_list_paginated_params,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
@@ -71,7 +67,6 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 from .data_sources import (
     DataSourcesResource,
     AsyncDataSourcesResource,
@@ -80,7 +75,7 @@ from .data_sources import (
     DataSourcesResourceWithStreamingResponse,
     AsyncDataSourcesResourceWithStreamingResponse,
 )
-from ..._base_client import AsyncPaginator, make_request_options
+from ..._base_client import make_request_options
 from ...types.pipeline import Pipeline
 from ...types.pipeline_type import PipelineType
 from ...types.retrieval_mode import RetrievalMode
@@ -92,7 +87,6 @@ from ...types.pipeline_retrieve_response import PipelineRetrieveResponse
 from ...types.llama_parse_parameters_param import LlamaParseParametersParam
 from ...types.preset_retrieval_params_param import PresetRetrievalParamsParam
 from ...types.pipeline_metadata_config_param import PipelineMetadataConfigParam
-from ...types.pipeline_list_paginated_response import PipelineListPaginatedResponse
 from ...types.managed_ingestion_status_response import ManagedIngestionStatusResponse
 
 __all__ = ["PipelinesResource", "AsyncPipelinesResource"]
@@ -371,7 +365,6 @@ class PipelinesResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         data_sink: Optional[DataSinkCreateParam] | Omit = omit,
         data_sink_id: Optional[str] | Omit = omit,
         embedding_config: Optional[pipeline_update_params.EmbeddingConfig] | Omit = omit,
@@ -452,11 +445,7 @@ class PipelinesResource(SyncAPIResource):
                 pipeline_update_params.PipelineUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, pipeline_update_params.PipelineUpdateParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )
@@ -479,8 +468,6 @@ class PipelinesResource(SyncAPIResource):
     ) -> PipelineListResponse:
         """
         Search for pipelines by name, type, or project.
-
-        Deprecated: use `GET /api/v2/pipelines`, which is paginated.
 
         Args:
           pipeline_type: Enum for representing the type of a pipeline
@@ -519,7 +506,6 @@ class PipelinesResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -548,11 +534,7 @@ class PipelinesResource(SyncAPIResource):
         return self._delete(
             path_template("/api/v1/pipelines/{pipeline_id}", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, pipeline_delete_params.PipelineDeleteParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
@@ -562,7 +544,6 @@ class PipelinesResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -587,11 +568,7 @@ class PipelinesResource(SyncAPIResource):
         return self._get(
             path_template("/api/v1/pipelines/{pipeline_id}", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, pipeline_get_params.PipelineGetParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )
@@ -602,7 +579,6 @@ class PipelinesResource(SyncAPIResource):
         pipeline_id: str,
         *,
         full_details: Optional[bool] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -635,65 +611,10 @@ class PipelinesResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {
-                        "full_details": full_details,
-                        "project_id": project_id,
-                    },
-                    pipeline_get_status_params.PipelineGetStatusParams,
+                    {"full_details": full_details}, pipeline_get_status_params.PipelineGetStatusParams
                 ),
             ),
             cast_to=ManagedIngestionStatusResponse,
-        )
-
-    def list_paginated(
-        self,
-        *,
-        name: Optional[str] | Omit = omit,
-        organization_id: Optional[str] | Omit = omit,
-        page_size: Optional[int] | Omit = omit,
-        page_token: Optional[str] | Omit = omit,
-        pipeline_type: Optional[Literal["MANAGED", "PLAYGROUND"]] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncPaginatedCursor[PipelineListPaginatedResponse]:
-        """
-        List the pipelines in a project, newest first.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get_api_list(
-            "/api/v2/pipelines",
-            page=SyncPaginatedCursor[PipelineListPaginatedResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "name": name,
-                        "organization_id": organization_id,
-                        "page_size": page_size,
-                        "page_token": page_token,
-                        "pipeline_type": pipeline_type,
-                        "project_id": project_id,
-                    },
-                    pipeline_list_paginated_params.PipelineListPaginatedParams,
-                ),
-            ),
-            model=PipelineListPaginatedResponse,
         )
 
     @typing_extensions.deprecated("deprecated")
@@ -1075,7 +996,6 @@ class AsyncPipelinesResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         data_sink: Optional[DataSinkCreateParam] | Omit = omit,
         data_sink_id: Optional[str] | Omit = omit,
         embedding_config: Optional[pipeline_update_params.EmbeddingConfig] | Omit = omit,
@@ -1156,13 +1076,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
                 pipeline_update_params.PipelineUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, pipeline_update_params.PipelineUpdateParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )
@@ -1185,8 +1099,6 @@ class AsyncPipelinesResource(AsyncAPIResource):
     ) -> PipelineListResponse:
         """
         Search for pipelines by name, type, or project.
-
-        Deprecated: use `GET /api/v2/pipelines`, which is paginated.
 
         Args:
           pipeline_type: Enum for representing the type of a pipeline
@@ -1225,7 +1137,6 @@ class AsyncPipelinesResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1254,13 +1165,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
         return await self._delete(
             path_template("/api/v1/pipelines/{pipeline_id}", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, pipeline_delete_params.PipelineDeleteParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
@@ -1270,7 +1175,6 @@ class AsyncPipelinesResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1295,11 +1199,7 @@ class AsyncPipelinesResource(AsyncAPIResource):
         return await self._get(
             path_template("/api/v1/pipelines/{pipeline_id}", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"project_id": project_id}, pipeline_get_params.PipelineGetParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Pipeline,
         )
@@ -1310,7 +1210,6 @@ class AsyncPipelinesResource(AsyncAPIResource):
         pipeline_id: str,
         *,
         full_details: Optional[bool] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1343,65 +1242,10 @@ class AsyncPipelinesResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {
-                        "full_details": full_details,
-                        "project_id": project_id,
-                    },
-                    pipeline_get_status_params.PipelineGetStatusParams,
+                    {"full_details": full_details}, pipeline_get_status_params.PipelineGetStatusParams
                 ),
             ),
             cast_to=ManagedIngestionStatusResponse,
-        )
-
-    def list_paginated(
-        self,
-        *,
-        name: Optional[str] | Omit = omit,
-        organization_id: Optional[str] | Omit = omit,
-        page_size: Optional[int] | Omit = omit,
-        page_token: Optional[str] | Omit = omit,
-        pipeline_type: Optional[Literal["MANAGED", "PLAYGROUND"]] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[PipelineListPaginatedResponse, AsyncPaginatedCursor[PipelineListPaginatedResponse]]:
-        """
-        List the pipelines in a project, newest first.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get_api_list(
-            "/api/v2/pipelines",
-            page=AsyncPaginatedCursor[PipelineListPaginatedResponse],
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "name": name,
-                        "organization_id": organization_id,
-                        "page_size": page_size,
-                        "page_token": page_token,
-                        "pipeline_type": pipeline_type,
-                        "project_id": project_id,
-                    },
-                    pipeline_list_paginated_params.PipelineListPaginatedParams,
-                ),
-            ),
-            model=PipelineListPaginatedResponse,
         )
 
     @typing_extensions.deprecated("deprecated")
@@ -1549,9 +1393,6 @@ class PipelinesResourceWithRawResponse:
                 pipelines.get_status,  # pyright: ignore[reportDeprecated],
             )
         )
-        self.list_paginated = to_raw_response_wrapper(
-            pipelines.list_paginated,
-        )
         self.upsert = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
                 pipelines.upsert,  # pyright: ignore[reportDeprecated],
@@ -1621,9 +1462,6 @@ class AsyncPipelinesResourceWithRawResponse:
             async_to_raw_response_wrapper(
                 pipelines.get_status,  # pyright: ignore[reportDeprecated],
             )
-        )
-        self.list_paginated = async_to_raw_response_wrapper(
-            pipelines.list_paginated,
         )
         self.upsert = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
@@ -1695,9 +1533,6 @@ class PipelinesResourceWithStreamingResponse:
                 pipelines.get_status,  # pyright: ignore[reportDeprecated],
             )
         )
-        self.list_paginated = to_streamed_response_wrapper(
-            pipelines.list_paginated,
-        )
         self.upsert = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
                 pipelines.upsert,  # pyright: ignore[reportDeprecated],
@@ -1767,9 +1602,6 @@ class AsyncPipelinesResourceWithStreamingResponse:
             async_to_streamed_response_wrapper(
                 pipelines.get_status,  # pyright: ignore[reportDeprecated],
             )
-        )
-        self.list_paginated = async_to_streamed_response_wrapper(
-            pipelines.list_paginated,
         )
         self.upsert = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(

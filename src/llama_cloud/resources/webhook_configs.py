@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict, List, Optional
 from typing_extensions import Literal
 
@@ -113,8 +114,7 @@ class WebhookConfigsResource(SyncAPIResource):
         Args:
           webhook_url: URL to receive webhook POST notifications.
 
-          webhook_events: Events to subscribe to. If null, all events are delivered. An empty list
-              subscribes to nothing and is rejected.
+          webhook_events: Events to subscribe to. If null, all events are delivered.
 
           webhook_headers: Custom HTTP headers sent with each webhook request.
 
@@ -266,7 +266,7 @@ class WebhookConfigsResource(SyncAPIResource):
         Only fields present in the request change.
 
         Args:
-          webhook_events: Updated event subscriptions. Omit to leave unchanged; [] is rejected.
+          webhook_events: Updated event subscriptions.
 
           webhook_headers: Updated headers.
 
@@ -314,6 +314,7 @@ class WebhookConfigsResource(SyncAPIResource):
             cast_to=WebhookConfigResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -485,8 +486,7 @@ class AsyncWebhookConfigsResource(AsyncAPIResource):
         Args:
           webhook_url: URL to receive webhook POST notifications.
 
-          webhook_events: Events to subscribe to. If null, all events are delivered. An empty list
-              subscribes to nothing and is rejected.
+          webhook_events: Events to subscribe to. If null, all events are delivered.
 
           webhook_headers: Custom HTTP headers sent with each webhook request.
 
@@ -638,7 +638,7 @@ class AsyncWebhookConfigsResource(AsyncAPIResource):
         Only fields present in the request change.
 
         Args:
-          webhook_events: Updated event subscriptions. Omit to leave unchanged; [] is rejected.
+          webhook_events: Updated event subscriptions.
 
           webhook_headers: Updated headers.
 
@@ -686,6 +686,7 @@ class AsyncWebhookConfigsResource(AsyncAPIResource):
             cast_to=WebhookConfigResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -788,8 +789,10 @@ class WebhookConfigsResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             webhook_configs.update,
         )
-        self.list = to_raw_response_wrapper(
-            webhook_configs.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                webhook_configs.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_raw_response_wrapper(
             webhook_configs.delete,
@@ -809,8 +812,10 @@ class AsyncWebhookConfigsResourceWithRawResponse:
         self.update = async_to_raw_response_wrapper(
             webhook_configs.update,
         )
-        self.list = async_to_raw_response_wrapper(
-            webhook_configs.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                webhook_configs.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_raw_response_wrapper(
             webhook_configs.delete,
@@ -830,8 +835,10 @@ class WebhookConfigsResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             webhook_configs.update,
         )
-        self.list = to_streamed_response_wrapper(
-            webhook_configs.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                webhook_configs.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_streamed_response_wrapper(
             webhook_configs.delete,
@@ -851,8 +858,10 @@ class AsyncWebhookConfigsResourceWithStreamingResponse:
         self.update = async_to_streamed_response_wrapper(
             webhook_configs.update,
         )
-        self.list = async_to_streamed_response_wrapper(
-            webhook_configs.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                webhook_configs.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_streamed_response_wrapper(
             webhook_configs.delete,

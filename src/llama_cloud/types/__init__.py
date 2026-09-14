@@ -21,6 +21,7 @@ from . import (
     pipeline_retrieve_response,
 )
 from .. import _compat
+from .file import File as File
 from .form import Form as Form
 from .b_box import BBox as BBox
 from .shared import (
@@ -65,12 +66,12 @@ from .form_section import FormSection as FormSection
 from .heading_item import HeadingItem as HeadingItem
 from .message_role import MessageRole as MessageRole
 from .parsing_mode import ParsingMode as ParsingMode
+from .extract_agent import ExtractAgent as ExtractAgent
 from .pipeline_type import PipelineType as PipelineType
 from .presigned_url import PresignedURL as PresignedURL
 from .extract_v2_job import ExtractV2Job as ExtractV2Job
 from .fail_page_mode import FailPageMode as FailPageMode
 from .form_list_item import FormListItem as FormListItem
-from .job_data_point import JobDataPoint as JobDataPoint
 from .retrieval_mode import RetrievalMode as RetrievalMode
 from .classify_result import ClassifyResult as ClassifyResult
 from .batch_get_params import BatchGetParams as BatchGetParams
@@ -79,12 +80,14 @@ from .file_list_params import FileListParams as FileListParams
 from .gemini_embedding import GeminiEmbedding as GeminiEmbedding
 from .metadata_filters import MetadataFilters as MetadataFilters
 from .openai_embedding import OpenAIEmbedding as OpenAIEmbedding
+from .sheet_get_params import SheetGetParams as SheetGetParams
 from .split_get_params import SplitGetParams as SplitGetParams
 from .batch_list_params import BatchListParams as BatchListParams
 from .bedrock_embedding import BedrockEmbedding as BedrockEmbedding
 from .extract_job_usage import ExtractJobUsage as ExtractJobUsage
 from .file_query_params import FileQueryParams as FileQueryParams
 from .parsing_languages import ParsingLanguages as ParsingLanguages
+from .sheet_list_params import SheetListParams as SheetListParams
 from .split_list_params import SplitListParams as SplitListParams
 from .batch_get_response import BatchGetResponse as BatchGetResponse
 from .extract_get_params import ExtractGetParams as ExtractGetParams
@@ -106,8 +109,8 @@ from .file_query_response import FileQueryResponse as FileQueryResponse
 from .form_list_text_item import FormListTextItem as FormListTextItem
 from .parse_v2_parameters import ParseV2Parameters as ParseV2Parameters
 from .parsing_list_params import ParsingListParams as ParsingListParams
-from .pipeline_get_params import PipelineGetParams as PipelineGetParams
 from .project_list_params import ProjectListParams as ProjectListParams
+from .sheet_create_params import SheetCreateParams as SheetCreateParams
 from .sparse_model_config import SparseModelConfig as SparseModelConfig
 from .split_cancel_params import SplitCancelParams as SplitCancelParams
 from .split_create_params import SplitCreateParams as SplitCreateParams
@@ -116,7 +119,6 @@ from .split_list_response import SplitListResponse as SplitListResponse
 from .split_v1_parameters import SplitV1Parameters as SplitV1Parameters
 from .classify_list_params import ClassifyListParams as ClassifyListParams
 from .configuration_create import ConfigurationCreate as ConfigurationCreate
-from .data_sink_get_params import DataSinkGetParams as DataSinkGetParams
 from .extract_job_metadata import ExtractJobMetadata as ExtractJobMetadata
 from .file_create_response import FileCreateResponse as FileCreateResponse
 from .file_retrieve_params import FileRetrieveParams as FileRetrieveParams
@@ -137,7 +139,6 @@ from .extract_v2_parameters import ExtractV2Parameters as ExtractV2Parameters
 from .form_table_cell_items import FormTableCellItems as FormTableCellItems
 from .parsing_cancel_params import ParsingCancelParams as ParsingCancelParams
 from .parsing_create_params import ParsingCreateParams as ParsingCreateParams
-from .parsing_delete_params import ParsingDeleteParams as ParsingDeleteParams
 from .parsing_list_response import ParsingListResponse as ParsingListResponse
 from .project_list_response import ProjectListResponse as ProjectListResponse
 from .retriever_list_params import RetrieverListParams as RetrieverListParams
@@ -154,14 +155,12 @@ from .classify_v2_parameters import ClassifyV2Parameters as ClassifyV2Parameters
 from .cohere_embedding_param import CohereEmbeddingParam as CohereEmbeddingParam
 from .configuration_response import ConfigurationResponse as ConfigurationResponse
 from .data_sink_create_param import DataSinkCreateParam as DataSinkCreateParam
-from .data_source_get_params import DataSourceGetParams as DataSourceGetParams
 from .file_retrieve_response import FileRetrieveResponse as FileRetrieveResponse
 from .gemini_embedding_param import GeminiEmbeddingParam as GeminiEmbeddingParam
 from .llama_parse_parameters import LlamaParseParameters as LlamaParseParameters
 from .metadata_filters_param import MetadataFiltersParam as MetadataFiltersParam
 from .openai_embedding_param import OpenAIEmbeddingParam as OpenAIEmbeddingParam
 from .pipeline_create_params import PipelineCreateParams as PipelineCreateParams
-from .pipeline_delete_params import PipelineDeleteParams as PipelineDeleteParams
 from .pipeline_list_response import PipelineListResponse as PipelineListResponse
 from .pipeline_update_params import PipelineUpdateParams as PipelineUpdateParams
 from .pipeline_upsert_params import PipelineUpsertParams as PipelineUpsertParams
@@ -169,7 +168,6 @@ from .v2_project_list_params import V2ProjectListParams as V2ProjectListParams
 from .bedrock_embedding_param import BedrockEmbeddingParam as BedrockEmbeddingParam
 from .cohere_embedding_config import CohereEmbeddingConfig as CohereEmbeddingConfig
 from .data_sink_create_params import DataSinkCreateParams as DataSinkCreateParams
-from .data_sink_delete_params import DataSinkDeleteParams as DataSinkDeleteParams
 from .data_sink_list_response import DataSinkListResponse as DataSinkListResponse
 from .data_sink_update_params import DataSinkUpdateParams as DataSinkUpdateParams
 from .data_source_list_params import DataSourceListParams as DataSourceListParams
@@ -177,7 +175,6 @@ from .gemini_embedding_config import GeminiEmbeddingConfig as GeminiEmbeddingCon
 from .openai_embedding_config import OpenAIEmbeddingConfig as OpenAIEmbeddingConfig
 from .parsing_cancel_response import ParsingCancelResponse as ParsingCancelResponse
 from .parsing_create_response import ParsingCreateResponse as ParsingCreateResponse
-from .parsing_delete_response import ParsingDeleteResponse as ParsingDeleteResponse
 from .preset_retrieval_params import PresetRetrievalParams as PresetRetrievalParams
 from .retriever_create_params import RetrieverCreateParams as RetrieverCreateParams
 from .retriever_delete_params import RetrieverDeleteParams as RetrieverDeleteParams
@@ -185,6 +182,7 @@ from .retriever_list_response import RetrieverListResponse as RetrieverListRespo
 from .retriever_search_params import RetrieverSearchParams as RetrieverSearchParams
 from .retriever_update_params import RetrieverUpdateParams as RetrieverUpdateParams
 from .retriever_upsert_params import RetrieverUpsertParams as RetrieverUpsertParams
+from .sheet_delete_job_params import SheetDeleteJobParams as SheetDeleteJobParams
 from .v2_project_get_response import V2ProjectGetResponse as V2ProjectGetResponse
 from .webhook_config_response import WebhookConfigResponse as WebhookConfigResponse
 from .bedrock_embedding_config import BedrockEmbeddingConfig as BedrockEmbeddingConfig
@@ -199,14 +197,12 @@ from .untyped_parameters_param import UntypedParametersParam as UntypedParameter
 from .v2_project_list_response import V2ProjectListResponse as V2ProjectListResponse
 from .configuration_list_params import ConfigurationListParams as ConfigurationListParams
 from .data_source_create_params import DataSourceCreateParams as DataSourceCreateParams
-from .data_source_delete_params import DataSourceDeleteParams as DataSourceDeleteParams
 from .data_source_list_response import DataSourceListResponse as DataSourceListResponse
 from .data_source_update_params import DataSourceUpdateParams as DataSourceUpdateParams
 from .parse_v2_parameters_param import ParseV2ParametersParam as ParseV2ParametersParam
 from .sparse_model_config_param import SparseModelConfigParam as SparseModelConfigParam
 from .split_v1_parameters_param import SplitV1ParametersParam as SplitV1ParametersParam
 from .composite_retrieval_result import CompositeRetrievalResult as CompositeRetrievalResult
-from .job_data_point_list_params import JobDataPointListParams as JobDataPointListParams
 from .parsing_upload_file_params import ParsingUploadFileParams as ParsingUploadFileParams
 from .pipeline_get_status_params import PipelineGetStatusParams as PipelineGetStatusParams
 from .pipeline_retrieve_response import PipelineRetrieveResponse as PipelineRetrieveResponse
@@ -223,6 +219,7 @@ from .vertex_text_embedding_param import VertexTextEmbeddingParam as VertexTextE
 from .azure_openai_embedding_param import AzureOpenAIEmbeddingParam as AzureOpenAIEmbeddingParam
 from .classify_configuration_param import ClassifyConfigurationParam as ClassifyConfigurationParam
 from .classify_v2_parameters_param import ClassifyV2ParametersParam as ClassifyV2ParametersParam
+from .extraction_agent_list_params import ExtractionAgentListParams as ExtractionAgentListParams
 from .llama_parse_parameters_param import LlamaParseParametersParam as LlamaParseParametersParam
 from .webhook_config_create_params import WebhookConfigCreateParams as WebhookConfigCreateParams
 from .webhook_config_delete_params import WebhookConfigDeleteParams as WebhookConfigDeleteParams
@@ -235,16 +232,16 @@ from .extract_v2_job_query_response import ExtractV2JobQueryResponse as ExtractV
 from .gemini_embedding_config_param import GeminiEmbeddingConfigParam as GeminiEmbeddingConfigParam
 from .openai_embedding_config_param import OpenAIEmbeddingConfigParam as OpenAIEmbeddingConfigParam
 from .preset_retrieval_params_param import PresetRetrievalParamsParam as PresetRetrievalParamsParam
+from .sheet_get_result_table_params import SheetGetResultTableParams as SheetGetResultTableParams
 from .advanced_mode_transform_config import AdvancedModeTransformConfig as AdvancedModeTransformConfig
 from .bedrock_embedding_config_param import BedrockEmbeddingConfigParam as BedrockEmbeddingConfigParam
 from .extract_generate_schema_params import ExtractGenerateSchemaParams as ExtractGenerateSchemaParams
 from .extract_validate_schema_params import ExtractValidateSchemaParams as ExtractValidateSchemaParams
 from .parsing_list_versions_response import ParsingListVersionsResponse as ParsingListVersionsResponse
-from .pipeline_list_paginated_params import PipelineListPaginatedParams as PipelineListPaginatedParams
 from .pipeline_metadata_config_param import PipelineMetadataConfigParam as PipelineMetadataConfigParam
 from .webhook_config_retrieve_params import WebhookConfigRetrieveParams as WebhookConfigRetrieveParams
+from .data_sink_list_paginated_params import DataSinkListPaginatedParams as DataSinkListPaginatedParams
 from .page_screenshot_node_with_score import PageScreenshotNodeWithScore as PageScreenshotNodeWithScore
-from .pipeline_list_paginated_response import PipelineListPaginatedResponse as PipelineListPaginatedResponse
 from .vertex_ai_embedding_config_param import VertexAIEmbeddingConfigParam as VertexAIEmbeddingConfigParam
 from .managed_ingestion_status_response import ManagedIngestionStatusResponse as ManagedIngestionStatusResponse
 from .azure_openai_embedding_config_param import AzureOpenAIEmbeddingConfigParam as AzureOpenAIEmbeddingConfigParam

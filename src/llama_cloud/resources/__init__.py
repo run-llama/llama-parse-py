@@ -24,6 +24,14 @@ from .split import (
     SplitResourceWithStreamingResponse,
     AsyncSplitResourceWithStreamingResponse,
 )
+from .sheets import (
+    SheetsResource,
+    AsyncSheetsResource,
+    SheetsResourceWithRawResponse,
+    AsyncSheetsResourceWithRawResponse,
+    SheetsResourceWithStreamingResponse,
+    AsyncSheetsResourceWithStreamingResponse,
+)
 from .batches import (
     BatchesResource,
     AsyncBatchesResource,
@@ -72,6 +80,14 @@ from .pipelines import (
     PipelinesResourceWithStreamingResponse,
     AsyncPipelinesResourceWithStreamingResponse,
 )
+from .classifier import (
+    ClassifierResource,
+    AsyncClassifierResource,
+    ClassifierResourceWithRawResponse,
+    AsyncClassifierResourceWithRawResponse,
+    ClassifierResourceWithStreamingResponse,
+    AsyncClassifierResourceWithStreamingResponse,
+)
 from .data_sinks import (
     DataSinksResource,
     AsyncDataSinksResource,
@@ -112,14 +128,6 @@ from .configurations import (
     ConfigurationsResourceWithStreamingResponse,
     AsyncConfigurationsResourceWithStreamingResponse,
 )
-from .job_data_points import (
-    JobDataPointsResource,
-    AsyncJobDataPointsResource,
-    JobDataPointsResourceWithRawResponse,
-    AsyncJobDataPointsResourceWithRawResponse,
-    JobDataPointsResourceWithStreamingResponse,
-    AsyncJobDataPointsResourceWithStreamingResponse,
-)
 from .webhook_configs import (
     WebhookConfigsResource,
     AsyncWebhookConfigsResource,
@@ -127,6 +135,14 @@ from .webhook_configs import (
     AsyncWebhookConfigsResourceWithRawResponse,
     WebhookConfigsResourceWithStreamingResponse,
     AsyncWebhookConfigsResourceWithStreamingResponse,
+)
+from .extraction_agents import (
+    ExtractionAgentsResource,
+    AsyncExtractionAgentsResource,
+    ExtractionAgentsResourceWithRawResponse,
+    AsyncExtractionAgentsResourceWithRawResponse,
+    ExtractionAgentsResourceWithStreamingResponse,
+    AsyncExtractionAgentsResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -136,6 +152,12 @@ __all__ = [
     "AsyncFilesResourceWithRawResponse",
     "FilesResourceWithStreamingResponse",
     "AsyncFilesResourceWithStreamingResponse",
+    "SheetsResource",
+    "AsyncSheetsResource",
+    "SheetsResourceWithRawResponse",
+    "AsyncSheetsResourceWithRawResponse",
+    "SheetsResourceWithStreamingResponse",
+    "AsyncSheetsResourceWithStreamingResponse",
     "SplitResource",
     "AsyncSplitResource",
     "SplitResourceWithRawResponse",
@@ -154,6 +176,12 @@ __all__ = [
     "AsyncExtractResourceWithRawResponse",
     "ExtractResourceWithStreamingResponse",
     "AsyncExtractResourceWithStreamingResponse",
+    "ClassifierResource",
+    "AsyncClassifierResource",
+    "ClassifierResourceWithRawResponse",
+    "AsyncClassifierResourceWithRawResponse",
+    "ClassifierResourceWithStreamingResponse",
+    "AsyncClassifierResourceWithStreamingResponse",
     "BatchesResource",
     "AsyncBatchesResource",
     "BatchesResourceWithRawResponse",
@@ -190,18 +218,18 @@ __all__ = [
     "AsyncV2ProjectsResourceWithRawResponse",
     "V2ProjectsResourceWithStreamingResponse",
     "AsyncV2ProjectsResourceWithStreamingResponse",
-    "JobDataPointsResource",
-    "AsyncJobDataPointsResource",
-    "JobDataPointsResourceWithRawResponse",
-    "AsyncJobDataPointsResourceWithRawResponse",
-    "JobDataPointsResourceWithStreamingResponse",
-    "AsyncJobDataPointsResourceWithStreamingResponse",
     "DataSinksResource",
     "AsyncDataSinksResource",
     "DataSinksResourceWithRawResponse",
     "AsyncDataSinksResourceWithRawResponse",
     "DataSinksResourceWithStreamingResponse",
     "AsyncDataSinksResourceWithStreamingResponse",
+    "ExtractionAgentsResource",
+    "AsyncExtractionAgentsResource",
+    "ExtractionAgentsResourceWithRawResponse",
+    "AsyncExtractionAgentsResourceWithRawResponse",
+    "ExtractionAgentsResourceWithStreamingResponse",
+    "AsyncExtractionAgentsResourceWithStreamingResponse",
     "DataSourcesResource",
     "AsyncDataSourcesResource",
     "DataSourcesResourceWithRawResponse",

@@ -38,23 +38,6 @@ class TestFiles:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            file = client.pipelines.files.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body=[
-                    {
-                        "file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_metadata": {"foo": {"foo": "bar"}},
-                    }
-                ],
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(FileCreateResponse, file, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_create(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.pipelines.files.with_raw_response.create(
@@ -111,7 +94,6 @@ class TestFiles:
             file = client.pipelines.files.update(
                 file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 custom_metadata={"foo": {"foo": "bar"}},
             )
 
@@ -185,7 +167,6 @@ class TestFiles:
                 offset=0,
                 only_manually_uploaded=True,
                 order_by="order_by",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 statuses=["CANCELLED", "ERROR"],
             )
 
@@ -235,18 +216,6 @@ class TestFiles:
             file = client.pipelines.files.delete(
                 file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert file is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_delete_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            file = client.pipelines.files.delete(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert file is None
@@ -304,18 +273,6 @@ class TestFiles:
             file = client.pipelines.files.get_status(
                 file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_get_status_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            file = client.pipelines.files.get_status(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
@@ -384,7 +341,6 @@ class TestFiles:
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 only_manually_uploaded=True,
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])
@@ -439,23 +395,6 @@ class TestAsyncFiles:
             file = await async_client.pipelines.files.create(
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 body=[{"file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"}],
-            )
-
-        assert_matches_type(FileCreateResponse, file, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            file = await async_client.pipelines.files.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body=[
-                    {
-                        "file_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                        "custom_metadata": {"foo": {"foo": "bar"}},
-                    }
-                ],
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(FileCreateResponse, file, path=["response"])
@@ -518,7 +457,6 @@ class TestAsyncFiles:
             file = await async_client.pipelines.files.update(
                 file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 custom_metadata={"foo": {"foo": "bar"}},
             )
 
@@ -592,7 +530,6 @@ class TestAsyncFiles:
                 offset=0,
                 only_manually_uploaded=True,
                 order_by="order_by",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 statuses=["CANCELLED", "ERROR"],
             )
 
@@ -642,18 +579,6 @@ class TestAsyncFiles:
             file = await async_client.pipelines.files.delete(
                 file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert file is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            file = await async_client.pipelines.files.delete(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert file is None
@@ -711,18 +636,6 @@ class TestAsyncFiles:
             file = await async_client.pipelines.files.get_status(
                 file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_get_status_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            file = await async_client.pipelines.files.get_status(
-                file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(ManagedIngestionStatusResponse, file, path=["response"])
@@ -791,7 +704,6 @@ class TestAsyncFiles:
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 only_manually_uploaded=True,
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(FileGetStatusCountsResponse, file, path=["response"])

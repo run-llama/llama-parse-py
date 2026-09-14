@@ -21,14 +21,7 @@ from ..._response import (
 from ...pagination import SyncPaginatedCloudDocuments, AsyncPaginatedCloudDocuments
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.pipelines import (
-    document_get_params,
     document_list_params,
-    document_sync_params,
-    document_create_params,
-    document_delete_params,
-    document_upsert_params,
-    document_get_chunks_params,
-    document_get_status_params,
     document_get_status_counts_params,
 )
 from ...types.pipelines.cloud_document import CloudDocument
@@ -68,7 +61,6 @@ class DocumentsResource(SyncAPIResource):
         pipeline_id: str,
         *,
         body: Iterable[CloudDocumentCreateParam],
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -94,11 +86,7 @@ class DocumentsResource(SyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/documents", pipeline_id=pipeline_id),
             body=maybe_transform(body, Iterable[CloudDocumentCreateParam]),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, document_create_params.DocumentCreateParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentCreateResponse,
         )
@@ -112,7 +100,6 @@ class DocumentsResource(SyncAPIResource):
         limit: int | Omit = omit,
         only_api_data_source_documents: Optional[bool] | Omit = omit,
         only_direct_upload: Optional[bool] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
         skip: int | Omit = omit,
         status_refresh_policy: Literal["cached", "ttl"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -150,7 +137,6 @@ class DocumentsResource(SyncAPIResource):
                         "limit": limit,
                         "only_api_data_source_documents": only_api_data_source_documents,
                         "only_direct_upload": only_direct_upload,
-                        "project_id": project_id,
                         "skip": skip,
                         "status_refresh_policy": status_refresh_policy,
                     },
@@ -166,7 +152,6 @@ class DocumentsResource(SyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -199,11 +184,7 @@ class DocumentsResource(SyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, document_delete_params.DocumentDeleteParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
@@ -214,7 +195,6 @@ class DocumentsResource(SyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -245,11 +225,7 @@ class DocumentsResource(SyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, document_get_params.DocumentGetParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CloudDocument,
         )
@@ -260,7 +236,6 @@ class DocumentsResource(SyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -291,11 +266,7 @@ class DocumentsResource(SyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, document_get_chunks_params.DocumentGetChunksParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentGetChunksResponse,
         )
@@ -306,7 +277,6 @@ class DocumentsResource(SyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -337,11 +307,7 @@ class DocumentsResource(SyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, document_get_status_params.DocumentGetStatusParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ManagedIngestionStatusResponse,
         )
@@ -354,7 +320,6 @@ class DocumentsResource(SyncAPIResource):
         data_source_id: Optional[str] | Omit = omit,
         file_id: Optional[str] | Omit = omit,
         only_direct_upload: bool | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -394,7 +359,6 @@ class DocumentsResource(SyncAPIResource):
                         "data_source_id": data_source_id,
                         "file_id": file_id,
                         "only_direct_upload": only_direct_upload,
-                        "project_id": project_id,
                     },
                     document_get_status_counts_params.DocumentGetStatusCountsParams,
                 ),
@@ -408,7 +372,6 @@ class DocumentsResource(SyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -439,11 +402,7 @@ class DocumentsResource(SyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, document_sync_params.DocumentSyncParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
         )
@@ -454,7 +413,6 @@ class DocumentsResource(SyncAPIResource):
         pipeline_id: str,
         *,
         body: Iterable[CloudDocumentCreateParam],
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -480,11 +438,7 @@ class DocumentsResource(SyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/documents", pipeline_id=pipeline_id),
             body=maybe_transform(body, Iterable[CloudDocumentCreateParam]),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"project_id": project_id}, document_upsert_params.DocumentUpsertParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentUpsertResponse,
         )
@@ -516,7 +470,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         pipeline_id: str,
         *,
         body: Iterable[CloudDocumentCreateParam],
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -542,13 +495,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/documents", pipeline_id=pipeline_id),
             body=await async_maybe_transform(body, Iterable[CloudDocumentCreateParam]),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, document_create_params.DocumentCreateParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentCreateResponse,
         )
@@ -562,7 +509,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         limit: int | Omit = omit,
         only_api_data_source_documents: Optional[bool] | Omit = omit,
         only_direct_upload: Optional[bool] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
         skip: int | Omit = omit,
         status_refresh_policy: Literal["cached", "ttl"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -600,7 +546,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
                         "limit": limit,
                         "only_api_data_source_documents": only_api_data_source_documents,
                         "only_direct_upload": only_direct_upload,
-                        "project_id": project_id,
                         "skip": skip,
                         "status_refresh_policy": status_refresh_policy,
                     },
@@ -616,7 +561,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -649,13 +593,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, document_delete_params.DocumentDeleteParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=NoneType,
         )
@@ -666,7 +604,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -697,11 +634,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"project_id": project_id}, document_get_params.DocumentGetParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CloudDocument,
         )
@@ -712,7 +645,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -743,13 +675,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, document_get_chunks_params.DocumentGetChunksParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentGetChunksResponse,
         )
@@ -760,7 +686,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -791,13 +716,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, document_get_status_params.DocumentGetStatusParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ManagedIngestionStatusResponse,
         )
@@ -810,7 +729,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         data_source_id: Optional[str] | Omit = omit,
         file_id: Optional[str] | Omit = omit,
         only_direct_upload: bool | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -850,7 +768,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
                         "data_source_id": data_source_id,
                         "file_id": file_id,
                         "only_direct_upload": only_direct_upload,
-                        "project_id": project_id,
                     },
                     document_get_status_counts_params.DocumentGetStatusCountsParams,
                 ),
@@ -864,7 +781,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         document_id: str,
         *,
         pipeline_id: str,
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -895,11 +811,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
                 document_id=document_id,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform({"project_id": project_id}, document_sync_params.DocumentSyncParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=object,
         )
@@ -910,7 +822,6 @@ class AsyncDocumentsResource(AsyncAPIResource):
         pipeline_id: str,
         *,
         body: Iterable[CloudDocumentCreateParam],
-        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -936,13 +847,7 @@ class AsyncDocumentsResource(AsyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/documents", pipeline_id=pipeline_id),
             body=await async_maybe_transform(body, Iterable[CloudDocumentCreateParam]),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"project_id": project_id}, document_upsert_params.DocumentUpsertParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=DocumentUpsertResponse,
         )

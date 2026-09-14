@@ -45,27 +45,6 @@ class TestDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = client.pipelines.documents.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body=[
-                    {
-                        "metadata": {"foo": "bar"},
-                        "text": "text",
-                        "id": "id",
-                        "excluded_embed_metadata_keys": ["string"],
-                        "excluded_llm_metadata_keys": ["string"],
-                        "page_positions": [0],
-                    }
-                ],
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(DocumentCreateResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_create(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.pipelines.documents.with_raw_response.create(
@@ -139,7 +118,6 @@ class TestDocuments:
                 limit=0,
                 only_api_data_source_documents=True,
                 only_direct_upload=True,
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 skip=0,
                 status_refresh_policy="cached",
             )
@@ -190,18 +168,6 @@ class TestDocuments:
             document = client.pipelines.documents.delete(
                 document_id="document_id",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert document is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_delete_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = client.pipelines.documents.delete(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert document is None
@@ -265,18 +231,6 @@ class TestDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = client.pipelines.documents.get(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(CloudDocument, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_get(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.pipelines.documents.with_raw_response.get(
@@ -334,18 +288,6 @@ class TestDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_chunks_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = client.pipelines.documents.get_chunks(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(DocumentGetChunksResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_get_chunks(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.pipelines.documents.with_raw_response.get_chunks(
@@ -397,18 +339,6 @@ class TestDocuments:
             document = client.pipelines.documents.get_status(
                 document_id="document_id",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(ManagedIngestionStatusResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_get_status_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = client.pipelines.documents.get_status(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(ManagedIngestionStatusResponse, document, path=["response"])
@@ -478,7 +408,6 @@ class TestDocuments:
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 only_direct_upload=True,
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
@@ -527,18 +456,6 @@ class TestDocuments:
             document = client.pipelines.documents.sync(
                 document_id="document_id",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(object, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_sync_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = client.pipelines.documents.sync(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(object, document, path=["response"])
@@ -601,27 +518,6 @@ class TestDocuments:
                         "text": "text",
                     }
                 ],
-            )
-
-        assert_matches_type(DocumentUpsertResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_upsert_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = client.pipelines.documents.upsert(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body=[
-                    {
-                        "metadata": {"foo": "bar"},
-                        "text": "text",
-                        "id": "id",
-                        "excluded_embed_metadata_keys": ["string"],
-                        "excluded_llm_metadata_keys": ["string"],
-                        "page_positions": [0],
-                    }
-                ],
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(DocumentUpsertResponse, document, path=["response"])
@@ -705,27 +601,6 @@ class TestAsyncDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = await async_client.pipelines.documents.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body=[
-                    {
-                        "metadata": {"foo": "bar"},
-                        "text": "text",
-                        "id": "id",
-                        "excluded_embed_metadata_keys": ["string"],
-                        "excluded_llm_metadata_keys": ["string"],
-                        "page_positions": [0],
-                    }
-                ],
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(DocumentCreateResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_raw_response_create(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.pipelines.documents.with_raw_response.create(
@@ -799,7 +674,6 @@ class TestAsyncDocuments:
                 limit=0,
                 only_api_data_source_documents=True,
                 only_direct_upload=True,
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 skip=0,
                 status_refresh_policy="cached",
             )
@@ -850,18 +724,6 @@ class TestAsyncDocuments:
             document = await async_client.pipelines.documents.delete(
                 document_id="document_id",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert document is None
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_delete_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = await async_client.pipelines.documents.delete(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert document is None
@@ -925,18 +787,6 @@ class TestAsyncDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = await async_client.pipelines.documents.get(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(CloudDocument, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_raw_response_get(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.pipelines.documents.with_raw_response.get(
@@ -994,18 +844,6 @@ class TestAsyncDocuments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_chunks_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = await async_client.pipelines.documents.get_chunks(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(DocumentGetChunksResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_raw_response_get_chunks(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.pipelines.documents.with_raw_response.get_chunks(
@@ -1057,18 +895,6 @@ class TestAsyncDocuments:
             document = await async_client.pipelines.documents.get_status(
                 document_id="document_id",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(ManagedIngestionStatusResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_get_status_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = await async_client.pipelines.documents.get_status(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(ManagedIngestionStatusResponse, document, path=["response"])
@@ -1138,7 +964,6 @@ class TestAsyncDocuments:
                 data_source_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 file_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 only_direct_upload=True,
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(DocumentGetStatusCountsResponse, document, path=["response"])
@@ -1187,18 +1012,6 @@ class TestAsyncDocuments:
             document = await async_client.pipelines.documents.sync(
                 document_id="document_id",
                 pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(object, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_sync_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = await async_client.pipelines.documents.sync(
-                document_id="document_id",
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(object, document, path=["response"])
@@ -1261,27 +1074,6 @@ class TestAsyncDocuments:
                         "text": "text",
                     }
                 ],
-            )
-
-        assert_matches_type(DocumentUpsertResponse, document, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_upsert_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            document = await async_client.pipelines.documents.upsert(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                body=[
-                    {
-                        "metadata": {"foo": "bar"},
-                        "text": "text",
-                        "id": "id",
-                        "excluded_embed_metadata_keys": ["string"],
-                        "excluded_llm_metadata_keys": ["string"],
-                        "page_positions": [0],
-                    }
-                ],
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(DocumentUpsertResponse, document, path=["response"])

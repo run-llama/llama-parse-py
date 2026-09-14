@@ -24,11 +24,9 @@ class FileListParams(TypedDict, total=False):
     """Filter by file name (exact match)."""
 
     order_by: Optional[str]
-    """Order the results.
+    """A comma-separated list of fields to order by, sorted in ascending order.
 
-    One of 'name' (ascending), 'id' (ascending) or 'created_at' (descending). An
-    explicit asc/desc modifier and multi-field ordering are not supported; anything
-    else is rejected.
+    Use 'field_name desc' to specify descending order.
     """
 
     organization_id: Optional[str]

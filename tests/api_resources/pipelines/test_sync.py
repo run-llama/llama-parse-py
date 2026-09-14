@@ -24,18 +24,7 @@ class TestSync:
     def test_method_create(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             sync = client.pipelines.sync.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(Pipeline, sync, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            sync = client.pipelines.sync.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(Pipeline, sync, path=["response"])
@@ -45,7 +34,7 @@ class TestSync:
     def test_raw_response_create(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.pipelines.sync.with_raw_response.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -58,7 +47,7 @@ class TestSync:
     def test_streaming_response_create(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             with client.pipelines.sync.with_streaming_response.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -74,7 +63,7 @@ class TestSync:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 client.pipelines.sync.with_raw_response.create(
-                    pipeline_id="",
+                    "",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -82,18 +71,7 @@ class TestSync:
     def test_method_cancel(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             sync = client.pipelines.sync.cancel(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(Pipeline, sync, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_cancel_with_all_params(self, client: LlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            sync = client.pipelines.sync.cancel(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(Pipeline, sync, path=["response"])
@@ -103,7 +81,7 @@ class TestSync:
     def test_raw_response_cancel(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = client.pipelines.sync.with_raw_response.cancel(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -116,7 +94,7 @@ class TestSync:
     def test_streaming_response_cancel(self, client: LlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             with client.pipelines.sync.with_streaming_response.cancel(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -132,7 +110,7 @@ class TestSync:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 client.pipelines.sync.with_raw_response.cancel(
-                    pipeline_id="",
+                    "",
                 )
 
 
@@ -146,18 +124,7 @@ class TestAsyncSync:
     async def test_method_create(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             sync = await async_client.pipelines.sync.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(Pipeline, sync, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            sync = await async_client.pipelines.sync.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(Pipeline, sync, path=["response"])
@@ -167,7 +134,7 @@ class TestAsyncSync:
     async def test_raw_response_create(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.pipelines.sync.with_raw_response.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -180,7 +147,7 @@ class TestAsyncSync:
     async def test_streaming_response_create(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.pipelines.sync.with_streaming_response.create(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -196,7 +163,7 @@ class TestAsyncSync:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 await async_client.pipelines.sync.with_raw_response.create(
-                    pipeline_id="",
+                    "",
                 )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -204,18 +171,7 @@ class TestAsyncSync:
     async def test_method_cancel(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             sync = await async_client.pipelines.sync.cancel(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            )
-
-        assert_matches_type(Pipeline, sync, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_cancel_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        with pytest.warns(DeprecationWarning):
-            sync = await async_client.pipelines.sync.cancel(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert_matches_type(Pipeline, sync, path=["response"])
@@ -225,7 +181,7 @@ class TestAsyncSync:
     async def test_raw_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             response = await async_client.pipelines.sync.with_raw_response.cancel(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             )
 
         assert response.is_closed is True
@@ -238,7 +194,7 @@ class TestAsyncSync:
     async def test_streaming_response_cancel(self, async_client: AsyncLlamaCloud) -> None:
         with pytest.warns(DeprecationWarning):
             async with async_client.pipelines.sync.with_streaming_response.cancel(
-                pipeline_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ) as response:
                 assert not response.is_closed
                 assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -254,5 +210,5 @@ class TestAsyncSync:
         with pytest.warns(DeprecationWarning):
             with pytest.raises(ValueError, match=r"Expected a non-empty value for `pipeline_id` but received ''"):
                 await async_client.pipelines.sync.with_raw_response.cancel(
-                    pipeline_id="",
+                    "",
                 )

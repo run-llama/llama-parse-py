@@ -24,6 +24,14 @@ from .split import (
     SplitResourceWithStreamingResponse,
     AsyncSplitResourceWithStreamingResponse,
 )
+from .sheets import (
+    SheetsResource,
+    AsyncSheetsResource,
+    SheetsResourceWithRawResponse,
+    AsyncSheetsResourceWithRawResponse,
+    SheetsResourceWithStreamingResponse,
+    AsyncSheetsResourceWithStreamingResponse,
+)
 from .indexes import (
     IndexesResource,
     AsyncIndexesResource,
@@ -82,6 +90,12 @@ __all__ = [
     "AsyncAgentDataResourceWithRawResponse",
     "AgentDataResourceWithStreamingResponse",
     "AsyncAgentDataResourceWithStreamingResponse",
+    "SheetsResource",
+    "AsyncSheetsResource",
+    "SheetsResourceWithRawResponse",
+    "AsyncSheetsResourceWithRawResponse",
+    "SheetsResourceWithStreamingResponse",
+    "AsyncSheetsResourceWithStreamingResponse",
     "DirectoriesResource",
     "AsyncDirectoriesResource",
     "DirectoriesResourceWithRawResponse",
