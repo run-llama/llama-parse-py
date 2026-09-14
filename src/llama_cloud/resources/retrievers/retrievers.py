@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Iterable, Optional
 
 import httpx
@@ -184,6 +185,7 @@ class RetrieversResource(SyncAPIResource):
             cast_to=Retriever,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -584,6 +586,7 @@ class AsyncRetrieversResource(AsyncAPIResource):
             cast_to=Retriever,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -855,8 +858,10 @@ class RetrieversResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             retrievers.update,
         )
-        self.list = to_raw_response_wrapper(
-            retrievers.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                retrievers.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_raw_response_wrapper(
             retrievers.delete,
@@ -886,8 +891,10 @@ class AsyncRetrieversResourceWithRawResponse:
         self.update = async_to_raw_response_wrapper(
             retrievers.update,
         )
-        self.list = async_to_raw_response_wrapper(
-            retrievers.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                retrievers.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_raw_response_wrapper(
             retrievers.delete,
@@ -917,8 +924,10 @@ class RetrieversResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             retrievers.update,
         )
-        self.list = to_streamed_response_wrapper(
-            retrievers.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                retrievers.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_streamed_response_wrapper(
             retrievers.delete,
@@ -948,8 +957,10 @@ class AsyncRetrieversResourceWithStreamingResponse:
         self.update = async_to_streamed_response_wrapper(
             retrievers.update,
         )
-        self.list = async_to_streamed_response_wrapper(
-            retrievers.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                retrievers.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_streamed_response_wrapper(
             retrievers.delete,
