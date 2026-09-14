@@ -72,7 +72,6 @@ from .presigned_url import PresignedURL as PresignedURL
 from .extract_v2_job import ExtractV2Job as ExtractV2Job
 from .fail_page_mode import FailPageMode as FailPageMode
 from .form_list_item import FormListItem as FormListItem
-from .job_data_point import JobDataPoint as JobDataPoint
 from .retrieval_mode import RetrievalMode as RetrievalMode
 from .classify_result import ClassifyResult as ClassifyResult
 from .batch_get_params import BatchGetParams as BatchGetParams
@@ -204,7 +203,6 @@ from .parse_v2_parameters_param import ParseV2ParametersParam as ParseV2Paramete
 from .sparse_model_config_param import SparseModelConfigParam as SparseModelConfigParam
 from .split_v1_parameters_param import SplitV1ParametersParam as SplitV1ParametersParam
 from .composite_retrieval_result import CompositeRetrievalResult as CompositeRetrievalResult
-from .job_data_point_list_params import JobDataPointListParams as JobDataPointListParams
 from .parsing_upload_file_params import ParsingUploadFileParams as ParsingUploadFileParams
 from .pipeline_get_status_params import PipelineGetStatusParams as PipelineGetStatusParams
 from .pipeline_retrieve_response import PipelineRetrieveResponse as PipelineRetrieveResponse

@@ -265,18 +265,6 @@ Methods:
 - <code title="get /api/v2/projects">client.v2_projects.<a href="./src/llama_cloud/resources/v2_projects.py">list</a>(\*\*<a href="src/llama_cloud/types/v2_project_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/v2_project_list_response.py">SyncPaginatedCursor[V2ProjectListResponse]</a></code>
 - <code title="get /api/v2/projects/{project_id}">client.v2_projects.<a href="./src/llama_cloud/resources/v2_projects.py">get</a>(project_id, \*\*<a href="src/llama_cloud/types/v2_project_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/v2_project_get_response.py">V2ProjectGetResponse</a></code>
 
-# JobDataPoints
-
-Types:
-
-```python
-from llama_cloud.types import JobDataPoint
-```
-
-Methods:
-
-- <code title="get /api/v1/job-data-points">client.job_data_points.<a href="./src/llama_cloud/resources/job_data_points.py">list</a>(\*\*<a href="src/llama_cloud/types/job_data_point_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/job_data_point.py">SyncPaginatedCursor[JobDataPoint]</a></code>
-
 # DataSinks
 
 Types:

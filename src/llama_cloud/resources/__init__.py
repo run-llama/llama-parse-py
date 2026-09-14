@@ -128,14 +128,6 @@ from .configurations import (
     ConfigurationsResourceWithStreamingResponse,
     AsyncConfigurationsResourceWithStreamingResponse,
 )
-from .job_data_points import (
-    JobDataPointsResource,
-    AsyncJobDataPointsResource,
-    JobDataPointsResourceWithRawResponse,
-    AsyncJobDataPointsResourceWithRawResponse,
-    JobDataPointsResourceWithStreamingResponse,
-    AsyncJobDataPointsResourceWithStreamingResponse,
-)
 from .webhook_configs import (
     WebhookConfigsResource,
     AsyncWebhookConfigsResource,
@@ -226,12 +218,6 @@ __all__ = [
     "AsyncV2ProjectsResourceWithRawResponse",
     "V2ProjectsResourceWithStreamingResponse",
     "AsyncV2ProjectsResourceWithStreamingResponse",
-    "JobDataPointsResource",
-    "AsyncJobDataPointsResource",
-    "JobDataPointsResourceWithRawResponse",
-    "AsyncJobDataPointsResourceWithRawResponse",
-    "JobDataPointsResourceWithStreamingResponse",
-    "AsyncJobDataPointsResourceWithStreamingResponse",
     "DataSinksResource",
     "AsyncDataSinksResource",
     "DataSinksResourceWithRawResponse",
