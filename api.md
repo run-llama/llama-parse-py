@@ -238,6 +238,7 @@ Methods:
 - <code title="put /api/v1/beta/webhook-configs/{config_id}">client.webhook_configs.<a href="./src/llama_cloud/resources/webhook_configs.py">update</a>(config_id, \*\*<a href="src/llama_cloud/types/webhook_config_update_params.py">params</a>) -> <a href="./src/llama_cloud/types/webhook_config_response.py">WebhookConfigResponse</a></code>
 - <code title="get /api/v1/beta/webhook-configs">client.webhook_configs.<a href="./src/llama_cloud/resources/webhook_configs.py">list</a>(\*\*<a href="src/llama_cloud/types/webhook_config_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/webhook_config_list_response.py">WebhookConfigListResponse</a></code>
 - <code title="delete /api/v1/beta/webhook-configs/{config_id}">client.webhook_configs.<a href="./src/llama_cloud/resources/webhook_configs.py">delete</a>(config_id, \*\*<a href="src/llama_cloud/types/webhook_config_delete_params.py">params</a>) -> None</code>
+- <code title="get /api/v2/webhook-configs">client.webhook_configs.<a href="./src/llama_cloud/resources/webhook_configs.py">list_paginated</a>(\*\*<a href="src/llama_cloud/types/webhook_config_list_paginated_params.py">params</a>) -> <a href="./src/llama_cloud/types/webhook_config_response.py">SyncPaginatedCursor[WebhookConfigResponse]</a></code>
 
 # Projects
 
@@ -495,6 +496,7 @@ Methods:
 - <code title="get /api/v1/retrievers">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">list</a>(\*\*<a href="src/llama_cloud/types/retriever_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/retriever_list_response.py">RetrieverListResponse</a></code>
 - <code title="delete /api/v1/retrievers/{retriever_id}">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">delete</a>(retriever_id, \*\*<a href="src/llama_cloud/types/retriever_delete_params.py">params</a>) -> None</code>
 - <code title="get /api/v1/retrievers/{retriever_id}">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">get</a>(retriever_id, \*\*<a href="src/llama_cloud/types/retriever_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/retriever.py">Retriever</a></code>
+- <code title="get /api/v1/beta/retrievers">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">list_paginated</a>(\*\*<a href="src/llama_cloud/types/retriever_list_paginated_params.py">params</a>) -> <a href="./src/llama_cloud/types/retriever.py">SyncPaginatedCursor[Retriever]</a></code>
 - <code title="post /api/v1/retrievers/retrieve">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">search</a>(\*\*<a href="src/llama_cloud/types/retriever_search_params.py">params</a>) -> <a href="./src/llama_cloud/types/composite_retrieval_result.py">CompositeRetrievalResult</a></code>
 - <code title="put /api/v1/retrievers">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">upsert</a>(\*\*<a href="src/llama_cloud/types/retriever_upsert_params.py">params</a>) -> <a href="./src/llama_cloud/types/retriever.py">Retriever</a></code>
 

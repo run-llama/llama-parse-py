@@ -16,6 +16,7 @@ from ...types import (
     retriever_search_params,
     retriever_update_params,
     retriever_upsert_params,
+    retriever_list_paginated_params,
 )
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
@@ -35,7 +36,8 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..._base_client import make_request_options
+from ...pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.retriever import Retriever
 from ...types.re_rank_config_param import ReRankConfigParam
 from ...types.retriever_list_response import RetrieverListResponse
@@ -319,6 +321,64 @@ class RetrieversResource(SyncAPIResource):
                 ),
             ),
             cast_to=Retriever,
+        )
+
+    def list_paginated(
+        self,
+        *,
+        include_total: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: int | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncPaginatedCursor[Retriever]:
+        """
+        List the retrievers in a project, newest first.
+
+        Args:
+          include_total: Return `total_size`, a count of every row matching the filter. It is a second
+              query on every page, so it is off unless asked for.
+
+          page_size: Number of items per page
+
+          page_token: Cursor from the previous page's `next_page_token`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/beta/retrievers",
+            page=SyncPaginatedCursor[Retriever],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_total": include_total,
+                        "name": name,
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                    },
+                    retriever_list_paginated_params.RetrieverListPaginatedParams,
+                ),
+            ),
+            model=Retriever,
         )
 
     def search(
@@ -722,6 +782,64 @@ class AsyncRetrieversResource(AsyncAPIResource):
             cast_to=Retriever,
         )
 
+    def list_paginated(
+        self,
+        *,
+        include_total: bool | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: int | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[Retriever, AsyncPaginatedCursor[Retriever]]:
+        """
+        List the retrievers in a project, newest first.
+
+        Args:
+          include_total: Return `total_size`, a count of every row matching the filter. It is a second
+              query on every page, so it is off unless asked for.
+
+          page_size: Number of items per page
+
+          page_token: Cursor from the previous page's `next_page_token`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/beta/retrievers",
+            page=AsyncPaginatedCursor[Retriever],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_total": include_total,
+                        "name": name,
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                    },
+                    retriever_list_paginated_params.RetrieverListPaginatedParams,
+                ),
+            ),
+            model=Retriever,
+        )
+
     async def search(
         self,
         *,
@@ -869,6 +987,9 @@ class RetrieversResourceWithRawResponse:
         self.get = to_raw_response_wrapper(
             retrievers.get,
         )
+        self.list_paginated = to_raw_response_wrapper(
+            retrievers.list_paginated,
+        )
         self.search = to_raw_response_wrapper(
             retrievers.search,
         )
@@ -901,6 +1022,9 @@ class AsyncRetrieversResourceWithRawResponse:
         )
         self.get = async_to_raw_response_wrapper(
             retrievers.get,
+        )
+        self.list_paginated = async_to_raw_response_wrapper(
+            retrievers.list_paginated,
         )
         self.search = async_to_raw_response_wrapper(
             retrievers.search,
@@ -935,6 +1059,9 @@ class RetrieversResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             retrievers.get,
         )
+        self.list_paginated = to_streamed_response_wrapper(
+            retrievers.list_paginated,
+        )
         self.search = to_streamed_response_wrapper(
             retrievers.search,
         )
@@ -967,6 +1094,9 @@ class AsyncRetrieversResourceWithStreamingResponse:
         )
         self.get = async_to_streamed_response_wrapper(
             retrievers.get,
+        )
+        self.list_paginated = async_to_streamed_response_wrapper(
+            retrievers.list_paginated,
         )
         self.search = async_to_streamed_response_wrapper(
             retrievers.search,

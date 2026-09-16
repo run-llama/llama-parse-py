@@ -13,6 +13,7 @@ from llama_cloud.types import (
     WebhookConfigResponse,
     WebhookConfigListResponse,
 )
+from llama_cloud.pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 
 # pyright: reportDeprecated=false
 
@@ -274,6 +275,46 @@ class TestWebhookConfigs:
                 config_id="",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_paginated(self, client: LlamaCloud) -> None:
+        webhook_config = client.webhook_configs.list_paginated()
+        assert_matches_type(SyncPaginatedCursor[WebhookConfigResponse], webhook_config, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_paginated_with_all_params(self, client: LlamaCloud) -> None:
+        webhook_config = client.webhook_configs.list_paginated(
+            include_total=True,
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            page_size=1,
+            page_token="page_token",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(SyncPaginatedCursor[WebhookConfigResponse], webhook_config, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list_paginated(self, client: LlamaCloud) -> None:
+        response = client.webhook_configs.with_raw_response.list_paginated()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        webhook_config = response.parse()
+        assert_matches_type(SyncPaginatedCursor[WebhookConfigResponse], webhook_config, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list_paginated(self, client: LlamaCloud) -> None:
+        with client.webhook_configs.with_streaming_response.list_paginated() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            webhook_config = response.parse()
+            assert_matches_type(SyncPaginatedCursor[WebhookConfigResponse], webhook_config, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncWebhookConfigs:
     parametrize = pytest.mark.parametrize(
@@ -531,3 +572,43 @@ class TestAsyncWebhookConfigs:
             await async_client.webhook_configs.with_raw_response.delete(
                 config_id="",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_paginated(self, async_client: AsyncLlamaCloud) -> None:
+        webhook_config = await async_client.webhook_configs.list_paginated()
+        assert_matches_type(AsyncPaginatedCursor[WebhookConfigResponse], webhook_config, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_paginated_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        webhook_config = await async_client.webhook_configs.list_paginated(
+            include_total=True,
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            page_size=1,
+            page_token="page_token",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(AsyncPaginatedCursor[WebhookConfigResponse], webhook_config, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list_paginated(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.webhook_configs.with_raw_response.list_paginated()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        webhook_config = await response.parse()
+        assert_matches_type(AsyncPaginatedCursor[WebhookConfigResponse], webhook_config, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list_paginated(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.webhook_configs.with_streaming_response.list_paginated() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            webhook_config = await response.parse()
+            assert_matches_type(AsyncPaginatedCursor[WebhookConfigResponse], webhook_config, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
