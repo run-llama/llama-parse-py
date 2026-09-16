@@ -56,6 +56,21 @@ class Configuration(TypedDict, total=False):
     categories: Required[Iterable[SplitCategoryParam]]
     """Categories to split documents into."""
 
+    parse_config_id: Optional[str]
+    """
+    Saved parse configuration ID controlling how the document is read before
+    splitting. Takes precedence over parse_tier. Configurations restricted to a page
+    subset (target_pages or max_pages) are rejected, since split results always
+    number pages relative to the full document. Ignored when a completed parse job
+    is supplied as file_input.
+    """
+
+    parse_tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]]
+    """Parse tier used to read the document before splitting.
+
+    Defaults to fast. Ignored when a completed parse job is supplied as file_input.
+    """
+
     splitting_strategy: ConfigurationSplittingStrategy
     """Strategy for splitting documents."""
 
