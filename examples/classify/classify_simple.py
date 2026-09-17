@@ -13,33 +13,35 @@ async def classify_document() -> None:
     )
     file_id = file_obj.id
 
-    # Upload and wait for completion
-    result = await client.classifier.classify(
-        file_ids=[file_id],
-        rules=[
-            {
-                "type": "ACADEMIC_PAPER",
-                "description": "Classify whether the document is an academic paper.",
+    # Classify the document and wait for completion
+    job = await client.classify.run(
+        file_input=file_id,
+        configuration={
+            "rules": [
+                {
+                    "type": "ACADEMIC_PAPER",
+                    "description": "Classify whether the document is an academic paper.",
+                },
+                {
+                    "type": "OTHER",
+                    "description": "Classify whether the document is from any other source besides academic papers.",
+                },
+            ],
+            "mode": "FAST",
+            "parsing_configuration": {
+                "lang": "en",
+                "max_pages": 5,
+                # "target_pages": "1",  # Optional: specific pages to parse, cannot be used with max_pages
             },
-            {
-                "type": "OTHER",
-                "description": "Classify whether the document is from any other source besides academic papers.",
-            },
-        ],
-        parsing_configuration={
-            "lang": "en",
-            "max_pages": 5,
-            # "target_pages": [1],  # Optional: specify particular pages to parse, cannot be used with max_pages
         },
-        mode="FAST",  # Specify classification mode: "FAST" or "MULTIMODAL"
     )
 
-    # Print the classification results
-    for item in result.items:
-        assert item.result is not None
-        print(f"Classified type: {item.result.type}")
-        print(f"Confidence: {item.result.confidence}")
-        print(f"Reasoning: {item.result.reasoning}")
+    # Print the classification result
+    result = job.result
+    assert result is not None
+    print(f"Classified type: {result.type}")
+    print(f"Confidence: {result.confidence}")
+    print(f"Reasoning: {result.reasoning}")
 
 
 if __name__ == "__main__":
