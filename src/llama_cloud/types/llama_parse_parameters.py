@@ -83,6 +83,8 @@ class LlamaParseParameters(BaseModel):
 
     aggressive_table_extraction: Optional[bool] = None
 
+    annotate_line_numbers: Optional[bool] = None
+
     annotate_links: Optional[bool] = None
 
     annotate_revisions: Optional[bool] = None

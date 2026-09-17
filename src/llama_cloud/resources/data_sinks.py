@@ -9,8 +9,10 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import (
+    data_sink_get_params,
     data_sink_list_params,
     data_sink_create_params,
+    data_sink_delete_params,
     data_sink_update_params,
     data_sink_list_paginated_params,
 )
@@ -114,6 +116,7 @@ class DataSinksResource(SyncAPIResource):
         data_sink_id: str,
         *,
         sink_type: Literal["ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT"],
+        project_id: Optional[str] | Omit = omit,
         component: Optional[data_sink_update_params.Component] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -152,7 +155,11 @@ class DataSinksResource(SyncAPIResource):
                 data_sink_update_params.DataSinkUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, data_sink_update_params.DataSinkUpdateParams),
             ),
             cast_to=DataSink,
         )
@@ -207,6 +214,7 @@ class DataSinksResource(SyncAPIResource):
         self,
         data_sink_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -232,7 +240,11 @@ class DataSinksResource(SyncAPIResource):
         return self._delete(
             path_template("/api/v1/data-sinks/{data_sink_id}", data_sink_id=data_sink_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, data_sink_delete_params.DataSinkDeleteParams),
             ),
             cast_to=NoneType,
         )
@@ -241,6 +253,7 @@ class DataSinksResource(SyncAPIResource):
         self,
         data_sink_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -265,7 +278,11 @@ class DataSinksResource(SyncAPIResource):
         return self._get(
             path_template("/api/v1/data-sinks/{data_sink_id}", data_sink_id=data_sink_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, data_sink_get_params.DataSinkGetParams),
             ),
             cast_to=DataSink,
         )
@@ -409,6 +426,7 @@ class AsyncDataSinksResource(AsyncAPIResource):
         data_sink_id: str,
         *,
         sink_type: Literal["ASTRA_DB", "AZUREAI_SEARCH", "MILVUS", "MONGODB_ATLAS", "PINECONE", "POSTGRES", "QDRANT"],
+        project_id: Optional[str] | Omit = omit,
         component: Optional[data_sink_update_params.Component] | Omit = omit,
         name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -447,7 +465,13 @@ class AsyncDataSinksResource(AsyncAPIResource):
                 data_sink_update_params.DataSinkUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, data_sink_update_params.DataSinkUpdateParams
+                ),
             ),
             cast_to=DataSink,
         )
@@ -502,6 +526,7 @@ class AsyncDataSinksResource(AsyncAPIResource):
         self,
         data_sink_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -527,7 +552,13 @@ class AsyncDataSinksResource(AsyncAPIResource):
         return await self._delete(
             path_template("/api/v1/data-sinks/{data_sink_id}", data_sink_id=data_sink_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, data_sink_delete_params.DataSinkDeleteParams
+                ),
             ),
             cast_to=NoneType,
         )
@@ -536,6 +567,7 @@ class AsyncDataSinksResource(AsyncAPIResource):
         self,
         data_sink_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -560,7 +592,11 @@ class AsyncDataSinksResource(AsyncAPIResource):
         return await self._get(
             path_template("/api/v1/data-sinks/{data_sink_id}", data_sink_id=data_sink_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"project_id": project_id}, data_sink_get_params.DataSinkGetParams),
             ),
             cast_to=DataSink,
         )

@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
-__all__ = ["PipelineGetStatusParams"]
+__all__ = ["DocumentSyncParams"]
 
 
-class PipelineGetStatusParams(TypedDict, total=False):
-    full_details: Optional[bool]
+class DocumentSyncParams(TypedDict, total=False):
+    pipeline_id: Required[str]
 
     project_id: Optional[str]

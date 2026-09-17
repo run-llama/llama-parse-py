@@ -5,10 +5,8 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["PipelineGetStatusParams"]
+__all__ = ["DataSourceGetDataSourcesParams"]
 
 
-class PipelineGetStatusParams(TypedDict, total=False):
-    full_details: Optional[bool]
-
+class DataSourceGetDataSourcesParams(TypedDict, total=False):
     project_id: Optional[str]

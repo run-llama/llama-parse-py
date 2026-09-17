@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 import typing_extensions
-from typing import Mapping, cast
+from typing import Mapping, Optional, cast
 
 import httpx
 
 from ..._files import deepcopy_with_paths
-from ..._types import Body, Query, Headers, NoneType, NotGiven, FileTypes, not_given
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, FileTypes, omit, not_given
 from ..._utils import extract_files, path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -19,7 +19,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.pipelines import metadata_create_params
+from ...types.pipelines import metadata_create_params, metadata_delete_all_params
 from ...types.pipelines.metadata_create_response import MetadataCreateResponse
 
 __all__ = ["MetadataResource", "AsyncMetadataResource"]
@@ -51,6 +51,7 @@ class MetadataResource(SyncAPIResource):
         pipeline_id: str,
         *,
         upload_file: FileTypes,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -83,7 +84,11 @@ class MetadataResource(SyncAPIResource):
             body=maybe_transform(body, metadata_create_params.MetadataCreateParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, metadata_create_params.MetadataCreateParams),
             ),
             cast_to=MetadataCreateResponse,
         )
@@ -93,6 +98,7 @@ class MetadataResource(SyncAPIResource):
         self,
         pipeline_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -118,7 +124,11 @@ class MetadataResource(SyncAPIResource):
         return self._delete(
             path_template("/api/v1/pipelines/{pipeline_id}/metadata", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, metadata_delete_all_params.MetadataDeleteAllParams),
             ),
             cast_to=NoneType,
         )
@@ -150,6 +160,7 @@ class AsyncMetadataResource(AsyncAPIResource):
         pipeline_id: str,
         *,
         upload_file: FileTypes,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -182,7 +193,13 @@ class AsyncMetadataResource(AsyncAPIResource):
             body=await async_maybe_transform(body, metadata_create_params.MetadataCreateParams),
             files=files,
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, metadata_create_params.MetadataCreateParams
+                ),
             ),
             cast_to=MetadataCreateResponse,
         )
@@ -192,6 +209,7 @@ class AsyncMetadataResource(AsyncAPIResource):
         self,
         pipeline_id: str,
         *,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -217,7 +235,13 @@ class AsyncMetadataResource(AsyncAPIResource):
         return await self._delete(
             path_template("/api/v1/pipelines/{pipeline_id}/metadata", pipeline_id=pipeline_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, metadata_delete_all_params.MetadataDeleteAllParams
+                ),
             ),
             cast_to=NoneType,
         )

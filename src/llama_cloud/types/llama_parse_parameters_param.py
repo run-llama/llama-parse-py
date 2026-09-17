@@ -83,6 +83,8 @@ class LlamaParseParametersParam(TypedDict, total=False):
 
     aggressive_table_extraction: Optional[bool]
 
+    annotate_line_numbers: Optional[bool]
+
     annotate_links: Optional[bool]
 
     annotate_revisions: Optional[bool]

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .beta.split_category_param import SplitCategoryParam
@@ -19,6 +19,15 @@ class SplittingStrategy(TypedDict, total=False):
     'include': pages can be grouped as 'uncategorized' and included in results.
     'forbid': all pages must be assigned to a defined category. 'omit': pages can be
     classified as 'uncategorized' but are excluded from results.
+    """
+
+    custom_instructions: Optional[str]
+    """Free-form guidance for where segment boundaries are placed."""
+
+    min_pages_per_split: int
+    """Minimum pages per segment.
+
+    Shorter segments are merged into an adjacent segment; 1 disables merging.
     """
 
 

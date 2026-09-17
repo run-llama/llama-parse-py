@@ -20,7 +20,14 @@ from ..._response import (
 )
 from ...pagination import SyncPaginatedPipelineFiles, AsyncPaginatedPipelineFiles
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.pipelines import file_list_params, file_create_params, file_update_params, file_get_status_counts_params
+from ...types.pipelines import (
+    file_list_params,
+    file_create_params,
+    file_delete_params,
+    file_update_params,
+    file_get_status_params,
+    file_get_status_counts_params,
+)
 from ...types.pipelines.pipeline_file import PipelineFile
 from ...types.pipelines.file_create_response import FileCreateResponse
 from ...types.managed_ingestion_status_response import ManagedIngestionStatusResponse
@@ -55,6 +62,7 @@ class FilesResource(SyncAPIResource):
         pipeline_id: str,
         *,
         body: Iterable[file_create_params.Body],
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -80,7 +88,11 @@ class FilesResource(SyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/files", pipeline_id=pipeline_id),
             body=maybe_transform(body, Iterable[file_create_params.Body]),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, file_create_params.FileCreateParams),
             ),
             cast_to=FileCreateResponse,
         )
@@ -91,6 +103,7 @@ class FilesResource(SyncAPIResource):
         file_id: str,
         *,
         pipeline_id: str,
+        project_id: Optional[str] | Omit = omit,
         custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -122,7 +135,11 @@ class FilesResource(SyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/files/{file_id}", pipeline_id=pipeline_id, file_id=file_id),
             body=maybe_transform({"custom_metadata": custom_metadata}, file_update_params.FileUpdateParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, file_update_params.FileUpdateParams),
             ),
             cast_to=PipelineFile,
         )
@@ -138,6 +155,7 @@ class FilesResource(SyncAPIResource):
         offset: Optional[int] | Omit = omit,
         only_manually_uploaded: bool | Omit = omit,
         order_by: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         statuses: Optional[List[Literal["CANCELLED", "ERROR", "IN_PROGRESS", "NOT_STARTED", "SUCCESS"]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -178,6 +196,7 @@ class FilesResource(SyncAPIResource):
                         "offset": offset,
                         "only_manually_uploaded": only_manually_uploaded,
                         "order_by": order_by,
+                        "project_id": project_id,
                         "statuses": statuses,
                     },
                     file_list_params.FileListParams,
@@ -192,6 +211,7 @@ class FilesResource(SyncAPIResource):
         file_id: str,
         *,
         pipeline_id: str,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -219,7 +239,11 @@ class FilesResource(SyncAPIResource):
         return self._delete(
             path_template("/api/v1/pipelines/{pipeline_id}/files/{file_id}", pipeline_id=pipeline_id, file_id=file_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, file_delete_params.FileDeleteParams),
             ),
             cast_to=NoneType,
         )
@@ -230,6 +254,7 @@ class FilesResource(SyncAPIResource):
         file_id: str,
         *,
         pipeline_id: str,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -258,7 +283,11 @@ class FilesResource(SyncAPIResource):
                 "/api/v1/pipelines/{pipeline_id}/files/{file_id}/status", pipeline_id=pipeline_id, file_id=file_id
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"project_id": project_id}, file_get_status_params.FileGetStatusParams),
             ),
             cast_to=ManagedIngestionStatusResponse,
         )
@@ -270,6 +299,7 @@ class FilesResource(SyncAPIResource):
         *,
         data_source_id: Optional[str] | Omit = omit,
         only_manually_uploaded: bool | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -302,6 +332,7 @@ class FilesResource(SyncAPIResource):
                     {
                         "data_source_id": data_source_id,
                         "only_manually_uploaded": only_manually_uploaded,
+                        "project_id": project_id,
                     },
                     file_get_status_counts_params.FileGetStatusCountsParams,
                 ),
@@ -336,6 +367,7 @@ class AsyncFilesResource(AsyncAPIResource):
         pipeline_id: str,
         *,
         body: Iterable[file_create_params.Body],
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -361,7 +393,11 @@ class AsyncFilesResource(AsyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/files", pipeline_id=pipeline_id),
             body=await async_maybe_transform(body, Iterable[file_create_params.Body]),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"project_id": project_id}, file_create_params.FileCreateParams),
             ),
             cast_to=FileCreateResponse,
         )
@@ -372,6 +408,7 @@ class AsyncFilesResource(AsyncAPIResource):
         file_id: str,
         *,
         pipeline_id: str,
+        project_id: Optional[str] | Omit = omit,
         custom_metadata: Optional[Dict[str, Union[Dict[str, object], Iterable[object], str, float, bool, None]]]
         | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -403,7 +440,11 @@ class AsyncFilesResource(AsyncAPIResource):
             path_template("/api/v1/pipelines/{pipeline_id}/files/{file_id}", pipeline_id=pipeline_id, file_id=file_id),
             body=await async_maybe_transform({"custom_metadata": custom_metadata}, file_update_params.FileUpdateParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"project_id": project_id}, file_update_params.FileUpdateParams),
             ),
             cast_to=PipelineFile,
         )
@@ -419,6 +460,7 @@ class AsyncFilesResource(AsyncAPIResource):
         offset: Optional[int] | Omit = omit,
         only_manually_uploaded: bool | Omit = omit,
         order_by: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         statuses: Optional[List[Literal["CANCELLED", "ERROR", "IN_PROGRESS", "NOT_STARTED", "SUCCESS"]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -459,6 +501,7 @@ class AsyncFilesResource(AsyncAPIResource):
                         "offset": offset,
                         "only_manually_uploaded": only_manually_uploaded,
                         "order_by": order_by,
+                        "project_id": project_id,
                         "statuses": statuses,
                     },
                     file_list_params.FileListParams,
@@ -473,6 +516,7 @@ class AsyncFilesResource(AsyncAPIResource):
         file_id: str,
         *,
         pipeline_id: str,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -500,7 +544,11 @@ class AsyncFilesResource(AsyncAPIResource):
         return await self._delete(
             path_template("/api/v1/pipelines/{pipeline_id}/files/{file_id}", pipeline_id=pipeline_id, file_id=file_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"project_id": project_id}, file_delete_params.FileDeleteParams),
             ),
             cast_to=NoneType,
         )
@@ -511,6 +559,7 @@ class AsyncFilesResource(AsyncAPIResource):
         file_id: str,
         *,
         pipeline_id: str,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -539,7 +588,13 @@ class AsyncFilesResource(AsyncAPIResource):
                 "/api/v1/pipelines/{pipeline_id}/files/{file_id}/status", pipeline_id=pipeline_id, file_id=file_id
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"project_id": project_id}, file_get_status_params.FileGetStatusParams
+                ),
             ),
             cast_to=ManagedIngestionStatusResponse,
         )
@@ -551,6 +606,7 @@ class AsyncFilesResource(AsyncAPIResource):
         *,
         data_source_id: Optional[str] | Omit = omit,
         only_manually_uploaded: bool | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -583,6 +639,7 @@ class AsyncFilesResource(AsyncAPIResource):
                     {
                         "data_source_id": data_source_id,
                         "only_manually_uploaded": only_manually_uploaded,
+                        "project_id": project_id,
                     },
                     file_get_status_counts_params.FileGetStatusCountsParams,
                 ),

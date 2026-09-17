@@ -116,7 +116,8 @@ class WebhookConfigsResource(SyncAPIResource):
         Args:
           webhook_url: URL to receive webhook POST notifications.
 
-          webhook_events: Events to subscribe to. If null, all events are delivered.
+          webhook_events: Events to subscribe to. If null, all events are delivered. An empty list
+              subscribes to nothing and is rejected.
 
           webhook_headers: Custom HTTP headers sent with each webhook request.
 
@@ -268,7 +269,7 @@ class WebhookConfigsResource(SyncAPIResource):
         Only fields present in the request change.
 
         Args:
-          webhook_events: Updated event subscriptions.
+          webhook_events: Updated event subscriptions. Omit to leave unchanged; [] is rejected.
 
           webhook_headers: Updated headers.
 
@@ -544,7 +545,8 @@ class AsyncWebhookConfigsResource(AsyncAPIResource):
         Args:
           webhook_url: URL to receive webhook POST notifications.
 
-          webhook_events: Events to subscribe to. If null, all events are delivered.
+          webhook_events: Events to subscribe to. If null, all events are delivered. An empty list
+              subscribes to nothing and is rejected.
 
           webhook_headers: Custom HTTP headers sent with each webhook request.
 
@@ -696,7 +698,7 @@ class AsyncWebhookConfigsResource(AsyncAPIResource):
         Only fields present in the request change.
 
         Args:
-          webhook_events: Updated event subscriptions.
+          webhook_events: Updated event subscriptions. Omit to leave unchanged; [] is rejected.
 
           webhook_headers: Updated headers.
 
