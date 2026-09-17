@@ -41,11 +41,11 @@ class SplitV1Parameters(BaseModel):
 
     parse_config_id: Optional[str] = None
     """
-    Saved parse configuration ID controlling how the document is read before
-    splitting. Takes precedence over parse_tier. Configurations restricted to a page
-    subset (target_pages or max_pages) are rejected, since split results always
-    number pages relative to the full document. Ignored when a completed parse job
-    is supplied as file_input.
+    Saved parse configuration ID to control how the document is parsed before
+    splitting. Takes precedence over parse_tier. Configurations that restrict pages
+    (`target_pages` or `max_pages` on the parse configuration) are rejected: split
+    results number pages relative to the full document. Ignored when a completed
+    parse job is supplied as file_input.
     """
 
     parse_tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]] = None
@@ -56,3 +56,9 @@ class SplitV1Parameters(BaseModel):
 
     splitting_strategy: Optional[SplittingStrategy] = None
     """Strategy for splitting documents."""
+
+    target_pages: Optional[str] = None
+    """Comma-separated page numbers or ranges to split (1-based).
+
+    Omit to split all pages. Requires a completed parse job as file_input.
+    """

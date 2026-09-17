@@ -80,6 +80,9 @@ class SplitGetResponse(BaseModel):
     splitting_strategy: Optional[SplittingStrategy] = None
     """Strategy used for splitting."""
 
+    target_pages: Optional[str] = None
+    """Page selection requested for this job, if any."""
+
     transaction_id: Optional[str] = None
     """Idempotency key scoped to the project, if one was provided."""
 
