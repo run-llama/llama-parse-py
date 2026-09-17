@@ -5,14 +5,8 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["JobListParams"]
+__all__ = ["DataSourceDeleteParams"]
 
 
-class JobListParams(TypedDict, total=False):
-    organization_id: Optional[str]
-
-    page_size: Optional[int]
-
-    page_token: Optional[str]
-
+class DataSourceDeleteParams(TypedDict, total=False):
     project_id: Optional[str]
