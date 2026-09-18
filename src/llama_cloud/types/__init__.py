@@ -149,6 +149,7 @@ from .azure_openai_embedding import AzureOpenAIEmbedding as AzureOpenAIEmbedding
 from .classify_cancel_params import ClassifyCancelParams as ClassifyCancelParams
 from .classify_configuration import ClassifyConfiguration as ClassifyConfiguration
 from .classify_create_params import ClassifyCreateParams as ClassifyCreateParams
+from .classify_delete_params import ClassifyDeleteParams as ClassifyDeleteParams
 from .classify_list_response import ClassifyListResponse as ClassifyListResponse
 from .classify_v2_parameters import ClassifyV2Parameters as ClassifyV2Parameters
 from .cohere_embedding_param import CohereEmbeddingParam as CohereEmbeddingParam
@@ -190,6 +191,7 @@ from .webhook_config_response import WebhookConfigResponse as WebhookConfigRespo
 from .bedrock_embedding_config import BedrockEmbeddingConfig as BedrockEmbeddingConfig
 from .classify_cancel_response import ClassifyCancelResponse as ClassifyCancelResponse
 from .classify_create_response import ClassifyCreateResponse as ClassifyCreateResponse
+from .classify_delete_response import ClassifyDeleteResponse as ClassifyDeleteResponse
 from .composite_retrieval_mode import CompositeRetrievalMode as CompositeRetrievalMode
 from .extracted_field_metadata import ExtractedFieldMetadata as ExtractedFieldMetadata
 from .pipeline_metadata_config import PipelineMetadataConfig as PipelineMetadataConfig

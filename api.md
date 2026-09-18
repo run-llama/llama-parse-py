@@ -187,6 +187,7 @@ from llama_cloud.types import (
     ClassifyResult,
     ClassifyCreateResponse,
     ClassifyListResponse,
+    ClassifyDeleteResponse,
     ClassifyCancelResponse,
     ClassifyGetResponse,
 )
@@ -196,6 +197,7 @@ Methods:
 
 - <code title="post /api/v2/classify">client.classify.<a href="./src/llama_cloud/resources/classify.py">create</a>(\*\*<a href="src/llama_cloud/types/classify_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_create_response.py">ClassifyCreateResponse</a></code>
 - <code title="get /api/v2/classify">client.classify.<a href="./src/llama_cloud/resources/classify.py">list</a>(\*\*<a href="src/llama_cloud/types/classify_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_list_response.py">SyncPaginatedCursor[ClassifyListResponse]</a></code>
+- <code title="delete /api/v2/classify/{job_id}">client.classify.<a href="./src/llama_cloud/resources/classify.py">delete</a>(job_id, \*\*<a href="src/llama_cloud/types/classify_delete_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_delete_response.py">ClassifyDeleteResponse</a></code>
 - <code title="post /api/v2/classify/{job_id}/cancel">client.classify.<a href="./src/llama_cloud/resources/classify.py">cancel</a>(job_id, \*\*<a href="src/llama_cloud/types/classify_cancel_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_cancel_response.py">ClassifyCancelResponse</a></code>
 - <code title="get /api/v2/classify/{job_id}">client.classify.<a href="./src/llama_cloud/resources/classify.py">get</a>(job_id, \*\*<a href="src/llama_cloud/types/classify_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_get_response.py">ClassifyGetResponse</a></code>
 

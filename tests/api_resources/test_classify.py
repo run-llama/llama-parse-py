@@ -14,6 +14,7 @@ from llama_cloud.types import (
     ClassifyListResponse,
     ClassifyCancelResponse,
     ClassifyCreateResponse,
+    ClassifyDeleteResponse,
 )
 from llama_cloud._utils import parse_datetime
 from llama_cloud.pagination import SyncPaginatedCursor, AsyncPaginatedCursor
@@ -133,6 +134,58 @@ class TestClassify:
             assert_matches_type(SyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: LlamaCloud) -> None:
+        classify = client.classify.delete(
+            job_id="job_id",
+        )
+        assert_matches_type(ClassifyDeleteResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete_with_all_params(self, client: LlamaCloud) -> None:
+        classify = client.classify.delete(
+            job_id="job_id",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ClassifyDeleteResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: LlamaCloud) -> None:
+        response = client.classify.with_raw_response.delete(
+            job_id="job_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        classify = response.parse()
+        assert_matches_type(ClassifyDeleteResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: LlamaCloud) -> None:
+        with client.classify.with_streaming_response.delete(
+            job_id="job_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            classify = response.parse()
+            assert_matches_type(ClassifyDeleteResponse, classify, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: LlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
+            client.classify.with_raw_response.delete(
+                job_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -353,6 +406,58 @@ class TestAsyncClassify:
             assert_matches_type(AsyncPaginatedCursor[ClassifyListResponse], classify, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncLlamaCloud) -> None:
+        classify = await async_client.classify.delete(
+            job_id="job_id",
+        )
+        assert_matches_type(ClassifyDeleteResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        classify = await async_client.classify.delete(
+            job_id="job_id",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ClassifyDeleteResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.classify.with_raw_response.delete(
+            job_id="job_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        classify = await response.parse()
+        assert_matches_type(ClassifyDeleteResponse, classify, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.classify.with_streaming_response.delete(
+            job_id="job_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            classify = await response.parse()
+            assert_matches_type(ClassifyDeleteResponse, classify, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncLlamaCloud) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `job_id` but received ''"):
+            await async_client.classify.with_raw_response.delete(
+                job_id="",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
