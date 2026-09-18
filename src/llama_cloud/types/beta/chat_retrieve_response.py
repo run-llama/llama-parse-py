@@ -40,6 +40,9 @@ class EventStopEvent(BaseModel):
 
     usage: EventStopEventUsage
 
+    skipped_index_ids: Optional[List[str]] = None
+    """Requested indexes this turn could not query."""
+
     type: Optional[Literal["stop"]] = None
 
 

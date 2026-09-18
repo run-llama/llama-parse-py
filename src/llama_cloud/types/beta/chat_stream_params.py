@@ -20,3 +20,6 @@ class ChatStreamParams(TypedDict, total=False):
     organization_id: Optional[str]
 
     project_id: Optional[str]
+
+    require_all_indexes: bool
+    """Fail the turn if any requested index cannot be queried."""
