@@ -112,14 +112,6 @@ from .configurations import (
     ConfigurationsResourceWithStreamingResponse,
     AsyncConfigurationsResourceWithStreamingResponse,
 )
-from .job_data_points import (
-    JobDataPointsResource,
-    AsyncJobDataPointsResource,
-    JobDataPointsResourceWithRawResponse,
-    AsyncJobDataPointsResourceWithRawResponse,
-    JobDataPointsResourceWithStreamingResponse,
-    AsyncJobDataPointsResourceWithStreamingResponse,
-)
 from .webhook_configs import (
     WebhookConfigsResource,
     AsyncWebhookConfigsResource,
@@ -127,6 +119,14 @@ from .webhook_configs import (
     AsyncWebhookConfigsResourceWithRawResponse,
     WebhookConfigsResourceWithStreamingResponse,
     AsyncWebhookConfigsResourceWithStreamingResponse,
+)
+from .extraction_agents import (
+    ExtractionAgentsResource,
+    AsyncExtractionAgentsResource,
+    ExtractionAgentsResourceWithRawResponse,
+    AsyncExtractionAgentsResourceWithRawResponse,
+    ExtractionAgentsResourceWithStreamingResponse,
+    AsyncExtractionAgentsResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -190,18 +190,18 @@ __all__ = [
     "AsyncV2ProjectsResourceWithRawResponse",
     "V2ProjectsResourceWithStreamingResponse",
     "AsyncV2ProjectsResourceWithStreamingResponse",
-    "JobDataPointsResource",
-    "AsyncJobDataPointsResource",
-    "JobDataPointsResourceWithRawResponse",
-    "AsyncJobDataPointsResourceWithRawResponse",
-    "JobDataPointsResourceWithStreamingResponse",
-    "AsyncJobDataPointsResourceWithStreamingResponse",
     "DataSinksResource",
     "AsyncDataSinksResource",
     "DataSinksResourceWithRawResponse",
     "AsyncDataSinksResourceWithRawResponse",
     "DataSinksResourceWithStreamingResponse",
     "AsyncDataSinksResourceWithStreamingResponse",
+    "ExtractionAgentsResource",
+    "AsyncExtractionAgentsResource",
+    "ExtractionAgentsResourceWithRawResponse",
+    "AsyncExtractionAgentsResourceWithRawResponse",
+    "ExtractionAgentsResourceWithStreamingResponse",
+    "AsyncExtractionAgentsResourceWithStreamingResponse",
     "DataSourcesResource",
     "AsyncDataSourcesResource",
     "DataSourcesResourceWithRawResponse",

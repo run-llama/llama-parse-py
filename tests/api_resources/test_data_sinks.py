@@ -13,6 +13,9 @@ from llama_cloud.types import (
     DataSink,
     DataSinkListResponse,
 )
+from llama_cloud.pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+
+# pyright: reportDeprecated=false
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -133,22 +136,27 @@ class TestDataSinks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: LlamaCloud) -> None:
-        data_sink = client.data_sinks.list()
+        with pytest.warns(DeprecationWarning):
+            data_sink = client.data_sinks.list()
+
         assert_matches_type(DataSinkListResponse, data_sink, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: LlamaCloud) -> None:
-        data_sink = client.data_sinks.list(
-            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            data_sink = client.data_sinks.list(
+                organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert_matches_type(DataSinkListResponse, data_sink, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: LlamaCloud) -> None:
-        response = client.data_sinks.with_raw_response.list()
+        with pytest.warns(DeprecationWarning):
+            response = client.data_sinks.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -158,12 +166,13 @@ class TestDataSinks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: LlamaCloud) -> None:
-        with client.data_sinks.with_streaming_response.list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            with client.data_sinks.with_streaming_response.list() as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            data_sink = response.parse()
-            assert_matches_type(DataSinkListResponse, data_sink, path=["response"])
+                data_sink = response.parse()
+                assert_matches_type(DataSinkListResponse, data_sink, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -268,6 +277,46 @@ class TestDataSinks:
             client.data_sinks.with_raw_response.get(
                 data_sink_id="",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_paginated(self, client: LlamaCloud) -> None:
+        data_sink = client.data_sinks.list_paginated()
+        assert_matches_type(SyncPaginatedCursor[DataSink], data_sink, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_paginated_with_all_params(self, client: LlamaCloud) -> None:
+        data_sink = client.data_sinks.list_paginated(
+            include_total=True,
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            page_size=1,
+            page_token="page_token",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(SyncPaginatedCursor[DataSink], data_sink, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list_paginated(self, client: LlamaCloud) -> None:
+        response = client.data_sinks.with_raw_response.list_paginated()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        data_sink = response.parse()
+        assert_matches_type(SyncPaginatedCursor[DataSink], data_sink, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list_paginated(self, client: LlamaCloud) -> None:
+        with client.data_sinks.with_streaming_response.list_paginated() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            data_sink = response.parse()
+            assert_matches_type(SyncPaginatedCursor[DataSink], data_sink, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
 
 class TestAsyncDataSinks:
@@ -388,22 +437,27 @@ class TestAsyncDataSinks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncLlamaCloud) -> None:
-        data_sink = await async_client.data_sinks.list()
+        with pytest.warns(DeprecationWarning):
+            data_sink = await async_client.data_sinks.list()
+
         assert_matches_type(DataSinkListResponse, data_sink, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
-        data_sink = await async_client.data_sinks.list(
-            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
+        with pytest.warns(DeprecationWarning):
+            data_sink = await async_client.data_sinks.list(
+                organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            )
+
         assert_matches_type(DataSinkListResponse, data_sink, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.data_sinks.with_raw_response.list()
+        with pytest.warns(DeprecationWarning):
+            response = await async_client.data_sinks.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -413,12 +467,13 @@ class TestAsyncDataSinks:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.data_sinks.with_streaming_response.list() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        with pytest.warns(DeprecationWarning):
+            async with async_client.data_sinks.with_streaming_response.list() as response:
+                assert not response.is_closed
+                assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            data_sink = await response.parse()
-            assert_matches_type(DataSinkListResponse, data_sink, path=["response"])
+                data_sink = await response.parse()
+                assert_matches_type(DataSinkListResponse, data_sink, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -523,3 +578,43 @@ class TestAsyncDataSinks:
             await async_client.data_sinks.with_raw_response.get(
                 data_sink_id="",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_paginated(self, async_client: AsyncLlamaCloud) -> None:
+        data_sink = await async_client.data_sinks.list_paginated()
+        assert_matches_type(AsyncPaginatedCursor[DataSink], data_sink, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_paginated_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
+        data_sink = await async_client.data_sinks.list_paginated(
+            include_total=True,
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            page_size=1,
+            page_token="page_token",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(AsyncPaginatedCursor[DataSink], data_sink, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list_paginated(self, async_client: AsyncLlamaCloud) -> None:
+        response = await async_client.data_sinks.with_raw_response.list_paginated()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        data_sink = await response.parse()
+        assert_matches_type(AsyncPaginatedCursor[DataSink], data_sink, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list_paginated(self, async_client: AsyncLlamaCloud) -> None:
+        async with async_client.data_sinks.with_streaming_response.list_paginated() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            data_sink = await response.parse()
+            assert_matches_type(AsyncPaginatedCursor[DataSink], data_sink, path=["response"])
+
+        assert cast(Any, response.is_closed) is True

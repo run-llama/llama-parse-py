@@ -187,6 +187,7 @@ from llama_cloud.types import (
     ClassifyResult,
     ClassifyCreateResponse,
     ClassifyListResponse,
+    ClassifyDeleteResponse,
     ClassifyCancelResponse,
     ClassifyGetResponse,
 )
@@ -196,6 +197,7 @@ Methods:
 
 - <code title="post /api/v2/classify">client.classify.<a href="./src/llama_cloud/resources/classify.py">create</a>(\*\*<a href="src/llama_cloud/types/classify_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_create_response.py">ClassifyCreateResponse</a></code>
 - <code title="get /api/v2/classify">client.classify.<a href="./src/llama_cloud/resources/classify.py">list</a>(\*\*<a href="src/llama_cloud/types/classify_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_list_response.py">SyncPaginatedCursor[ClassifyListResponse]</a></code>
+- <code title="delete /api/v2/classify/{job_id}">client.classify.<a href="./src/llama_cloud/resources/classify.py">delete</a>(job_id, \*\*<a href="src/llama_cloud/types/classify_delete_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_delete_response.py">ClassifyDeleteResponse</a></code>
 - <code title="post /api/v2/classify/{job_id}/cancel">client.classify.<a href="./src/llama_cloud/resources/classify.py">cancel</a>(job_id, \*\*<a href="src/llama_cloud/types/classify_cancel_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_cancel_response.py">ClassifyCancelResponse</a></code>
 - <code title="get /api/v2/classify/{job_id}">client.classify.<a href="./src/llama_cloud/resources/classify.py">get</a>(job_id, \*\*<a href="src/llama_cloud/types/classify_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/classify_get_response.py">ClassifyGetResponse</a></code>
 
@@ -238,6 +240,7 @@ Methods:
 - <code title="put /api/v1/beta/webhook-configs/{config_id}">client.webhook_configs.<a href="./src/llama_cloud/resources/webhook_configs.py">update</a>(config_id, \*\*<a href="src/llama_cloud/types/webhook_config_update_params.py">params</a>) -> <a href="./src/llama_cloud/types/webhook_config_response.py">WebhookConfigResponse</a></code>
 - <code title="get /api/v1/beta/webhook-configs">client.webhook_configs.<a href="./src/llama_cloud/resources/webhook_configs.py">list</a>(\*\*<a href="src/llama_cloud/types/webhook_config_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/webhook_config_list_response.py">WebhookConfigListResponse</a></code>
 - <code title="delete /api/v1/beta/webhook-configs/{config_id}">client.webhook_configs.<a href="./src/llama_cloud/resources/webhook_configs.py">delete</a>(config_id, \*\*<a href="src/llama_cloud/types/webhook_config_delete_params.py">params</a>) -> None</code>
+- <code title="get /api/v2/webhook-configs">client.webhook_configs.<a href="./src/llama_cloud/resources/webhook_configs.py">list_paginated</a>(\*\*<a href="src/llama_cloud/types/webhook_config_list_paginated_params.py">params</a>) -> <a href="./src/llama_cloud/types/webhook_config_response.py">SyncPaginatedCursor[WebhookConfigResponse]</a></code>
 
 # Projects
 
@@ -265,18 +268,6 @@ Methods:
 - <code title="get /api/v2/projects">client.v2_projects.<a href="./src/llama_cloud/resources/v2_projects.py">list</a>(\*\*<a href="src/llama_cloud/types/v2_project_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/v2_project_list_response.py">SyncPaginatedCursor[V2ProjectListResponse]</a></code>
 - <code title="get /api/v2/projects/{project_id}">client.v2_projects.<a href="./src/llama_cloud/resources/v2_projects.py">get</a>(project_id, \*\*<a href="src/llama_cloud/types/v2_project_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/v2_project_get_response.py">V2ProjectGetResponse</a></code>
 
-# JobDataPoints
-
-Types:
-
-```python
-from llama_cloud.types import JobDataPoint
-```
-
-Methods:
-
-- <code title="get /api/v1/job-data-points">client.job_data_points.<a href="./src/llama_cloud/resources/job_data_points.py">list</a>(\*\*<a href="src/llama_cloud/types/job_data_point_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/job_data_point.py">SyncPaginatedCursor[JobDataPoint]</a></code>
-
 # DataSinks
 
 Types:
@@ -292,6 +283,19 @@ Methods:
 - <code title="get /api/v1/data-sinks">client.data_sinks.<a href="./src/llama_cloud/resources/data_sinks.py">list</a>(\*\*<a href="src/llama_cloud/types/data_sink_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/data_sink_list_response.py">DataSinkListResponse</a></code>
 - <code title="delete /api/v1/data-sinks/{data_sink_id}">client.data_sinks.<a href="./src/llama_cloud/resources/data_sinks.py">delete</a>(data_sink_id, \*\*<a href="src/llama_cloud/types/data_sink_delete_params.py">params</a>) -> None</code>
 - <code title="get /api/v1/data-sinks/{data_sink_id}">client.data_sinks.<a href="./src/llama_cloud/resources/data_sinks.py">get</a>(data_sink_id, \*\*<a href="src/llama_cloud/types/data_sink_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/data_sink.py">DataSink</a></code>
+- <code title="get /api/v1/beta/data-sinks">client.data_sinks.<a href="./src/llama_cloud/resources/data_sinks.py">list_paginated</a>(\*\*<a href="src/llama_cloud/types/data_sink_list_paginated_params.py">params</a>) -> <a href="./src/llama_cloud/types/data_sink.py">SyncPaginatedCursor[DataSink]</a></code>
+
+# ExtractionAgents
+
+Types:
+
+```python
+from llama_cloud.types import ExtractAgent
+```
+
+Methods:
+
+- <code title="get /api/v1/beta/extraction-agents">client.extraction_agents.<a href="./src/llama_cloud/resources/extraction_agents.py">list</a>(\*\*<a href="src/llama_cloud/types/extraction_agent_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_agent.py">SyncPaginatedCursor[ExtractAgent]</a></code>
 
 # DataSources
 
@@ -494,6 +498,7 @@ Methods:
 - <code title="get /api/v1/retrievers">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">list</a>(\*\*<a href="src/llama_cloud/types/retriever_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/retriever_list_response.py">RetrieverListResponse</a></code>
 - <code title="delete /api/v1/retrievers/{retriever_id}">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">delete</a>(retriever_id, \*\*<a href="src/llama_cloud/types/retriever_delete_params.py">params</a>) -> None</code>
 - <code title="get /api/v1/retrievers/{retriever_id}">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">get</a>(retriever_id, \*\*<a href="src/llama_cloud/types/retriever_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/retriever.py">Retriever</a></code>
+- <code title="get /api/v1/beta/retrievers">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">list_paginated</a>(\*\*<a href="src/llama_cloud/types/retriever_list_paginated_params.py">params</a>) -> <a href="./src/llama_cloud/types/retriever.py">SyncPaginatedCursor[Retriever]</a></code>
 - <code title="post /api/v1/retrievers/retrieve">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">search</a>(\*\*<a href="src/llama_cloud/types/retriever_search_params.py">params</a>) -> <a href="./src/llama_cloud/types/composite_retrieval_result.py">CompositeRetrievalResult</a></code>
 - <code title="put /api/v1/retrievers">client.retrievers.<a href="./src/llama_cloud/resources/retrievers/retrievers.py">upsert</a>(\*\*<a href="src/llama_cloud/types/retriever_upsert_params.py">params</a>) -> <a href="./src/llama_cloud/types/retriever.py">Retriever</a></code>
 

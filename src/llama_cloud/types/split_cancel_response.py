@@ -68,11 +68,20 @@ class SplitCancelResponse(BaseModel):
     error_message: Optional[str] = None
     """Error message if the job failed."""
 
+    parse_config_id: Optional[str] = None
+    """Saved parse configuration ID requested for this job, if any."""
+
+    parse_tier: Optional[str] = None
+    """Parse tier requested for this job, if any."""
+
     result: Optional[SplitResultResponse] = None
     """Result of a completed split job."""
 
     splitting_strategy: Optional[SplittingStrategy] = None
     """Strategy used for splitting."""
+
+    target_pages: Optional[str] = None
+    """Page selection requested for this job, if any."""
 
     transaction_id: Optional[str] = None
     """Idempotency key scoped to the project, if one was provided."""

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -60,6 +61,7 @@ class ChatResource(SyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         index_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        shared_access: Optional[Literal["query", "read_only"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -76,6 +78,9 @@ class ChatResource(SyncAPIResource):
               sent, the source set is locked for the session's lifetime. Leave null to create
               an unbound session.
 
+          shared_access: What this chat's share link grants: read_only (transcript only) or query
+              (viewers may ask new questions). Null follows the deployment default.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -86,7 +91,13 @@ class ChatResource(SyncAPIResource):
         """
         return self._post(
             "/api/v1/chat",
-            body=maybe_transform({"index_ids": index_ids}, chat_create_params.ChatCreateParams),
+            body=maybe_transform(
+                {
+                    "index_ids": index_ids,
+                    "shared_access": shared_access,
+                },
+                chat_create_params.ChatCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -294,6 +305,7 @@ class ChatResource(SyncAPIResource):
         prompt: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        require_all_indexes: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -308,6 +320,8 @@ class ChatResource(SyncAPIResource):
           index_ids: Indexes to retrieve data from.
 
           prompt: User message for this chat turn.
+
+          require_all_indexes: Fail the turn if any requested index cannot be queried.
 
           extra_headers: Send extra headers
 
@@ -325,6 +339,7 @@ class ChatResource(SyncAPIResource):
                 {
                     "index_ids": index_ids,
                     "prompt": prompt,
+                    "require_all_indexes": require_all_indexes,
                 },
                 chat_stream_params.ChatStreamParams,
             ),
@@ -371,6 +386,7 @@ class AsyncChatResource(AsyncAPIResource):
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         index_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        shared_access: Optional[Literal["query", "read_only"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -387,6 +403,9 @@ class AsyncChatResource(AsyncAPIResource):
               sent, the source set is locked for the session's lifetime. Leave null to create
               an unbound session.
 
+          shared_access: What this chat's share link grants: read_only (transcript only) or query
+              (viewers may ask new questions). Null follows the deployment default.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -397,7 +416,13 @@ class AsyncChatResource(AsyncAPIResource):
         """
         return await self._post(
             "/api/v1/chat",
-            body=await async_maybe_transform({"index_ids": index_ids}, chat_create_params.ChatCreateParams),
+            body=await async_maybe_transform(
+                {
+                    "index_ids": index_ids,
+                    "shared_access": shared_access,
+                },
+                chat_create_params.ChatCreateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -605,6 +630,7 @@ class AsyncChatResource(AsyncAPIResource):
         prompt: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        require_all_indexes: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -619,6 +645,8 @@ class AsyncChatResource(AsyncAPIResource):
           index_ids: Indexes to retrieve data from.
 
           prompt: User message for this chat turn.
+
+          require_all_indexes: Fail the turn if any requested index cannot be queried.
 
           extra_headers: Send extra headers
 
@@ -636,6 +664,7 @@ class AsyncChatResource(AsyncAPIResource):
                 {
                     "index_ids": index_ids,
                     "prompt": prompt,
+                    "require_all_indexes": require_all_indexes,
                 },
                 chat_stream_params.ChatStreamParams,
             ),

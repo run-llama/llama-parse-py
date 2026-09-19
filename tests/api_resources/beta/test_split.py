@@ -56,6 +56,7 @@ class TestSplit:
                     "custom_instructions": "Start a new segment at every signature page.",
                     "min_pages_per_split": 1,
                 },
+                "version": "latest",
             },
             configuration_id="configuration_id",
         )
@@ -227,6 +228,7 @@ class TestAsyncSplit:
                     "custom_instructions": "Start a new segment at every signature page.",
                     "min_pages_per_split": 1,
                 },
+                "version": "latest",
             },
             configuration_id="configuration_id",
         )

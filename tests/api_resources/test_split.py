@@ -46,11 +46,15 @@ class TestSplit:
                         "description": "x",
                     }
                 ],
+                "parse_config_id": "cfg-11111111-2222-3333-4444-555555555555",
+                "parse_tier": "fast",
                 "splitting_strategy": {
                     "allow_uncategorized": "forbid",
                     "custom_instructions": "Start a new segment at every signature page.",
                     "min_pages_per_split": 1,
                 },
+                "target_pages": "1,3,5-7",
+                "version": "latest",
             },
             configuration_id="cfg-11111111-2222-3333-4444-555555555555",
             transaction_id="tx-unique-idempotency-key",
@@ -320,11 +324,15 @@ class TestAsyncSplit:
                         "description": "x",
                     }
                 ],
+                "parse_config_id": "cfg-11111111-2222-3333-4444-555555555555",
+                "parse_tier": "fast",
                 "splitting_strategy": {
                     "allow_uncategorized": "forbid",
                     "custom_instructions": "Start a new segment at every signature page.",
                     "min_pages_per_split": 1,
                 },
+                "target_pages": "1,3,5-7",
+                "version": "latest",
             },
             configuration_id="cfg-11111111-2222-3333-4444-555555555555",
             transaction_id="tx-unique-idempotency-key",

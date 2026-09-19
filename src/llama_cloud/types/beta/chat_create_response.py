@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 
@@ -36,6 +37,12 @@ class ChatCreateResponse(BaseModel):
 
     session_id: str
     """Unique session identifier."""
+
+    shared_access: Literal["query", "read_only"]
+    """
+    What this chat's share link grants: read_only (transcript only) or query
+    (viewers may ask new questions).
+    """
 
     generated_title: Optional[str] = None
     """Auto-generated title derived from the first user message."""

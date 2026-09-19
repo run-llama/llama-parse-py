@@ -17,4 +17,4 @@ class SplitSegmentResponse(BaseModel):
     """Categorical confidence level. Valid values are: high, medium, low."""
 
     pages: List[int]
-    """1-indexed page numbers in this split."""
+    """Page numbers in this segment, as numbered by the input document."""
