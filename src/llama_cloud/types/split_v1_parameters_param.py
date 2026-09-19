@@ -63,3 +63,10 @@ class SplitV1ParametersParam(TypedDict, total=False):
 
     Omit to split all pages. Requires a completed parse job as file_input.
     """
+
+    version: Optional[str]
+    """Split version to run.
+
+    Omit for the current release. Preview versions are selectable by name and never
+    resolved automatically.
+    """
