@@ -568,6 +568,19 @@ Methods:
 - <code title="get /api/v1/chat/{session_id}/summary">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">get_summary</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_get_summary_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/chat_get_summary_response.py">ChatGetSummaryResponse</a></code>
 - <code title="post /api/v1/chat/{session_id}/messages/stream">client.beta.chat.<a href="./src/llama_cloud/resources/beta/chat.py">stream</a>(session_id, \*\*<a href="src/llama_cloud/types/beta/chat_stream_params.py">params</a>) -> object</code>
 
+## Attachments
+
+Types:
+
+```python
+from llama_cloud.types.beta import AttachmentListResponse
+```
+
+Methods:
+
+- <code title="get /api/v1/beta/attachments">client.beta.attachments.<a href="./src/llama_cloud/resources/beta/attachments.py">list</a>(\*\*<a href="src/llama_cloud/types/beta/attachment_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/attachment_list_response.py">SyncPaginatedCursor[AttachmentListResponse]</a></code>
+- <code title="get /api/v1/beta/attachments/{attachment_name}">client.beta.attachments.<a href="./src/llama_cloud/resources/beta/attachments.py">get</a>(attachment_name, \*\*<a href="src/llama_cloud/types/beta/attachment_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/presigned_url.py">PresignedURL</a></code>
+
 ## AgentData
 
 Types:

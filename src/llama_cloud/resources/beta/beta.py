@@ -44,6 +44,14 @@ from .agent_data import (
     AsyncAgentDataResourceWithStreamingResponse,
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
+from .attachments import (
+    AttachmentsResource,
+    AsyncAttachmentsResource,
+    AttachmentsResourceWithRawResponse,
+    AsyncAttachmentsResourceWithRawResponse,
+    AttachmentsResourceWithStreamingResponse,
+    AsyncAttachmentsResourceWithStreamingResponse,
+)
 from .directories.directories import (
     DirectoriesResource,
     AsyncDirectoriesResource,
@@ -68,6 +76,10 @@ class BetaResource(SyncAPIResource):
     @cached_property
     def chat(self) -> ChatResource:
         return ChatResource(self._client)
+
+    @cached_property
+    def attachments(self) -> AttachmentsResource:
+        return AttachmentsResource(self._client)
 
     @cached_property
     def agent_data(self) -> AgentDataResource:
@@ -113,6 +125,10 @@ class AsyncBetaResource(AsyncAPIResource):
     @cached_property
     def chat(self) -> AsyncChatResource:
         return AsyncChatResource(self._client)
+
+    @cached_property
+    def attachments(self) -> AsyncAttachmentsResource:
+        return AsyncAttachmentsResource(self._client)
 
     @cached_property
     def agent_data(self) -> AsyncAgentDataResource:
@@ -163,6 +179,10 @@ class BetaResourceWithRawResponse:
         return ChatResourceWithRawResponse(self._beta.chat)
 
     @cached_property
+    def attachments(self) -> AttachmentsResourceWithRawResponse:
+        return AttachmentsResourceWithRawResponse(self._beta.attachments)
+
+    @cached_property
     def agent_data(self) -> AgentDataResourceWithRawResponse:
         return AgentDataResourceWithRawResponse(self._beta.agent_data)
 
@@ -190,6 +210,10 @@ class AsyncBetaResourceWithRawResponse:
     @cached_property
     def chat(self) -> AsyncChatResourceWithRawResponse:
         return AsyncChatResourceWithRawResponse(self._beta.chat)
+
+    @cached_property
+    def attachments(self) -> AsyncAttachmentsResourceWithRawResponse:
+        return AsyncAttachmentsResourceWithRawResponse(self._beta.attachments)
 
     @cached_property
     def agent_data(self) -> AsyncAgentDataResourceWithRawResponse:
@@ -221,6 +245,10 @@ class BetaResourceWithStreamingResponse:
         return ChatResourceWithStreamingResponse(self._beta.chat)
 
     @cached_property
+    def attachments(self) -> AttachmentsResourceWithStreamingResponse:
+        return AttachmentsResourceWithStreamingResponse(self._beta.attachments)
+
+    @cached_property
     def agent_data(self) -> AgentDataResourceWithStreamingResponse:
         return AgentDataResourceWithStreamingResponse(self._beta.agent_data)
 
@@ -248,6 +276,10 @@ class AsyncBetaResourceWithStreamingResponse:
     @cached_property
     def chat(self) -> AsyncChatResourceWithStreamingResponse:
         return AsyncChatResourceWithStreamingResponse(self._beta.chat)
+
+    @cached_property
+    def attachments(self) -> AsyncAttachmentsResourceWithStreamingResponse:
+        return AsyncAttachmentsResourceWithStreamingResponse(self._beta.attachments)
 
     @cached_property
     def agent_data(self) -> AsyncAgentDataResourceWithStreamingResponse:
