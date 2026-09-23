@@ -86,6 +86,10 @@ class DirectoriesResource(SyncAPIResource):
         """
         Create a new directory within the specified project.
 
+        A connector subscription syncs into at most one directory. Creating a second one
+        for the same subscription returns `409` with the existing directory's id in
+        `detail.directory_id`.
+
         Args:
           name: Human-readable name for the directory.
 
@@ -390,6 +394,10 @@ class AsyncDirectoriesResource(AsyncAPIResource):
     ) -> DirectoryCreateResponse:
         """
         Create a new directory within the specified project.
+
+        A connector subscription syncs into at most one directory. Creating a second one
+        for the same subscription returns `409` with the existing directory's id in
+        `detail.directory_id`.
 
         Args:
           name: Human-readable name for the directory.
