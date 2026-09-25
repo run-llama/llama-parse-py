@@ -13,6 +13,7 @@ from ..types import (
     classify_list_params,
     classify_cancel_params,
     classify_create_params,
+    classify_delete_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -36,6 +37,7 @@ from ..types.classify_get_response import ClassifyGetResponse
 from ..types.classify_list_response import ClassifyListResponse
 from ..types.classify_cancel_response import ClassifyCancelResponse
 from ..types.classify_create_response import ClassifyCreateResponse
+from ..types.classify_delete_response import ClassifyDeleteResponse
 from ..types.classify_configuration_param import ClassifyConfigurationParam
 
 __all__ = ["ClassifyResource", "AsyncClassifyResource"]
@@ -225,6 +227,56 @@ class ClassifyResource(SyncAPIResource):
                 ),
             ),
             model=ClassifyListResponse,
+        )
+
+    def delete(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClassifyDeleteResponse:
+        """
+        Delete a classify job and its result.
+
+        The job must be in a terminal state (COMPLETED, FAILED, CANCELLED). Cancel a job
+        that is still running before deleting it.
+
+        Returns the identifiers of the deleted job.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return self._delete(
+            path_template("/api/v2/classify/{job_id}", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    classify_delete_params.ClassifyDeleteParams,
+                ),
+            ),
+            cast_to=ClassifyDeleteResponse,
         )
 
     def cancel(
@@ -694,6 +746,56 @@ class AsyncClassifyResource(AsyncAPIResource):
             model=ClassifyListResponse,
         )
 
+    async def delete(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClassifyDeleteResponse:
+        """
+        Delete a classify job and its result.
+
+        The job must be in a terminal state (COMPLETED, FAILED, CANCELLED). Cancel a job
+        that is still running before deleting it.
+
+        Returns the identifiers of the deleted job.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+        return await self._delete(
+            path_template("/api/v2/classify/{job_id}", job_id=job_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    classify_delete_params.ClassifyDeleteParams,
+                ),
+            ),
+            cast_to=ClassifyDeleteResponse,
+        )
+
     async def cancel(
         self,
         job_id: str,
@@ -985,6 +1087,9 @@ class ClassifyResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             classify.list,
         )
+        self.delete = to_raw_response_wrapper(
+            classify.delete,
+        )
         self.cancel = to_raw_response_wrapper(
             classify.cancel,
         )
@@ -1002,6 +1107,9 @@ class AsyncClassifyResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             classify.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            classify.delete,
         )
         self.cancel = async_to_raw_response_wrapper(
             classify.cancel,
@@ -1021,6 +1129,9 @@ class ClassifyResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             classify.list,
         )
+        self.delete = to_streamed_response_wrapper(
+            classify.delete,
+        )
         self.cancel = to_streamed_response_wrapper(
             classify.cancel,
         )
@@ -1038,6 +1149,9 @@ class AsyncClassifyResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             classify.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            classify.delete,
         )
         self.cancel = async_to_streamed_response_wrapper(
             classify.cancel,

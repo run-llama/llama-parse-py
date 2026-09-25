@@ -68,7 +68,31 @@ class SplitResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitCreateResponse:
         """
-        Create a document split job.
+        Create a split job.
+
+        ## Document input
+
+        Set `file_input` to a file ID or a completed parse job ID (`pjb-...`). Supplying
+        a parse job reuses its output instead of reading the document again.
+
+        ## Page selection
+
+        `configuration.target_pages` selects which pages of a supplied parse job to
+        split (1-based; `1-50`, `1,3,5-7`). Pages are read in ascending document order,
+        and each segment's `pages` are the parse job's own page numbers, so segments map
+        straight back to the original document. Requires a parse job as `file_input`;
+        passing it with a file ID returns 400.
+
+        ## Parse settings
+
+        `configuration.parse_tier` and `configuration.parse_config_id` control how the
+        document is read before splitting; both are ignored when a parse job is
+        supplied. A parse configuration restricted to a page subset (`target_pages` or
+        `max_pages`) is rejected, since split results always number pages relative to
+        the full document.
+
+        The job runs asynchronously. Poll `GET /split/jobs/{split_job_id}` or register a
+        webhook to monitor completion.
 
         Args:
           file_input: File ID or parse job ID
@@ -364,7 +388,31 @@ class AsyncSplitResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SplitCreateResponse:
         """
-        Create a document split job.
+        Create a split job.
+
+        ## Document input
+
+        Set `file_input` to a file ID or a completed parse job ID (`pjb-...`). Supplying
+        a parse job reuses its output instead of reading the document again.
+
+        ## Page selection
+
+        `configuration.target_pages` selects which pages of a supplied parse job to
+        split (1-based; `1-50`, `1,3,5-7`). Pages are read in ascending document order,
+        and each segment's `pages` are the parse job's own page numbers, so segments map
+        straight back to the original document. Requires a parse job as `file_input`;
+        passing it with a file ID returns 400.
+
+        ## Parse settings
+
+        `configuration.parse_tier` and `configuration.parse_config_id` control how the
+        document is read before splitting; both are ignored when a parse job is
+        supplied. A parse configuration restricted to a page subset (`target_pages` or
+        `max_pages`) is rejected, since split results always number pages relative to
+        the full document.
+
+        The job runs asynchronously. Poll `GET /split/jobs/{split_job_id}` or register a
+        webhook to monitor completion.
 
         Args:
           file_input: File ID or parse job ID

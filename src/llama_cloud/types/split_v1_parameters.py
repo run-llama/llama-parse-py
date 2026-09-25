@@ -39,5 +39,33 @@ class SplitV1Parameters(BaseModel):
     product_type: Literal["split_v1"]
     """Product type."""
 
+    parse_config_id: Optional[str] = None
+    """
+    Saved parse configuration ID to control how the document is parsed before
+    splitting. Takes precedence over parse_tier. Configurations that restrict pages
+    (`target_pages` or `max_pages` on the parse configuration) are rejected: split
+    results number pages relative to the full document. Ignored when a completed
+    parse job is supplied as file_input.
+    """
+
+    parse_tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]] = None
+    """Parse tier used to read the document before splitting.
+
+    Defaults to fast. Ignored when a completed parse job is supplied as file_input.
+    """
+
     splitting_strategy: Optional[SplittingStrategy] = None
     """Strategy for splitting documents."""
+
+    target_pages: Optional[str] = None
+    """Comma-separated page numbers or ranges to split (1-based).
+
+    Omit to split all pages. Requires a completed parse job as file_input.
+    """
+
+    version: Optional[str] = None
+    """Split version to run.
+
+    Omit for the current release. Preview versions are selectable by name and never
+    resolved automatically.
+    """

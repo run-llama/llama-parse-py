@@ -104,6 +104,9 @@ class FormsPageFormsResultPage(BaseModel):
     success: Literal[True]
     """Success indicator"""
 
+    detected_form_types: Optional[List[str]] = None
+    """Form types detected on the page (e.g. 'w2', 'other'), or null if not a form"""
+
     page_height: Optional[float] = None
     """Height of the page in points"""
 
