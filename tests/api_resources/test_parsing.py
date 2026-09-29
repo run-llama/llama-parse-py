@@ -101,6 +101,7 @@ class TestParsing:
                     "enable": True,
                     "guess_sheet_name": True,
                 },
+                "watermark_handling": "remove",
             },
             page_ranges={
                 "max_pages": 1,
@@ -559,6 +560,7 @@ class TestAsyncParsing:
                     "enable": True,
                     "guess_sheet_name": True,
                 },
+                "watermark_handling": "remove",
             },
             page_ranges={
                 "max_pages": 1,

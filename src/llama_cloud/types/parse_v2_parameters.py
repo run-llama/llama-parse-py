@@ -330,6 +330,16 @@ class OutputOptions(BaseModel):
     tables_as_spreadsheet: Optional[OutputOptionsTablesAsSpreadsheet] = None
     """Options for exporting tables as XLSX spreadsheets"""
 
+    watermark_handling: Optional[Literal["move_to_end", "move_to_start", "remove"]] = None
+    """
+    What to do with watermark text stamped across the page (e.g., 'CONFIDENTIAL',
+    'DRAFT'): 'move_to_end' (default) keeps it as the last block of the page's
+    markdown and text output, 'move_to_start' as the first block, and 'remove' drops
+    it. In every mode the detected text is reported in the page's `watermark`
+    metadata. Requires version 2026-09-28 or later on the cost_effective, agentic,
+    and agentic_plus tiers; ignored otherwise
+    """
+
 
 class PageRanges(BaseModel):
     """Page selection: limit total pages or specify exact pages to process"""
@@ -507,7 +517,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]] = None
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-09-24", "2026-08-19", "2026-06-15"], str, None] = None
+    version: Union[Literal["latest", "2026-09-28", "2026-06-15"], str, None] = None
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -516,9 +526,9 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2026-06-15`
-    - `cost_effective`: `2026-08-19`
-    - `agentic`: `2026-09-24`
-    - `agentic_plus`: `2026-09-24`
+    - `cost_effective`: `2026-09-28`
+    - `agentic`: `2026-09-28`
+    - `agentic_plus`: `2026-09-28`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -818,7 +828,7 @@ class ParseV2Parameters(BaseModel):
     highest accuracy)
     """
 
-    version: Union[Literal["latest", "2026-09-24", "2026-08-19", "2026-06-15"], str]
+    version: Union[Literal["latest", "2026-09-28", "2026-06-15"], str]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -826,9 +836,9 @@ class ParseV2Parameters(BaseModel):
     Current `latest` by tier:
 
     - `fast`: `2026-06-15`
-    - `cost_effective`: `2026-08-19`
-    - `agentic`: `2026-09-24`
-    - `agentic_plus`: `2026-09-24`
+    - `cost_effective`: `2026-09-28`
+    - `agentic`: `2026-09-28`
+    - `agentic_plus`: `2026-09-28`
 
     Full list: `GET /api/v2/parse/versions`.
     """

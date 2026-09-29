@@ -416,6 +416,13 @@ class MetadataPage(BaseModel):
     triggered_auto_mode: Optional[bool] = None
     """Whether auto mode was triggered for the page"""
 
+    watermark: Optional[str] = None
+    """Watermark text detected on the page (e.g., 'CONFIDENTIAL').
+
+    Only reported on version 2026-09-28 or later of the cost_effective, agentic, and
+    agentic_plus tiers
+    """
+
 
 class MetadataDocumentConfidenceBreakdown(BaseModel):
     """Coverage and worst-page details for document confidence."""
