@@ -65,6 +65,7 @@ class TestParsing:
                 "image": {"camera_photo_correction": True},
                 "pdf": {},
                 "presentation": {
+                    "include_hidden_slides": True,
                     "out_of_bounds_content": True,
                     "skip_embedded_data": True,
                 },
@@ -524,6 +525,7 @@ class TestAsyncParsing:
                 "image": {"camera_photo_correction": True},
                 "pdf": {},
                 "presentation": {
+                    "include_hidden_slides": True,
                     "out_of_bounds_content": True,
                     "skip_embedded_data": True,
                 },

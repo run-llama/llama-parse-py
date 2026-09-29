@@ -120,6 +120,9 @@ class InputOptionsImage(BaseModel):
 class InputOptionsPresentation(BaseModel):
     """Presentation parsing options (applies to .pptx, .ppt, .odp, .key files)"""
 
+    include_hidden_slides: Optional[bool] = None
+    """Include hidden PPTX slides in the output. Omitted or false skips hidden slides."""
+
     out_of_bounds_content: Optional[bool] = None
     """Extract content positioned outside the visible slide area.
 

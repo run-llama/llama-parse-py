@@ -122,6 +122,9 @@ class InputOptionsImage(TypedDict, total=False):
 class InputOptionsPresentation(TypedDict, total=False):
     """Presentation parsing options (applies to .pptx, .ppt, .odp, .key files)"""
 
+    include_hidden_slides: Optional[bool]
+    """Include hidden PPTX slides in the output. Omitted or false skips hidden slides."""
+
     out_of_bounds_content: Optional[bool]
     """Extract content positioned outside the visible slide area.
 
