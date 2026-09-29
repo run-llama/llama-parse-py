@@ -451,10 +451,11 @@ class OutputOptions(TypedDict, total=False):
     """
     What to do with watermark text stamped across the page (e.g., 'CONFIDENTIAL',
     'DRAFT'): 'move_to_end' (default) keeps it as the last block of the page's
-    markdown and text output, 'move_to_start' as the first block, and 'remove' drops
-    it. In every mode the detected text is reported in the page's `watermark`
-    metadata. Requires version 2026-09-28 or later on the cost_effective, agentic,
-    and agentic_plus tiers; ignored otherwise
+    markdown, 'move_to_start' as the first block, and 'remove' drops it. The text
+    output follows the same choice where the watermark is a line of its own in the
+    PDF text layer. In every mode the detected text is reported in the page's
+    `watermark` metadata. Requires version 2026-09-28 or later on the
+    cost_effective, agentic, and agentic_plus tiers; ignored otherwise
     """
 
 
