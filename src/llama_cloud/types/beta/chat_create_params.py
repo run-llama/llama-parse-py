@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 from ..._types import SequenceNotStr
 
@@ -20,4 +20,10 @@ class ChatCreateParams(TypedDict, total=False):
 
     Once set and the first message has been sent, the source set is locked for the
     session's lifetime. Leave null to create an unbound session.
+    """
+
+    shared_access: Optional[Literal["query", "read_only"]]
+    """
+    What this chat's share link grants: read_only (transcript only) or query
+    (viewers may ask new questions). Null follows the deployment default.
     """

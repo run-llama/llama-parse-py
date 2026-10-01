@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict, List, Optional
 from typing_extensions import Literal
 
@@ -13,6 +14,7 @@ from ..types import (
     webhook_config_delete_params,
     webhook_config_update_params,
     webhook_config_retrieve_params,
+    webhook_config_list_paginated_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -24,7 +26,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.webhook_config_response import WebhookConfigResponse
 from ..types.webhook_config_list_response import WebhookConfigListResponse
 
@@ -314,6 +317,7 @@ class WebhookConfigsResource(SyncAPIResource):
             cast_to=WebhookConfigResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -400,6 +404,62 @@ class WebhookConfigsResource(SyncAPIResource):
                 ),
             ),
             cast_to=NoneType,
+        )
+
+    def list_paginated(
+        self,
+        *,
+        include_total: bool | Omit = omit,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: int | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncPaginatedCursor[WebhookConfigResponse]:
+        """
+        List the webhook configurations for the current project, newest first.
+
+        Args:
+          include_total: Return `total_size`, a count of every row matching the filter. It is a second
+              query on every page, so it is off unless asked for.
+
+          page_size: Number of items per page
+
+          page_token: Cursor from the previous page's `next_page_token`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v2/webhook-configs",
+            page=SyncPaginatedCursor[WebhookConfigResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_total": include_total,
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                    },
+                    webhook_config_list_paginated_params.WebhookConfigListPaginatedParams,
+                ),
+            ),
+            model=WebhookConfigResponse,
         )
 
 
@@ -686,6 +746,7 @@ class AsyncWebhookConfigsResource(AsyncAPIResource):
             cast_to=WebhookConfigResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -774,6 +835,62 @@ class AsyncWebhookConfigsResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    def list_paginated(
+        self,
+        *,
+        include_total: bool | Omit = omit,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: int | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[WebhookConfigResponse, AsyncPaginatedCursor[WebhookConfigResponse]]:
+        """
+        List the webhook configurations for the current project, newest first.
+
+        Args:
+          include_total: Return `total_size`, a count of every row matching the filter. It is a second
+              query on every page, so it is off unless asked for.
+
+          page_size: Number of items per page
+
+          page_token: Cursor from the previous page's `next_page_token`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v2/webhook-configs",
+            page=AsyncPaginatedCursor[WebhookConfigResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_total": include_total,
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                    },
+                    webhook_config_list_paginated_params.WebhookConfigListPaginatedParams,
+                ),
+            ),
+            model=WebhookConfigResponse,
+        )
+
 
 class WebhookConfigsResourceWithRawResponse:
     def __init__(self, webhook_configs: WebhookConfigsResource) -> None:
@@ -788,11 +905,16 @@ class WebhookConfigsResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             webhook_configs.update,
         )
-        self.list = to_raw_response_wrapper(
-            webhook_configs.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                webhook_configs.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_raw_response_wrapper(
             webhook_configs.delete,
+        )
+        self.list_paginated = to_raw_response_wrapper(
+            webhook_configs.list_paginated,
         )
 
 
@@ -809,11 +931,16 @@ class AsyncWebhookConfigsResourceWithRawResponse:
         self.update = async_to_raw_response_wrapper(
             webhook_configs.update,
         )
-        self.list = async_to_raw_response_wrapper(
-            webhook_configs.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                webhook_configs.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_raw_response_wrapper(
             webhook_configs.delete,
+        )
+        self.list_paginated = async_to_raw_response_wrapper(
+            webhook_configs.list_paginated,
         )
 
 
@@ -830,11 +957,16 @@ class WebhookConfigsResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             webhook_configs.update,
         )
-        self.list = to_streamed_response_wrapper(
-            webhook_configs.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                webhook_configs.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_streamed_response_wrapper(
             webhook_configs.delete,
+        )
+        self.list_paginated = to_streamed_response_wrapper(
+            webhook_configs.list_paginated,
         )
 
 
@@ -851,9 +983,14 @@ class AsyncWebhookConfigsResourceWithStreamingResponse:
         self.update = async_to_streamed_response_wrapper(
             webhook_configs.update,
         )
-        self.list = async_to_streamed_response_wrapper(
-            webhook_configs.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                webhook_configs.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_streamed_response_wrapper(
             webhook_configs.delete,
+        )
+        self.list_paginated = async_to_streamed_response_wrapper(
+            webhook_configs.list_paginated,
         )

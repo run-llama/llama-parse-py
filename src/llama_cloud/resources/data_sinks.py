@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Optional
 from typing_extensions import Literal
 
@@ -13,6 +14,7 @@ from ..types import (
     data_sink_create_params,
     data_sink_delete_params,
     data_sink_update_params,
+    data_sink_list_paginated_params,
 )
 from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -24,7 +26,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
+from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.data_sink import DataSink
 from ..types.data_sink_list_response import DataSinkListResponse
 
@@ -161,6 +164,7 @@ class DataSinksResource(SyncAPIResource):
             cast_to=DataSink,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -173,8 +177,11 @@ class DataSinksResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DataSinkListResponse:
-        """
-        List data sinks for a given project.
+        """List a project's data sinks.
+
+        Returns at most the first 50.
+
+        Deprecated: use `GET /api/v1/beta/data-sinks`, which is paginated.
 
         Args:
           extra_headers: Send extra headers
@@ -278,6 +285,62 @@ class DataSinksResource(SyncAPIResource):
                 query=maybe_transform({"project_id": project_id}, data_sink_get_params.DataSinkGetParams),
             ),
             cast_to=DataSink,
+        )
+
+    def list_paginated(
+        self,
+        *,
+        include_total: bool | Omit = omit,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: int | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncPaginatedCursor[DataSink]:
+        """
+        List the data sinks in a project, newest first.
+
+        Args:
+          include_total: Return `total_size`, a count of every row matching the filter. It is a second
+              query on every page, so it is off unless asked for.
+
+          page_size: Number of items per page
+
+          page_token: Cursor from the previous page's `next_page_token`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/beta/data-sinks",
+            page=SyncPaginatedCursor[DataSink],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_total": include_total,
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                    },
+                    data_sink_list_paginated_params.DataSinkListPaginatedParams,
+                ),
+            ),
+            model=DataSink,
         )
 
 
@@ -413,6 +476,7 @@ class AsyncDataSinksResource(AsyncAPIResource):
             cast_to=DataSink,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -425,8 +489,11 @@ class AsyncDataSinksResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> DataSinkListResponse:
-        """
-        List data sinks for a given project.
+        """List a project's data sinks.
+
+        Returns at most the first 50.
+
+        Deprecated: use `GET /api/v1/beta/data-sinks`, which is paginated.
 
         Args:
           extra_headers: Send extra headers
@@ -534,6 +601,62 @@ class AsyncDataSinksResource(AsyncAPIResource):
             cast_to=DataSink,
         )
 
+    def list_paginated(
+        self,
+        *,
+        include_total: bool | Omit = omit,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: int | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[DataSink, AsyncPaginatedCursor[DataSink]]:
+        """
+        List the data sinks in a project, newest first.
+
+        Args:
+          include_total: Return `total_size`, a count of every row matching the filter. It is a second
+              query on every page, so it is off unless asked for.
+
+          page_size: Number of items per page
+
+          page_token: Cursor from the previous page's `next_page_token`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/beta/data-sinks",
+            page=AsyncPaginatedCursor[DataSink],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "include_total": include_total,
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                    },
+                    data_sink_list_paginated_params.DataSinkListPaginatedParams,
+                ),
+            ),
+            model=DataSink,
+        )
+
 
 class DataSinksResourceWithRawResponse:
     def __init__(self, data_sinks: DataSinksResource) -> None:
@@ -545,14 +668,19 @@ class DataSinksResourceWithRawResponse:
         self.update = to_raw_response_wrapper(
             data_sinks.update,
         )
-        self.list = to_raw_response_wrapper(
-            data_sinks.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                data_sinks.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_raw_response_wrapper(
             data_sinks.delete,
         )
         self.get = to_raw_response_wrapper(
             data_sinks.get,
+        )
+        self.list_paginated = to_raw_response_wrapper(
+            data_sinks.list_paginated,
         )
 
 
@@ -566,14 +694,19 @@ class AsyncDataSinksResourceWithRawResponse:
         self.update = async_to_raw_response_wrapper(
             data_sinks.update,
         )
-        self.list = async_to_raw_response_wrapper(
-            data_sinks.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                data_sinks.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_raw_response_wrapper(
             data_sinks.delete,
         )
         self.get = async_to_raw_response_wrapper(
             data_sinks.get,
+        )
+        self.list_paginated = async_to_raw_response_wrapper(
+            data_sinks.list_paginated,
         )
 
 
@@ -587,14 +720,19 @@ class DataSinksResourceWithStreamingResponse:
         self.update = to_streamed_response_wrapper(
             data_sinks.update,
         )
-        self.list = to_streamed_response_wrapper(
-            data_sinks.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                data_sinks.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = to_streamed_response_wrapper(
             data_sinks.delete,
         )
         self.get = to_streamed_response_wrapper(
             data_sinks.get,
+        )
+        self.list_paginated = to_streamed_response_wrapper(
+            data_sinks.list_paginated,
         )
 
 
@@ -608,12 +746,17 @@ class AsyncDataSinksResourceWithStreamingResponse:
         self.update = async_to_streamed_response_wrapper(
             data_sinks.update,
         )
-        self.list = async_to_streamed_response_wrapper(
-            data_sinks.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                data_sinks.list,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.delete = async_to_streamed_response_wrapper(
             data_sinks.delete,
         )
         self.get = async_to_streamed_response_wrapper(
             data_sinks.get,
+        )
+        self.list_paginated = async_to_streamed_response_wrapper(
+            data_sinks.list_paginated,
         )

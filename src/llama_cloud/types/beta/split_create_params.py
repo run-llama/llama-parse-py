@@ -55,3 +55,10 @@ class Configuration(TypedDict, total=False):
 
     splitting_strategy: ConfigurationSplittingStrategy
     """Strategy for splitting documents."""
+
+    version: Optional[str]
+    """Split version to run.
+
+    Omit for the current release. Preview versions are selectable by name and never
+    resolved automatically.
+    """

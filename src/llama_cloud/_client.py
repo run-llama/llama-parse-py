@@ -50,8 +50,8 @@ if TYPE_CHECKING:
         v2_projects,
         data_sources,
         configurations,
-        job_data_points,
         webhook_configs,
+        extraction_agents,
     )
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.split import SplitResource, AsyncSplitResource
@@ -65,8 +65,8 @@ if TYPE_CHECKING:
     from .resources.v2_projects import V2ProjectsResource, AsyncV2ProjectsResource
     from .resources.data_sources import DataSourcesResource, AsyncDataSourcesResource
     from .resources.configurations import ConfigurationsResource, AsyncConfigurationsResource
-    from .resources.job_data_points import JobDataPointsResource, AsyncJobDataPointsResource
     from .resources.webhook_configs import WebhookConfigsResource, AsyncWebhookConfigsResource
+    from .resources.extraction_agents import ExtractionAgentsResource, AsyncExtractionAgentsResource
     from .resources.pipelines.pipelines import PipelinesResource, AsyncPipelinesResource
     from .resources.retrievers.retrievers import RetrieversResource, AsyncRetrieversResource
 
@@ -207,16 +207,16 @@ class LlamaCloud(SyncAPIClient):
         return V2ProjectsResource(self)
 
     @cached_property
-    def job_data_points(self) -> JobDataPointsResource:
-        from .resources.job_data_points import JobDataPointsResource
-
-        return JobDataPointsResource(self)
-
-    @cached_property
     def data_sinks(self) -> DataSinksResource:
         from .resources.data_sinks import DataSinksResource
 
         return DataSinksResource(self)
+
+    @cached_property
+    def extraction_agents(self) -> ExtractionAgentsResource:
+        from .resources.extraction_agents import ExtractionAgentsResource
+
+        return ExtractionAgentsResource(self)
 
     @cached_property
     def data_sources(self) -> DataSourcesResource:
@@ -480,16 +480,16 @@ class AsyncLlamaCloud(AsyncAPIClient):
         return AsyncV2ProjectsResource(self)
 
     @cached_property
-    def job_data_points(self) -> AsyncJobDataPointsResource:
-        from .resources.job_data_points import AsyncJobDataPointsResource
-
-        return AsyncJobDataPointsResource(self)
-
-    @cached_property
     def data_sinks(self) -> AsyncDataSinksResource:
         from .resources.data_sinks import AsyncDataSinksResource
 
         return AsyncDataSinksResource(self)
+
+    @cached_property
+    def extraction_agents(self) -> AsyncExtractionAgentsResource:
+        from .resources.extraction_agents import AsyncExtractionAgentsResource
+
+        return AsyncExtractionAgentsResource(self)
 
     @cached_property
     def data_sources(self) -> AsyncDataSourcesResource:
@@ -695,16 +695,16 @@ class LlamaCloudWithRawResponse:
         return V2ProjectsResourceWithRawResponse(self._client.v2_projects)
 
     @cached_property
-    def job_data_points(self) -> job_data_points.JobDataPointsResourceWithRawResponse:
-        from .resources.job_data_points import JobDataPointsResourceWithRawResponse
-
-        return JobDataPointsResourceWithRawResponse(self._client.job_data_points)
-
-    @cached_property
     def data_sinks(self) -> data_sinks.DataSinksResourceWithRawResponse:
         from .resources.data_sinks import DataSinksResourceWithRawResponse
 
         return DataSinksResourceWithRawResponse(self._client.data_sinks)
+
+    @cached_property
+    def extraction_agents(self) -> extraction_agents.ExtractionAgentsResourceWithRawResponse:
+        from .resources.extraction_agents import ExtractionAgentsResourceWithRawResponse
+
+        return ExtractionAgentsResourceWithRawResponse(self._client.extraction_agents)
 
     @cached_property
     def data_sources(self) -> data_sources.DataSourcesResourceWithRawResponse:
@@ -798,16 +798,16 @@ class AsyncLlamaCloudWithRawResponse:
         return AsyncV2ProjectsResourceWithRawResponse(self._client.v2_projects)
 
     @cached_property
-    def job_data_points(self) -> job_data_points.AsyncJobDataPointsResourceWithRawResponse:
-        from .resources.job_data_points import AsyncJobDataPointsResourceWithRawResponse
-
-        return AsyncJobDataPointsResourceWithRawResponse(self._client.job_data_points)
-
-    @cached_property
     def data_sinks(self) -> data_sinks.AsyncDataSinksResourceWithRawResponse:
         from .resources.data_sinks import AsyncDataSinksResourceWithRawResponse
 
         return AsyncDataSinksResourceWithRawResponse(self._client.data_sinks)
+
+    @cached_property
+    def extraction_agents(self) -> extraction_agents.AsyncExtractionAgentsResourceWithRawResponse:
+        from .resources.extraction_agents import AsyncExtractionAgentsResourceWithRawResponse
+
+        return AsyncExtractionAgentsResourceWithRawResponse(self._client.extraction_agents)
 
     @cached_property
     def data_sources(self) -> data_sources.AsyncDataSourcesResourceWithRawResponse:
@@ -901,16 +901,16 @@ class LlamaCloudWithStreamedResponse:
         return V2ProjectsResourceWithStreamingResponse(self._client.v2_projects)
 
     @cached_property
-    def job_data_points(self) -> job_data_points.JobDataPointsResourceWithStreamingResponse:
-        from .resources.job_data_points import JobDataPointsResourceWithStreamingResponse
-
-        return JobDataPointsResourceWithStreamingResponse(self._client.job_data_points)
-
-    @cached_property
     def data_sinks(self) -> data_sinks.DataSinksResourceWithStreamingResponse:
         from .resources.data_sinks import DataSinksResourceWithStreamingResponse
 
         return DataSinksResourceWithStreamingResponse(self._client.data_sinks)
+
+    @cached_property
+    def extraction_agents(self) -> extraction_agents.ExtractionAgentsResourceWithStreamingResponse:
+        from .resources.extraction_agents import ExtractionAgentsResourceWithStreamingResponse
+
+        return ExtractionAgentsResourceWithStreamingResponse(self._client.extraction_agents)
 
     @cached_property
     def data_sources(self) -> data_sources.DataSourcesResourceWithStreamingResponse:
@@ -1004,16 +1004,16 @@ class AsyncLlamaCloudWithStreamedResponse:
         return AsyncV2ProjectsResourceWithStreamingResponse(self._client.v2_projects)
 
     @cached_property
-    def job_data_points(self) -> job_data_points.AsyncJobDataPointsResourceWithStreamingResponse:
-        from .resources.job_data_points import AsyncJobDataPointsResourceWithStreamingResponse
-
-        return AsyncJobDataPointsResourceWithStreamingResponse(self._client.job_data_points)
-
-    @cached_property
     def data_sinks(self) -> data_sinks.AsyncDataSinksResourceWithStreamingResponse:
         from .resources.data_sinks import AsyncDataSinksResourceWithStreamingResponse
 
         return AsyncDataSinksResourceWithStreamingResponse(self._client.data_sinks)
+
+    @cached_property
+    def extraction_agents(self) -> extraction_agents.AsyncExtractionAgentsResourceWithStreamingResponse:
+        from .resources.extraction_agents import AsyncExtractionAgentsResourceWithStreamingResponse
+
+        return AsyncExtractionAgentsResourceWithStreamingResponse(self._client.extraction_agents)
 
     @cached_property
     def data_sources(self) -> data_sources.AsyncDataSourcesResourceWithStreamingResponse:

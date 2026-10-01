@@ -48,6 +48,14 @@ from .agent_data import (
     AgentDataResourceWithStreamingResponse,
     AsyncAgentDataResourceWithStreamingResponse,
 )
+from .attachments import (
+    AttachmentsResource,
+    AsyncAttachmentsResource,
+    AttachmentsResourceWithRawResponse,
+    AsyncAttachmentsResourceWithRawResponse,
+    AttachmentsResourceWithStreamingResponse,
+    AsyncAttachmentsResourceWithStreamingResponse,
+)
 from .directories import (
     DirectoriesResource,
     AsyncDirectoriesResource,
@@ -76,6 +84,12 @@ __all__ = [
     "AsyncChatResourceWithRawResponse",
     "ChatResourceWithStreamingResponse",
     "AsyncChatResourceWithStreamingResponse",
+    "AttachmentsResource",
+    "AsyncAttachmentsResource",
+    "AttachmentsResourceWithRawResponse",
+    "AsyncAttachmentsResourceWithRawResponse",
+    "AttachmentsResourceWithStreamingResponse",
+    "AsyncAttachmentsResourceWithStreamingResponse",
     "AgentDataResource",
     "AsyncAgentDataResource",
     "AgentDataResourceWithRawResponse",

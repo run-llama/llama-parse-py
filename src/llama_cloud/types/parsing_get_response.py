@@ -104,6 +104,9 @@ class FormsPageFormsResultPage(BaseModel):
     success: Literal[True]
     """Success indicator"""
 
+    detected_form_types: Optional[List[str]] = None
+    """Form types detected on the page (e.g. 'w2', 'other'), or null if not a form"""
+
     page_height: Optional[float] = None
     """Height of the page in points"""
 
@@ -412,6 +415,13 @@ class MetadataPage(BaseModel):
 
     triggered_auto_mode: Optional[bool] = None
     """Whether auto mode was triggered for the page"""
+
+    watermark: Optional[str] = None
+    """Watermark text detected on the page (e.g., 'CONFIDENTIAL').
+
+    Only reported on version 2026-09-28 or later of the cost_effective, agentic, and
+    agentic_plus tiers
+    """
 
 
 class MetadataDocumentConfidenceBreakdown(BaseModel):
