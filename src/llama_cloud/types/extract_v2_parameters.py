@@ -37,9 +37,12 @@ class ExtractV2Parameters(BaseModel):
     """Disable reuse and storage of Extract results"""
 
     extraction_target: Optional[Literal["per_doc", "per_page", "per_table_row"]] = None
-    """
-    Granularity of extraction: per_doc returns one object per document, per_page
-    returns one object per page, per_table_row returns one object per table row
+    """Deprecated.
+
+    Applies only to Agentic and Cost Effective versions 2.0 or earlier. Granularity
+    of extraction: per_doc returns one object per document, per_page returns one
+    object per page, per_table_row returns one object per table row. Agentic Plus
+    supports per_doc only.
     """
 
     max_pages: Optional[int] = None
