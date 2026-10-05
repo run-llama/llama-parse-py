@@ -60,7 +60,8 @@ class SplitV1Parameters(BaseModel):
     target_pages: Optional[str] = None
     """Comma-separated page numbers or ranges to split (1-based).
 
-    Omit to split all pages. Requires a completed parse job as file_input.
+    Pages are split in the order listed. Omit to split all pages. Requires a
+    completed parse job as file_input.
     """
 
     version: Optional[str] = None
