@@ -225,6 +225,9 @@ class FormTable(BaseModel):
     grounding: Optional[Grounding] = None
     """Scalar text grounding aligned with the table's columns and ragged rows."""
 
+    html: Optional[str] = None
+    """HTML representation of the table, as a regular table item has."""
+
     label: Optional[str] = None
     """Printed table caption, if any"""
 

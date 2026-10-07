@@ -25,6 +25,17 @@ __all__ = [
     "GroundingValueLine",
     "GroundingValueLineWord",
     "ValueItem",
+    "ValueItemFormText",
+    "ValueItemFormTextGrounding",
+    "ValueItemFormTextGroundingID",
+    "ValueItemFormTextGroundingIDLine",
+    "ValueItemFormTextGroundingIDLineWord",
+    "ValueItemFormTextGroundingLabel",
+    "ValueItemFormTextGroundingLabelLine",
+    "ValueItemFormTextGroundingLabelLineWord",
+    "ValueItemFormTextGroundingValue",
+    "ValueItemFormTextGroundingValueLine",
+    "ValueItemFormTextGroundingValueLineWord",
 ]
 
 
@@ -160,12 +171,171 @@ class Grounding(BaseModel):
     """
 
 
+class ValueItemFormTextGroundingIDLineWord(BaseModel):
+    """One grounded word: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Word bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+
+class ValueItemFormTextGroundingIDLine(BaseModel):
+    """One grounded line of text with an optional per-word breakdown."""
+
+    bbox: BBox
+    """Line bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    words: Optional[List[ValueItemFormTextGroundingIDLineWord]] = None
+    """Per-word grounding within the line, when available"""
+
+
+class ValueItemFormTextGroundingID(BaseModel):
+    """
+    Supported text with half-open UTF-8 byte spans into the complete property string.
+    """
+
+    lines: List[ValueItemFormTextGroundingIDLine]
+    """Supported lines.
+
+    Word requests include supported words; gaps are valid. Boxes use final page
+    coordinates and optional local rotation r.
+    """
+
+
+class ValueItemFormTextGroundingLabelLineWord(BaseModel):
+    """One grounded word: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Word bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+
+class ValueItemFormTextGroundingLabelLine(BaseModel):
+    """One grounded line of text with an optional per-word breakdown."""
+
+    bbox: BBox
+    """Line bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    words: Optional[List[ValueItemFormTextGroundingLabelLineWord]] = None
+    """Per-word grounding within the line, when available"""
+
+
+class ValueItemFormTextGroundingLabel(BaseModel):
+    """
+    Supported text with half-open UTF-8 byte spans into the complete property string.
+    """
+
+    lines: List[ValueItemFormTextGroundingLabelLine]
+    """Supported lines.
+
+    Word requests include supported words; gaps are valid. Boxes use final page
+    coordinates and optional local rotation r.
+    """
+
+
+class ValueItemFormTextGroundingValueLineWord(BaseModel):
+    """One grounded word: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Word bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+
+class ValueItemFormTextGroundingValueLine(BaseModel):
+    """One grounded line of text with an optional per-word breakdown."""
+
+    bbox: BBox
+    """Line bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    words: Optional[List[ValueItemFormTextGroundingValueLineWord]] = None
+    """Per-word grounding within the line, when available"""
+
+
+class ValueItemFormTextGroundingValue(BaseModel):
+    """
+    Supported text with half-open UTF-8 byte spans into the complete property string.
+    """
+
+    lines: List[ValueItemFormTextGroundingValueLine]
+    """Supported lines.
+
+    Word requests include supported words; gaps are valid. Boxes use final page
+    coordinates and optional local rotation r.
+    """
+
+
+class ValueItemFormTextGrounding(BaseModel):
+    """
+    Optional grounding for a field's printed text; boolean states have no text spans.
+    """
+
+    id: Optional[ValueItemFormTextGroundingID] = None
+    """
+    Supported text with half-open UTF-8 byte spans into the complete property
+    string.
+    """
+
+    label: Optional[ValueItemFormTextGroundingLabel] = None
+    """
+    Supported text with half-open UTF-8 byte spans into the complete property
+    string.
+    """
+
+    value: Optional[ValueItemFormTextGroundingValue] = None
+    """
+    Supported text with half-open UTF-8 byte spans into the complete property
+    string.
+    """
+
+
+class ValueItemFormText(BaseModel):
+    """
+    Printed text that is not part of a field, section heading or table: a title, an
+    instruction, a note. With it the form JSON holds every printed word of its region.
+    """
+
+    value: str
+    """The printed text, verbatim"""
+
+    bbox: Optional[List[BBox]] = None
+    """Bounding boxes of the text on the page, if attributed."""
+
+    grounding: Optional[ValueItemFormTextGrounding] = None
+    """
+    Optional grounding for a field's printed text; boolean states have no text
+    spans.
+    """
+
+    type: Optional[Literal["text"]] = None
+    """Form text node"""
+
+
 if TYPE_CHECKING or not PYDANTIC_V1:
     ValueItem = TypeAliasType(
-        "ValueItem", Annotated[Union["FormField", "FormSection", "FormTable"], PropertyInfo(discriminator="type")]
+        "ValueItem",
+        Annotated[
+            Union["FormField", "FormSection", "FormTable", ValueItemFormText], PropertyInfo(discriminator="type")
+        ],
     )
 else:
-    ValueItem: TypeAlias = Annotated[Union["FormField", "FormSection", "FormTable"], PropertyInfo(discriminator="type")]
+    ValueItem: TypeAlias = Annotated[
+        Union["FormField", "FormSection", "FormTable", ValueItemFormText], PropertyInfo(discriminator="type")
+    ]
 
 
 class FormField(BaseModel):
