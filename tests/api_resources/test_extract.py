@@ -162,6 +162,7 @@ class TestExtract:
     def test_method_delete_with_all_params(self, client: LlamaCloud) -> None:
         extract = client.extract.delete(
             job_id="job_id",
+            force=True,
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -553,6 +554,7 @@ class TestAsyncExtract:
     async def test_method_delete_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         extract = await async_client.extract.delete(
             job_id="job_id",
+            force=True,
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )

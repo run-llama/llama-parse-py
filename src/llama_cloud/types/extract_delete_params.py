@@ -9,6 +9,8 @@ __all__ = ["ExtractDeleteParams"]
 
 
 class ExtractDeleteParams(TypedDict, total=False):
+    force: bool
+
     organization_id: Optional[str]
 
     project_id: Optional[str]

@@ -243,6 +243,7 @@ class ExtractResource(SyncAPIResource):
         self,
         job_id: str,
         *,
+        force: bool | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -252,8 +253,10 @@ class ExtractResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
-        Delete an extraction job and its results.
+        """Delete an extraction job and its results.
+
+        A non-terminal job is refused; cancel
+        it first, or pass force=true to delete a job whose workflow is gone.
 
         Args:
           extra_headers: Send extra headers
@@ -275,6 +278,7 @@ class ExtractResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "force": force,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
@@ -865,6 +869,7 @@ class AsyncExtractResource(AsyncAPIResource):
         self,
         job_id: str,
         *,
+        force: bool | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -874,8 +879,10 @@ class AsyncExtractResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
-        Delete an extraction job and its results.
+        """Delete an extraction job and its results.
+
+        A non-terminal job is refused; cancel
+        it first, or pass force=true to delete a job whose workflow is gone.
 
         Args:
           extra_headers: Send extra headers
@@ -897,6 +904,7 @@ class AsyncExtractResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "force": force,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
