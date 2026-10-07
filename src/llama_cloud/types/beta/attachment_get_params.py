@@ -3,13 +3,14 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Required, TypedDict
 
-__all__ = ["ExtractDeleteParams"]
+__all__ = ["AttachmentGetParams"]
 
 
-class ExtractDeleteParams(TypedDict, total=False):
-    force: bool
+class AttachmentGetParams(TypedDict, total=False):
+    source_id: Required[str]
+    """File UUID or directory file ID (dfl-...)."""
 
     organization_id: Optional[str]
 

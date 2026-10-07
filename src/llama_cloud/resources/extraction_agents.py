@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Literal
+from typing import Optional
 
 import httpx
 
-from ..types import job_data_point_list_params
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..types import extraction_agent_list_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -21,67 +19,55 @@ from .._response import (
 )
 from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.job_data_point import JobDataPoint
+from ..types.extract_agent import ExtractAgent
 
-__all__ = ["JobDataPointsResource", "AsyncJobDataPointsResource"]
+__all__ = ["ExtractionAgentsResource", "AsyncExtractionAgentsResource"]
 
 
-class JobDataPointsResource(SyncAPIResource):
+class ExtractionAgentsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> JobDataPointsResourceWithRawResponse:
+    def with_raw_response(self) -> ExtractionAgentsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
-        return JobDataPointsResourceWithRawResponse(self)
+        return ExtractionAgentsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> JobDataPointsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ExtractionAgentsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
-        return JobDataPointsResourceWithStreamingResponse(self)
+        return ExtractionAgentsResourceWithStreamingResponse(self)
 
     def list(
         self,
         *,
-        job_type: Literal["classify", "extract", "parse"],
-        created_at_on_or_after: Union[str, datetime, None] | Omit = omit,
-        created_at_on_or_before: Union[str, datetime, None] | Omit = omit,
-        hours: int | Omit = omit,
+        include_default: bool | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
-        page_size: Optional[int] | Omit = omit,
+        page_size: int | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncPaginatedCursor[JobDataPoint]:
+    ) -> SyncPaginatedCursor[ExtractAgent]:
         """
-        Returns paginated job data points for the current project.
+        List the extraction agents in a project, newest first.
 
         Args:
-          job_type: Job type to query.
+          include_default: Whether to include default agents in the results
 
-          created_at_on_or_after: Include items created at or after this timestamp (inclusive)
+          page_size: Number of items per page
 
-          created_at_on_or_before: Include items created at or before this timestamp (inclusive)
-
-          hours: Hours of history to include.
-
-          page_size: Number of items per page.
-
-          page_token: Cursor token for the next page.
-
-          status: Filter by status.
+          page_token: Cursor from the previous page's `next_page_token`.
 
           extra_headers: Send extra headers
 
@@ -92,8 +78,8 @@ class JobDataPointsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/api/v1/job-data-points",
-            page=SyncPaginatedCursor[JobDataPoint],
+            "/api/v1/beta/extraction-agents",
+            page=SyncPaginatedCursor[ExtractAgent],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -101,79 +87,63 @@ class JobDataPointsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "job_type": job_type,
-                        "created_at_on_or_after": created_at_on_or_after,
-                        "created_at_on_or_before": created_at_on_or_before,
-                        "hours": hours,
+                        "include_default": include_default,
                         "organization_id": organization_id,
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
-                        "status": status,
                     },
-                    job_data_point_list_params.JobDataPointListParams,
+                    extraction_agent_list_params.ExtractionAgentListParams,
                 ),
             ),
-            model=JobDataPoint,
+            model=ExtractAgent,
         )
 
 
-class AsyncJobDataPointsResource(AsyncAPIResource):
+class AsyncExtractionAgentsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncJobDataPointsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncExtractionAgentsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
-        return AsyncJobDataPointsResourceWithRawResponse(self)
+        return AsyncExtractionAgentsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncJobDataPointsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncExtractionAgentsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
-        return AsyncJobDataPointsResourceWithStreamingResponse(self)
+        return AsyncExtractionAgentsResourceWithStreamingResponse(self)
 
     def list(
         self,
         *,
-        job_type: Literal["classify", "extract", "parse"],
-        created_at_on_or_after: Union[str, datetime, None] | Omit = omit,
-        created_at_on_or_before: Union[str, datetime, None] | Omit = omit,
-        hours: int | Omit = omit,
+        include_default: bool | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
-        page_size: Optional[int] | Omit = omit,
+        page_size: int | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        status: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[JobDataPoint, AsyncPaginatedCursor[JobDataPoint]]:
+    ) -> AsyncPaginator[ExtractAgent, AsyncPaginatedCursor[ExtractAgent]]:
         """
-        Returns paginated job data points for the current project.
+        List the extraction agents in a project, newest first.
 
         Args:
-          job_type: Job type to query.
+          include_default: Whether to include default agents in the results
 
-          created_at_on_or_after: Include items created at or after this timestamp (inclusive)
+          page_size: Number of items per page
 
-          created_at_on_or_before: Include items created at or before this timestamp (inclusive)
-
-          hours: Hours of history to include.
-
-          page_size: Number of items per page.
-
-          page_token: Cursor token for the next page.
-
-          status: Filter by status.
+          page_token: Cursor from the previous page's `next_page_token`.
 
           extra_headers: Send extra headers
 
@@ -184,8 +154,8 @@ class AsyncJobDataPointsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/api/v1/job-data-points",
-            page=AsyncPaginatedCursor[JobDataPoint],
+            "/api/v1/beta/extraction-agents",
+            page=AsyncPaginatedCursor[ExtractAgent],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -193,54 +163,50 @@ class AsyncJobDataPointsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "job_type": job_type,
-                        "created_at_on_or_after": created_at_on_or_after,
-                        "created_at_on_or_before": created_at_on_or_before,
-                        "hours": hours,
+                        "include_default": include_default,
                         "organization_id": organization_id,
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
-                        "status": status,
                     },
-                    job_data_point_list_params.JobDataPointListParams,
+                    extraction_agent_list_params.ExtractionAgentListParams,
                 ),
             ),
-            model=JobDataPoint,
+            model=ExtractAgent,
         )
 
 
-class JobDataPointsResourceWithRawResponse:
-    def __init__(self, job_data_points: JobDataPointsResource) -> None:
-        self._job_data_points = job_data_points
+class ExtractionAgentsResourceWithRawResponse:
+    def __init__(self, extraction_agents: ExtractionAgentsResource) -> None:
+        self._extraction_agents = extraction_agents
 
         self.list = to_raw_response_wrapper(
-            job_data_points.list,
+            extraction_agents.list,
         )
 
 
-class AsyncJobDataPointsResourceWithRawResponse:
-    def __init__(self, job_data_points: AsyncJobDataPointsResource) -> None:
-        self._job_data_points = job_data_points
+class AsyncExtractionAgentsResourceWithRawResponse:
+    def __init__(self, extraction_agents: AsyncExtractionAgentsResource) -> None:
+        self._extraction_agents = extraction_agents
 
         self.list = async_to_raw_response_wrapper(
-            job_data_points.list,
+            extraction_agents.list,
         )
 
 
-class JobDataPointsResourceWithStreamingResponse:
-    def __init__(self, job_data_points: JobDataPointsResource) -> None:
-        self._job_data_points = job_data_points
+class ExtractionAgentsResourceWithStreamingResponse:
+    def __init__(self, extraction_agents: ExtractionAgentsResource) -> None:
+        self._extraction_agents = extraction_agents
 
         self.list = to_streamed_response_wrapper(
-            job_data_points.list,
+            extraction_agents.list,
         )
 
 
-class AsyncJobDataPointsResourceWithStreamingResponse:
-    def __init__(self, job_data_points: AsyncJobDataPointsResource) -> None:
-        self._job_data_points = job_data_points
+class AsyncExtractionAgentsResourceWithStreamingResponse:
+    def __init__(self, extraction_agents: AsyncExtractionAgentsResource) -> None:
+        self._extraction_agents = extraction_agents
 
         self.list = async_to_streamed_response_wrapper(
-            job_data_points.list,
+            extraction_agents.list,
         )

@@ -65,6 +65,7 @@ class TestParsing:
                 "image": {"camera_photo_correction": True},
                 "pdf": {},
                 "presentation": {
+                    "include_hidden_slides": True,
                     "out_of_bounds_content": True,
                     "skip_embedded_data": True,
                 },
@@ -101,6 +102,7 @@ class TestParsing:
                     "enable": True,
                     "guess_sheet_name": True,
                 },
+                "watermark_handling": "remove",
             },
             page_ranges={
                 "max_pages": 1,
@@ -523,6 +525,7 @@ class TestAsyncParsing:
                 "image": {"camera_photo_correction": True},
                 "pdf": {},
                 "presentation": {
+                    "include_hidden_slides": True,
                     "out_of_bounds_content": True,
                     "skip_embedded_data": True,
                 },
@@ -559,6 +562,7 @@ class TestAsyncParsing:
                     "enable": True,
                     "guess_sheet_name": True,
                 },
+                "watermark_handling": "remove",
             },
             page_ranges={
                 "max_pages": 1,

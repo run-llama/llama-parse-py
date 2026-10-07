@@ -65,12 +65,12 @@ from .form_section import FormSection as FormSection
 from .heading_item import HeadingItem as HeadingItem
 from .message_role import MessageRole as MessageRole
 from .parsing_mode import ParsingMode as ParsingMode
+from .extract_agent import ExtractAgent as ExtractAgent
 from .pipeline_type import PipelineType as PipelineType
 from .presigned_url import PresignedURL as PresignedURL
 from .extract_v2_job import ExtractV2Job as ExtractV2Job
 from .fail_page_mode import FailPageMode as FailPageMode
 from .form_list_item import FormListItem as FormListItem
-from .job_data_point import JobDataPoint as JobDataPoint
 from .retrieval_mode import RetrievalMode as RetrievalMode
 from .classify_result import ClassifyResult as ClassifyResult
 from .batch_get_params import BatchGetParams as BatchGetParams
@@ -149,6 +149,7 @@ from .azure_openai_embedding import AzureOpenAIEmbedding as AzureOpenAIEmbedding
 from .classify_cancel_params import ClassifyCancelParams as ClassifyCancelParams
 from .classify_configuration import ClassifyConfiguration as ClassifyConfiguration
 from .classify_create_params import ClassifyCreateParams as ClassifyCreateParams
+from .classify_delete_params import ClassifyDeleteParams as ClassifyDeleteParams
 from .classify_list_response import ClassifyListResponse as ClassifyListResponse
 from .classify_v2_parameters import ClassifyV2Parameters as ClassifyV2Parameters
 from .cohere_embedding_param import CohereEmbeddingParam as CohereEmbeddingParam
@@ -190,6 +191,7 @@ from .webhook_config_response import WebhookConfigResponse as WebhookConfigRespo
 from .bedrock_embedding_config import BedrockEmbeddingConfig as BedrockEmbeddingConfig
 from .classify_cancel_response import ClassifyCancelResponse as ClassifyCancelResponse
 from .classify_create_response import ClassifyCreateResponse as ClassifyCreateResponse
+from .classify_delete_response import ClassifyDeleteResponse as ClassifyDeleteResponse
 from .composite_retrieval_mode import CompositeRetrievalMode as CompositeRetrievalMode
 from .extracted_field_metadata import ExtractedFieldMetadata as ExtractedFieldMetadata
 from .pipeline_metadata_config import PipelineMetadataConfig as PipelineMetadataConfig
@@ -206,8 +208,6 @@ from .parse_v2_parameters_param import ParseV2ParametersParam as ParseV2Paramete
 from .sparse_model_config_param import SparseModelConfigParam as SparseModelConfigParam
 from .split_v1_parameters_param import SplitV1ParametersParam as SplitV1ParametersParam
 from .composite_retrieval_result import CompositeRetrievalResult as CompositeRetrievalResult
-from .job_data_point_list_params import JobDataPointListParams as JobDataPointListParams
-from .parsing_upload_file_params import ParsingUploadFileParams as ParsingUploadFileParams
 from .pipeline_get_status_params import PipelineGetStatusParams as PipelineGetStatusParams
 from .pipeline_retrieve_response import PipelineRetrieveResponse as PipelineRetrieveResponse
 from .vertex_ai_embedding_config import VertexAIEmbeddingConfig as VertexAIEmbeddingConfig
@@ -223,6 +223,7 @@ from .vertex_text_embedding_param import VertexTextEmbeddingParam as VertexTextE
 from .azure_openai_embedding_param import AzureOpenAIEmbeddingParam as AzureOpenAIEmbeddingParam
 from .classify_configuration_param import ClassifyConfigurationParam as ClassifyConfigurationParam
 from .classify_v2_parameters_param import ClassifyV2ParametersParam as ClassifyV2ParametersParam
+from .extraction_agent_list_params import ExtractionAgentListParams as ExtractionAgentListParams
 from .llama_parse_parameters_param import LlamaParseParametersParam as LlamaParseParametersParam
 from .webhook_config_create_params import WebhookConfigCreateParams as WebhookConfigCreateParams
 from .webhook_config_delete_params import WebhookConfigDeleteParams as WebhookConfigDeleteParams
@@ -243,7 +244,9 @@ from .parsing_list_versions_response import ParsingListVersionsResponse as Parsi
 from .pipeline_list_paginated_params import PipelineListPaginatedParams as PipelineListPaginatedParams
 from .pipeline_metadata_config_param import PipelineMetadataConfigParam as PipelineMetadataConfigParam
 from .webhook_config_retrieve_params import WebhookConfigRetrieveParams as WebhookConfigRetrieveParams
+from .data_sink_list_paginated_params import DataSinkListPaginatedParams as DataSinkListPaginatedParams
 from .page_screenshot_node_with_score import PageScreenshotNodeWithScore as PageScreenshotNodeWithScore
+from .retriever_list_paginated_params import RetrieverListPaginatedParams as RetrieverListPaginatedParams
 from .pipeline_list_paginated_response import PipelineListPaginatedResponse as PipelineListPaginatedResponse
 from .vertex_ai_embedding_config_param import VertexAIEmbeddingConfigParam as VertexAIEmbeddingConfigParam
 from .managed_ingestion_status_response import ManagedIngestionStatusResponse as ManagedIngestionStatusResponse
@@ -252,6 +255,7 @@ from .data_source_reader_version_metadata import DataSourceReaderVersionMetadata
 from .extract_v2_schema_validate_response import ExtractV2SchemaValidateResponse as ExtractV2SchemaValidateResponse
 from .advanced_mode_transform_config_param import AdvancedModeTransformConfigParam as AdvancedModeTransformConfigParam
 from .hugging_face_inference_api_embedding import HuggingFaceInferenceAPIEmbedding as HuggingFaceInferenceAPIEmbedding
+from .webhook_config_list_paginated_params import WebhookConfigListPaginatedParams as WebhookConfigListPaginatedParams
 from .llama_parse_supported_file_extensions import (
     LlamaParseSupportedFileExtensions as LlamaParseSupportedFileExtensions,
 )
@@ -303,3 +307,4 @@ else:
     pipeline_retrieve_response.PipelineRetrieveResponse.model_rebuild(_parent_namespace_depth=0)
     retriever.Retriever.model_rebuild(_parent_namespace_depth=0)
     retriever_pipeline.RetrieverPipeline.model_rebuild(_parent_namespace_depth=0)
+from .parsing_upload_file_params import ParsingUploadFileParams as ParsingUploadFileParams

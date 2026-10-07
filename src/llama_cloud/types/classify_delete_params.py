@@ -5,12 +5,10 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["ExtractDeleteParams"]
+__all__ = ["ClassifyDeleteParams"]
 
 
-class ExtractDeleteParams(TypedDict, total=False):
-    force: bool
-
+class ClassifyDeleteParams(TypedDict, total=False):
     organization_id: Optional[str]
 
     project_id: Optional[str]
