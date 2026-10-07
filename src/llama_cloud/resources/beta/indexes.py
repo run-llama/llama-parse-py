@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import List, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -237,6 +237,7 @@ class IndexesResource(SyncAPIResource):
         self,
         index_id: str,
         *,
+        expand: List[Literal["sync_in_progress"]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -246,10 +247,13 @@ class IndexesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IndexGetResponse:
-        """
-        Get an index by ID.
+        """Get an index by ID.
 
         Args:
+          expand: Fields to expand.
+
+        Supported value: sync_in_progress.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -269,6 +273,7 @@ class IndexesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "expand": expand,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
@@ -529,6 +534,7 @@ class AsyncIndexesResource(AsyncAPIResource):
         self,
         index_id: str,
         *,
+        expand: List[Literal["sync_in_progress"]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -538,10 +544,13 @@ class AsyncIndexesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IndexGetResponse:
-        """
-        Get an index by ID.
+        """Get an index by ID.
 
         Args:
+          expand: Fields to expand.
+
+        Supported value: sync_in_progress.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -561,6 +570,7 @@ class AsyncIndexesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "expand": expand,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },

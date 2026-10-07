@@ -182,6 +182,7 @@ class TestIndexes:
     def test_method_get_with_all_params(self, client: LlamaCloud) -> None:
         index = client.beta.indexes.get(
             index_id="index_id",
+            expand=["sync_in_progress"],
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -439,6 +440,7 @@ class TestAsyncIndexes:
     async def test_method_get_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         index = await async_client.beta.indexes.get(
             index_id="index_id",
+            expand=["sync_in_progress"],
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
