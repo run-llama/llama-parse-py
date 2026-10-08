@@ -1,5 +1,37 @@
 # Changelog
 
+## [2.17.0](https://github.com/run-llama/llama-parse-py/compare/v2.16.0...v2.17.0) (2026-10-07)
+
+
+### Features
+
+* add redline prompt changes to new prod version ([#27635](https://github.com/run-llama/llama-parse-py/issues/27635)) ([57e7973](https://github.com/run-llama/llama-parse-py/commit/57e797358406e5ddc1c2b523ebdb08bb689da667))
+* **chat:** let a chat session refuse queries from its share link ([#27012](https://github.com/run-llama/llama-parse-py/issues/27012)) ([ec790f9](https://github.com/run-llama/llama-parse-py/commit/ec790f9b8e8bcd95799d4d9df1655a2ac616a062))
+* **parse:** add detected_form_types to the per-page enriched forms output ([#26052](https://github.com/run-llama/llama-parse-py/issues/26052)) ([2852d64](https://github.com/run-llama/llama-parse-py/commit/2852d6425b938af6f4f184a977f5ed8f518bee0f))
+* **parse:** add option to include hidden PPTX slides ([#27938](https://github.com/run-llama/llama-parse-py/issues/27938)) ([0deb10c](https://github.com/run-llama/llama-parse-py/commit/0deb10c7c92cba8f0d35426e4336c89fa9117d06))
+* **parse:** agentic 2026-09-09 — cache-stable prompt order + Flash Lite MINIMAL thinking ([#26273](https://github.com/run-llama/llama-parse-py/issues/26273)) ([6ec5b6f](https://github.com/run-llama/llama-parse-py/commit/6ec5b6f4b837a775e974b41f4298c67decf2cb5c))
+* **parse:** apply watermark_handling to text output; add watermark e2e test ([#27932](https://github.com/run-llama/llama-parse-py/issues/27932)) ([4c56f8e](https://github.com/run-llama/llama-parse-py/commit/4c56f8efc4d591d58837507ae8cc1b9fb6966022))
+* **parse:** display enriched Forms granular highlights ([#26366](https://github.com/run-llama/llama-parse-py/issues/26366)) ([a3059f5](https://github.com/run-llama/llama-parse-py/commit/a3059f58c6cba252bcb11ba9339c2e5c7c6d8e44))
+* **parse:** remove_watermark output option with 2026-09-28 tier versions ([#27813](https://github.com/run-llama/llama-parse-py/issues/27813)) ([65af2f6](https://github.com/run-llama/llama-parse-py/commit/65af2f66442a2e17277e1cc91b93c1f7a45f4b36))
+* **parse:** ship the illegible-classification prompts as agentic_plus 2026-09-11 (latest) ([#26490](https://github.com/run-llama/llama-parse-py/issues/26490)) ([5f88742](https://github.com/run-llama/llama-parse-py/commit/5f88742f2649c73f16dccbe5f7caac051104a9c1))
+* **sdk:** publish beta.attachments list and get ([a0f9b4d](https://github.com/run-llama/llama-parse-py/commit/a0f9b4d4cc8c5d714cdb961cc2c2bcd092783154))
+* **split:** accept a parse config or parse_job_id like extract_v2 ([#26303](https://github.com/run-llama/llama-parse-py/issues/26303)) ([8976ce2](https://github.com/run-llama/llama-parse-py/commit/8976ce2d469e7e774bc267012c6d40d99981967f))
+* **split:** target_pages page selection when splitting a parse job ([#26921](https://github.com/run-llama/llama-parse-py/issues/26921)) ([9be66ab](https://github.com/run-llama/llama-parse-py/commit/9be66ab8141fce4bacbe5615836e23cbfe5f27d6))
+
+
+### Bug Fixes
+
+* **chat:** report every index a chat turn could not query ([#26981](https://github.com/run-llama/llama-parse-py/issues/26981)) ([f3fdf31](https://github.com/run-llama/llama-parse-py/commit/f3fdf31e13447eea0b4d618a59bf0d7d49771672))
+* **extract:** refuse to delete a non-terminal job (LI-8700) ([#23793](https://github.com/run-llama/llama-parse-py/issues/23793)) ([8fa2a99](https://github.com/run-llama/llama-parse-py/commit/8fa2a992a3a1e98ccd5dda546b9bc517e17799cc))
+* **split:** process target_pages in the order written, matching Extract ([#28173](https://github.com/run-llama/llama-parse-py/issues/28173)) ([b9e9557](https://github.com/run-llama/llama-parse-py/commit/b9e9557cec272726f0075d4b0c7ce3605d814c8c))
+
+
+### Documentation
+
+* **changelog:** record the classifier v1 removal and the missing 2.16.0 feature line ([51a85e3](https://github.com/run-llama/llama-parse-py/commit/51a85e3b33cbe074e1a49414aaffde1a860ce91f))
+* **changelog:** record the classifier v1 removal and the missing 2.16.0 feature line ([8930315](https://github.com/run-llama/llama-parse-py/commit/89303151995387139d4917b741c81a89fb75c426))
+* update Extract versions and pricing ([#28128](https://github.com/run-llama/llama-parse-py/issues/28128)) ([777e7a1](https://github.com/run-llama/llama-parse-py/commit/777e7a1ef5c37824474fbb212d863dc9250f1c83))
+
 ## [2.14.1](https://github.com/run-llama/llama-parse-py/compare/v2.14.0...v2.14.1) (2026-08-20)
 
 
