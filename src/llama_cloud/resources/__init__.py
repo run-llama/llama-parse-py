@@ -8,6 +8,14 @@ from .beta import (
     BetaResourceWithStreamingResponse,
     AsyncBetaResourceWithStreamingResponse,
 )
+from .chat import (
+    ChatResource,
+    AsyncChatResource,
+    ChatResourceWithRawResponse,
+    AsyncChatResourceWithRawResponse,
+    ChatResourceWithStreamingResponse,
+    AsyncChatResourceWithStreamingResponse,
+)
 from .files import (
     FilesResource,
     AsyncFilesResource,
@@ -40,6 +48,14 @@ from .extract import (
     ExtractResourceWithStreamingResponse,
     AsyncExtractResourceWithStreamingResponse,
 )
+from .indexes import (
+    IndexesResource,
+    AsyncIndexesResource,
+    IndexesResourceWithRawResponse,
+    AsyncIndexesResourceWithRawResponse,
+    IndexesResourceWithStreamingResponse,
+    AsyncIndexesResourceWithStreamingResponse,
+)
 from .parsing import (
     ParsingResource,
     AsyncParsingResource,
@@ -71,6 +87,14 @@ from .pipelines import (
     AsyncPipelinesResourceWithRawResponse,
     PipelinesResourceWithStreamingResponse,
     AsyncPipelinesResourceWithStreamingResponse,
+)
+from .retrieval import (
+    RetrievalResource,
+    AsyncRetrievalResource,
+    RetrievalResourceWithRawResponse,
+    AsyncRetrievalResourceWithRawResponse,
+    RetrievalResourceWithStreamingResponse,
+    AsyncRetrievalResourceWithStreamingResponse,
 )
 from .data_sinks import (
     DataSinksResource,
@@ -220,6 +244,24 @@ __all__ = [
     "AsyncRetrieversResourceWithRawResponse",
     "RetrieversResourceWithStreamingResponse",
     "AsyncRetrieversResourceWithStreamingResponse",
+    "IndexesResource",
+    "AsyncIndexesResource",
+    "IndexesResourceWithRawResponse",
+    "AsyncIndexesResourceWithRawResponse",
+    "IndexesResourceWithStreamingResponse",
+    "AsyncIndexesResourceWithStreamingResponse",
+    "RetrievalResource",
+    "AsyncRetrievalResource",
+    "RetrievalResourceWithRawResponse",
+    "AsyncRetrievalResourceWithRawResponse",
+    "RetrievalResourceWithStreamingResponse",
+    "AsyncRetrievalResourceWithStreamingResponse",
+    "ChatResource",
+    "AsyncChatResource",
+    "ChatResourceWithRawResponse",
+    "AsyncChatResourceWithRawResponse",
+    "ChatResourceWithStreamingResponse",
+    "AsyncChatResourceWithStreamingResponse",
     "BetaResource",
     "AsyncBetaResource",
     "BetaResourceWithRawResponse",

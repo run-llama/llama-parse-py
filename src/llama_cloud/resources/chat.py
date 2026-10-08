@@ -2,24 +2,12 @@
 
 from __future__ import annotations
 
-import typing_extensions
 from typing import Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncPaginatedCursor, AsyncPaginatedCursor
-from ...types.beta import (
+from ..types import (
     chat_list_params,
     chat_create_params,
     chat_delete_params,
@@ -27,11 +15,22 @@ from ...types.beta import (
     chat_retrieve_params,
     chat_get_summary_params,
 )
-from ..._base_client import AsyncPaginator, make_request_options
-from ...types.beta.chat_list_response import ChatListResponse
-from ...types.beta.chat_create_response import ChatCreateResponse
-from ...types.beta.chat_retrieve_response import ChatRetrieveResponse
-from ...types.beta.chat_get_summary_response import ChatGetSummaryResponse
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.chat_list_response import ChatListResponse
+from ..types.chat_create_response import ChatCreateResponse
+from ..types.chat_retrieve_response import ChatRetrieveResponse
+from ..types.chat_get_summary_response import ChatGetSummaryResponse
 
 __all__ = ["ChatResource", "AsyncChatResource"]
 
@@ -56,7 +55,6 @@ class ChatResource(SyncAPIResource):
         """
         return ChatResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def create(
         self,
         *,
@@ -116,7 +114,6 @@ class ChatResource(SyncAPIResource):
             cast_to=ChatCreateResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def retrieve(
         self,
         session_id: str,
@@ -162,7 +159,6 @@ class ChatResource(SyncAPIResource):
             cast_to=ChatRetrieveResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def list(
         self,
         *,
@@ -210,7 +206,6 @@ class ChatResource(SyncAPIResource):
             model=ChatListResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def delete(
         self,
         session_id: str,
@@ -257,7 +252,6 @@ class ChatResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def get_summary(
         self,
         session_id: str,
@@ -303,7 +297,6 @@ class ChatResource(SyncAPIResource):
             cast_to=ChatGetSummaryResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def stream(
         self,
         session_id: str,
@@ -387,7 +380,6 @@ class AsyncChatResource(AsyncAPIResource):
         """
         return AsyncChatResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     async def create(
         self,
         *,
@@ -447,7 +439,6 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatCreateResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     async def retrieve(
         self,
         session_id: str,
@@ -493,7 +484,6 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatRetrieveResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def list(
         self,
         *,
@@ -541,7 +531,6 @@ class AsyncChatResource(AsyncAPIResource):
             model=ChatListResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     async def delete(
         self,
         session_id: str,
@@ -588,7 +577,6 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     async def get_summary(
         self,
         session_id: str,
@@ -634,7 +622,6 @@ class AsyncChatResource(AsyncAPIResource):
             cast_to=ChatGetSummaryResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     async def stream(
         self,
         session_id: str,
@@ -702,35 +689,23 @@ class ChatResourceWithRawResponse:
     def __init__(self, chat: ChatResource) -> None:
         self._chat = chat
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = to_raw_response_wrapper(
+            chat.create,
         )
-        self.retrieve = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.retrieve,  # pyright: ignore[reportDeprecated],
-            )
+        self.retrieve = to_raw_response_wrapper(
+            chat.retrieve,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = to_raw_response_wrapper(
+            chat.list,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = to_raw_response_wrapper(
+            chat.delete,
         )
-        self.get_summary = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.get_summary,  # pyright: ignore[reportDeprecated],
-            )
+        self.get_summary = to_raw_response_wrapper(
+            chat.get_summary,
         )
-        self.stream = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.stream,  # pyright: ignore[reportDeprecated],
-            )
+        self.stream = to_raw_response_wrapper(
+            chat.stream,
         )
 
 
@@ -738,35 +713,23 @@ class AsyncChatResourceWithRawResponse:
     def __init__(self, chat: AsyncChatResource) -> None:
         self._chat = chat
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = async_to_raw_response_wrapper(
+            chat.create,
         )
-        self.retrieve = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.retrieve,  # pyright: ignore[reportDeprecated],
-            )
+        self.retrieve = async_to_raw_response_wrapper(
+            chat.retrieve,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = async_to_raw_response_wrapper(
+            chat.list,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = async_to_raw_response_wrapper(
+            chat.delete,
         )
-        self.get_summary = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.get_summary,  # pyright: ignore[reportDeprecated],
-            )
+        self.get_summary = async_to_raw_response_wrapper(
+            chat.get_summary,
         )
-        self.stream = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.stream,  # pyright: ignore[reportDeprecated],
-            )
+        self.stream = async_to_raw_response_wrapper(
+            chat.stream,
         )
 
 
@@ -774,35 +737,23 @@ class ChatResourceWithStreamingResponse:
     def __init__(self, chat: ChatResource) -> None:
         self._chat = chat
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = to_streamed_response_wrapper(
+            chat.create,
         )
-        self.retrieve = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.retrieve,  # pyright: ignore[reportDeprecated],
-            )
+        self.retrieve = to_streamed_response_wrapper(
+            chat.retrieve,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = to_streamed_response_wrapper(
+            chat.list,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = to_streamed_response_wrapper(
+            chat.delete,
         )
-        self.get_summary = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.get_summary,  # pyright: ignore[reportDeprecated],
-            )
+        self.get_summary = to_streamed_response_wrapper(
+            chat.get_summary,
         )
-        self.stream = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.stream,  # pyright: ignore[reportDeprecated],
-            )
+        self.stream = to_streamed_response_wrapper(
+            chat.stream,
         )
 
 
@@ -810,33 +761,21 @@ class AsyncChatResourceWithStreamingResponse:
     def __init__(self, chat: AsyncChatResource) -> None:
         self._chat = chat
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = async_to_streamed_response_wrapper(
+            chat.create,
         )
-        self.retrieve = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.retrieve,  # pyright: ignore[reportDeprecated],
-            )
+        self.retrieve = async_to_streamed_response_wrapper(
+            chat.retrieve,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = async_to_streamed_response_wrapper(
+            chat.list,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = async_to_streamed_response_wrapper(
+            chat.delete,
         )
-        self.get_summary = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.get_summary,  # pyright: ignore[reportDeprecated],
-            )
+        self.get_summary = async_to_streamed_response_wrapper(
+            chat.get_summary,
         )
-        self.stream = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.stream,  # pyright: ignore[reportDeprecated],
-            )
+        self.stream = async_to_streamed_response_wrapper(
+            chat.stream,
         )

@@ -2,86 +2,104 @@
 
 from __future__ import annotations
 
-import typing_extensions
-from typing import Optional
+from typing import List, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
+from ..types import (
+    index_get_params,
+    index_list_params,
+    index_sync_params,
+    index_create_params,
+    index_delete_params,
+    index_cancel_sync_params,
+)
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...pagination import SyncPaginatedCursor, AsyncPaginatedCursor
-from ...types.beta import (
-    chat_list_params,
-    chat_create_params,
-    chat_delete_params,
-    chat_stream_params,
-    chat_retrieve_params,
-    chat_get_summary_params,
-)
-from ..._base_client import AsyncPaginator, make_request_options
-from ...types.beta.chat_list_response import ChatListResponse
-from ...types.beta.chat_create_response import ChatCreateResponse
-from ...types.beta.chat_retrieve_response import ChatRetrieveResponse
-from ...types.beta.chat_get_summary_response import ChatGetSummaryResponse
+from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.index_get_response import IndexGetResponse
+from ..types.index_list_response import IndexListResponse
+from ..types.index_create_response import IndexCreateResponse
 
-__all__ = ["ChatResource", "AsyncChatResource"]
+__all__ = ["IndexesResource", "AsyncIndexesResource"]
 
 
-class ChatResource(SyncAPIResource):
+class IndexesResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ChatResourceWithRawResponse:
+    def with_raw_response(self) -> IndexesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
-        return ChatResourceWithRawResponse(self)
+        return IndexesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ChatResourceWithStreamingResponse:
+    def with_streaming_response(self) -> IndexesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
-        return ChatResourceWithStreamingResponse(self)
+        return IndexesResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def create(
         self,
         *,
+        source_directory_id: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        index_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        shared_access: Optional[Literal["query", "read_only"]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        products: Optional[Iterable[index_create_params.Product]] | Omit = omit,
+        store_attachments: Optional[SequenceNotStr[str]] | Omit = omit,
+        sync_frequency: str | Omit = omit,
+        vector_target: Literal["DEFAULT", "DISABLED"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCreateResponse:
+    ) -> IndexCreateResponse:
         """
-        Create a chat session, optionally bound to indexes (locked after the first
-        message).
+        Create a searchable index over a source directory.
 
         Args:
-          index_ids: Indexes this session will retrieve from. Once set and the first message has been
-              sent, the source set is locked for the session's lifetime. Leave null to create
-              an unbound session.
+          source_directory_id: ID of the source directory containing your documents.
 
-          shared_access: What this chat's share link grants: read_only (transcript only) or query
-              (viewers may ask new questions). Null follows the deployment default.
+          description: Optional description of the index.
+
+          name: Optional display name for the index. If omitted, the index is named after the
+              source directory.
+
+          products: Product configurations for syncing. Omit to use a default parse configuration.
+              Include an explicit entry per product type (e.g. parse, extract) to override the
+              default.
+
+          store_attachments:
+              Attachment kinds to store alongside parsed output. Each entry must be one of:
+              screenshots, items. For example, ['screenshots'] renders and stores per-page
+              screenshots; ['items'] stores structured items with bounding boxes. Omit or pass
+              an empty list to skip attachments.
+
+          sync_frequency: How often to re-run the sync. One of: manual, daily, on_source_change. Defaults
+              to manual.
+
+          vector_target: Vector export destination for the index. 'DEFAULT' exports to the managed vector
+              DB destination resolved from configuration. 'DISABLED' skips vector export — the
+              export destination falls back to 'Download'.
 
           extra_headers: Send extra headers
 
@@ -92,13 +110,18 @@ class ChatResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/api/v1/chat",
+            "/api/v1/indexes",
             body=maybe_transform(
                 {
-                    "index_ids": index_ids,
-                    "shared_access": shared_access,
+                    "source_directory_id": source_directory_id,
+                    "description": description,
+                    "name": name,
+                    "products": products,
+                    "store_attachments": store_attachments,
+                    "sync_frequency": sync_frequency,
+                    "vector_target": vector_target,
                 },
-                chat_create_params.ChatCreateParams,
+                index_create_params.IndexCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -110,59 +133,12 @@ class ChatResource(SyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    chat_create_params.ChatCreateParams,
+                    index_create_params.IndexCreateParams,
                 ),
             ),
-            cast_to=ChatCreateResponse,
+            cast_to=IndexCreateResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
-    def retrieve(
-        self,
-        session_id: str,
-        *,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatRetrieveResponse:
-        """
-        Retrieve a full session by ID, including its event history.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
-            path_template("/api/v1/chat/{session_id}", session_id=session_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    chat_retrieve_params.ChatRetrieveParams,
-                ),
-            ),
-            cast_to=ChatRetrieveResponse,
-        )
-
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def list(
         self,
         *,
@@ -170,15 +146,16 @@ class ChatResource(SyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        source_directory_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncPaginatedCursor[ChatListResponse]:
+    ) -> SyncPaginatedCursor[IndexListResponse]:
         """
-        List all chat sessions for the current project.
+        List indexes for the current project.
 
         Args:
           extra_headers: Send extra headers
@@ -190,8 +167,8 @@ class ChatResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/api/v1/chat",
-            page=SyncPaginatedCursor[ChatListResponse],
+            "/api/v1/indexes",
+            page=SyncPaginatedCursor[IndexListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -203,17 +180,17 @@ class ChatResource(SyncAPIResource):
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "source_directory_id": source_directory_id,
                     },
-                    chat_list_params.ChatListParams,
+                    index_list_params.IndexListParams,
                 ),
             ),
-            model=ChatListResponse,
+            model=IndexListResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def delete(
         self,
-        session_id: str,
+        index_id: str,
         *,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -225,7 +202,7 @@ class ChatResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Delete a session.
+        Delete an index.
 
         Args:
           extra_headers: Send extra headers
@@ -236,11 +213,11 @@ class ChatResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
-            path_template("/api/v1/chat/{session_id}", session_id=session_id),
+            path_template("/api/v1/indexes/{index_id}", index_id=index_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -251,16 +228,15 @@ class ChatResource(SyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    chat_delete_params.ChatDeleteParams,
+                    index_delete_params.IndexDeleteParams,
                 ),
             ),
             cast_to=NoneType,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
-    def get_summary(
+    def cancel_sync(
         self,
-        session_id: str,
+        index_id: str,
         *,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -270,9 +246,10 @@ class ChatResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatGetSummaryResponse:
-        """
-        Retrieve a session summary by ID.
+    ) -> object:
+        """Cancel the running sync for an index.
+
+        Returns 409 if no sync is running.
 
         Args:
           extra_headers: Send extra headers
@@ -283,10 +260,10 @@ class ChatResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return self._get(
-            path_template("/api/v1/chat/{session_id}/summary", session_id=session_id),
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return self._post(
+            path_template("/api/v1/indexes/{index_id}/sync/cancel", index_id=index_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -297,22 +274,68 @@ class ChatResource(SyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    chat_get_summary_params.ChatGetSummaryParams,
+                    index_cancel_sync_params.IndexCancelSyncParams,
                 ),
             ),
-            cast_to=ChatGetSummaryResponse,
+            cast_to=object,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
-    def stream(
+    def get(
         self,
-        session_id: str,
+        index_id: str,
         *,
-        index_ids: SequenceNotStr[str],
-        prompt: str,
+        expand: List[Literal["sync_in_progress"]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        require_all_indexes: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IndexGetResponse:
+        """Get an index by ID.
+
+        Args:
+          expand: Fields to expand.
+
+        Supported value: sync_in_progress.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return self._get(
+            path_template("/api/v1/indexes/{index_id}", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "expand": expand,
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_get_params.IndexGetParams,
+                ),
+            ),
+            cast_to=IndexGetResponse,
+        )
+
+    def sync(
+        self,
+        index_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -321,15 +344,10 @@ class ChatResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Stream agent events for a chat turn as Server-Sent Events.
+        Trigger a sync and export for an existing index, re-parsing changed files and
+        exporting updated chunks.
 
         Args:
-          index_ids: Indexes to retrieve data from.
-
-          prompt: User message for this chat turn.
-
-          require_all_indexes: Fail the turn if any requested index cannot be queried.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -338,18 +356,10 @@ class ChatResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
         return self._post(
-            path_template("/api/v1/chat/{session_id}/messages/stream", session_id=session_id),
-            body=maybe_transform(
-                {
-                    "index_ids": index_ids,
-                    "prompt": prompt,
-                    "require_all_indexes": require_all_indexes,
-                },
-                chat_stream_params.ChatStreamParams,
-            ),
+            path_template("/api/v1/indexes/{index_id}/sync", index_id=index_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -360,59 +370,79 @@ class ChatResource(SyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    chat_stream_params.ChatStreamParams,
+                    index_sync_params.IndexSyncParams,
                 ),
             ),
             cast_to=object,
         )
 
 
-class AsyncChatResource(AsyncAPIResource):
+class AsyncIndexesResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncChatResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncIndexesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
         """
-        return AsyncChatResourceWithRawResponse(self)
+        return AsyncIndexesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncChatResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncIndexesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
         """
-        return AsyncChatResourceWithStreamingResponse(self)
+        return AsyncIndexesResourceWithStreamingResponse(self)
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     async def create(
         self,
         *,
+        source_directory_id: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        index_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        shared_access: Optional[Literal["query", "read_only"]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        products: Optional[Iterable[index_create_params.Product]] | Omit = omit,
+        store_attachments: Optional[SequenceNotStr[str]] | Omit = omit,
+        sync_frequency: str | Omit = omit,
+        vector_target: Literal["DEFAULT", "DISABLED"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCreateResponse:
+    ) -> IndexCreateResponse:
         """
-        Create a chat session, optionally bound to indexes (locked after the first
-        message).
+        Create a searchable index over a source directory.
 
         Args:
-          index_ids: Indexes this session will retrieve from. Once set and the first message has been
-              sent, the source set is locked for the session's lifetime. Leave null to create
-              an unbound session.
+          source_directory_id: ID of the source directory containing your documents.
 
-          shared_access: What this chat's share link grants: read_only (transcript only) or query
-              (viewers may ask new questions). Null follows the deployment default.
+          description: Optional description of the index.
+
+          name: Optional display name for the index. If omitted, the index is named after the
+              source directory.
+
+          products: Product configurations for syncing. Omit to use a default parse configuration.
+              Include an explicit entry per product type (e.g. parse, extract) to override the
+              default.
+
+          store_attachments:
+              Attachment kinds to store alongside parsed output. Each entry must be one of:
+              screenshots, items. For example, ['screenshots'] renders and stores per-page
+              screenshots; ['items'] stores structured items with bounding boxes. Omit or pass
+              an empty list to skip attachments.
+
+          sync_frequency: How often to re-run the sync. One of: manual, daily, on_source_change. Defaults
+              to manual.
+
+          vector_target: Vector export destination for the index. 'DEFAULT' exports to the managed vector
+              DB destination resolved from configuration. 'DISABLED' skips vector export — the
+              export destination falls back to 'Download'.
 
           extra_headers: Send extra headers
 
@@ -423,13 +453,18 @@ class AsyncChatResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/api/v1/chat",
+            "/api/v1/indexes",
             body=await async_maybe_transform(
                 {
-                    "index_ids": index_ids,
-                    "shared_access": shared_access,
+                    "source_directory_id": source_directory_id,
+                    "description": description,
+                    "name": name,
+                    "products": products,
+                    "store_attachments": store_attachments,
+                    "sync_frequency": sync_frequency,
+                    "vector_target": vector_target,
                 },
-                chat_create_params.ChatCreateParams,
+                index_create_params.IndexCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -441,59 +476,12 @@ class AsyncChatResource(AsyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    chat_create_params.ChatCreateParams,
+                    index_create_params.IndexCreateParams,
                 ),
             ),
-            cast_to=ChatCreateResponse,
+            cast_to=IndexCreateResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
-    async def retrieve(
-        self,
-        session_id: str,
-        *,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatRetrieveResponse:
-        """
-        Retrieve a full session by ID, including its event history.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
-            path_template("/api/v1/chat/{session_id}", session_id=session_id),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "organization_id": organization_id,
-                        "project_id": project_id,
-                    },
-                    chat_retrieve_params.ChatRetrieveParams,
-                ),
-            ),
-            cast_to=ChatRetrieveResponse,
-        )
-
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     def list(
         self,
         *,
@@ -501,15 +489,16 @@ class AsyncChatResource(AsyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        source_directory_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[ChatListResponse, AsyncPaginatedCursor[ChatListResponse]]:
+    ) -> AsyncPaginator[IndexListResponse, AsyncPaginatedCursor[IndexListResponse]]:
         """
-        List all chat sessions for the current project.
+        List indexes for the current project.
 
         Args:
           extra_headers: Send extra headers
@@ -521,8 +510,8 @@ class AsyncChatResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/api/v1/chat",
-            page=AsyncPaginatedCursor[ChatListResponse],
+            "/api/v1/indexes",
+            page=AsyncPaginatedCursor[IndexListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -534,17 +523,17 @@ class AsyncChatResource(AsyncAPIResource):
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "source_directory_id": source_directory_id,
                     },
-                    chat_list_params.ChatListParams,
+                    index_list_params.IndexListParams,
                 ),
             ),
-            model=ChatListResponse,
+            model=IndexListResponse,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
     async def delete(
         self,
-        session_id: str,
+        index_id: str,
         *,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -556,7 +545,7 @@ class AsyncChatResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Delete a session.
+        Delete an index.
 
         Args:
           extra_headers: Send extra headers
@@ -567,11 +556,11 @@ class AsyncChatResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
-            path_template("/api/v1/chat/{session_id}", session_id=session_id),
+            path_template("/api/v1/indexes/{index_id}", index_id=index_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -582,16 +571,15 @@ class AsyncChatResource(AsyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    chat_delete_params.ChatDeleteParams,
+                    index_delete_params.IndexDeleteParams,
                 ),
             ),
             cast_to=NoneType,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
-    async def get_summary(
+    async def cancel_sync(
         self,
-        session_id: str,
+        index_id: str,
         *,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
@@ -601,9 +589,10 @@ class AsyncChatResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatGetSummaryResponse:
-        """
-        Retrieve a session summary by ID.
+    ) -> object:
+        """Cancel the running sync for an index.
+
+        Returns 409 if no sync is running.
 
         Args:
           extra_headers: Send extra headers
@@ -614,10 +603,10 @@ class AsyncChatResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
-        return await self._get(
-            path_template("/api/v1/chat/{session_id}/summary", session_id=session_id),
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return await self._post(
+            path_template("/api/v1/indexes/{index_id}/sync/cancel", index_id=index_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -628,22 +617,68 @@ class AsyncChatResource(AsyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    chat_get_summary_params.ChatGetSummaryParams,
+                    index_cancel_sync_params.IndexCancelSyncParams,
                 ),
             ),
-            cast_to=ChatGetSummaryResponse,
+            cast_to=object,
         )
 
-    @typing_extensions.deprecated("Moved out of beta. Use the top-level chat resource instead")
-    async def stream(
+    async def get(
         self,
-        session_id: str,
+        index_id: str,
         *,
-        index_ids: SequenceNotStr[str],
-        prompt: str,
+        expand: List[Literal["sync_in_progress"]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
-        require_all_indexes: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IndexGetResponse:
+        """Get an index by ID.
+
+        Args:
+          expand: Fields to expand.
+
+        Supported value: sync_in_progress.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return await self._get(
+            path_template("/api/v1/indexes/{index_id}", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "expand": expand,
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_get_params.IndexGetParams,
+                ),
+            ),
+            cast_to=IndexGetResponse,
+        )
+
+    async def sync(
+        self,
+        index_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -652,15 +687,10 @@ class AsyncChatResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
-        Stream agent events for a chat turn as Server-Sent Events.
+        Trigger a sync and export for an existing index, re-parsing changed files and
+        exporting updated chunks.
 
         Args:
-          index_ids: Indexes to retrieve data from.
-
-          prompt: User message for this chat turn.
-
-          require_all_indexes: Fail the turn if any requested index cannot be queried.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -669,18 +699,10 @@ class AsyncChatResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_id:
-            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
         return await self._post(
-            path_template("/api/v1/chat/{session_id}/messages/stream", session_id=session_id),
-            body=await async_maybe_transform(
-                {
-                    "index_ids": index_ids,
-                    "prompt": prompt,
-                    "require_all_indexes": require_all_indexes,
-                },
-                chat_stream_params.ChatStreamParams,
-            ),
+            path_template("/api/v1/indexes/{index_id}/sync", index_id=index_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -691,152 +713,104 @@ class AsyncChatResource(AsyncAPIResource):
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
-                    chat_stream_params.ChatStreamParams,
+                    index_sync_params.IndexSyncParams,
                 ),
             ),
             cast_to=object,
         )
 
 
-class ChatResourceWithRawResponse:
-    def __init__(self, chat: ChatResource) -> None:
-        self._chat = chat
+class IndexesResourceWithRawResponse:
+    def __init__(self, indexes: IndexesResource) -> None:
+        self._indexes = indexes
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = to_raw_response_wrapper(
+            indexes.create,
         )
-        self.retrieve = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.retrieve,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = to_raw_response_wrapper(
+            indexes.list,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = to_raw_response_wrapper(
+            indexes.delete,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.cancel_sync = to_raw_response_wrapper(
+            indexes.cancel_sync,
         )
-        self.get_summary = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.get_summary,  # pyright: ignore[reportDeprecated],
-            )
+        self.get = to_raw_response_wrapper(
+            indexes.get,
         )
-        self.stream = (  # pyright: ignore[reportDeprecated]
-            to_raw_response_wrapper(
-                chat.stream,  # pyright: ignore[reportDeprecated],
-            )
+        self.sync = to_raw_response_wrapper(
+            indexes.sync,
         )
 
 
-class AsyncChatResourceWithRawResponse:
-    def __init__(self, chat: AsyncChatResource) -> None:
-        self._chat = chat
+class AsyncIndexesResourceWithRawResponse:
+    def __init__(self, indexes: AsyncIndexesResource) -> None:
+        self._indexes = indexes
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = async_to_raw_response_wrapper(
+            indexes.create,
         )
-        self.retrieve = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.retrieve,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = async_to_raw_response_wrapper(
+            indexes.list,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = async_to_raw_response_wrapper(
+            indexes.delete,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.cancel_sync = async_to_raw_response_wrapper(
+            indexes.cancel_sync,
         )
-        self.get_summary = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.get_summary,  # pyright: ignore[reportDeprecated],
-            )
+        self.get = async_to_raw_response_wrapper(
+            indexes.get,
         )
-        self.stream = (  # pyright: ignore[reportDeprecated]
-            async_to_raw_response_wrapper(
-                chat.stream,  # pyright: ignore[reportDeprecated],
-            )
+        self.sync = async_to_raw_response_wrapper(
+            indexes.sync,
         )
 
 
-class ChatResourceWithStreamingResponse:
-    def __init__(self, chat: ChatResource) -> None:
-        self._chat = chat
+class IndexesResourceWithStreamingResponse:
+    def __init__(self, indexes: IndexesResource) -> None:
+        self._indexes = indexes
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = to_streamed_response_wrapper(
+            indexes.create,
         )
-        self.retrieve = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.retrieve,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = to_streamed_response_wrapper(
+            indexes.list,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = to_streamed_response_wrapper(
+            indexes.delete,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.cancel_sync = to_streamed_response_wrapper(
+            indexes.cancel_sync,
         )
-        self.get_summary = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.get_summary,  # pyright: ignore[reportDeprecated],
-            )
+        self.get = to_streamed_response_wrapper(
+            indexes.get,
         )
-        self.stream = (  # pyright: ignore[reportDeprecated]
-            to_streamed_response_wrapper(
-                chat.stream,  # pyright: ignore[reportDeprecated],
-            )
+        self.sync = to_streamed_response_wrapper(
+            indexes.sync,
         )
 
 
-class AsyncChatResourceWithStreamingResponse:
-    def __init__(self, chat: AsyncChatResource) -> None:
-        self._chat = chat
+class AsyncIndexesResourceWithStreamingResponse:
+    def __init__(self, indexes: AsyncIndexesResource) -> None:
+        self._indexes = indexes
 
-        self.create = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.create,  # pyright: ignore[reportDeprecated],
-            )
+        self.create = async_to_streamed_response_wrapper(
+            indexes.create,
         )
-        self.retrieve = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.retrieve,  # pyright: ignore[reportDeprecated],
-            )
+        self.list = async_to_streamed_response_wrapper(
+            indexes.list,
         )
-        self.list = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.list,  # pyright: ignore[reportDeprecated],
-            )
+        self.delete = async_to_streamed_response_wrapper(
+            indexes.delete,
         )
-        self.delete = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.delete,  # pyright: ignore[reportDeprecated],
-            )
+        self.cancel_sync = async_to_streamed_response_wrapper(
+            indexes.cancel_sync,
         )
-        self.get_summary = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.get_summary,  # pyright: ignore[reportDeprecated],
-            )
+        self.get = async_to_streamed_response_wrapper(
+            indexes.get,
         )
-        self.stream = (  # pyright: ignore[reportDeprecated]
-            async_to_streamed_response_wrapper(
-                chat.stream,  # pyright: ignore[reportDeprecated],
-            )
+        self.sync = async_to_streamed_response_wrapper(
+            indexes.sync,
         )

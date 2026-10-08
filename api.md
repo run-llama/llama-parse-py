@@ -508,6 +508,65 @@ Methods:
 
 - <code title="post /api/v1/retrievers/{retriever_id}/retrieve">client.retrievers.retriever.<a href="./src/llama_cloud/resources/retrievers/retriever.py">search</a>(retriever_id, \*\*<a href="src/llama_cloud/types/retrievers/retriever_search_params.py">params</a>) -> <a href="./src/llama_cloud/types/composite_retrieval_result.py">CompositeRetrievalResult</a></code>
 
+# Indexes
+
+Types:
+
+```python
+from llama_cloud.types import IndexCreateResponse, IndexListResponse, IndexGetResponse
+```
+
+Methods:
+
+- <code title="post /api/v1/indexes">client.indexes.<a href="./src/llama_cloud/resources/indexes.py">create</a>(\*\*<a href="src/llama_cloud/types/index_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/index_create_response.py">IndexCreateResponse</a></code>
+- <code title="get /api/v1/indexes">client.indexes.<a href="./src/llama_cloud/resources/indexes.py">list</a>(\*\*<a href="src/llama_cloud/types/index_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/index_list_response.py">SyncPaginatedCursor[IndexListResponse]</a></code>
+- <code title="delete /api/v1/indexes/{index_id}">client.indexes.<a href="./src/llama_cloud/resources/indexes.py">delete</a>(index_id, \*\*<a href="src/llama_cloud/types/index_delete_params.py">params</a>) -> None</code>
+- <code title="post /api/v1/indexes/{index_id}/sync/cancel">client.indexes.<a href="./src/llama_cloud/resources/indexes.py">cancel_sync</a>(index_id, \*\*<a href="src/llama_cloud/types/index_cancel_sync_params.py">params</a>) -> object</code>
+- <code title="get /api/v1/indexes/{index_id}">client.indexes.<a href="./src/llama_cloud/resources/indexes.py">get</a>(index_id, \*\*<a href="src/llama_cloud/types/index_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/index_get_response.py">IndexGetResponse</a></code>
+- <code title="post /api/v1/indexes/{index_id}/sync">client.indexes.<a href="./src/llama_cloud/resources/indexes.py">sync</a>(index_id, \*\*<a href="src/llama_cloud/types/index_sync_params.py">params</a>) -> object</code>
+
+# Retrieval
+
+Types:
+
+```python
+from llama_cloud.types import (
+    RetrievalRetrieveResponse,
+    RetrievalFindResponse,
+    RetrievalGrepResponse,
+    RetrievalReadResponse,
+)
+```
+
+Methods:
+
+- <code title="post /api/v1/retrieval/retrieve">client.retrieval.<a href="./src/llama_cloud/resources/retrieval.py">retrieve</a>(\*\*<a href="src/llama_cloud/types/retrieval_retrieve_params.py">params</a>) -> <a href="./src/llama_cloud/types/retrieval_retrieve_response.py">RetrievalRetrieveResponse</a></code>
+- <code title="post /api/v1/retrieval/files/find">client.retrieval.<a href="./src/llama_cloud/resources/retrieval.py">find</a>(\*\*<a href="src/llama_cloud/types/retrieval_find_params.py">params</a>) -> <a href="./src/llama_cloud/types/retrieval_find_response.py">SyncPaginatedCursorPost[RetrievalFindResponse]</a></code>
+- <code title="post /api/v1/retrieval/files/grep">client.retrieval.<a href="./src/llama_cloud/resources/retrieval.py">grep</a>(\*\*<a href="src/llama_cloud/types/retrieval_grep_params.py">params</a>) -> <a href="./src/llama_cloud/types/retrieval_grep_response.py">SyncPaginatedCursorPost[RetrievalGrepResponse]</a></code>
+- <code title="post /api/v1/retrieval/files/read">client.retrieval.<a href="./src/llama_cloud/resources/retrieval.py">read</a>(\*\*<a href="src/llama_cloud/types/retrieval_read_params.py">params</a>) -> <a href="./src/llama_cloud/types/retrieval_read_response.py">RetrievalReadResponse</a></code>
+
+# Chat
+
+Types:
+
+```python
+from llama_cloud.types import (
+    ChatCreateResponse,
+    ChatRetrieveResponse,
+    ChatListResponse,
+    ChatGetSummaryResponse,
+)
+```
+
+Methods:
+
+- <code title="post /api/v1/chat">client.chat.<a href="./src/llama_cloud/resources/chat.py">create</a>(\*\*<a href="src/llama_cloud/types/chat_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/chat_create_response.py">ChatCreateResponse</a></code>
+- <code title="get /api/v1/chat/{session_id}">client.chat.<a href="./src/llama_cloud/resources/chat.py">retrieve</a>(session_id, \*\*<a href="src/llama_cloud/types/chat_retrieve_params.py">params</a>) -> <a href="./src/llama_cloud/types/chat_retrieve_response.py">ChatRetrieveResponse</a></code>
+- <code title="get /api/v1/chat">client.chat.<a href="./src/llama_cloud/resources/chat.py">list</a>(\*\*<a href="src/llama_cloud/types/chat_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/chat_list_response.py">SyncPaginatedCursor[ChatListResponse]</a></code>
+- <code title="delete /api/v1/chat/{session_id}">client.chat.<a href="./src/llama_cloud/resources/chat.py">delete</a>(session_id, \*\*<a href="src/llama_cloud/types/chat_delete_params.py">params</a>) -> None</code>
+- <code title="get /api/v1/chat/{session_id}/summary">client.chat.<a href="./src/llama_cloud/resources/chat.py">get_summary</a>(session_id, \*\*<a href="src/llama_cloud/types/chat_get_summary_params.py">params</a>) -> <a href="./src/llama_cloud/types/chat_get_summary_response.py">ChatGetSummaryResponse</a></code>
+- <code title="post /api/v1/chat/{session_id}/messages/stream">client.chat.<a href="./src/llama_cloud/resources/chat.py">stream</a>(session_id, \*\*<a href="src/llama_cloud/types/chat_stream_params.py">params</a>) -> object</code>
+
 # Beta
 
 ## Indexes

@@ -1,10 +1,13 @@
-# Llama Cloud Python SDK
+# Llama Cloud Python API library
 
+<!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/llama_cloud.svg?label=pypi%20(stable))](https://pypi.org/project/llama_cloud/)
 
-The official Python SDK for [LlamaParse](https://cloud.llamaindex.ai) - the enterprise platform for agentic OCR and document processing.
+The Llama Cloud Python library provides convenient access to the Llama Cloud REST API from any Python 3.9+
+application. The library includes type definitions for all request params and response fields,
+and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
-With this SDK, create powerful workflows across many features:
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## MCP Server
 
@@ -17,17 +20,18 @@ Use the Llama Cloud MCP Server to enable AI assistants to interact with this API
 
 ## Documentation
 
-- [Get an API Key](https://cloud.llamaindex.ai)
-- [Getting Started Guide](https://developers.llamaindex.ai/python/cloud/)
-- [Full API Reference](https://developers.api.llamaindex.ai/api/python)
+The REST API documentation can be found on [developers.llamaindex.ai](https://developers.llamaindex.ai/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
+# install from PyPI
 pip install llama_cloud
 ```
 
-## Quick Start
+## Usage
+
+The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
@@ -37,38 +41,114 @@ client = LlamaCloud(
     api_key=os.environ.get("LLAMA_CLOUD_API_KEY"),  # This is the default and can be omitted
 )
 
-# Parse a document
-job = client.parsing.create(
+parsing = client.parsing.create(
     tier="agentic",
     version="latest",
-    file_id="your-file-id",
+    file_id="abc1234",
 )
-
-print(job.id)
+print(parsing.id)
 ```
 
-## File Uploads
+While you can provide an `api_key` keyword argument,
+we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
+to add `LLAMA_CLOUD_API_KEY="My API Key"` to your `.env` file
+so that your API Key is not stored in source control.
+
+## Async usage
+
+Simply import `AsyncLlamaCloud` instead of `LlamaCloud` and use `await` with each API call:
 
 ```python
-from pathlib import Path
+import os
+import asyncio
+from llama_cloud import AsyncLlamaCloud
+
+client = AsyncLlamaCloud(
+    api_key=os.environ.get("LLAMA_CLOUD_API_KEY"),  # This is the default and can be omitted
+)
+
+
+async def main() -> None:
+    parsing = await client.parsing.create(
+        tier="agentic",
+        version="latest",
+        file_id="abc1234",
+    )
+    print(parsing.id)
+
+
+asyncio.run(main())
+```
+
+Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from PyPI
+pip install llama_cloud[aiohttp]
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from llama_cloud import DefaultAioHttpClient
+from llama_cloud import AsyncLlamaCloud
+
+
+async def main() -> None:
+    async with AsyncLlamaCloud(
+        api_key=os.environ.get("LLAMA_CLOUD_API_KEY"),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        parsing = await client.parsing.create(
+            tier="agentic",
+            version="latest",
+            file_id="abc1234",
+        )
+        print(parsing.id)
+
+
+asyncio.run(main())
+```
+
+## Using types
+
+Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
+
+- Serializing back into JSON, `model.to_json()`
+- Converting to a dictionary, `model.to_dict()`
+
+Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+
+## Pagination
+
+List methods in the Llama Cloud API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
 from llama_cloud import LlamaCloud
 
 client = LlamaCloud()
 
-# Upload using a Path
-client.files.create(
-    file=Path("/path/to/document.pdf"),
-    purpose="parse",
-)
-
-# Or using bytes with a tuple of (filename, contents, media_type)
-client.files.create(
-    file=("document.txt", b"content", "text/plain"),
-    purpose="parse",
-)
+all_extracts = []
+# Automatically fetches more pages as needed.
+for extract in client.extract.list(
+    page_size=20,
+):
+    # Do something with extract here
+    all_extracts.append(extract)
+print(all_extracts)
 ```
 
-## Async Usage
+Or, asynchronously:
 
 ```python
 import asyncio
@@ -77,28 +157,90 @@ from llama_cloud import AsyncLlamaCloud
 client = AsyncLlamaCloud()
 
 
-async def main():
-    job = await client.parsing.create(
-        tier="agentic",
-        version="latest",
-        file_id="your-file-id",
-    )
-    print(job.id)
+async def main() -> None:
+    all_extracts = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for extract in client.extract.list(
+        page_size=20,
+    ):
+        all_extracts.append(extract)
+    print(all_extracts)
 
 
 asyncio.run(main())
 ```
 
-## MCP Server
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
-Use the Llama Cloud MCP Server to enable AI assistants to interact with the API:
+```python
+first_page = await client.extract.list(
+    page_size=20,
+)
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.items)}")
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=%40llamaindex%2Fllama-cloud-mcp&config=eyJuYW1lIjoiQGxsYW1haW5kZXgvbGxhbWEtY2xvdWQtbWNwIiwidHJhbnNwb3J0IjoiaHR0cCIsInVybCI6Imh0dHBzOi8vbGxhbWFjbG91ZC1wcm9kLnN0bG1jcC5jb20iLCJoZWFkZXJzIjp7IngtbGxhbWEtY2xvdWQtYXBpLWtleSI6Ik15IEFQSSBLZXkifX0)
-[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22%40llamaindex%2Fllama-cloud-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fllamacloud-prod.stlmcp.com%22%2C%22headers%22%3A%7B%22x-llama-cloud-api-key%22%3A%22My%20API%20Key%22%7D%7D)
+# Remove `await` for non-async usage.
+```
 
-## Error Handling
+Or just work directly with the returned data:
 
-When the API returns a non-success status code, an `APIError` subclass is raised:
+```python
+first_page = await client.extract.list(
+    page_size=20,
+)
+
+print(f"next page cursor: {first_page.next_page_token}")  # => "next page cursor: ..."
+for extract in first_page.items:
+    print(extract.id)
+
+# Remove `await` for non-async usage.
+```
+
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from llama_cloud import LlamaCloud
+
+client = LlamaCloud()
+
+parsing = client.parsing.create(
+    tier="fast",
+    version="latest",
+    agentic_options={},
+)
+print(parsing.agentic_options)
+```
+
+## File uploads
+
+Request parameters that correspond to file uploads can be passed as `bytes`, or a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
+
+```python
+from pathlib import Path
+from llama_cloud import LlamaCloud
+
+client = LlamaCloud()
+
+client.files.create(
+    file=Path("/path/to/file"),
+    purpose="purpose",
+)
+```
+
+The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
+
+## Handling errors
+
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `llama_cloud.APIConnectionError` is raised.
+
+When the API returns a non-success status code (that is, 4xx or 5xx
+response), a subclass of `llama_cloud.APIStatusError` is raised, containing `status_code` and `response` properties.
+
+All errors inherit from `llama_cloud.APIError`.
 
 ```python
 import llama_cloud
@@ -107,7 +249,7 @@ from llama_cloud import LlamaCloud
 client = LlamaCloud()
 
 try:
-    client.beta.indexes.list(
+    client.indexes.list(
         project_id="my-project-id",
     )
 except llama_cloud.APIConnectionError as e:
@@ -121,65 +263,54 @@ except llama_cloud.APIStatusError as e:
     print(e.response)
 ```
 
+Error codes are as follows:
+
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
 | 400         | `BadRequestError`          |
 | 401         | `AuthenticationError`      |
 | 403         | `PermissionDeniedError`    |
 | 404         | `NotFoundError`            |
-| 409         | `ConflictError`            |
 | 422         | `UnprocessableEntityError` |
 | 429         | `RateLimitError`           |
 | >=500       | `InternalServerError`      |
 | N/A         | `APIConnectionError`       |
 
-## Retries and Timeouts
+### Retries
 
-The SDK automatically retries requests 5 times on connection errors, timeouts, request-timeout (408) and conflict (409) responses, rate limits, and 5xx errors. Requests timeout after 1 minute by default. Functions that combine multiple API calls (e.g. `client.parsing.parse()`) will have larger timeouts by default to account for the multiple requests and polling.
+Certain errors are automatically retried 2 times by default, with a short exponential backoff.
+Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
+429 Rate Limit, and >=500 Internal errors are all retried by default.
+
+You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
+from llama_cloud import LlamaCloud
+
+# Configure the default for all requests:
 client = LlamaCloud(
-    # default is 5
+    # default is 2
     max_retries=0,
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=2).beta.indexes.list(
+client.with_options(max_retries=5).indexes.list(
     project_id="my-project-id",
 )
 ```
 
-## Pagination
+### Timeouts
 
-List methods that return a page object support auto-pagination with `for` loops:
-
-```python
-for job in client.extract.list(page_size=20):
-    print(job)
-```
-
-Or fetch one page at a time:
+By default requests time out after 1 minute. You can configure this with a `timeout` option,
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-page = client.extract.list(page_size=20)
-for job in page.items:
-    print(job)
+from llama_cloud import LlamaCloud
 
-while page.has_next_page():
-    page = page.get_next_page()
-```
-
-Some page types name their item field after the resource (`page.files`, `page.documents`) rather than `page.items`; `.has_next_page()` and `.get_next_page()` are available on every page type. List methods whose return type is not a page return the whole result set from a single request and support none of this; see [api.md](api.md) for each method's return type.
-
-## Timeouts
-
-Configure request timeouts with the `timeout` option:
-
-```python
-import httpx
-
+# Configure the default for all requests:
 client = LlamaCloud(
-    timeout=20.0,  # 20 seconds
+    # 20 seconds (default is 1 minute)
+    timeout=20.0,
 )
 
 # More granular control:
@@ -188,14 +319,14 @@ client = LlamaCloud(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).beta.indexes.list(
+client.with_options(timeout=5.0).indexes.list(
     project_id="my-project-id",
 )
 ```
 
 On timeout, an `APITimeoutError` is thrown.
 
-Note that requests that time out are [retried up to five times by default](#retries-and-timeouts).
+Note that requests that time out are [retried twice by default](#retries).
 
 ## Advanced
 
@@ -231,13 +362,13 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from llama_cloud import LlamaCloud
 
 client = LlamaCloud()
-response = client.beta.indexes.with_raw_response.list(
+response = client.indexes.with_raw_response.list(
     project_id="my-project-id",
 )
 print(response.headers.get('X-My-Header'))
 
-page = response.parse()  # get the object that `beta.indexes.list()` would have returned
-print(page.items[0].id)
+index = response.parse()  # get the object that `indexes.list()` would have returned
+print(index.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/run-llama/llama-parse-py/tree/main/src/llama_cloud/_response.py) object.
@@ -251,7 +382,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.beta.indexes.with_streaming_response.list(
+with client.indexes.with_streaming_response.list(
     project_id="my-project-id",
 ) as response:
     print(response.headers.get("X-My-Header"))
@@ -363,8 +494,8 @@ print(llama_cloud.__version__)
 
 ## Requirements
 
-- Python 3.9+
+Python 3.9 or higher.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
+See [the contributing documentation](./CONTRIBUTING.md).
