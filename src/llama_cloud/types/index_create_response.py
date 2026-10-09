@@ -1,0 +1,57 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from typing import Dict, Optional
+from datetime import datetime
+
+from .._models import BaseModel
+
+__all__ = ["IndexCreateResponse"]
+
+
+class IndexCreateResponse(BaseModel):
+    """A searchable index over a directory of documents."""
+
+    id: str
+    """Unique identifier"""
+
+    export_config_id: str
+    """ID of the export configuration."""
+
+    name: str
+    """Index name."""
+
+    output_directory_id: str
+    """ID of the output directory holding the indexed files."""
+
+    project_id: str
+    """Project this index belongs to."""
+
+    source_directory_id: str
+    """ID of the source directory."""
+
+    sync_config_id: str
+    """ID of the sync configuration."""
+
+    created_at: Optional[datetime] = None
+    """Creation datetime"""
+
+    description: Optional[str] = None
+    """Index description."""
+
+    last_exported_at: Optional[datetime] = None
+    """Last export time."""
+
+    last_synced_at: Optional[datetime] = None
+    """Last sync time."""
+
+    metadata: Optional[Dict[str, object]] = None
+    """Build state and diagnostic info."""
+
+    sync_in_progress: Optional[bool] = None
+    """Whether the index is syncing its source or exporting the result.
+
+    Requires `expand=sync_in_progress`.
+    """
+
+    updated_at: Optional[datetime] = None
+    """Update datetime"""

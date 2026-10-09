@@ -48,7 +48,10 @@ class IndexGetResponse(BaseModel):
     """Build state and diagnostic info."""
 
     sync_in_progress: Optional[bool] = None
-    """Whether a sync is running. Set only when getting a single index."""
+    """Whether the index is syncing its source or exporting the result.
+
+    Requires `expand=sync_in_progress`.
+    """
 
     updated_at: Optional[datetime] = None
     """Update datetime"""

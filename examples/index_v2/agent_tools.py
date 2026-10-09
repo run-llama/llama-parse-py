@@ -15,7 +15,7 @@ from openai.types.responses.response_function_tool_call import ResponseFunctionT
 
 from llama_cloud import AsyncLlamaCloud
 from llama_cloud._utils import lru_cache
-from llama_cloud.types.beta.retrieval_retrieve_params import Rerank
+from llama_cloud.types.retrieval_retrieve_params import Rerank
 
 
 @lru_cache(maxsize=1)
@@ -42,7 +42,7 @@ async def list_indexes() -> str:
     page_token = None
     indexes: list[tuple[str, str]] = []
     while True:
-        response = await client.beta.indexes.list(page_token=page_token, project_id=get_project_id())
+        response = await client.indexes.list(page_token=page_token, project_id=get_project_id())
         indexes.extend([(i.name, i.export_config_id) for i in response.items])
         if response.next_page_token is None:
             break
@@ -67,7 +67,7 @@ async def retrieve(
     Returns a formatted string of results with scores, content previews, and metadata.
     """
     client = get_client()
-    response = await client.beta.retrieval.retrieve(
+    response = await client.retrieval.retrieve(
         index_id=index_id,
         query=query,
         top_k=top_k,
@@ -100,7 +100,7 @@ async def find_files(index_id: str, file_name: str | None, file_name_contains: s
     files: list[tuple[str, str]] = []
     page_token = None
     while True:
-        response = await client.beta.retrieval.find(
+        response = await client.retrieval.find(
             index_id=index_id, file_name=file_name, file_name_contains=file_name_contains, page_token=page_token
         )
         files.extend([(f.file_name, f.file_id) for f in response.items])
@@ -124,7 +124,7 @@ async def read_file(index_id: str, file_id: str, offset: int | None, max_length:
     Returns the raw file content as a string.
     """
     client = get_client()
-    response = await client.beta.retrieval.read(
+    response = await client.retrieval.read(
         index_id=index_id, file_id=file_id, offset=offset or 0, max_length=max_length
     )
     return response.content
@@ -148,7 +148,7 @@ async def grep_file(index_id: str, file_id: str, pattern: str, context_chars: in
     matches: list[tuple[str, int, int]] = []
     page_token = None
     while True:
-        response = await client.beta.retrieval.grep(
+        response = await client.retrieval.grep(
             index_id=index_id,
             file_id=file_id,
             pattern=pattern,

@@ -52,6 +52,11 @@ class WebhookConfiguration(BaseModel):
                 "split.processing",
                 "split.success",
                 "unmapped_event",
+                "verify.cancelled",
+                "verify.error",
+                "verify.pending",
+                "verify.running",
+                "verify.success",
             ]
         ]
     ] = None

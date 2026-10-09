@@ -1,0 +1,816 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import List, Iterable, Optional
+from typing_extensions import Literal
+
+import httpx
+
+from ..types import (
+    index_get_params,
+    index_list_params,
+    index_sync_params,
+    index_create_params,
+    index_delete_params,
+    index_cancel_sync_params,
+)
+from .._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.index_get_response import IndexGetResponse
+from ..types.index_list_response import IndexListResponse
+from ..types.index_create_response import IndexCreateResponse
+
+__all__ = ["IndexesResource", "AsyncIndexesResource"]
+
+
+class IndexesResource(SyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> IndexesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
+        """
+        return IndexesResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> IndexesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
+        """
+        return IndexesResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        source_directory_id: str,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        products: Optional[Iterable[index_create_params.Product]] | Omit = omit,
+        store_attachments: Optional[SequenceNotStr[str]] | Omit = omit,
+        sync_frequency: str | Omit = omit,
+        vector_target: Literal["DEFAULT", "DISABLED"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IndexCreateResponse:
+        """
+        Create a searchable index over a source directory.
+
+        Args:
+          source_directory_id: ID of the source directory containing your documents.
+
+          description: Optional description of the index.
+
+          name: Optional display name for the index. If omitted, the index is named after the
+              source directory.
+
+          products: Product configurations for syncing. Omit to use a default parse configuration.
+              Include an explicit entry per product type (e.g. parse, extract) to override the
+              default.
+
+          store_attachments:
+              Attachment kinds to store alongside parsed output. Each entry must be one of:
+              screenshots, items. For example, ['screenshots'] renders and stores per-page
+              screenshots; ['items'] stores structured items with bounding boxes. Omit or pass
+              an empty list to skip attachments.
+
+          sync_frequency: How often to re-run the sync. One of: manual, daily, on_source_change. Defaults
+              to manual.
+
+          vector_target: Vector export destination for the index. 'DEFAULT' exports to the managed vector
+              DB destination resolved from configuration. 'DISABLED' skips vector export — the
+              export destination falls back to 'Download'.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/api/v1/indexes",
+            body=maybe_transform(
+                {
+                    "source_directory_id": source_directory_id,
+                    "description": description,
+                    "name": name,
+                    "products": products,
+                    "store_attachments": store_attachments,
+                    "sync_frequency": sync_frequency,
+                    "vector_target": vector_target,
+                },
+                index_create_params.IndexCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_create_params.IndexCreateParams,
+                ),
+            ),
+            cast_to=IndexCreateResponse,
+        )
+
+    def list(
+        self,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: Optional[int] | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        source_directory_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncPaginatedCursor[IndexListResponse]:
+        """
+        List indexes for the current project.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/indexes",
+            page=SyncPaginatedCursor[IndexListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                        "source_directory_id": source_directory_id,
+                    },
+                    index_list_params.IndexListParams,
+                ),
+            ),
+            model=IndexListResponse,
+        )
+
+    def delete(
+        self,
+        index_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Delete an index.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return self._delete(
+            path_template("/api/v1/indexes/{index_id}", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_delete_params.IndexDeleteParams,
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
+    def cancel_sync(
+        self,
+        index_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """Cancel the running sync for an index.
+
+        Returns 409 if no sync is running.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return self._post(
+            path_template("/api/v1/indexes/{index_id}/sync/cancel", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_cancel_sync_params.IndexCancelSyncParams,
+                ),
+            ),
+            cast_to=object,
+        )
+
+    def get(
+        self,
+        index_id: str,
+        *,
+        expand: List[Literal["sync_in_progress"]] | Omit = omit,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IndexGetResponse:
+        """Get an index by ID.
+
+        Args:
+          expand: Fields to expand.
+
+        Supported value: sync_in_progress.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return self._get(
+            path_template("/api/v1/indexes/{index_id}", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "expand": expand,
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_get_params.IndexGetParams,
+                ),
+            ),
+            cast_to=IndexGetResponse,
+        )
+
+    def sync(
+        self,
+        index_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Trigger a sync and export for an existing index, re-parsing changed files and
+        exporting updated chunks.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return self._post(
+            path_template("/api/v1/indexes/{index_id}/sync", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_sync_params.IndexSyncParams,
+                ),
+            ),
+            cast_to=object,
+        )
+
+
+class AsyncIndexesResource(AsyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> AsyncIndexesResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/run-llama/llama-parse-py#accessing-raw-response-data-eg-headers
+        """
+        return AsyncIndexesResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncIndexesResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/run-llama/llama-parse-py#with_streaming_response
+        """
+        return AsyncIndexesResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        source_directory_id: str,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        products: Optional[Iterable[index_create_params.Product]] | Omit = omit,
+        store_attachments: Optional[SequenceNotStr[str]] | Omit = omit,
+        sync_frequency: str | Omit = omit,
+        vector_target: Literal["DEFAULT", "DISABLED"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IndexCreateResponse:
+        """
+        Create a searchable index over a source directory.
+
+        Args:
+          source_directory_id: ID of the source directory containing your documents.
+
+          description: Optional description of the index.
+
+          name: Optional display name for the index. If omitted, the index is named after the
+              source directory.
+
+          products: Product configurations for syncing. Omit to use a default parse configuration.
+              Include an explicit entry per product type (e.g. parse, extract) to override the
+              default.
+
+          store_attachments:
+              Attachment kinds to store alongside parsed output. Each entry must be one of:
+              screenshots, items. For example, ['screenshots'] renders and stores per-page
+              screenshots; ['items'] stores structured items with bounding boxes. Omit or pass
+              an empty list to skip attachments.
+
+          sync_frequency: How often to re-run the sync. One of: manual, daily, on_source_change. Defaults
+              to manual.
+
+          vector_target: Vector export destination for the index. 'DEFAULT' exports to the managed vector
+              DB destination resolved from configuration. 'DISABLED' skips vector export — the
+              export destination falls back to 'Download'.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/api/v1/indexes",
+            body=await async_maybe_transform(
+                {
+                    "source_directory_id": source_directory_id,
+                    "description": description,
+                    "name": name,
+                    "products": products,
+                    "store_attachments": store_attachments,
+                    "sync_frequency": sync_frequency,
+                    "vector_target": vector_target,
+                },
+                index_create_params.IndexCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_create_params.IndexCreateParams,
+                ),
+            ),
+            cast_to=IndexCreateResponse,
+        )
+
+    def list(
+        self,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        page_size: Optional[int] | Omit = omit,
+        page_token: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        source_directory_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[IndexListResponse, AsyncPaginatedCursor[IndexListResponse]]:
+        """
+        List indexes for the current project.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get_api_list(
+            "/api/v1/indexes",
+            page=AsyncPaginatedCursor[IndexListResponse],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "page_size": page_size,
+                        "page_token": page_token,
+                        "project_id": project_id,
+                        "source_directory_id": source_directory_id,
+                    },
+                    index_list_params.IndexListParams,
+                ),
+            ),
+            model=IndexListResponse,
+        )
+
+    async def delete(
+        self,
+        index_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> None:
+        """
+        Delete an index.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
+        return await self._delete(
+            path_template("/api/v1/indexes/{index_id}", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_delete_params.IndexDeleteParams,
+                ),
+            ),
+            cast_to=NoneType,
+        )
+
+    async def cancel_sync(
+        self,
+        index_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """Cancel the running sync for an index.
+
+        Returns 409 if no sync is running.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return await self._post(
+            path_template("/api/v1/indexes/{index_id}/sync/cancel", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_cancel_sync_params.IndexCancelSyncParams,
+                ),
+            ),
+            cast_to=object,
+        )
+
+    async def get(
+        self,
+        index_id: str,
+        *,
+        expand: List[Literal["sync_in_progress"]] | Omit = omit,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> IndexGetResponse:
+        """Get an index by ID.
+
+        Args:
+          expand: Fields to expand.
+
+        Supported value: sync_in_progress.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return await self._get(
+            path_template("/api/v1/indexes/{index_id}", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "expand": expand,
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_get_params.IndexGetParams,
+                ),
+            ),
+            cast_to=IndexGetResponse,
+        )
+
+    async def sync(
+        self,
+        index_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
+        """
+        Trigger a sync and export for an existing index, re-parsing changed files and
+        exporting updated chunks.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not index_id:
+            raise ValueError(f"Expected a non-empty value for `index_id` but received {index_id!r}")
+        return await self._post(
+            path_template("/api/v1/indexes/{index_id}/sync", index_id=index_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "organization_id": organization_id,
+                        "project_id": project_id,
+                    },
+                    index_sync_params.IndexSyncParams,
+                ),
+            ),
+            cast_to=object,
+        )
+
+
+class IndexesResourceWithRawResponse:
+    def __init__(self, indexes: IndexesResource) -> None:
+        self._indexes = indexes
+
+        self.create = to_raw_response_wrapper(
+            indexes.create,
+        )
+        self.list = to_raw_response_wrapper(
+            indexes.list,
+        )
+        self.delete = to_raw_response_wrapper(
+            indexes.delete,
+        )
+        self.cancel_sync = to_raw_response_wrapper(
+            indexes.cancel_sync,
+        )
+        self.get = to_raw_response_wrapper(
+            indexes.get,
+        )
+        self.sync = to_raw_response_wrapper(
+            indexes.sync,
+        )
+
+
+class AsyncIndexesResourceWithRawResponse:
+    def __init__(self, indexes: AsyncIndexesResource) -> None:
+        self._indexes = indexes
+
+        self.create = async_to_raw_response_wrapper(
+            indexes.create,
+        )
+        self.list = async_to_raw_response_wrapper(
+            indexes.list,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            indexes.delete,
+        )
+        self.cancel_sync = async_to_raw_response_wrapper(
+            indexes.cancel_sync,
+        )
+        self.get = async_to_raw_response_wrapper(
+            indexes.get,
+        )
+        self.sync = async_to_raw_response_wrapper(
+            indexes.sync,
+        )
+
+
+class IndexesResourceWithStreamingResponse:
+    def __init__(self, indexes: IndexesResource) -> None:
+        self._indexes = indexes
+
+        self.create = to_streamed_response_wrapper(
+            indexes.create,
+        )
+        self.list = to_streamed_response_wrapper(
+            indexes.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            indexes.delete,
+        )
+        self.cancel_sync = to_streamed_response_wrapper(
+            indexes.cancel_sync,
+        )
+        self.get = to_streamed_response_wrapper(
+            indexes.get,
+        )
+        self.sync = to_streamed_response_wrapper(
+            indexes.sync,
+        )
+
+
+class AsyncIndexesResourceWithStreamingResponse:
+    def __init__(self, indexes: AsyncIndexesResource) -> None:
+        self._indexes = indexes
+
+        self.create = async_to_streamed_response_wrapper(
+            indexes.create,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            indexes.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            indexes.delete,
+        )
+        self.cancel_sync = async_to_streamed_response_wrapper(
+            indexes.cancel_sync,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            indexes.get,
+        )
+        self.sync = async_to_streamed_response_wrapper(
+            indexes.sync,
+        )

@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+import typing_extensions
+from typing import List, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -53,6 +54,7 @@ class IndexesResource(SyncAPIResource):
         """
         return IndexesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     def create(
         self,
         *,
@@ -138,6 +140,7 @@ class IndexesResource(SyncAPIResource):
             cast_to=IndexCreateResponse,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     def list(
         self,
         *,
@@ -187,6 +190,7 @@ class IndexesResource(SyncAPIResource):
             model=IndexListResponse,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     def delete(
         self,
         index_id: str,
@@ -233,10 +237,12 @@ class IndexesResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     def get(
         self,
         index_id: str,
         *,
+        expand: List[Literal["sync_in_progress"]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -246,10 +252,13 @@ class IndexesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IndexGetResponse:
-        """
-        Get an index by ID.
+        """Get an index by ID.
 
         Args:
+          expand: Fields to expand.
+
+        Supported value: sync_in_progress.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -269,6 +278,7 @@ class IndexesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "expand": expand,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
@@ -278,6 +288,7 @@ class IndexesResource(SyncAPIResource):
             cast_to=IndexGetResponse,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     def sync(
         self,
         index_id: str,
@@ -345,6 +356,7 @@ class AsyncIndexesResource(AsyncAPIResource):
         """
         return AsyncIndexesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     async def create(
         self,
         *,
@@ -430,6 +442,7 @@ class AsyncIndexesResource(AsyncAPIResource):
             cast_to=IndexCreateResponse,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     def list(
         self,
         *,
@@ -479,6 +492,7 @@ class AsyncIndexesResource(AsyncAPIResource):
             model=IndexListResponse,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     async def delete(
         self,
         index_id: str,
@@ -525,10 +539,12 @@ class AsyncIndexesResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     async def get(
         self,
         index_id: str,
         *,
+        expand: List[Literal["sync_in_progress"]] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -538,10 +554,13 @@ class AsyncIndexesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> IndexGetResponse:
-        """
-        Get an index by ID.
+        """Get an index by ID.
 
         Args:
+          expand: Fields to expand.
+
+        Supported value: sync_in_progress.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -561,6 +580,7 @@ class AsyncIndexesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "expand": expand,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
@@ -570,6 +590,7 @@ class AsyncIndexesResource(AsyncAPIResource):
             cast_to=IndexGetResponse,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level indexes resource instead")
     async def sync(
         self,
         index_id: str,
@@ -621,20 +642,30 @@ class IndexesResourceWithRawResponse:
     def __init__(self, indexes: IndexesResource) -> None:
         self._indexes = indexes
 
-        self.create = to_raw_response_wrapper(
-            indexes.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                indexes.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_raw_response_wrapper(
-            indexes.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                indexes.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = to_raw_response_wrapper(
-            indexes.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                indexes.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_raw_response_wrapper(
-            indexes.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                indexes.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = to_raw_response_wrapper(
-            indexes.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                indexes.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -642,20 +673,30 @@ class AsyncIndexesResourceWithRawResponse:
     def __init__(self, indexes: AsyncIndexesResource) -> None:
         self._indexes = indexes
 
-        self.create = async_to_raw_response_wrapper(
-            indexes.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                indexes.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_raw_response_wrapper(
-            indexes.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                indexes.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = async_to_raw_response_wrapper(
-            indexes.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                indexes.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_raw_response_wrapper(
-            indexes.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                indexes.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = async_to_raw_response_wrapper(
-            indexes.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                indexes.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -663,20 +704,30 @@ class IndexesResourceWithStreamingResponse:
     def __init__(self, indexes: IndexesResource) -> None:
         self._indexes = indexes
 
-        self.create = to_streamed_response_wrapper(
-            indexes.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                indexes.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_streamed_response_wrapper(
-            indexes.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                indexes.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = to_streamed_response_wrapper(
-            indexes.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                indexes.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = to_streamed_response_wrapper(
-            indexes.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                indexes.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = to_streamed_response_wrapper(
-            indexes.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                indexes.sync,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -684,18 +735,28 @@ class AsyncIndexesResourceWithStreamingResponse:
     def __init__(self, indexes: AsyncIndexesResource) -> None:
         self._indexes = indexes
 
-        self.create = async_to_streamed_response_wrapper(
-            indexes.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                indexes.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_streamed_response_wrapper(
-            indexes.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                indexes.list,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.delete = async_to_streamed_response_wrapper(
-            indexes.delete,
+        self.delete = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                indexes.delete,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.get = async_to_streamed_response_wrapper(
-            indexes.get,
+        self.get = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                indexes.get,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.sync = async_to_streamed_response_wrapper(
-            indexes.sync,
+        self.sync = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                indexes.sync,  # pyright: ignore[reportDeprecated],
+            )
         )

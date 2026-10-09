@@ -37,14 +37,18 @@ from ._base_client import (
 if TYPE_CHECKING:
     from .resources import (
         beta,
+        chat,
+        alpha,
         files,
         split,
         batches,
         extract,
+        indexes,
         parsing,
         classify,
         projects,
         pipelines,
+        retrieval,
         data_sinks,
         retrievers,
         v2_projects,
@@ -53,15 +57,19 @@ if TYPE_CHECKING:
         webhook_configs,
         extraction_agents,
     )
+    from .resources.chat import ChatResource, AsyncChatResource
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.split import SplitResource, AsyncSplitResource
     from .resources.batches import BatchesResource, AsyncBatchesResource
     from .resources.extract import ExtractResource, AsyncExtractResource
+    from .resources.indexes import IndexesResource, AsyncIndexesResource
     from .resources.parsing import ParsingResource, AsyncParsingResource
     from .resources.classify import ClassifyResource, AsyncClassifyResource
     from .resources.projects import ProjectsResource, AsyncProjectsResource
     from .resources.beta.beta import BetaResource, AsyncBetaResource
+    from .resources.retrieval import RetrievalResource, AsyncRetrievalResource
     from .resources.data_sinks import DataSinksResource, AsyncDataSinksResource
+    from .resources.alpha.alpha import AlphaResource, AsyncAlphaResource
     from .resources.v2_projects import V2ProjectsResource, AsyncV2ProjectsResource
     from .resources.data_sources import DataSourcesResource, AsyncDataSourcesResource
     from .resources.configurations import ConfigurationsResource, AsyncConfigurationsResource
@@ -237,10 +245,34 @@ class LlamaCloud(SyncAPIClient):
         return RetrieversResource(self)
 
     @cached_property
+    def indexes(self) -> IndexesResource:
+        from .resources.indexes import IndexesResource
+
+        return IndexesResource(self)
+
+    @cached_property
+    def retrieval(self) -> RetrievalResource:
+        from .resources.retrieval import RetrievalResource
+
+        return RetrievalResource(self)
+
+    @cached_property
+    def chat(self) -> ChatResource:
+        from .resources.chat import ChatResource
+
+        return ChatResource(self)
+
+    @cached_property
     def beta(self) -> BetaResource:
         from .resources.beta import BetaResource
 
         return BetaResource(self)
+
+    @cached_property
+    def alpha(self) -> AlphaResource:
+        from .resources.alpha import AlphaResource
+
+        return AlphaResource(self)
 
     @cached_property
     def with_raw_response(self) -> LlamaCloudWithRawResponse:
@@ -510,10 +542,34 @@ class AsyncLlamaCloud(AsyncAPIClient):
         return AsyncRetrieversResource(self)
 
     @cached_property
+    def indexes(self) -> AsyncIndexesResource:
+        from .resources.indexes import AsyncIndexesResource
+
+        return AsyncIndexesResource(self)
+
+    @cached_property
+    def retrieval(self) -> AsyncRetrievalResource:
+        from .resources.retrieval import AsyncRetrievalResource
+
+        return AsyncRetrievalResource(self)
+
+    @cached_property
+    def chat(self) -> AsyncChatResource:
+        from .resources.chat import AsyncChatResource
+
+        return AsyncChatResource(self)
+
+    @cached_property
     def beta(self) -> AsyncBetaResource:
         from .resources.beta import AsyncBetaResource
 
         return AsyncBetaResource(self)
+
+    @cached_property
+    def alpha(self) -> AsyncAlphaResource:
+        from .resources.alpha import AsyncAlphaResource
+
+        return AsyncAlphaResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncLlamaCloudWithRawResponse:
@@ -725,10 +781,34 @@ class LlamaCloudWithRawResponse:
         return RetrieversResourceWithRawResponse(self._client.retrievers)
 
     @cached_property
+    def indexes(self) -> indexes.IndexesResourceWithRawResponse:
+        from .resources.indexes import IndexesResourceWithRawResponse
+
+        return IndexesResourceWithRawResponse(self._client.indexes)
+
+    @cached_property
+    def retrieval(self) -> retrieval.RetrievalResourceWithRawResponse:
+        from .resources.retrieval import RetrievalResourceWithRawResponse
+
+        return RetrievalResourceWithRawResponse(self._client.retrieval)
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithRawResponse:
+        from .resources.chat import ChatResourceWithRawResponse
+
+        return ChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
     def beta(self) -> beta.BetaResourceWithRawResponse:
         from .resources.beta import BetaResourceWithRawResponse
 
         return BetaResourceWithRawResponse(self._client.beta)
+
+    @cached_property
+    def alpha(self) -> alpha.AlphaResourceWithRawResponse:
+        from .resources.alpha import AlphaResourceWithRawResponse
+
+        return AlphaResourceWithRawResponse(self._client.alpha)
 
 
 class AsyncLlamaCloudWithRawResponse:
@@ -828,10 +908,34 @@ class AsyncLlamaCloudWithRawResponse:
         return AsyncRetrieversResourceWithRawResponse(self._client.retrievers)
 
     @cached_property
+    def indexes(self) -> indexes.AsyncIndexesResourceWithRawResponse:
+        from .resources.indexes import AsyncIndexesResourceWithRawResponse
+
+        return AsyncIndexesResourceWithRawResponse(self._client.indexes)
+
+    @cached_property
+    def retrieval(self) -> retrieval.AsyncRetrievalResourceWithRawResponse:
+        from .resources.retrieval import AsyncRetrievalResourceWithRawResponse
+
+        return AsyncRetrievalResourceWithRawResponse(self._client.retrieval)
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithRawResponse:
+        from .resources.chat import AsyncChatResourceWithRawResponse
+
+        return AsyncChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
     def beta(self) -> beta.AsyncBetaResourceWithRawResponse:
         from .resources.beta import AsyncBetaResourceWithRawResponse
 
         return AsyncBetaResourceWithRawResponse(self._client.beta)
+
+    @cached_property
+    def alpha(self) -> alpha.AsyncAlphaResourceWithRawResponse:
+        from .resources.alpha import AsyncAlphaResourceWithRawResponse
+
+        return AsyncAlphaResourceWithRawResponse(self._client.alpha)
 
 
 class LlamaCloudWithStreamedResponse:
@@ -931,10 +1035,34 @@ class LlamaCloudWithStreamedResponse:
         return RetrieversResourceWithStreamingResponse(self._client.retrievers)
 
     @cached_property
+    def indexes(self) -> indexes.IndexesResourceWithStreamingResponse:
+        from .resources.indexes import IndexesResourceWithStreamingResponse
+
+        return IndexesResourceWithStreamingResponse(self._client.indexes)
+
+    @cached_property
+    def retrieval(self) -> retrieval.RetrievalResourceWithStreamingResponse:
+        from .resources.retrieval import RetrievalResourceWithStreamingResponse
+
+        return RetrievalResourceWithStreamingResponse(self._client.retrieval)
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithStreamingResponse:
+        from .resources.chat import ChatResourceWithStreamingResponse
+
+        return ChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
     def beta(self) -> beta.BetaResourceWithStreamingResponse:
         from .resources.beta import BetaResourceWithStreamingResponse
 
         return BetaResourceWithStreamingResponse(self._client.beta)
+
+    @cached_property
+    def alpha(self) -> alpha.AlphaResourceWithStreamingResponse:
+        from .resources.alpha import AlphaResourceWithStreamingResponse
+
+        return AlphaResourceWithStreamingResponse(self._client.alpha)
 
 
 class AsyncLlamaCloudWithStreamedResponse:
@@ -1034,10 +1162,34 @@ class AsyncLlamaCloudWithStreamedResponse:
         return AsyncRetrieversResourceWithStreamingResponse(self._client.retrievers)
 
     @cached_property
+    def indexes(self) -> indexes.AsyncIndexesResourceWithStreamingResponse:
+        from .resources.indexes import AsyncIndexesResourceWithStreamingResponse
+
+        return AsyncIndexesResourceWithStreamingResponse(self._client.indexes)
+
+    @cached_property
+    def retrieval(self) -> retrieval.AsyncRetrievalResourceWithStreamingResponse:
+        from .resources.retrieval import AsyncRetrievalResourceWithStreamingResponse
+
+        return AsyncRetrievalResourceWithStreamingResponse(self._client.retrieval)
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithStreamingResponse:
+        from .resources.chat import AsyncChatResourceWithStreamingResponse
+
+        return AsyncChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
     def beta(self) -> beta.AsyncBetaResourceWithStreamingResponse:
         from .resources.beta import AsyncBetaResourceWithStreamingResponse
 
         return AsyncBetaResourceWithStreamingResponse(self._client.beta)
+
+    @cached_property
+    def alpha(self) -> alpha.AsyncAlphaResourceWithStreamingResponse:
+        from .resources.alpha import AsyncAlphaResourceWithStreamingResponse
+
+        return AsyncAlphaResourceWithStreamingResponse(self._client.alpha)
 
 
 Client = LlamaCloud

@@ -898,7 +898,7 @@ class TestLlamaCloud:
 
         respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = client.beta.indexes.with_raw_response.list()
+        response = client.indexes.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -922,7 +922,7 @@ class TestLlamaCloud:
 
         respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = client.beta.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -945,7 +945,7 @@ class TestLlamaCloud:
 
         respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = client.beta.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1811,7 +1811,7 @@ class TestAsyncLlamaCloud:
 
         respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = await client.beta.indexes.with_raw_response.list()
+        response = await client.indexes.with_raw_response.list()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1835,7 +1835,7 @@ class TestAsyncLlamaCloud:
 
         respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = await client.beta.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
+        response = await client.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1858,7 +1858,7 @@ class TestAsyncLlamaCloud:
 
         respx_mock.get("/api/v1/indexes").mock(side_effect=retry_handler)
 
-        response = await client.beta.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
+        response = await client.indexes.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 

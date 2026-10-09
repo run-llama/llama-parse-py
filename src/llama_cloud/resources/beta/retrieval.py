@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Dict, Optional
 
 import httpx
@@ -47,6 +48,7 @@ class RetrievalResource(SyncAPIResource):
         """
         return RetrievalResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level retrieval resource instead")
     def retrieve(
         self,
         *,
@@ -135,6 +137,7 @@ class RetrievalResource(SyncAPIResource):
             cast_to=RetrievalRetrieveResponse,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level retrieval resource instead")
     def find(
         self,
         *,
@@ -207,6 +210,7 @@ class RetrievalResource(SyncAPIResource):
             method="post",
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level retrieval resource instead")
     def grep(
         self,
         *,
@@ -284,6 +288,7 @@ class RetrievalResource(SyncAPIResource):
             method="post",
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level retrieval resource instead")
     def read(
         self,
         *,
@@ -368,6 +373,7 @@ class AsyncRetrievalResource(AsyncAPIResource):
         """
         return AsyncRetrievalResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level retrieval resource instead")
     async def retrieve(
         self,
         *,
@@ -456,6 +462,7 @@ class AsyncRetrievalResource(AsyncAPIResource):
             cast_to=RetrievalRetrieveResponse,
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level retrieval resource instead")
     def find(
         self,
         *,
@@ -528,6 +535,7 @@ class AsyncRetrievalResource(AsyncAPIResource):
             method="post",
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level retrieval resource instead")
     def grep(
         self,
         *,
@@ -605,6 +613,7 @@ class AsyncRetrievalResource(AsyncAPIResource):
             method="post",
         )
 
+    @typing_extensions.deprecated("Moved out of beta. Use the top-level retrieval resource instead")
     async def read(
         self,
         *,
@@ -673,17 +682,25 @@ class RetrievalResourceWithRawResponse:
     def __init__(self, retrieval: RetrievalResource) -> None:
         self._retrieval = retrieval
 
-        self.retrieve = to_raw_response_wrapper(
-            retrieval.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                retrieval.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.find = to_raw_response_wrapper(
-            retrieval.find,
+        self.find = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                retrieval.find,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.grep = to_raw_response_wrapper(
-            retrieval.grep,
+        self.grep = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                retrieval.grep,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.read = to_raw_response_wrapper(
-            retrieval.read,
+        self.read = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                retrieval.read,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -691,17 +708,25 @@ class AsyncRetrievalResourceWithRawResponse:
     def __init__(self, retrieval: AsyncRetrievalResource) -> None:
         self._retrieval = retrieval
 
-        self.retrieve = async_to_raw_response_wrapper(
-            retrieval.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                retrieval.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.find = async_to_raw_response_wrapper(
-            retrieval.find,
+        self.find = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                retrieval.find,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.grep = async_to_raw_response_wrapper(
-            retrieval.grep,
+        self.grep = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                retrieval.grep,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.read = async_to_raw_response_wrapper(
-            retrieval.read,
+        self.read = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                retrieval.read,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -709,17 +734,25 @@ class RetrievalResourceWithStreamingResponse:
     def __init__(self, retrieval: RetrievalResource) -> None:
         self._retrieval = retrieval
 
-        self.retrieve = to_streamed_response_wrapper(
-            retrieval.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                retrieval.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.find = to_streamed_response_wrapper(
-            retrieval.find,
+        self.find = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                retrieval.find,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.grep = to_streamed_response_wrapper(
-            retrieval.grep,
+        self.grep = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                retrieval.grep,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.read = to_streamed_response_wrapper(
-            retrieval.read,
+        self.read = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                retrieval.read,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -727,15 +760,23 @@ class AsyncRetrievalResourceWithStreamingResponse:
     def __init__(self, retrieval: AsyncRetrievalResource) -> None:
         self._retrieval = retrieval
 
-        self.retrieve = async_to_streamed_response_wrapper(
-            retrieval.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                retrieval.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.find = async_to_streamed_response_wrapper(
-            retrieval.find,
+        self.find = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                retrieval.find,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.grep = async_to_streamed_response_wrapper(
-            retrieval.grep,
+        self.grep = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                retrieval.grep,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.read = async_to_streamed_response_wrapper(
-            retrieval.read,
+        self.read = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                retrieval.read,  # pyright: ignore[reportDeprecated],
+            )
         )

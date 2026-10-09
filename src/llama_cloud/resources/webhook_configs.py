@@ -96,6 +96,11 @@ class WebhookConfigsResource(SyncAPIResource):
                     "split.processing",
                     "split.success",
                     "unmapped_event",
+                    "verify.cancelled",
+                    "verify.error",
+                    "verify.pending",
+                    "verify.running",
+                    "verify.success",
                 ]
             ]
         ]
@@ -249,6 +254,11 @@ class WebhookConfigsResource(SyncAPIResource):
                     "split.processing",
                     "split.success",
                     "unmapped_event",
+                    "verify.cancelled",
+                    "verify.error",
+                    "verify.pending",
+                    "verify.running",
+                    "verify.success",
                 ]
             ]
         ]
@@ -525,6 +535,11 @@ class AsyncWebhookConfigsResource(AsyncAPIResource):
                     "split.processing",
                     "split.success",
                     "unmapped_event",
+                    "verify.cancelled",
+                    "verify.error",
+                    "verify.pending",
+                    "verify.running",
+                    "verify.success",
                 ]
             ]
         ]
@@ -678,6 +693,11 @@ class AsyncWebhookConfigsResource(AsyncAPIResource):
                     "split.processing",
                     "split.success",
                     "unmapped_event",
+                    "verify.cancelled",
+                    "verify.error",
+                    "verify.pending",
+                    "verify.running",
+                    "verify.success",
                 ]
             ]
         ]
