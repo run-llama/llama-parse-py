@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.18.0](https://github.com/run-llama/llama-parse-py/compare/v2.17.0...v2.18.0) (2026-10-09)
+
+
+### Features
+
+* **sdk:** move Index v2 indexes, retrieval and chat out of beta (PROD-10331) ([a0e5bb2](https://github.com/run-llama/llama-parse-py/commit/a0e5bb200b235f4bf5e0e13239ab48f6562e068c))
+* **sdk:** publish Verify as client.alpha.verify (PROD-10334) ([f13c545](https://github.com/run-llama/llama-parse-py/commit/f13c545bc139907875c9fbb2da455b440d63d022))
+
+
+### Chores
+
+* **examples:** use the top-level Index v2 resources ([d82072a](https://github.com/run-llama/llama-parse-py/commit/d82072a3993e0d7be24f4b06da043d45358b6549))
+
 ## [2.17.0](https://github.com/run-llama/llama-parse-py/compare/v2.16.0...v2.17.0) (2026-10-07)
 
 
