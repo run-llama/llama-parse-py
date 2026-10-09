@@ -7,7 +7,7 @@ from typing import Any, Mapping
 
 from llama_cloud import AsyncLlamaCloud
 from llama_cloud._utils import lru_cache
-from llama_cloud.types.beta.retrieval_retrieve_params import Rerank
+from llama_cloud.types.retrieval_retrieve_params import Rerank
 
 MAX_POLLING_ATTEMPTS = 900
 POLLING_INTERVAL = 2
@@ -68,7 +68,7 @@ async def create_index_from_directory() -> tuple[str, str]:
         f"Uploaded {len(file_ids)} files in {directory} to the directory on the LlamaParse Platform, with the following IDs: {', '.join(file_ids)}"
     )
 
-    idx = await client.beta.indexes.create(
+    idx = await client.indexes.create(
         source_directory_id=cloud_dir.id, project_id=get_project_id(), name=os.getenv("INDEX_NAME", "index-v2-demo")
     )
 
@@ -80,10 +80,10 @@ async def create_index_from_directory() -> tuple[str, str]:
 async def sync_and_wait(index_id: str) -> None:
     client = get_client()
 
-    await client.beta.indexes.sync(index_id=index_id)
+    await client.indexes.sync(index_id=index_id)
     attempts = 0
     while attempts < MAX_POLLING_ATTEMPTS:
-        idx = await client.beta.indexes.get(index_id=index_id)
+        idx = await client.indexes.get(index_id=index_id)
         status = _get_status(idx.metadata)
         if status == "ready":
             return
@@ -95,7 +95,7 @@ async def sync_and_wait(index_id: str) -> None:
 
 async def retrieve(export_config_id: str) -> None:
     client = get_client()
-    retrieved = await client.beta.retrieval.retrieve(
+    retrieved = await client.retrieval.retrieve(
         index_id=export_config_id,
         query=os.getenv("INDEX_RETRIEVAL_QUERY", "What information is available for retrieval?"),
         top_k=10,
