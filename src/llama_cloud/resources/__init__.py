@@ -16,6 +16,14 @@ from .chat import (
     ChatResourceWithStreamingResponse,
     AsyncChatResourceWithStreamingResponse,
 )
+from .alpha import (
+    AlphaResource,
+    AsyncAlphaResource,
+    AlphaResourceWithRawResponse,
+    AsyncAlphaResourceWithRawResponse,
+    AlphaResourceWithStreamingResponse,
+    AsyncAlphaResourceWithStreamingResponse,
+)
 from .files import (
     FilesResource,
     AsyncFilesResource,
@@ -268,4 +276,10 @@ __all__ = [
     "AsyncBetaResourceWithRawResponse",
     "BetaResourceWithStreamingResponse",
     "AsyncBetaResourceWithStreamingResponse",
+    "AlphaResource",
+    "AsyncAlphaResource",
+    "AlphaResourceWithRawResponse",
+    "AsyncAlphaResourceWithRawResponse",
+    "AlphaResourceWithStreamingResponse",
+    "AsyncAlphaResourceWithStreamingResponse",
 ]

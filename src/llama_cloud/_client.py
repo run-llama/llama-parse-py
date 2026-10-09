@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     from .resources import (
         beta,
         chat,
+        alpha,
         files,
         split,
         batches,
@@ -68,6 +69,7 @@ if TYPE_CHECKING:
     from .resources.beta.beta import BetaResource, AsyncBetaResource
     from .resources.retrieval import RetrievalResource, AsyncRetrievalResource
     from .resources.data_sinks import DataSinksResource, AsyncDataSinksResource
+    from .resources.alpha.alpha import AlphaResource, AsyncAlphaResource
     from .resources.v2_projects import V2ProjectsResource, AsyncV2ProjectsResource
     from .resources.data_sources import DataSourcesResource, AsyncDataSourcesResource
     from .resources.configurations import ConfigurationsResource, AsyncConfigurationsResource
@@ -265,6 +267,12 @@ class LlamaCloud(SyncAPIClient):
         from .resources.beta import BetaResource
 
         return BetaResource(self)
+
+    @cached_property
+    def alpha(self) -> AlphaResource:
+        from .resources.alpha import AlphaResource
+
+        return AlphaResource(self)
 
     @cached_property
     def with_raw_response(self) -> LlamaCloudWithRawResponse:
@@ -558,6 +566,12 @@ class AsyncLlamaCloud(AsyncAPIClient):
         return AsyncBetaResource(self)
 
     @cached_property
+    def alpha(self) -> AsyncAlphaResource:
+        from .resources.alpha import AsyncAlphaResource
+
+        return AsyncAlphaResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncLlamaCloudWithRawResponse:
         return AsyncLlamaCloudWithRawResponse(self)
 
@@ -790,6 +804,12 @@ class LlamaCloudWithRawResponse:
 
         return BetaResourceWithRawResponse(self._client.beta)
 
+    @cached_property
+    def alpha(self) -> alpha.AlphaResourceWithRawResponse:
+        from .resources.alpha import AlphaResourceWithRawResponse
+
+        return AlphaResourceWithRawResponse(self._client.alpha)
+
 
 class AsyncLlamaCloudWithRawResponse:
     _client: AsyncLlamaCloud
@@ -910,6 +930,12 @@ class AsyncLlamaCloudWithRawResponse:
         from .resources.beta import AsyncBetaResourceWithRawResponse
 
         return AsyncBetaResourceWithRawResponse(self._client.beta)
+
+    @cached_property
+    def alpha(self) -> alpha.AsyncAlphaResourceWithRawResponse:
+        from .resources.alpha import AsyncAlphaResourceWithRawResponse
+
+        return AsyncAlphaResourceWithRawResponse(self._client.alpha)
 
 
 class LlamaCloudWithStreamedResponse:
@@ -1032,6 +1058,12 @@ class LlamaCloudWithStreamedResponse:
 
         return BetaResourceWithStreamingResponse(self._client.beta)
 
+    @cached_property
+    def alpha(self) -> alpha.AlphaResourceWithStreamingResponse:
+        from .resources.alpha import AlphaResourceWithStreamingResponse
+
+        return AlphaResourceWithStreamingResponse(self._client.alpha)
+
 
 class AsyncLlamaCloudWithStreamedResponse:
     _client: AsyncLlamaCloud
@@ -1152,6 +1184,12 @@ class AsyncLlamaCloudWithStreamedResponse:
         from .resources.beta import AsyncBetaResourceWithStreamingResponse
 
         return AsyncBetaResourceWithStreamingResponse(self._client.beta)
+
+    @cached_property
+    def alpha(self) -> alpha.AsyncAlphaResourceWithStreamingResponse:
+        from .resources.alpha import AsyncAlphaResourceWithStreamingResponse
+
+        return AsyncAlphaResourceWithStreamingResponse(self._client.alpha)
 
 
 Client = LlamaCloud

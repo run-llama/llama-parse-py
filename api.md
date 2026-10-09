@@ -728,3 +728,27 @@ Methods:
 - <code title="post /api/v1/beta/split/jobs">client.beta.split.<a href="./src/llama_cloud/resources/beta/split.py">create</a>(\*\*<a href="src/llama_cloud/types/beta/split_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/split_create_response.py">SplitCreateResponse</a></code>
 - <code title="get /api/v1/beta/split/jobs">client.beta.split.<a href="./src/llama_cloud/resources/beta/split.py">list</a>(\*\*<a href="src/llama_cloud/types/beta/split_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/split_list_response.py">SyncPaginatedCursor[SplitListResponse]</a></code>
 - <code title="get /api/v1/beta/split/jobs/{split_job_id}">client.beta.split.<a href="./src/llama_cloud/resources/beta/split.py">get</a>(split_job_id, \*\*<a href="src/llama_cloud/types/beta/split_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/beta/split_get_response.py">SplitGetResponse</a></code>
+
+# Alpha
+
+## Verify
+
+Types:
+
+```python
+from llama_cloud.types.alpha import (
+    VerifyCreateResponse,
+    VerifyListResponse,
+    VerifyCancelResponse,
+    VerifyGetResponse,
+    VerifyGetDetailsResponse,
+)
+```
+
+Methods:
+
+- <code title="post /api/alpha/verify">client.alpha.verify.<a href="./src/llama_cloud/resources/alpha/verify.py">create</a>(\*\*<a href="src/llama_cloud/types/alpha/verify_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/alpha/verify_create_response.py">VerifyCreateResponse</a></code>
+- <code title="get /api/alpha/verify">client.alpha.verify.<a href="./src/llama_cloud/resources/alpha/verify.py">list</a>(\*\*<a href="src/llama_cloud/types/alpha/verify_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/alpha/verify_list_response.py">SyncPaginatedCursor[VerifyListResponse]</a></code>
+- <code title="post /api/alpha/verify/{job_id}/cancel">client.alpha.verify.<a href="./src/llama_cloud/resources/alpha/verify.py">cancel</a>(job_id, \*\*<a href="src/llama_cloud/types/alpha/verify_cancel_params.py">params</a>) -> <a href="./src/llama_cloud/types/alpha/verify_cancel_response.py">VerifyCancelResponse</a></code>
+- <code title="get /api/alpha/verify/{job_id}">client.alpha.verify.<a href="./src/llama_cloud/resources/alpha/verify.py">get</a>(job_id, \*\*<a href="src/llama_cloud/types/alpha/verify_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/alpha/verify_get_response.py">VerifyGetResponse</a></code>
+- <code title="get /api/alpha/verify/{job_id}/details">client.alpha.verify.<a href="./src/llama_cloud/resources/alpha/verify.py">get_details</a>(job_id, \*\*<a href="src/llama_cloud/types/alpha/verify_get_details_params.py">params</a>) -> <a href="./src/llama_cloud/types/alpha/verify_get_details_response.py">VerifyGetDetailsResponse</a></code>
