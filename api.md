@@ -87,6 +87,7 @@ from llama_cloud.types import (
     FormSection,
     FormTable,
     FormTableCellItems,
+    FormText,
     HeaderItem,
     HeadingItem,
     ImageItem,
