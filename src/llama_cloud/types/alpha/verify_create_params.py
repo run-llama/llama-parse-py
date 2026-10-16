@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, List, Iterable, Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
 
@@ -11,18 +11,15 @@ __all__ = ["VerifyCreateParams", "Configuration", "WebhookConfiguration"]
 
 
 class VerifyCreateParams(TypedDict, total=False):
+    file_input: Required[str]
+    """File ID of the document to analyze"""
+
     organization_id: Optional[str]
 
     project_id: Optional[str]
 
     configuration: Optional[Configuration]
     """Configuration for a Verify job."""
-
-    file_id: Optional[str]
-    """Deprecated: use file_input instead"""
-
-    file_input: Optional[str]
-    """File ID of the document to analyze"""
 
     transaction_id: Optional[str]
     """Idempotency key scoped to the project.

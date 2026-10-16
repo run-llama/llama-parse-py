@@ -36,11 +36,11 @@ class Evidence(BaseModel):
     tool: str
     """Tool that produced this evidence"""
 
-    data: Optional[Dict[str, object]] = None
-    """Tool-specific structured payload"""
-
     hard: Optional[bool] = None
     """Whether this is hard (conclusive) evidence"""
+
+    metadata: Optional[Dict[str, object]] = None
+    """Raw values from the tool behind this finding; the shape varies by tool"""
 
 
 class Heatmap(BaseModel):

@@ -332,6 +332,7 @@ class ClassifyResource(SyncAPIResource):
         self,
         job_id: str,
         *,
+        expand: SequenceNotStr[str] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -345,9 +346,12 @@ class ClassifyResource(SyncAPIResource):
         Get a classify job by ID.
 
         Returns the job status, configuration, and classify result when complete. The
-        result includes the matched document type, confidence score, and reasoning.
+        result includes the matched document type, confidence score, and reasoning. Use
+        `expand=usage` for credits billed against the job.
 
         Args:
+          expand: Additional fields to include: usage
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -367,6 +371,7 @@ class ClassifyResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "expand": expand,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },
@@ -849,6 +854,7 @@ class AsyncClassifyResource(AsyncAPIResource):
         self,
         job_id: str,
         *,
+        expand: SequenceNotStr[str] | Omit = omit,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -862,9 +868,12 @@ class AsyncClassifyResource(AsyncAPIResource):
         Get a classify job by ID.
 
         Returns the job status, configuration, and classify result when complete. The
-        result includes the matched document type, confidence score, and reasoning.
+        result includes the matched document type, confidence score, and reasoning. Use
+        `expand=usage` for credits billed against the job.
 
         Args:
+          expand: Additional fields to include: usage
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -884,6 +893,7 @@ class AsyncClassifyResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "expand": expand,
                         "organization_id": organization_id,
                         "project_id": project_id,
                     },

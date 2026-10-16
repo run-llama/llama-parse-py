@@ -49,6 +49,7 @@ from .project import Project as Project
 from .pipeline import Pipeline as Pipeline
 from .code_item import CodeItem as CodeItem
 from .data_sink import DataSink as DataSink
+from .form_text import FormText as FormText
 from .link_item import LinkItem as LinkItem
 from .list_item import ListItem as ListItem
 from .retriever import Retriever as Retriever

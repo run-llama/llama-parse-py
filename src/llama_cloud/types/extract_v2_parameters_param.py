@@ -22,6 +22,12 @@ class ExtractV2ParametersParam(TypedDict, total=False):
     product_type: Required[Literal["extract_v2"]]
     """Product type."""
 
+    advanced_citations: bool
+    """More precise citation bounding boxes.
+
+    Set to false for faster extraction with less precise boxes.
+    """
+
     cite_sources: bool
     """Include citations in results.
 

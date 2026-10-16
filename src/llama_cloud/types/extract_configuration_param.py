@@ -19,6 +19,12 @@ class ExtractConfigurationParam(TypedDict, total=False):
     Validate with the /schema/validate endpoint first.
     """
 
+    advanced_citations: bool
+    """More precise citation bounding boxes.
+
+    Set to false for faster extraction with less precise boxes.
+    """
+
     cite_sources: bool
     """Include citations in results.
 
