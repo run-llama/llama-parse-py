@@ -131,7 +131,9 @@ FormsPage: TypeAlias = Union[FormsPageFormsResultPage, FormsPageFailedFormsPage]
 
 
 class Forms(BaseModel):
-    """Per-page form analysis results (one entry per page)."""
+    """
+    Beta: per-page form analysis results; node types the calling SDK predates are left out.
+    """
 
     pages: List[FormsPage]
     """List of form pages or failed page entries"""
@@ -498,7 +500,10 @@ class ParsingGetResponse(BaseModel):
     """Parse job status and metadata"""
 
     forms: Optional[Forms] = None
-    """Per-page form analysis results (one entry per page)."""
+    """
+    Beta: per-page form analysis results; node types the calling SDK predates are
+    left out.
+    """
 
     images_content_metadata: Optional[ImagesContentMetadata] = None
     """Metadata for all extracted images."""

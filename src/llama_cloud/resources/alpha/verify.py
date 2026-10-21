@@ -59,11 +59,10 @@ class VerifyResource(SyncAPIResource):
     def create(
         self,
         *,
+        file_input: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         configuration: Optional[verify_create_params.Configuration] | Omit = omit,
-        file_id: Optional[str] | Omit = omit,
-        file_input: Optional[str] | Omit = omit,
         transaction_id: Optional[str] | Omit = omit,
         webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[verify_create_params.WebhookConfiguration]] | Omit = omit,
@@ -85,11 +84,9 @@ class VerifyResource(SyncAPIResource):
         check status and retrieve results.
 
         Args:
-          configuration: Configuration for a Verify job.
-
-          file_id: Deprecated: use file_input instead
-
           file_input: File ID of the document to analyze
+
+          configuration: Configuration for a Verify job.
 
           transaction_id: Idempotency key scoped to the project. Reusing a key returns the original job;
               the new request body is ignored.
@@ -110,9 +107,8 @@ class VerifyResource(SyncAPIResource):
             "/api/alpha/verify",
             body=maybe_transform(
                 {
-                    "configuration": configuration,
-                    "file_id": file_id,
                     "file_input": file_input,
+                    "configuration": configuration,
                     "transaction_id": transaction_id,
                     "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,
@@ -386,11 +382,10 @@ class AsyncVerifyResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        file_input: str,
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         configuration: Optional[verify_create_params.Configuration] | Omit = omit,
-        file_id: Optional[str] | Omit = omit,
-        file_input: Optional[str] | Omit = omit,
         transaction_id: Optional[str] | Omit = omit,
         webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[verify_create_params.WebhookConfiguration]] | Omit = omit,
@@ -412,11 +407,9 @@ class AsyncVerifyResource(AsyncAPIResource):
         check status and retrieve results.
 
         Args:
-          configuration: Configuration for a Verify job.
-
-          file_id: Deprecated: use file_input instead
-
           file_input: File ID of the document to analyze
+
+          configuration: Configuration for a Verify job.
 
           transaction_id: Idempotency key scoped to the project. Reusing a key returns the original job;
               the new request body is ignored.
@@ -437,9 +430,8 @@ class AsyncVerifyResource(AsyncAPIResource):
             "/api/alpha/verify",
             body=await async_maybe_transform(
                 {
-                    "configuration": configuration,
-                    "file_id": file_id,
                     "file_input": file_input,
+                    "configuration": configuration,
                     "transaction_id": transaction_id,
                     "webhook_configuration_ids": webhook_configuration_ids,
                     "webhook_configurations": webhook_configurations,

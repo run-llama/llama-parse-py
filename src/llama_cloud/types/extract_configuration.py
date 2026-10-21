@@ -17,6 +17,12 @@ class ExtractConfiguration(BaseModel):
     Validate with the /schema/validate endpoint first.
     """
 
+    advanced_citations: Optional[bool] = None
+    """More precise citation bounding boxes.
+
+    Set to false for faster extraction with less precise boxes.
+    """
+
     cite_sources: Optional[bool] = None
     """Include citations in results.
 

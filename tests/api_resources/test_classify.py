@@ -252,6 +252,7 @@ class TestClassify:
     def test_method_get_with_all_params(self, client: LlamaCloud) -> None:
         classify = client.classify.get(
             job_id="job_id",
+            expand=["string"],
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -524,6 +525,7 @@ class TestAsyncClassify:
     async def test_method_get_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         classify = await async_client.classify.get(
             job_id="job_id",
+            expand=["string"],
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )

@@ -20,6 +20,12 @@ class ExtractV2Parameters(BaseModel):
     product_type: Literal["extract_v2"]
     """Product type."""
 
+    advanced_citations: Optional[bool] = None
+    """More precise citation bounding boxes.
+
+    Set to false for faster extraction with less precise boxes.
+    """
+
     cite_sources: Optional[bool] = None
     """Include citations in results.
 

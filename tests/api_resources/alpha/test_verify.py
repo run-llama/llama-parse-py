@@ -28,21 +28,22 @@ class TestVerify:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: LlamaCloud) -> None:
-        verify = client.alpha.verify.create()
+        verify = client.alpha.verify.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        )
         assert_matches_type(VerifyCreateResponse, verify, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: LlamaCloud) -> None:
         verify = client.alpha.verify.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             configuration={
                 "target_pages": "1,3,5-7",
                 "tier": "agentic",
             },
-            file_id="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
             webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
@@ -60,7 +61,9 @@ class TestVerify:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: LlamaCloud) -> None:
-        response = client.alpha.verify.with_raw_response.create()
+        response = client.alpha.verify.with_raw_response.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -70,7 +73,9 @@ class TestVerify:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: LlamaCloud) -> None:
-        with client.alpha.verify.with_streaming_response.create() as response:
+        with client.alpha.verify.with_streaming_response.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -289,21 +294,22 @@ class TestAsyncVerify:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncLlamaCloud) -> None:
-        verify = await async_client.alpha.verify.create()
+        verify = await async_client.alpha.verify.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        )
         assert_matches_type(VerifyCreateResponse, verify, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         verify = await async_client.alpha.verify.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             configuration={
                 "target_pages": "1,3,5-7",
                 "tier": "agentic",
             },
-            file_id="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
             transaction_id="tx-unique-idempotency-key",
             webhook_configuration_ids=["whc-...", "whc-..."],
             webhook_configurations=[
@@ -321,7 +327,9 @@ class TestAsyncVerify:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncLlamaCloud) -> None:
-        response = await async_client.alpha.verify.with_raw_response.create()
+        response = await async_client.alpha.verify.with_raw_response.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -331,7 +339,9 @@ class TestAsyncVerify:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncLlamaCloud) -> None:
-        async with async_client.alpha.verify.with_streaming_response.create() as response:
+        async with async_client.alpha.verify.with_streaming_response.create(
+            file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

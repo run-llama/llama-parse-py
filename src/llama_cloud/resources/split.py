@@ -221,8 +221,10 @@ class SplitResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
-        Delete a split job and its results.
+        """Delete a split job and its results.
+
+        A job that is not in a terminal state is
+        refused with 409; cancel it first.
 
         Args:
           extra_headers: Send extra headers
@@ -541,8 +543,10 @@ class AsyncSplitResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
-        """
-        Delete a split job and its results.
+        """Delete a split job and its results.
+
+        A job that is not in a terminal state is
+        refused with 409; cancel it first.
 
         Args:
           extra_headers: Send extra headers

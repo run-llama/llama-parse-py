@@ -8,7 +8,22 @@ from .._models import BaseModel
 from .classify_result import ClassifyResult
 from .classify_configuration import ClassifyConfiguration
 
-__all__ = ["ClassifyGetResponse"]
+__all__ = ["ClassifyGetResponse", "Usage"]
+
+
+class Usage(BaseModel):
+    """Usage recorded against a classify job.
+
+    Classify bills through the parse job it runs on a file input, so that parse
+    job's credits are the whole total. A job run on a parse job you created bills
+    nothing of its own: ``parse_credits`` is null and ``credits`` is 0.
+    """
+
+    credits: Optional[float] = None
+    """Total credits billed against this job. Null until billing has recorded it."""
+
+    parse_credits: Optional[float] = None
+    """Credits billed against the parse job Classify ran on the input file"""
 
 
 class ClassifyGetResponse(BaseModel):
@@ -55,3 +70,11 @@ class ClassifyGetResponse(BaseModel):
 
     updated_at: Optional[datetime] = None
     """Update datetime"""
+
+    usage: Optional[Usage] = None
+    """Usage recorded against a classify job.
+
+    Classify bills through the parse job it runs on a file input, so that parse
+    job's credits are the whole total. A job run on a parse job you created bills
+    nothing of its own: `parse_credits` is null and `credits` is 0.
+    """
