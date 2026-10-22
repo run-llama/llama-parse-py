@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.19.0](https://github.com/run-llama/llama-parse-py/compare/v2.18.0...v2.19.0) (2026-10-21)
+
+
+### Features
+
+* **classify:** add expand=usage to GET /api/v2/classify/{job_id} ([#29577](https://github.com/run-llama/llama-parse-py/issues/29577)) ([235ebc3](https://github.com/run-llama/llama-parse-py/commit/235ebc376f65dd9085a1067ece5608842de1d54a))
+
+
+### Bug Fixes
+
+* **parse:** apply watermark and wrapped-word rules to Lite fallbacks ([#30128](https://github.com/run-llama/llama-parse-py/issues/30128)) ([b534870](https://github.com/run-llama/llama-parse-py/commit/b534870e6237ea77263da734127cc0516eaf47ef))
+* **sdk:** one FormText model for the forms text node (PROD-10339) ([f288591](https://github.com/run-llama/llama-parse-py/commit/f288591ec3269e626e593e52a9d0980eaf69ffab))
+* **split:** refuse to delete a non-terminal job ([#29785](https://github.com/run-llama/llama-parse-py/issues/29785)) ([415f09f](https://github.com/run-llama/llama-parse-py/commit/415f09f63e26055c70e36fa230118e98fb3632eb))
+
 ## [2.18.0](https://github.com/run-llama/llama-parse-py/compare/v2.17.0...v2.18.0) (2026-10-09)
 
 
