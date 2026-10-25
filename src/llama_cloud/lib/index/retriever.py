@@ -155,9 +155,9 @@ class LlamaCloudRetriever(BaseRetriever):
         results = self._client.pipelines.retrieve(
             pipeline_id=self.pipeline.id,
             query=query_bundle.query_str,
-            alpha=self._alpha or omit,
+            alpha=self._alpha if self._alpha is not None else omit,
             dense_similarity_top_k=self._dense_similarity_top_k or omit,
-            enable_reranking=self._enable_reranking or omit,
+            enable_reranking=self._enable_reranking if self._enable_reranking is not None else omit,
             files_top_k=self._files_top_k or omit,
             rerank_top_n=self._rerank_top_n or omit,
             retrieval_mode=self._retrieval_mode or "chunks",  # type: ignore
@@ -200,9 +200,9 @@ class LlamaCloudRetriever(BaseRetriever):
         results = await self._aclient.pipelines.retrieve(
             pipeline_id=self.pipeline.id,
             query=query_bundle.query_str,
-            alpha=self._alpha or omit,
+            alpha=self._alpha if self._alpha is not None else omit,
             dense_similarity_top_k=self._dense_similarity_top_k or omit,
-            enable_reranking=self._enable_reranking or omit,
+            enable_reranking=self._enable_reranking if self._enable_reranking is not None else omit,
             files_top_k=self._files_top_k or omit,
             rerank_top_n=self._rerank_top_n or omit,
             retrieval_mode=self._retrieval_mode or "chunks",  # type: ignore
