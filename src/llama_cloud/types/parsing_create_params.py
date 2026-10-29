@@ -149,9 +149,9 @@ class ParsingCreateParams(TypedDict, total=False):
     """IDs of saved webhook configurations to notify for this job."""
 
     webhook_configurations: Iterable[WebhookConfiguration]
-    """Webhook endpoints for job status notifications.
+    """Webhook endpoints for job notifications.
 
-    Multiple webhooks can be configured for different events or services
+    Maximum 10 total, including webhook_configuration_ids.
     """
 
 

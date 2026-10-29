@@ -177,8 +177,8 @@ class ParsingResource(SyncAPIResource):
 
           webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
-          webhook_configurations: Webhook endpoints for job status notifications. Multiple webhooks can be
-              configured for different events or services
+          webhook_configurations: Webhook endpoints for job notifications. Maximum 10 total, including
+              webhook_configuration_ids.
 
           extra_headers: Send extra headers
 
@@ -981,8 +981,8 @@ class AsyncParsingResource(AsyncAPIResource):
 
           webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
-          webhook_configurations: Webhook endpoints for job status notifications. Multiple webhooks can be
-              configured for different events or services
+          webhook_configurations: Webhook endpoints for job notifications. Maximum 10 total, including
+              webhook_configuration_ids.
 
           extra_headers: Send extra headers
 
