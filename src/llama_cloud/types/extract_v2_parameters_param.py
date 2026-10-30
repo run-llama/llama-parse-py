@@ -44,6 +44,13 @@ class ExtractV2ParametersParam(TypedDict, total=False):
     disable_cache: bool
     """Disable reuse and storage of Extract results"""
 
+    effort: Optional[Literal["max"]]
+    """Use 'max' for additional processing effort on agentic_plus.
+
+    Bills by model usage with the page charge as a minimum. Omit or set to null for
+    the tier's default behavior.
+    """
+
     extraction_target: Literal["per_doc", "per_page", "per_table_row"]
     """Deprecated.
 
