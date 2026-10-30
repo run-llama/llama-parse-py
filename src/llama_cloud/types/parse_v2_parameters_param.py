@@ -523,7 +523,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-10-16", "2026-09-28", "2026-06-15"], str, None]
+    version: Union[Literal["latest", "2026-10-28", "2026-10-16", "2026-09-28", "2026-06-15"], str, None]
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -534,7 +534,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     - `fast`: `2026-06-15`
     - `cost_effective`: `2026-09-28`
     - `agentic`: `2026-10-16`
-    - `agentic_plus`: `2026-09-28`
+    - `agentic_plus`: `2026-10-28`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -834,7 +834,7 @@ class ParseV2ParametersParam(TypedDict, total=False):
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-10-16", "2026-09-28", "2026-06-15"], str]]
+    version: Required[Union[Literal["latest", "2026-10-28", "2026-10-16", "2026-09-28", "2026-06-15"], str]]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
@@ -844,7 +844,7 @@ class ParseV2ParametersParam(TypedDict, total=False):
     - `fast`: `2026-06-15`
     - `cost_effective`: `2026-09-28`
     - `agentic`: `2026-10-16`
-    - `agentic_plus`: `2026-09-28`
+    - `agentic_plus`: `2026-10-28`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -905,7 +905,7 @@ class ParseV2ParametersParam(TypedDict, total=False):
     """IDs of saved webhook configurations to notify for this job."""
 
     webhook_configurations: Iterable[WebhookConfiguration]
-    """Webhook endpoints for job status notifications.
+    """Webhook endpoints for job notifications.
 
-    Multiple webhooks can be configured for different events or services
+    Maximum 10 total, including webhook_configuration_ids.
     """

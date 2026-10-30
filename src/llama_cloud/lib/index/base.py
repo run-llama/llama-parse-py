@@ -506,8 +506,10 @@ class LlamaCloudIndex(BaseManagedIndex):
         if verbose:
             print(f"Created pipeline {pipeline.id} with name {pipeline.name}")
 
+        # Open by id: the pipeline is already in hand, and a name lookup would
+        # list the project and read the pipeline again for nothing.
         return cls(
-            name,
+            pipeline_id=pipeline.id,
             project_id=project_id,
             api_key=api_key,
             base_url=base_url,
@@ -566,8 +568,10 @@ class LlamaCloudIndex(BaseManagedIndex):
         if verbose:
             print(f"Created pipeline {pipeline.id} with name {pipeline.name}")
 
+        # Open by id: the pipeline is already in hand, and a name lookup would
+        # list the project and read the pipeline again for nothing.
         return cls(
-            name,
+            pipeline_id=pipeline.id,
             project_id=project_id,
             api_key=api_key,
             base_url=base_url,
