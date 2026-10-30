@@ -78,14 +78,10 @@ class ExtractV2Parameters(BaseModel):
     """
 
     spreadsheet_mode: Optional[bool] = None
-    """Beta.
+    """Extract structured data directly from spreadsheet cells (.xlsx/.xls/.csv).
 
-    When true, extract structured data directly from a spreadsheet workbook
-    (.xlsx/.xls/.csv) — the agent reads cells straight from the workbook instead of
-    the standard document path. Off by default (spreadsheets keep the standard
-    path). Requires the agentic_plus tier. Billed on the standard per-page extract
-    rate, against a page count derived from workbook size. Citations and confidence
-    scores are not available in this mode.
+    Billed at the standard per-page Extract rate, with page count derived from
+    workbook size.
     """
 
     system_prompt: Optional[str] = None
