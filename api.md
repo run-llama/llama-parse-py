@@ -344,6 +344,7 @@ from llama_cloud.types import (
     PageScreenshotNodeWithScore,
     Pipeline,
     PipelineCreate,
+    PipelineListItem,
     PipelineMetadataConfig,
     PipelineType,
     PresetRetrievalParams,
