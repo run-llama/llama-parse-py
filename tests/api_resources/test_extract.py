@@ -125,6 +125,7 @@ class TestExtract:
             page_size=1,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            review_status="approved",
             status="CANCELLED",
         )
         assert_matches_type(SyncPaginatedCursor[ExtractV2Job], extract, path=["response"])
@@ -519,6 +520,7 @@ class TestAsyncExtract:
             page_size=1,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            review_status="approved",
             status="CANCELLED",
         )
         assert_matches_type(AsyncPaginatedCursor[ExtractV2Job], extract, path=["response"])

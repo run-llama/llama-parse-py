@@ -163,6 +163,7 @@ class ExtractResource(SyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        review_status: Optional[Literal["approved", "none", "pending", "rejected"]] | Omit = omit,
         status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -174,9 +175,12 @@ class ExtractResource(SyncAPIResource):
         """
         List extraction jobs with optional filtering and pagination.
 
-        Filter by `configuration_id`, `status`, `file_input`, or creation date range.
-        Results are returned newest-first. Use `expand=configuration` to include the
-        full configuration used, and `expand=extract_metadata` for per-field metadata.
+        Filter by `configuration_id`, `status`, `file_input`, `review_status`, or
+        creation date range. Results are returned newest-first. `review_status=pending`
+        lists completed jobs waiting for review, unless `status` names another. A review
+        stays pending when its job fails or is cancelled, so pass that `status` to list
+        those. Use `expand=configuration` to include the full configuration used, and
+        `expand=extract_metadata` for per-field metadata.
 
         Args:
           configuration_id: Filter by configuration ID
@@ -198,6 +202,8 @@ class ExtractResource(SyncAPIResource):
           page_size: Number of items per page
 
           page_token: Token for pagination
+
+          review_status: Filter by review status; none is a job without a review
 
           status: Filter by status
 
@@ -231,6 +237,7 @@ class ExtractResource(SyncAPIResource):
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "review_status": review_status,
                         "status": status,
                     },
                     extract_list_params.ExtractListParams,
@@ -789,6 +796,7 @@ class AsyncExtractResource(AsyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        review_status: Optional[Literal["approved", "none", "pending", "rejected"]] | Omit = omit,
         status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -800,9 +808,12 @@ class AsyncExtractResource(AsyncAPIResource):
         """
         List extraction jobs with optional filtering and pagination.
 
-        Filter by `configuration_id`, `status`, `file_input`, or creation date range.
-        Results are returned newest-first. Use `expand=configuration` to include the
-        full configuration used, and `expand=extract_metadata` for per-field metadata.
+        Filter by `configuration_id`, `status`, `file_input`, `review_status`, or
+        creation date range. Results are returned newest-first. `review_status=pending`
+        lists completed jobs waiting for review, unless `status` names another. A review
+        stays pending when its job fails or is cancelled, so pass that `status` to list
+        those. Use `expand=configuration` to include the full configuration used, and
+        `expand=extract_metadata` for per-field metadata.
 
         Args:
           configuration_id: Filter by configuration ID
@@ -824,6 +835,8 @@ class AsyncExtractResource(AsyncAPIResource):
           page_size: Number of items per page
 
           page_token: Token for pagination
+
+          review_status: Filter by review status; none is a job without a review
 
           status: Filter by status
 
@@ -857,6 +870,7 @@ class AsyncExtractResource(AsyncAPIResource):
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "review_status": review_status,
                         "status": status,
                     },
                     extract_list_params.ExtractListParams,

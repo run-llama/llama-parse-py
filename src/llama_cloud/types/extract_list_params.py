@@ -47,5 +47,8 @@ class ExtractListParams(TypedDict, total=False):
 
     project_id: Optional[str]
 
+    review_status: Optional[Literal["approved", "none", "pending", "rejected"]]
+    """Filter by review status; none is a job without a review"""
+
     status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]]
     """Filter by status"""
