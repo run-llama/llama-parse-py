@@ -297,17 +297,18 @@ class OutputOptions(BaseModel):
     10', 'v', 'A-3'). Useful for referencing original page numbers
     """
 
-    granular_bboxes: Optional[List[Literal["cell", "line", "word"]]] = None
+    granular_bboxes: Optional[List[Literal["cell", "char", "line", "word"]]] = None
     """Bounding-box granularity levels to compute for the parse.
 
     'word' computes one bounding box per detected word; 'line' computes one per text
-    line; 'cell' computes one per table cell. Multiple levels can be requested.
-    Empty list (default) disables granular bboxes — only item-level layout boxes are
-    returned on the result. When set, the computed boxes are not inlined on the
-    result items; they are written to a separate `grounded_items` sidecar (JSONL,
-    one row per page) and exposed as `result_content_metadata.grounded_items` (a
-    presigned download URL) on the parse result. Each row matches the
-    `GroundedJsonItem` shape.
+    line; 'cell' computes one per table cell; 'char' adds one box per character
+    inside each grounded word (`chars` on each word), available on the
+    `agentic_plus` tier only. Multiple levels can be requested. Empty list (default)
+    disables granular bboxes — only item-level layout boxes are returned on the
+    result. When set, the computed boxes are not inlined on the result items; they
+    are written to a separate `grounded_items` sidecar (JSONL, one row per page) and
+    exposed as `result_content_metadata.grounded_items` (a presigned download URL)
+    on the parse result. Each row matches the `GroundedJsonItem` shape.
     """
 
     images_to_save: Optional[List[Literal["embedded", "layout", "screenshot"]]] = None
