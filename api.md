@@ -139,13 +139,31 @@ from llama_cloud.types import (
 
 Methods:
 
-- <code title="post /api/v2/extract">client.extract.<a href="./src/llama_cloud/resources/extract.py">create</a>(\*\*<a href="src/llama_cloud/types/extract_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_job.py">ExtractV2Job</a></code>
-- <code title="get /api/v2/extract">client.extract.<a href="./src/llama_cloud/resources/extract.py">list</a>(\*\*<a href="src/llama_cloud/types/extract_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_job.py">SyncPaginatedCursor[ExtractV2Job]</a></code>
-- <code title="delete /api/v2/extract/{job_id}">client.extract.<a href="./src/llama_cloud/resources/extract.py">delete</a>(job_id, \*\*<a href="src/llama_cloud/types/extract_delete_params.py">params</a>) -> object</code>
-- <code title="post /api/v2/extract/{job_id}/cancel">client.extract.<a href="./src/llama_cloud/resources/extract.py">cancel</a>(job_id, \*\*<a href="src/llama_cloud/types/extract_cancel_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_job.py">ExtractV2Job</a></code>
-- <code title="post /api/v2/extract/schema/generate">client.extract.<a href="./src/llama_cloud/resources/extract.py">generate_schema</a>(\*\*<a href="src/llama_cloud/types/extract_generate_schema_params.py">params</a>) -> <a href="./src/llama_cloud/types/configuration_create.py">ConfigurationCreate</a></code>
-- <code title="get /api/v2/extract/{job_id}">client.extract.<a href="./src/llama_cloud/resources/extract.py">get</a>(job_id, \*\*<a href="src/llama_cloud/types/extract_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_job.py">ExtractV2Job</a></code>
-- <code title="post /api/v2/extract/schema/validation">client.extract.<a href="./src/llama_cloud/resources/extract.py">validate_schema</a>(\*\*<a href="src/llama_cloud/types/extract_validate_schema_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_schema_validate_response.py">ExtractV2SchemaValidateResponse</a></code>
+- <code title="post /api/v2/extract">client.extract.<a href="./src/llama_cloud/resources/extract/extract.py">create</a>(\*\*<a href="src/llama_cloud/types/extract_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_job.py">ExtractV2Job</a></code>
+- <code title="get /api/v2/extract">client.extract.<a href="./src/llama_cloud/resources/extract/extract.py">list</a>(\*\*<a href="src/llama_cloud/types/extract_list_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_job.py">SyncPaginatedCursor[ExtractV2Job]</a></code>
+- <code title="delete /api/v2/extract/{job_id}">client.extract.<a href="./src/llama_cloud/resources/extract/extract.py">delete</a>(job_id, \*\*<a href="src/llama_cloud/types/extract_delete_params.py">params</a>) -> object</code>
+- <code title="post /api/v2/extract/{job_id}/cancel">client.extract.<a href="./src/llama_cloud/resources/extract/extract.py">cancel</a>(job_id, \*\*<a href="src/llama_cloud/types/extract_cancel_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_job.py">ExtractV2Job</a></code>
+- <code title="post /api/v2/extract/schema/generate">client.extract.<a href="./src/llama_cloud/resources/extract/extract.py">generate_schema</a>(\*\*<a href="src/llama_cloud/types/extract_generate_schema_params.py">params</a>) -> <a href="./src/llama_cloud/types/configuration_create.py">ConfigurationCreate</a></code>
+- <code title="get /api/v2/extract/{job_id}">client.extract.<a href="./src/llama_cloud/resources/extract/extract.py">get</a>(job_id, \*\*<a href="src/llama_cloud/types/extract_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_job.py">ExtractV2Job</a></code>
+- <code title="post /api/v2/extract/schema/validation">client.extract.<a href="./src/llama_cloud/resources/extract/extract.py">validate_schema</a>(\*\*<a href="src/llama_cloud/types/extract_validate_schema_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract_v2_schema_validate_response.py">ExtractV2SchemaValidateResponse</a></code>
+
+## Review
+
+Types:
+
+```python
+from llama_cloud.types.extract import ExtractReview, ExtractReviewEvent
+```
+
+Methods:
+
+- <code title="post /api/v2/extract/{job_id}/review">client.extract.review.<a href="./src/llama_cloud/resources/extract/review.py">create</a>(job_id, \*\*<a href="src/llama_cloud/types/extract/review_create_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract/extract_review.py">ExtractReview</a></code>
+- <code title="post /api/v2/extract/{job_id}/review/approve">client.extract.review.<a href="./src/llama_cloud/resources/extract/review.py">approve</a>(job_id, \*\*<a href="src/llama_cloud/types/extract/review_approve_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract/extract_review.py">ExtractReview</a></code>
+- <code title="post /api/v2/extract/{job_id}/review/fields">client.extract.review.<a href="./src/llama_cloud/resources/extract/review.py">change_fields</a>(job_id, \*\*<a href="src/llama_cloud/types/extract/review_change_fields_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract/extract_review.py">ExtractReview</a></code>
+- <code title="get /api/v2/extract/{job_id}/review">client.extract.review.<a href="./src/llama_cloud/resources/extract/review.py">get</a>(job_id, \*\*<a href="src/llama_cloud/types/extract/review_get_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract/extract_review.py">ExtractReview</a></code>
+- <code title="get /api/v2/extract/{job_id}/review/events">client.extract.review.<a href="./src/llama_cloud/resources/extract/review.py">list_events</a>(job_id, \*\*<a href="src/llama_cloud/types/extract/review_list_events_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract/extract_review_event.py">SyncPaginatedCursor[ExtractReviewEvent]</a></code>
+- <code title="post /api/v2/extract/{job_id}/review/reject">client.extract.review.<a href="./src/llama_cloud/resources/extract/review.py">reject</a>(job_id, \*\*<a href="src/llama_cloud/types/extract/review_reject_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract/extract_review.py">ExtractReview</a></code>
+- <code title="post /api/v2/extract/{job_id}/review/reopen">client.extract.review.<a href="./src/llama_cloud/resources/extract/review.py">reopen</a>(job_id, \*\*<a href="src/llama_cloud/types/extract/review_reopen_params.py">params</a>) -> <a href="./src/llama_cloud/types/extract/extract_review.py">ExtractReview</a></code>
 
 # Classifier
 
