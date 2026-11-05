@@ -777,10 +777,12 @@ class ProcessingOptions(TypedDict, total=False):
 
 
 class WebhookConfiguration(TypedDict, total=False):
-    """Webhook configuration for receiving parsing job notifications.
+    """A webhook endpoint kept in a saved Parse configuration."""
 
-    Webhooks are called when specified events occur during job processing.
-    Configure multiple webhook configurations to send to different endpoints.
+    id: Optional[str]
+    """Webhook ID, set by the server.
+
+    Send it back unchanged so a masked credential keeps this webhook's saved value.
     """
 
     webhook_events: Optional[SequenceNotStr[str]]

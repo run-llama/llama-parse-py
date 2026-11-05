@@ -194,6 +194,7 @@ class TestPipelines:
                     "version": "version",
                     "webhook_configurations": [
                         {
+                            "id": "cwh-8f3k2m9q1x7v4b6n0p5r2t8y1w3z6",
                             "webhook_events": ["parse.success", "parse.error"],
                             "webhook_headers": {"Authorization": "Bearer sk-..."},
                             "webhook_output_format": "json",
@@ -530,6 +531,7 @@ class TestPipelines:
                     "version": "version",
                     "webhook_configurations": [
                         {
+                            "id": "cwh-8f3k2m9q1x7v4b6n0p5r2t8y1w3z6",
                             "webhook_events": ["parse.success", "parse.error"],
                             "webhook_headers": {"Authorization": "Bearer sk-..."},
                             "webhook_output_format": "json",
@@ -1051,6 +1053,7 @@ class TestPipelines:
                     "version": "version",
                     "webhook_configurations": [
                         {
+                            "id": "cwh-8f3k2m9q1x7v4b6n0p5r2t8y1w3z6",
                             "webhook_events": ["parse.success", "parse.error"],
                             "webhook_headers": {"Authorization": "Bearer sk-..."},
                             "webhook_output_format": "json",
@@ -1307,6 +1310,7 @@ class TestAsyncPipelines:
                     "version": "version",
                     "webhook_configurations": [
                         {
+                            "id": "cwh-8f3k2m9q1x7v4b6n0p5r2t8y1w3z6",
                             "webhook_events": ["parse.success", "parse.error"],
                             "webhook_headers": {"Authorization": "Bearer sk-..."},
                             "webhook_output_format": "json",
@@ -1643,6 +1647,7 @@ class TestAsyncPipelines:
                     "version": "version",
                     "webhook_configurations": [
                         {
+                            "id": "cwh-8f3k2m9q1x7v4b6n0p5r2t8y1w3z6",
                             "webhook_events": ["parse.success", "parse.error"],
                             "webhook_headers": {"Authorization": "Bearer sk-..."},
                             "webhook_output_format": "json",
@@ -2164,6 +2169,7 @@ class TestAsyncPipelines:
                     "version": "version",
                     "webhook_configurations": [
                         {
+                            "id": "cwh-8f3k2m9q1x7v4b6n0p5r2t8y1w3z6",
                             "webhook_events": ["parse.success", "parse.error"],
                             "webhook_headers": {"Authorization": "Bearer sk-..."},
                             "webhook_output_format": "json",

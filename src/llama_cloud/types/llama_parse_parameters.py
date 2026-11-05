@@ -14,7 +14,13 @@ __all__ = ["LlamaParseParameters", "WebhookConfiguration"]
 
 
 class WebhookConfiguration(BaseModel):
-    """Configuration for a single outbound webhook endpoint."""
+    """A webhook endpoint kept in a saved configuration or pipeline."""
+
+    id: Optional[str] = None
+    """Webhook ID, set by the server.
+
+    Send it back unchanged so a masked credential keeps this webhook's saved value.
+    """
 
     webhook_events: Optional[
         List[
