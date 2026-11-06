@@ -61,7 +61,6 @@ if TYPE_CHECKING:
     from .resources.files import FilesResource, AsyncFilesResource
     from .resources.split import SplitResource, AsyncSplitResource
     from .resources.batches import BatchesResource, AsyncBatchesResource
-    from .resources.extract import ExtractResource, AsyncExtractResource
     from .resources.indexes import IndexesResource, AsyncIndexesResource
     from .resources.parsing import ParsingResource, AsyncParsingResource
     from .resources.classify import ClassifyResource, AsyncClassifyResource
@@ -73,6 +72,7 @@ if TYPE_CHECKING:
     from .resources.v2_projects import V2ProjectsResource, AsyncV2ProjectsResource
     from .resources.data_sources import DataSourcesResource, AsyncDataSourcesResource
     from .resources.configurations import ConfigurationsResource, AsyncConfigurationsResource
+    from .resources.extract.extract import ExtractResource, AsyncExtractResource
     from .resources.webhook_configs import WebhookConfigsResource, AsyncWebhookConfigsResource
     from .resources.extraction_agents import ExtractionAgentsResource, AsyncExtractionAgentsResource
     from .resources.pipelines.pipelines import PipelinesResource, AsyncPipelinesResource

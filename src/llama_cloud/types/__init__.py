@@ -14,6 +14,7 @@ from . import (
     form_section,
     form_list_item,
     metadata_filters,
+    pipeline_list_item,
     retriever_pipeline,
     parsing_get_response,
     form_table_cell_items,
@@ -102,6 +103,7 @@ from .file_delete_params import FileDeleteParams as FileDeleteParams
 from .file_list_response import FileListResponse as FileListResponse
 from .index_get_response import IndexGetResponse as IndexGetResponse
 from .parsing_get_params import ParsingGetParams as ParsingGetParams
+from .pipeline_list_item import PipelineListItem as PipelineListItem
 from .project_get_params import ProjectGetParams as ProjectGetParams
 from .retriever_pipeline import RetrieverPipeline as RetrieverPipeline
 from .split_get_response import SplitGetResponse as SplitGetResponse
@@ -314,6 +316,7 @@ if _compat.PYDANTIC_V1:
     parsing_get_response.ParsingGetResponse.update_forward_refs()  # type: ignore
     metadata_filters.MetadataFilters.update_forward_refs()  # type: ignore
     pipeline.Pipeline.update_forward_refs()  # type: ignore
+    pipeline_list_item.PipelineListItem.update_forward_refs()  # type: ignore
     preset_retrieval_params.PresetRetrievalParams.update_forward_refs()  # type: ignore
     pipeline_retrieve_response.PipelineRetrieveResponse.update_forward_refs()  # type: ignore
     retriever.Retriever.update_forward_refs()  # type: ignore
@@ -331,6 +334,7 @@ else:
     parsing_get_response.ParsingGetResponse.model_rebuild(_parent_namespace_depth=0)
     metadata_filters.MetadataFilters.model_rebuild(_parent_namespace_depth=0)
     pipeline.Pipeline.model_rebuild(_parent_namespace_depth=0)
+    pipeline_list_item.PipelineListItem.model_rebuild(_parent_namespace_depth=0)
     preset_retrieval_params.PresetRetrievalParams.model_rebuild(_parent_namespace_depth=0)
     pipeline_retrieve_response.PipelineRetrieveResponse.model_rebuild(_parent_namespace_depth=0)
     retriever.Retriever.model_rebuild(_parent_namespace_depth=0)

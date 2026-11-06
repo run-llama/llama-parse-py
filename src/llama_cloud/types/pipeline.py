@@ -79,10 +79,10 @@ class ConfigHash(BaseModel):
     """Hashes for the configuration of a pipeline."""
 
     embedding_config_hash: Optional[str] = None
-    """Hash of the embedding config."""
+    """Hash of the embedding config. Null in API responses."""
 
     parsing_config_hash: Optional[str] = None
-    """Hash of the llama parse parameters."""
+    """Hash of the llama parse parameters. Null in API responses."""
 
     transform_config_hash: Optional[str] = None
     """Hash of the transform config."""

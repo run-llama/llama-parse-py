@@ -8,7 +8,15 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
+from .review import (
+    ReviewResource,
+    AsyncReviewResource,
+    ReviewResourceWithRawResponse,
+    AsyncReviewResourceWithRawResponse,
+    ReviewResourceWithStreamingResponse,
+    AsyncReviewResourceWithStreamingResponse,
+)
+from ...types import (
     extract_get_params,
     extract_list_params,
     extract_cancel_params,
@@ -17,33 +25,31 @@ from ..types import (
     extract_generate_schema_params,
     extract_validate_schema_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._polling import (
-    DEFAULT_TIMEOUT,
-    BackoffStrategy,
-    poll_until_complete,
-    poll_until_complete_async,
-)
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.extract_v2_job import ExtractV2Job
-from ..types.configuration_create import ConfigurationCreate
-from ..types.extract_configuration_param import ExtractConfigurationParam
-from ..types.extract_v2_schema_validate_response import ExtractV2SchemaValidateResponse
+from ...pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.extract_v2_job import ExtractV2Job
+from ...types.configuration_create import ConfigurationCreate
+from ...types.extract_configuration_param import ExtractConfigurationParam
+from ...types.extract_v2_schema_validate_response import ExtractV2SchemaValidateResponse
 
 __all__ = ["ExtractResource", "AsyncExtractResource"]
 
 
 class ExtractResource(SyncAPIResource):
+    @cached_property
+    def review(self) -> ReviewResource:
+        return ReviewResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> ExtractResourceWithRawResponse:
         """
@@ -163,6 +169,7 @@ class ExtractResource(SyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        review_status: Optional[Literal["approved", "none", "pending", "rejected"]] | Omit = omit,
         status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -174,9 +181,12 @@ class ExtractResource(SyncAPIResource):
         """
         List extraction jobs with optional filtering and pagination.
 
-        Filter by `configuration_id`, `status`, `file_input`, or creation date range.
-        Results are returned newest-first. Use `expand=configuration` to include the
-        full configuration used, and `expand=extract_metadata` for per-field metadata.
+        Filter by `configuration_id`, `status`, `file_input`, `review_status`, or
+        creation date range. Results are returned newest-first. `review_status=pending`
+        lists completed jobs waiting for review, unless `status` names another. A review
+        stays pending when its job fails or is cancelled, so pass that `status` to list
+        those. Use `expand=configuration` to include the full configuration used, and
+        `expand=extract_metadata` for per-field metadata.
 
         Args:
           configuration_id: Filter by configuration ID
@@ -198,6 +208,8 @@ class ExtractResource(SyncAPIResource):
           page_size: Number of items per page
 
           page_token: Token for pagination
+
+          review_status: Filter by review status; none is a job without a review
 
           status: Filter by status
 
@@ -231,6 +243,7 @@ class ExtractResource(SyncAPIResource):
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "review_status": review_status,
                         "status": status,
                     },
                     extract_list_params.ExtractListParams,
@@ -489,187 +502,12 @@ class ExtractResource(SyncAPIResource):
             cast_to=ExtractV2SchemaValidateResponse,
         )
 
-    def wait_for_completion(
-        self,
-        job_id: str,
-        *,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        polling_interval: float = 1.0,
-        max_interval: float = 5.0,
-        timeout: float = DEFAULT_TIMEOUT,
-        backoff: BackoffStrategy = "linear",
-        verbose: bool = False,
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-    ) -> ExtractV2Job:
-        """
-        Wait for an extraction job to complete by polling until it reaches a terminal state.
-
-        Args:
-            job_id: The ID of the extraction job to wait for
-
-            organization_id: Optional organization ID
-
-            project_id: Optional project ID
-
-            polling_interval: Initial polling interval in seconds (default: 1.0)
-
-            max_interval: Maximum polling interval for backoff in seconds (default: 5.0)
-
-            timeout: Maximum time to wait in seconds (default: 2 hours)
-
-            backoff: Backoff strategy: "constant", "linear" (default), or "exponential"
-
-            verbose: Print progress indicators every 10 polls (default: False)
-
-            extra_headers: Send extra headers
-
-            extra_query: Add additional query parameters to the request
-
-            extra_body: Add additional JSON properties to the request
-
-        Returns:
-            The completed extraction job
-
-        Raises:
-            PollingTimeoutError: If the job doesn't complete within the timeout period
-
-            PollingError: If the job fails or is cancelled
-
-        Example:
-            ```python
-            from llama_cloud import LlamaCloud
-
-            client = LlamaCloud(api_key="...")
-
-            job = client.extract.create(type="file_id", value="file-abc123")
-            completed_job = client.extract.wait_for_completion(job.id, verbose=True)
-            print(completed_job.extract_result)
-            ```
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-
-        def get_status() -> ExtractV2Job:
-            return self.get(
-                job_id,
-                organization_id=organization_id,
-                project_id=project_id,
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-            )
-
-        def is_complete(job: ExtractV2Job) -> bool:
-            return job.status == "COMPLETED"
-
-        def is_error(job: ExtractV2Job) -> bool:
-            return job.status in ("FAILED", "CANCELLED")
-
-        def get_error_message(job: ExtractV2Job) -> str:
-            error_parts = [f"Job {job_id} failed with status: {job.status}"]
-            if job.error_message:
-                error_parts.append(f"Error: {job.error_message}")
-            return " | ".join(error_parts)
-
-        return poll_until_complete(
-            get_status_fn=get_status,
-            is_complete_fn=is_complete,
-            is_error_fn=is_error,
-            get_error_message_fn=get_error_message,
-            polling_interval=polling_interval,
-            max_interval=max_interval,
-            timeout=timeout,
-            backoff=backoff,
-            verbose=verbose,
-        )
-
-    def run(
-        self,
-        *,
-        file_input: str,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        configuration: Optional[ExtractConfigurationParam] | Omit = omit,
-        configuration_id: Optional[str] | Omit = omit,
-        webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
-        # Polling parameters
-        polling_interval: float = 1.0,
-        max_interval: float = 5.0,
-        polling_timeout: float = DEFAULT_TIMEOUT,
-        backoff: BackoffStrategy = "linear",
-        verbose: bool = False,
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractV2Job:
-        """
-        Create an extraction job, wait for it to complete, and return the result.
-
-        This is a convenience method that combines create() and wait_for_completion()
-        into a single call for the most common end-to-end workflow.
-
-        Args:
-            file_input: File ID or parse job ID to extract from.
-
-            configuration: Inline extraction configuration with schema and options.
-
-            configuration_id: Saved extract configuration ID (mutually exclusive with configuration).
-
-            webhook_configurations: The outbound webhook configurations.
-
-            polling_interval: Initial polling interval in seconds (default: 1.0).
-
-            max_interval: Maximum polling interval for backoff in seconds (default: 5.0).
-
-            polling_timeout: Maximum time to wait in seconds (default: 2 hours).
-
-            backoff: Backoff strategy: "constant", "linear" (default), or "exponential".
-
-            verbose: Print progress indicators every 10 polls (default: False).
-
-        Example:
-            ```python
-            result = client.extract.run(
-                file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-                configuration={"data_schema": {...}, "extraction_target": "per_doc"},
-                verbose=True,
-            )
-            print(result.extract_result)
-            ```
-        """
-        job = self.create(
-            file_input=file_input,
-            organization_id=organization_id,
-            project_id=project_id,
-            configuration=configuration,
-            configuration_id=configuration_id,
-            webhook_configurations=webhook_configurations,
-            extra_headers=extra_headers,
-            extra_query=extra_query,
-            extra_body=extra_body,
-            timeout=timeout,
-        )
-
-        return self.wait_for_completion(
-            job.id,
-            organization_id=organization_id,
-            project_id=project_id,
-            polling_interval=polling_interval,
-            max_interval=max_interval,
-            timeout=polling_timeout,
-            backoff=backoff,
-            verbose=verbose,
-            extra_headers=extra_headers,
-            extra_query=extra_query,
-            extra_body=extra_body,
-        )
-
 
 class AsyncExtractResource(AsyncAPIResource):
+    @cached_property
+    def review(self) -> AsyncReviewResource:
+        return AsyncReviewResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncExtractResourceWithRawResponse:
         """
@@ -789,6 +627,7 @@ class AsyncExtractResource(AsyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        review_status: Optional[Literal["approved", "none", "pending", "rejected"]] | Omit = omit,
         status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -800,9 +639,12 @@ class AsyncExtractResource(AsyncAPIResource):
         """
         List extraction jobs with optional filtering and pagination.
 
-        Filter by `configuration_id`, `status`, `file_input`, or creation date range.
-        Results are returned newest-first. Use `expand=configuration` to include the
-        full configuration used, and `expand=extract_metadata` for per-field metadata.
+        Filter by `configuration_id`, `status`, `file_input`, `review_status`, or
+        creation date range. Results are returned newest-first. `review_status=pending`
+        lists completed jobs waiting for review, unless `status` names another. A review
+        stays pending when its job fails or is cancelled, so pass that `status` to list
+        those. Use `expand=configuration` to include the full configuration used, and
+        `expand=extract_metadata` for per-field metadata.
 
         Args:
           configuration_id: Filter by configuration ID
@@ -824,6 +666,8 @@ class AsyncExtractResource(AsyncAPIResource):
           page_size: Number of items per page
 
           page_token: Token for pagination
+
+          review_status: Filter by review status; none is a job without a review
 
           status: Filter by status
 
@@ -857,6 +701,7 @@ class AsyncExtractResource(AsyncAPIResource):
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "review_status": review_status,
                         "status": status,
                     },
                     extract_list_params.ExtractListParams,
@@ -1115,185 +960,6 @@ class AsyncExtractResource(AsyncAPIResource):
             cast_to=ExtractV2SchemaValidateResponse,
         )
 
-    async def wait_for_completion(
-        self,
-        job_id: str,
-        *,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        polling_interval: float = 1.0,
-        max_interval: float = 5.0,
-        timeout: float = DEFAULT_TIMEOUT,
-        backoff: BackoffStrategy = "linear",
-        verbose: bool = False,
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-    ) -> ExtractV2Job:
-        """
-        Wait for an extraction job to complete by polling until it reaches a terminal state.
-
-        Args:
-            job_id: The ID of the extraction job to wait for
-
-            organization_id: Optional organization ID
-
-            project_id: Optional project ID
-
-            polling_interval: Initial polling interval in seconds (default: 1.0)
-
-            max_interval: Maximum polling interval for backoff in seconds (default: 5.0)
-
-            timeout: Maximum time to wait in seconds (default: 2 hours)
-
-            backoff: Backoff strategy: "constant", "linear" (default), or "exponential"
-
-            verbose: Print progress indicators every 10 polls (default: False)
-
-            extra_headers: Send extra headers
-
-            extra_query: Add additional query parameters to the request
-
-            extra_body: Add additional JSON properties to the request
-
-        Returns:
-            The completed extraction job
-
-        Raises:
-            PollingTimeoutError: If the job doesn't complete within the timeout period
-
-            PollingError: If the job fails or is cancelled
-
-        Example:
-            ```python
-            from llama_cloud import AsyncLlamaCloud
-
-            client = AsyncLlamaCloud(api_key="...")
-
-            job = await client.extract.create(type="file_id", value="file-abc123")
-            completed_job = await client.extract.wait_for_completion(job.id, verbose=True)
-            print(completed_job.extract_result)
-            ```
-        """
-        if not job_id:
-            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
-
-        async def get_status() -> ExtractV2Job:
-            return await self.get(
-                job_id,
-                organization_id=organization_id,
-                project_id=project_id,
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-            )
-
-        def is_complete(job: ExtractV2Job) -> bool:
-            return job.status == "COMPLETED"
-
-        def is_error(job: ExtractV2Job) -> bool:
-            return job.status in ("FAILED", "CANCELLED")
-
-        def get_error_message(job: ExtractV2Job) -> str:
-            error_parts = [f"Job {job_id} failed with status: {job.status}"]
-            if job.error_message:
-                error_parts.append(f"Error: {job.error_message}")
-            return " | ".join(error_parts)
-
-        return await poll_until_complete_async(
-            get_status_fn=get_status,
-            is_complete_fn=is_complete,
-            is_error_fn=is_error,
-            get_error_message_fn=get_error_message,
-            polling_interval=polling_interval,
-            max_interval=max_interval,
-            timeout=timeout,
-            backoff=backoff,
-            verbose=verbose,
-        )
-
-    async def run(
-        self,
-        *,
-        file_input: str,
-        organization_id: Optional[str] | Omit = omit,
-        project_id: Optional[str] | Omit = omit,
-        configuration: Optional[ExtractConfigurationParam] | Omit = omit,
-        configuration_id: Optional[str] | Omit = omit,
-        webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
-        # Polling parameters
-        polling_interval: float = 1.0,
-        max_interval: float = 5.0,
-        polling_timeout: float = DEFAULT_TIMEOUT,
-        backoff: BackoffStrategy = "linear",
-        verbose: bool = False,
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ExtractV2Job:
-        """
-        Create an extraction job, wait for it to complete, and return the result.
-
-        This is a convenience method that combines create() and wait_for_completion()
-        into a single call for the most common end-to-end workflow.
-
-        Args:
-            file_input: File ID or parse job ID to extract from.
-
-            configuration: Inline extraction configuration with schema and options.
-
-            configuration_id: Saved extract configuration ID (mutually exclusive with configuration).
-
-            webhook_configurations: The outbound webhook configurations.
-
-            polling_interval: Initial polling interval in seconds (default: 1.0).
-
-            max_interval: Maximum polling interval for backoff in seconds (default: 5.0).
-
-            polling_timeout: Maximum time to wait in seconds (default: 2 hours).
-
-            backoff: Backoff strategy: "constant", "linear" (default), or "exponential".
-
-            verbose: Print progress indicators every 10 polls (default: False).
-
-        Example:
-            ```python
-            result = await client.extract.run(
-                file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-                configuration={"data_schema": {...}, "extraction_target": "per_doc"},
-                verbose=True,
-            )
-            print(result.extract_result)
-            ```
-        """
-        job = await self.create(
-            file_input=file_input,
-            organization_id=organization_id,
-            project_id=project_id,
-            configuration=configuration,
-            configuration_id=configuration_id,
-            webhook_configurations=webhook_configurations,
-            extra_headers=extra_headers,
-            extra_query=extra_query,
-            extra_body=extra_body,
-            timeout=timeout,
-        )
-
-        return await self.wait_for_completion(
-            job.id,
-            organization_id=organization_id,
-            project_id=project_id,
-            polling_interval=polling_interval,
-            max_interval=max_interval,
-            timeout=polling_timeout,
-            backoff=backoff,
-            verbose=verbose,
-            extra_headers=extra_headers,
-            extra_query=extra_query,
-            extra_body=extra_body,
-        )
-
 
 class ExtractResourceWithRawResponse:
     def __init__(self, extract: ExtractResource) -> None:
@@ -1320,6 +986,10 @@ class ExtractResourceWithRawResponse:
         self.validate_schema = to_raw_response_wrapper(
             extract.validate_schema,
         )
+
+    @cached_property
+    def review(self) -> ReviewResourceWithRawResponse:
+        return ReviewResourceWithRawResponse(self._extract.review)
 
 
 class AsyncExtractResourceWithRawResponse:
@@ -1348,6 +1018,10 @@ class AsyncExtractResourceWithRawResponse:
             extract.validate_schema,
         )
 
+    @cached_property
+    def review(self) -> AsyncReviewResourceWithRawResponse:
+        return AsyncReviewResourceWithRawResponse(self._extract.review)
+
 
 class ExtractResourceWithStreamingResponse:
     def __init__(self, extract: ExtractResource) -> None:
@@ -1375,6 +1049,10 @@ class ExtractResourceWithStreamingResponse:
             extract.validate_schema,
         )
 
+    @cached_property
+    def review(self) -> ReviewResourceWithStreamingResponse:
+        return ReviewResourceWithStreamingResponse(self._extract.review)
+
 
 class AsyncExtractResourceWithStreamingResponse:
     def __init__(self, extract: AsyncExtractResource) -> None:
@@ -1401,3 +1079,7 @@ class AsyncExtractResourceWithStreamingResponse:
         self.validate_schema = async_to_streamed_response_wrapper(
             extract.validate_schema,
         )
+
+    @cached_property
+    def review(self) -> AsyncReviewResourceWithStreamingResponse:
+        return AsyncReviewResourceWithStreamingResponse(self._extract.review)

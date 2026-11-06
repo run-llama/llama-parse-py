@@ -41,6 +41,13 @@ class ExtractConfigurationParam(TypedDict, total=False):
     disable_cache: bool
     """Disable reuse and storage of Extract results"""
 
+    effort: Optional[Literal["max"]]
+    """Use 'max' for additional processing effort on agentic_plus.
+
+    Bills by model usage with the page charge as a minimum. Omit or set to null for
+    the tier's default behavior.
+    """
+
     extraction_target: Literal["per_doc", "per_page", "per_table_row"]
     """Deprecated.
 
@@ -77,14 +84,10 @@ class ExtractConfigurationParam(TypedDict, total=False):
     """
 
     spreadsheet_mode: bool
-    """Beta.
+    """Extract structured data directly from spreadsheet cells (.xlsx/.xls/.csv).
 
-    When true, extract structured data directly from a spreadsheet workbook
-    (.xlsx/.xls/.csv) — the agent reads cells straight from the workbook instead of
-    the standard document path. Off by default (spreadsheets keep the standard
-    path). Requires the agentic_plus tier. Billed on the standard per-page extract
-    rate, against a page count derived from workbook size. Citations and confidence
-    scores are not available in this mode.
+    Billed at the standard per-page Extract rate, with page count derived from
+    workbook size.
     """
 
     system_prompt: Optional[str]
