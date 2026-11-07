@@ -119,6 +119,7 @@ class WebhookConfiguration(TypedDict, total=False):
                 "extract.error",
                 "extract.partial_success",
                 "extract.pending",
+                "extract.running",
                 "extract.success",
                 "parse.cancelled",
                 "parse.error",
