@@ -44,8 +44,8 @@ class ExtractConfigurationParam(TypedDict, total=False):
     effort: Optional[Literal["max"]]
     """Use 'max' for additional processing effort on agentic_plus.
 
-    Bills by model usage with the page charge as a minimum. Omit or set to null for
-    the tier's default behavior.
+    Priced by the processing each document needs, with the page price as the
+    minimum. Omit or set to null for the tier's default behavior.
     """
 
     extraction_target: Literal["per_doc", "per_page", "per_table_row"]
