@@ -579,6 +579,13 @@ class ProcessingOptionsAutoModeConfiguration(TypedDict, total=False):
     layout_element_in_page_confidence_threshold: Union[float, str, None]
     """Confidence threshold for layout element detection"""
 
+    min_complexity: Optional[Literal["high", "medium"]]
+    """Trigger on pages at least this complex.
+
+    high: pages whose tables look wrong. medium: also pages that are mostly scanned
+    text.
+    """
+
     page_contains_at_least_n_charts: Union[int, str, None]
     """Trigger if page has more than N charts"""
 
