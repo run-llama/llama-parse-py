@@ -577,11 +577,11 @@ class ProcessingOptionsAutoModeConfiguration(BaseModel):
     layout_element_in_page_confidence_threshold: Union[float, str, None] = None
     """Confidence threshold for layout element detection"""
 
-    min_complexity: Optional[Literal["high", "medium"]] = None
-    """Trigger on pages at least this complex.
+    min_complexity: Optional[Literal["high", "low", "medium"]] = None
+    """Trigger on pages with at least 100 source words.
 
-    high: pages whose tables look wrong. medium: also pages that are mostly scanned
-    text.
+    low: table warnings or at least 50% OCR words. medium: at least 3 table concerns
+    or missed tables. high: medium plus at least 2 detected tables.
     """
 
     page_contains_at_least_n_charts: Union[int, str, None] = None
