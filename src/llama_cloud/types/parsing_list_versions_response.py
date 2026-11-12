@@ -168,7 +168,7 @@ class ParsingListVersionsResponse(BaseModel):
     ]
     """Versions for the cost_effective tier"""
 
-    fast: List[Literal["2026-06-15", "2025-12-11"]]
+    fast: List[Literal["2026-11-12", "2026-06-15", "2025-12-11"]]
     """Versions for the fast tier"""
 
     latest: Latest
