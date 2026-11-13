@@ -28,6 +28,12 @@ from ...types import (
 from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
+from ..._polling import (
+    DEFAULT_TIMEOUT,
+    BackoffStrategy,
+    poll_until_complete,
+    poll_until_complete_async,
+)
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
     to_raw_response_wrapper,
@@ -502,6 +508,189 @@ class ExtractResource(SyncAPIResource):
             cast_to=ExtractV2SchemaValidateResponse,
         )
 
+    def wait_for_completion(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        polling_interval: float = 1.0,
+        max_interval: float = 5.0,
+        timeout: float = DEFAULT_TIMEOUT,
+        backoff: BackoffStrategy = "linear",
+        verbose: bool = False,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+    ) -> ExtractV2Job:
+        """
+        Wait for an extraction job to complete by polling until it reaches a terminal state.
+
+        Args:
+            job_id: The ID of the extraction job to wait for
+
+            organization_id: Optional organization ID
+
+            project_id: Optional project ID
+
+            polling_interval: Initial polling interval in seconds (default: 1.0)
+
+            max_interval: Maximum polling interval for backoff in seconds (default: 5.0)
+
+            timeout: Maximum time to wait in seconds (default: 2 hours)
+
+            backoff: Backoff strategy: "constant", "linear" (default), or "exponential"
+
+            verbose: Print progress indicators every 10 polls (default: False)
+
+            extra_headers: Send extra headers
+
+            extra_query: Add additional query parameters to the request
+
+            extra_body: Add additional JSON properties to the request
+
+        Returns:
+            The completed extraction job
+
+        Raises:
+            PollingTimeoutError: If the job doesn't complete within the timeout period
+
+            PollingError: If the job fails or is cancelled
+
+        Example:
+            ```python
+            from llama_cloud import LlamaCloud
+
+            client = LlamaCloud(api_key="...")
+
+            job = client.extract.create(file_input="dfl-abc123", configuration={"data_schema": {...}})
+            completed_job = client.extract.wait_for_completion(job.id, verbose=True)
+            print(completed_job.extract_result)
+            ```
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+
+        def get_status() -> ExtractV2Job:
+            return self.get(
+                job_id,
+                organization_id=organization_id,
+                project_id=project_id,
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+            )
+
+        def is_complete(job: ExtractV2Job) -> bool:
+            return job.status == "COMPLETED"
+
+        def is_error(job: ExtractV2Job) -> bool:
+            return job.status in ("FAILED", "CANCELLED")
+
+        def get_error_message(job: ExtractV2Job) -> str:
+            error_parts = [f"Job {job_id} failed with status: {job.status}"]
+            if job.error_message:
+                error_parts.append(f"Error: {job.error_message}")
+            return " | ".join(error_parts)
+
+        return poll_until_complete(
+            get_status_fn=get_status,
+            is_complete_fn=is_complete,
+            is_error_fn=is_error,
+            get_error_message_fn=get_error_message,
+            polling_interval=polling_interval,
+            max_interval=max_interval,
+            timeout=timeout,
+            backoff=backoff,
+            verbose=verbose,
+        )
+
+    def run(
+        self,
+        *,
+        file_input: str,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        configuration: Optional[ExtractConfigurationParam] | Omit = omit,
+        configuration_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
+        # Polling parameters
+        polling_interval: float = 1.0,
+        max_interval: float = 5.0,
+        polling_timeout: float = DEFAULT_TIMEOUT,
+        backoff: BackoffStrategy = "linear",
+        verbose: bool = False,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExtractV2Job:
+        """
+        Create an extraction job, wait for it to complete, and return the result.
+
+        This is a convenience method that combines create() and wait_for_completion()
+        into a single call for the most common end-to-end workflow.
+
+        Args:
+            file_input: File ID or parse job ID to extract from.
+
+            configuration: Inline extraction configuration with schema and options.
+
+            configuration_id: Saved extract configuration ID (mutually exclusive with configuration).
+
+            webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
+            webhook_configurations: The outbound webhook configurations.
+
+            polling_interval: Initial polling interval in seconds (default: 1.0).
+
+            max_interval: Maximum polling interval for backoff in seconds (default: 5.0).
+
+            polling_timeout: Maximum time to wait in seconds (default: 2 hours).
+
+            backoff: Backoff strategy: "constant", "linear" (default), or "exponential".
+
+            verbose: Print progress indicators every 10 polls (default: False).
+
+        Example:
+            ```python
+            result = client.extract.run(
+                file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                configuration={"data_schema": {...}, "extraction_target": "per_doc"},
+                verbose=True,
+            )
+            print(result.extract_result)
+            ```
+        """
+        job = self.create(
+            file_input=file_input,
+            organization_id=organization_id,
+            project_id=project_id,
+            configuration=configuration,
+            configuration_id=configuration_id,
+            webhook_configuration_ids=webhook_configuration_ids,
+            webhook_configurations=webhook_configurations,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
+        )
+
+        return self.wait_for_completion(
+            job.id,
+            organization_id=organization_id,
+            project_id=project_id,
+            polling_interval=polling_interval,
+            max_interval=max_interval,
+            timeout=polling_timeout,
+            backoff=backoff,
+            verbose=verbose,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+        )
+
 
 class AsyncExtractResource(AsyncAPIResource):
     @cached_property
@@ -958,6 +1147,189 @@ class AsyncExtractResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ExtractV2SchemaValidateResponse,
+        )
+
+    async def wait_for_completion(
+        self,
+        job_id: str,
+        *,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        polling_interval: float = 1.0,
+        max_interval: float = 5.0,
+        timeout: float = DEFAULT_TIMEOUT,
+        backoff: BackoffStrategy = "linear",
+        verbose: bool = False,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+    ) -> ExtractV2Job:
+        """
+        Wait for an extraction job to complete by polling until it reaches a terminal state.
+
+        Args:
+            job_id: The ID of the extraction job to wait for
+
+            organization_id: Optional organization ID
+
+            project_id: Optional project ID
+
+            polling_interval: Initial polling interval in seconds (default: 1.0)
+
+            max_interval: Maximum polling interval for backoff in seconds (default: 5.0)
+
+            timeout: Maximum time to wait in seconds (default: 2 hours)
+
+            backoff: Backoff strategy: "constant", "linear" (default), or "exponential"
+
+            verbose: Print progress indicators every 10 polls (default: False)
+
+            extra_headers: Send extra headers
+
+            extra_query: Add additional query parameters to the request
+
+            extra_body: Add additional JSON properties to the request
+
+        Returns:
+            The completed extraction job
+
+        Raises:
+            PollingTimeoutError: If the job doesn't complete within the timeout period
+
+            PollingError: If the job fails or is cancelled
+
+        Example:
+            ```python
+            from llama_cloud import AsyncLlamaCloud
+
+            client = AsyncLlamaCloud(api_key="...")
+
+            job = await client.extract.create(file_input="dfl-abc123", configuration={"data_schema": {...}})
+            completed_job = await client.extract.wait_for_completion(job.id, verbose=True)
+            print(completed_job.extract_result)
+            ```
+        """
+        if not job_id:
+            raise ValueError(f"Expected a non-empty value for `job_id` but received {job_id!r}")
+
+        async def get_status() -> ExtractV2Job:
+            return await self.get(
+                job_id,
+                organization_id=organization_id,
+                project_id=project_id,
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+            )
+
+        def is_complete(job: ExtractV2Job) -> bool:
+            return job.status == "COMPLETED"
+
+        def is_error(job: ExtractV2Job) -> bool:
+            return job.status in ("FAILED", "CANCELLED")
+
+        def get_error_message(job: ExtractV2Job) -> str:
+            error_parts = [f"Job {job_id} failed with status: {job.status}"]
+            if job.error_message:
+                error_parts.append(f"Error: {job.error_message}")
+            return " | ".join(error_parts)
+
+        return await poll_until_complete_async(
+            get_status_fn=get_status,
+            is_complete_fn=is_complete,
+            is_error_fn=is_error,
+            get_error_message_fn=get_error_message,
+            polling_interval=polling_interval,
+            max_interval=max_interval,
+            timeout=timeout,
+            backoff=backoff,
+            verbose=verbose,
+        )
+
+    async def run(
+        self,
+        *,
+        file_input: str,
+        organization_id: Optional[str] | Omit = omit,
+        project_id: Optional[str] | Omit = omit,
+        configuration: Optional[ExtractConfigurationParam] | Omit = omit,
+        configuration_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
+        # Polling parameters
+        polling_interval: float = 1.0,
+        max_interval: float = 5.0,
+        polling_timeout: float = DEFAULT_TIMEOUT,
+        backoff: BackoffStrategy = "linear",
+        verbose: bool = False,
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ExtractV2Job:
+        """
+        Create an extraction job, wait for it to complete, and return the result.
+
+        This is a convenience method that combines create() and wait_for_completion()
+        into a single call for the most common end-to-end workflow.
+
+        Args:
+            file_input: File ID or parse job ID to extract from.
+
+            configuration: Inline extraction configuration with schema and options.
+
+            configuration_id: Saved extract configuration ID (mutually exclusive with configuration).
+
+            webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
+
+            webhook_configurations: The outbound webhook configurations.
+
+            polling_interval: Initial polling interval in seconds (default: 1.0).
+
+            max_interval: Maximum polling interval for backoff in seconds (default: 5.0).
+
+            polling_timeout: Maximum time to wait in seconds (default: 2 hours).
+
+            backoff: Backoff strategy: "constant", "linear" (default), or "exponential".
+
+            verbose: Print progress indicators every 10 polls (default: False).
+
+        Example:
+            ```python
+            result = await client.extract.run(
+                file_input="dfl-aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                configuration={"data_schema": {...}, "extraction_target": "per_doc"},
+                verbose=True,
+            )
+            print(result.extract_result)
+            ```
+        """
+        job = await self.create(
+            file_input=file_input,
+            organization_id=organization_id,
+            project_id=project_id,
+            configuration=configuration,
+            configuration_id=configuration_id,
+            webhook_configuration_ids=webhook_configuration_ids,
+            webhook_configurations=webhook_configurations,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
+            timeout=timeout,
+        )
+
+        return await self.wait_for_completion(
+            job.id,
+            organization_id=organization_id,
+            project_id=project_id,
+            polling_interval=polling_interval,
+            max_interval=max_interval,
+            timeout=polling_timeout,
+            backoff=backoff,
+            verbose=verbose,
+            extra_headers=extra_headers,
+            extra_query=extra_query,
+            extra_body=extra_body,
         )
 
 
