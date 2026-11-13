@@ -24,8 +24,11 @@ class DetailExtractReviewCreatedDetail(BaseModel):
     fields_in_scope: List[str]
     """JSON Pointers of the fields the threshold applies to; empty means all."""
 
-    origin: Literal["api", "edit", "history", "run"]
-    """Turned on as the job ran, from History, by a first edit, or by the API."""
+    origin: Literal["api", "edit", "history", "policy", "run"]
+    """
+    Turned on as the job ran, from History, by a first edit, by the API, or by the
+    configuration's review policy as the job completed.
+    """
 
     required_fields: List[str]
     """JSON Pointers of fields flagged when empty."""
@@ -56,8 +59,8 @@ class ExtractReviewEvent(BaseModel):
     id: str
     """Unique identifier of the entry."""
 
-    actor_id: str
-    """ID of the user who acted."""
+    actor_id: Optional[str] = None
+    """ID of the user who acted; null when a review policy turned review on."""
 
     created_at: datetime
     """When it happened."""
