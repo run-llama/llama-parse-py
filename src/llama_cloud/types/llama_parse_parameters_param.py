@@ -14,7 +14,13 @@ __all__ = ["LlamaParseParametersParam", "WebhookConfiguration"]
 
 
 class WebhookConfiguration(TypedDict, total=False):
-    """Configuration for a single outbound webhook endpoint."""
+    """A webhook endpoint kept in a saved configuration or pipeline."""
+
+    id: Optional[str]
+    """Webhook ID, set by the server.
+
+    Send it back unchanged so a masked credential keeps this webhook's saved value.
+    """
 
     webhook_events: Optional[
         List[
@@ -34,6 +40,7 @@ class WebhookConfiguration(TypedDict, total=False):
                 "extract.error",
                 "extract.partial_success",
                 "extract.pending",
+                "extract.running",
                 "extract.success",
                 "parse.cancelled",
                 "parse.error",

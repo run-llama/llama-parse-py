@@ -18,9 +18,11 @@ __all__ = [
     "GroundingID",
     "GroundingIDLine",
     "GroundingIDLineWord",
+    "GroundingIDLineWordChar",
     "GroundingLabel",
     "GroundingLabelLine",
     "GroundingLabelLineWord",
+    "GroundingLabelLineWordChar",
 ]
 
 if TYPE_CHECKING or not PYDANTIC_V1:
@@ -33,6 +35,16 @@ else:
     ]
 
 
+class GroundingIDLineWordChar(BaseModel):
+    """One grounded character: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Character bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+
 class GroundingIDLineWord(BaseModel):
     """One grounded word: a `[start, end)` span in the source text and its bbox."""
 
@@ -41,6 +53,13 @@ class GroundingIDLineWord(BaseModel):
 
     span: List[object]
     """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    chars: Optional[List[GroundingIDLineWordChar]] = None
+    """
+    Per-character grounding within the word, present when `granular_bboxes` includes
+    'char' (Agentic Plus only). Each box is an even split of the word box across the
+    word's characters.
+    """
 
 
 class GroundingIDLine(BaseModel):
@@ -69,6 +88,16 @@ class GroundingID(BaseModel):
     """
 
 
+class GroundingLabelLineWordChar(BaseModel):
+    """One grounded character: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Character bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+
 class GroundingLabelLineWord(BaseModel):
     """One grounded word: a `[start, end)` span in the source text and its bbox."""
 
@@ -77,6 +106,13 @@ class GroundingLabelLineWord(BaseModel):
 
     span: List[object]
     """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    chars: Optional[List[GroundingLabelLineWordChar]] = None
+    """
+    Per-character grounding within the word, present when `granular_bboxes` includes
+    'char' (Agentic Plus only). Each box is an even split of the word box across the
+    word's characters.
+    """
 
 
 class GroundingLabelLine(BaseModel):

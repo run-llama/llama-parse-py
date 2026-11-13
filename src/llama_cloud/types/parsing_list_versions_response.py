@@ -29,6 +29,9 @@ class ParsingListVersionsResponse(BaseModel):
 
     agentic: List[
         Literal[
+            "2026-11-09",
+            "2026-11-05",
+            "2026-10-30",
             "2026-10-16",
             "2026-10-15",
             "2026-09-29",
@@ -86,6 +89,13 @@ class ParsingListVersionsResponse(BaseModel):
 
     agentic_plus: List[
         Literal[
+            "2026-11-11",
+            "2026-11-10",
+            "2026-11-07",
+            "2026-11-02",
+            "2026-10-28",
+            "2026-10-26",
+            "2026-10-20",
             "2026-09-28",
             "2026-09-24",
             "2026-09-11",
@@ -135,6 +145,9 @@ class ParsingListVersionsResponse(BaseModel):
 
     cost_effective: List[
         Literal[
+            "2026-11-09",
+            "2026-11-05",
+            "2026-10-30",
             "2026-09-28",
             "2026-08-19",
             "2026-08-11",
@@ -155,7 +168,7 @@ class ParsingListVersionsResponse(BaseModel):
     ]
     """Versions for the cost_effective tier"""
 
-    fast: List[Literal["2026-06-15", "2025-12-11"]]
+    fast: List[Literal["2026-11-12", "2026-06-15", "2025-12-11"]]
     """Versions for the fast tier"""
 
     latest: Latest

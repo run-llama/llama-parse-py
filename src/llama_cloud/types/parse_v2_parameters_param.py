@@ -299,17 +299,18 @@ class OutputOptions(TypedDict, total=False):
     10', 'v', 'A-3'). Useful for referencing original page numbers
     """
 
-    granular_bboxes: List[Literal["cell", "line", "word"]]
+    granular_bboxes: List[Literal["cell", "char", "line", "word"]]
     """Bounding-box granularity levels to compute for the parse.
 
     'word' computes one bounding box per detected word; 'line' computes one per text
-    line; 'cell' computes one per table cell. Multiple levels can be requested.
-    Empty list (default) disables granular bboxes — only item-level layout boxes are
-    returned on the result. When set, the computed boxes are not inlined on the
-    result items; they are written to a separate `grounded_items` sidecar (JSONL,
-    one row per page) and exposed as `result_content_metadata.grounded_items` (a
-    presigned download URL) on the parse result. Each row matches the
-    `GroundedJsonItem` shape.
+    line; 'cell' computes one per table cell; 'char' adds one box per character
+    inside each grounded word (`chars` on each word), available on the
+    `agentic_plus` tier only. Multiple levels can be requested. Empty list (default)
+    disables granular bboxes — only item-level layout boxes are returned on the
+    result. When set, the computed boxes are not inlined on the result items; they
+    are written to a separate `grounded_items` sidecar (JSONL, one row per page) and
+    exposed as `result_content_metadata.grounded_items` (a presigned download URL)
+    on the parse result. Each row matches the `GroundedJsonItem` shape.
     """
 
     images_to_save: Optional[List[Literal["embedded", "layout", "screenshot"]]]
@@ -523,7 +524,7 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
     tier: Optional[Literal["agentic", "agentic_plus", "cost_effective", "fast"]]
     """Override the parsing tier for matched pages. Must be paired with version"""
 
-    version: Union[Literal["latest", "2026-10-16", "2026-09-28", "2026-06-15"], str, None]
+    version: Union[Literal["latest", "2026-11-12", "2026-11-11", "2026-11-09"], str, None]
     """Version for the override tier.
 
     Required when `tier` is set. Use `latest`, or pin one of that tier's dated
@@ -531,10 +532,10 @@ class ProcessingOptionsAutoModeConfigurationParsingConf(TypedDict, total=False):
 
     Current `latest` by tier:
 
-    - `fast`: `2026-06-15`
-    - `cost_effective`: `2026-09-28`
-    - `agentic`: `2026-10-16`
-    - `agentic_plus`: `2026-09-28`
+    - `fast`: `2026-11-12`
+    - `cost_effective`: `2026-11-09`
+    - `agentic`: `2026-11-09`
+    - `agentic_plus`: `2026-11-11`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -550,6 +551,12 @@ class ProcessingOptionsAutoModeConfiguration(TypedDict, total=False):
 
     parsing_conf: Required[ProcessingOptionsAutoModeConfigurationParsingConf]
     """Parsing configuration to apply when trigger conditions are met"""
+
+    document_longer_than_n_pages: Optional[int]
+    """Match every page when the document has more than N pages"""
+
+    document_shorter_than_n_pages: Optional[int]
+    """Match every page when the document has fewer than N pages"""
 
     filename_match_glob: Optional[str]
     """Single glob pattern to match against filename"""
@@ -577,6 +584,13 @@ class ProcessingOptionsAutoModeConfiguration(TypedDict, total=False):
 
     layout_element_in_page_confidence_threshold: Union[float, str, None]
     """Confidence threshold for layout element detection"""
+
+    min_complexity: Optional[Literal["high", "low", "medium"]]
+    """Minimum page complexity that sends a page to the escalation tier.
+
+    Lower levels escalate more pages: low escalates the most, high only the most
+    complex pages.
+    """
 
     page_contains_at_least_n_charts: Union[int, str, None]
     """Trigger if page has more than N charts"""
@@ -776,10 +790,12 @@ class ProcessingOptions(TypedDict, total=False):
 
 
 class WebhookConfiguration(TypedDict, total=False):
-    """Webhook configuration for receiving parsing job notifications.
+    """A webhook endpoint kept in a saved Parse configuration."""
 
-    Webhooks are called when specified events occur during job processing.
-    Configure multiple webhook configurations to send to different endpoints.
+    id: Optional[str]
+    """Webhook ID, set by the server.
+
+    Send it back unchanged so a masked credential keeps this webhook's saved value.
     """
 
     webhook_events: Optional[SequenceNotStr[str]]
@@ -834,17 +850,17 @@ class ParseV2ParametersParam(TypedDict, total=False):
     highest accuracy)
     """
 
-    version: Required[Union[Literal["latest", "2026-10-16", "2026-09-28", "2026-06-15"], str]]
+    version: Required[Union[Literal["latest", "2026-11-12", "2026-11-11", "2026-11-09"], str]]
     """Version for the selected tier.
 
     Use `latest`, or pin one of that tier's dated versions.
 
     Current `latest` by tier:
 
-    - `fast`: `2026-06-15`
-    - `cost_effective`: `2026-09-28`
-    - `agentic`: `2026-10-16`
-    - `agentic_plus`: `2026-09-28`
+    - `fast`: `2026-11-12`
+    - `cost_effective`: `2026-11-09`
+    - `agentic`: `2026-11-09`
+    - `agentic_plus`: `2026-11-11`
 
     Full list: `GET /api/v2/parse/versions`.
     """
@@ -905,7 +921,7 @@ class ParseV2ParametersParam(TypedDict, total=False):
     """IDs of saved webhook configurations to notify for this job."""
 
     webhook_configurations: Iterable[WebhookConfiguration]
-    """Webhook endpoints for job status notifications.
+    """Webhook endpoints for job notifications.
 
-    Multiple webhooks can be configured for different events or services
+    Maximum 10 total, including webhook_configuration_ids.
     """
