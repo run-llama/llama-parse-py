@@ -550,6 +550,12 @@ class ProcessingOptionsAutoModeConfiguration(BaseModel):
     parsing_conf: ProcessingOptionsAutoModeConfigurationParsingConf
     """Parsing configuration to apply when trigger conditions are met"""
 
+    document_longer_than_n_pages: Optional[int] = None
+    """Match every page when the document has more than N pages"""
+
+    document_shorter_than_n_pages: Optional[int] = None
+    """Match every page when the document has fewer than N pages"""
+
     filename_match_glob: Optional[str] = None
     """Single glob pattern to match against filename"""
 

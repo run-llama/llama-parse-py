@@ -552,6 +552,12 @@ class ProcessingOptionsAutoModeConfiguration(TypedDict, total=False):
     parsing_conf: Required[ProcessingOptionsAutoModeConfigurationParsingConf]
     """Parsing configuration to apply when trigger conditions are met"""
 
+    document_longer_than_n_pages: Optional[int]
+    """Match every page when the document has more than N pages"""
+
+    document_shorter_than_n_pages: Optional[int]
+    """Match every page when the document has fewer than N pages"""
+
     filename_match_glob: Optional[str]
     """Single glob pattern to match against filename"""
 
