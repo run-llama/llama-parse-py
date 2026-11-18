@@ -63,7 +63,11 @@ class Configuration(TypedDict, total=False):
     """Split configuration with categories and splitting strategy."""
 
     categories: Required[Iterable[SplitCategoryParam]]
-    """Categories to split documents into."""
+    """Categories to split documents into.
+
+    Names must be unique; 'uncategorized' is reserved unless allow_uncategorized is
+    'forbid'.
+    """
 
     parse_config_id: Optional[str]
     """

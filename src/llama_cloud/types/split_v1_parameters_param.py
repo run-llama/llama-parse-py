@@ -35,7 +35,11 @@ class SplitV1ParametersParam(TypedDict, total=False):
     """Typed parameters for a *split v1* product configuration."""
 
     categories: Required[Iterable[SplitCategoryParam]]
-    """Categories to split documents into."""
+    """Categories to split documents into.
+
+    Names must be unique; 'uncategorized' is reserved unless allow_uncategorized is
+    'forbid'.
+    """
 
     product_type: Required[Literal["split_v1"]]
     """Product type."""
