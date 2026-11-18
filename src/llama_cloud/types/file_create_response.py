@@ -33,6 +33,9 @@ class FileCreateResponse(BaseModel):
     external_file_id: Optional[str] = None
     """Optional ID for correlating with an external system"""
 
+    file_size: Optional[int] = None
+    """Recorded file size in bytes. Null means no size was recorded."""
+
     file_type: Optional[str] = None
     """File extension (pdf, docx, png, etc.)"""
 
