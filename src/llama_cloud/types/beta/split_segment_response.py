@@ -17,4 +17,8 @@ class SplitSegmentResponse(BaseModel):
     """Categorical confidence level. Valid values are: high, medium, low."""
 
     pages: List[int]
-    """Page numbers in this segment, as numbered by the input document."""
+    """Page numbers in this segment, as numbered by the input document.
+
+    For PPTX, hidden slides are skipped unless the parse config or parse job sets
+    `input_options.presentation.include_hidden_slides`.
+    """
