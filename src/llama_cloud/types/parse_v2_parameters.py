@@ -763,15 +763,13 @@ class ProcessingOptions(BaseModel):
     long table handling. Use when heuristics produce incorrect results
     """
 
-    forms: Optional[Literal["default", "enrich", "enrich_pro"]] = None
+    forms: Optional[Literal["default", "enrich"]] = None
     """
     Beta: set to 'enrich' to run an additional AI form-analysis pass on pages
     detected as forms, producing a structured tree of the form's sections, fields,
     and fillable grids. Retrieve the result with expand=forms. 'default' (the
     default) applies standard parsing with no extra pass. Not available on the fast
-    tier. 'enrich_pro' reads forms with higher accuracy than 'enrich' and returns
-    the same expand=forms tree; it is available on tier='agentic_plus' with version
-    'latest' or 2026-11-17 or later
+    tier
     """
 
     ignore: Optional[ProcessingOptionsIgnore] = None

@@ -306,7 +306,8 @@ class FormTable(BaseModel):
     markdown_span: Optional[List[object]] = None
     """
     `[start, end)` UTF-8 byte offsets of the table caption in its page's `markdown`
-    string (forms=enrich_pro only). Absent when it has no place in the markdown
+    string, on some Agentic Plus jobs from version 2026-11-19. Absent on other jobs
+    and when it has no place in the markdown
     """
 
     type: Optional[Literal["table"]] = None

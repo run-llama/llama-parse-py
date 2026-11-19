@@ -258,16 +258,17 @@ class FormField(BaseModel):
     label_markdown_span: Optional[List[object]] = None
     """
     `[start, end)` UTF-8 byte offsets of the field's printed caption (a table cell's
-    column header) in its page's `markdown` string (forms=enrich_pro only). Absent
-    when it has no place in the markdown
+    column header) in its page's `markdown` string, on some Agentic Plus jobs from
+    version 2026-11-19. Absent on other jobs and when it has no place in the
+    markdown
     """
 
     markdown_span: Optional[List[object]] = None
     """
     `[start, end)` UTF-8 byte offsets of the field's value in its page's `markdown`
-    string (forms=enrich_pro only). A checkbox covers its `[x]` or `[ ]`, and a
-    blank table cell covers the whole cell. Absent when the value has no place in
-    the markdown
+    string, on some Agentic Plus jobs from version 2026-11-19. A checkbox covers its
+    `[x]` or `[ ]`, and a blank table cell covers the whole cell. Absent on other
+    jobs and when the value has no place in the markdown
     """
 
     type: Optional[Literal["field"]] = None
