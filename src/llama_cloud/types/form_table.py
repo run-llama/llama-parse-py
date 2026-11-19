@@ -303,6 +303,12 @@ class FormTable(BaseModel):
     label: Optional[str] = None
     """Printed table caption, if any"""
 
+    markdown_span: Optional[List[object]] = None
+    """
+    `[start, end)` UTF-8 byte offsets of the table caption in its page's `markdown`
+    string (forms=enrich_pro only). Absent when it has no place in the markdown
+    """
+
     type: Optional[Literal["table"]] = None
     """Form table node"""
 

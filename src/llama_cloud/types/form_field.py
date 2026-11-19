@@ -255,6 +255,21 @@ class FormField(BaseModel):
     label: Optional[str] = None
     """Printed field caption, if any"""
 
+    label_markdown_span: Optional[List[object]] = None
+    """
+    `[start, end)` UTF-8 byte offsets of the field's printed caption (a table cell's
+    column header) in its page's `markdown` string (forms=enrich_pro only). Absent
+    when it has no place in the markdown
+    """
+
+    markdown_span: Optional[List[object]] = None
+    """
+    `[start, end)` UTF-8 byte offsets of the field's value in its page's `markdown`
+    string (forms=enrich_pro only). A checkbox covers its `[x]` or `[ ]`, and a
+    blank table cell covers the whole cell. Absent when the value has no place in
+    the markdown
+    """
+
     type: Optional[Literal["field"]] = None
     """Form field node"""
 

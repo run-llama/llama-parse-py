@@ -65,7 +65,7 @@ class ParsingResource(SyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-11-18", "2026-11-12", "2026-11-09"], str],
+        version: Union[Literal["latest", "2026-11-19", "2026-11-12", "2026-11-09"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -123,7 +123,7 @@ class ParsingResource(SyncAPIResource):
               - `fast`: `2026-11-12`
               - `cost_effective`: `2026-11-09`
               - `agentic`: `2026-11-09`
-              - `agentic_plus`: `2026-11-18`
+              - `agentic_plus`: `2026-11-19`
 
               Full list: `GET /api/v2/parse/versions`.
 
@@ -869,7 +869,7 @@ class AsyncParsingResource(AsyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-11-18", "2026-11-12", "2026-11-09"], str],
+        version: Union[Literal["latest", "2026-11-19", "2026-11-12", "2026-11-09"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -927,7 +927,7 @@ class AsyncParsingResource(AsyncAPIResource):
               - `fast`: `2026-11-12`
               - `cost_effective`: `2026-11-09`
               - `agentic`: `2026-11-09`
-              - `agentic_plus`: `2026-11-18`
+              - `agentic_plus`: `2026-11-19`
 
               Full list: `GET /api/v2/parse/versions`.
 

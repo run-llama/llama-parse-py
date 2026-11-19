@@ -172,6 +172,13 @@ class FormSection(BaseModel):
     label: Optional[str] = None
     """Printed section heading, if any"""
 
+    markdown_span: Optional[List[object]] = None
+    """
+    `[start, end)` UTF-8 byte offsets of the section heading in its page's
+    `markdown` string (forms=enrich_pro only). Absent when it has no place in the
+    markdown
+    """
+
     type: Optional[Literal["section"]] = None
     """Form section node"""
 
