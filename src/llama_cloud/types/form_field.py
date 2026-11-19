@@ -84,6 +84,9 @@ class GroundingID(BaseModel):
     coordinates and optional local rotation r.
     """
 
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
+
 
 class GroundingLabelLineWordChar(BaseModel):
     """One grounded character: a `[start, end)` span in the source text and its bbox."""
@@ -137,6 +140,9 @@ class GroundingLabel(BaseModel):
     coordinates and optional local rotation r.
     """
 
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
+
 
 class GroundingValueLineWordChar(BaseModel):
     """One grounded character: a `[start, end)` span in the source text and its bbox."""
@@ -189,6 +195,9 @@ class GroundingValue(BaseModel):
     Word requests include supported words; gaps are valid. Boxes use final page
     coordinates and optional local rotation r.
     """
+
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
 
 
 class Grounding(BaseModel):
