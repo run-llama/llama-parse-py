@@ -1,5 +1,36 @@
 # Changelog
 
+## [2.20.0](https://github.com/run-llama/llama-parse-py/compare/v2.19.0...v2.20.0) (2026-11-20)
+
+
+### Features
+
+* **extract:** expose Max effort in the public API ([#30756](https://github.com/run-llama/llama-parse-py/issues/30756)) ([f238595](https://github.com/run-llama/llama-parse-py/commit/f23859512a228d665663c7ae134aed770d503c75))
+* **extract:** send a saved configuration's completed jobs to review by policy ([#34124](https://github.com/run-llama/llama-parse-py/issues/34124)) ([1459ff3](https://github.com/run-llama/llama-parse-py/commit/1459ff3d92b847cc9efb1609640ebf5ba75c81ce))
+* **parse-eval:** keep ground truth in Evaluate-owned storage ([#33781](https://github.com/run-llama/llama-parse-py/issues/33781)) ([f51ba7e](https://github.com/run-llama/llama-parse-py/commit/f51ba7e369ec237d8f3a7d174908b6017259598a))
+* **parse-eval:** let Parse delete ground-truth jobs like any other job ([#35004](https://github.com/run-llama/llama-parse-py/issues/35004)) ([0bef4b5](https://github.com/run-llama/llama-parse-py/commit/0bef4b5aa00aeb0e801162f2d410101963a2bdc0))
+* **parse:** add document page count bounds ([#34227](https://github.com/run-llama/llama-parse-py/issues/34227)) ([090c320](https://github.com/run-llama/llama-parse-py/commit/090c320293172849a1a57d4400f42cb957317488))
+* **parse:** Agentic and Cost Effective 2026-11-09 lead with OCRIA 1.5 ([#33718](https://github.com/run-llama/llama-parse-py/issues/33718)) ([b831c7d](https://github.com/run-llama/llama-parse-py/commit/b831c7d5804114424db2040eeec86835c42cfd60))
+* **parse:** optional `bbox` on form text grounding in the public API schema ([#35073](https://github.com/run-llama/llama-parse-py/issues/35073)) ([e71ed02](https://github.com/run-llama/llama-parse-py/commit/e71ed022bc5cfe9cd19add6edb8f4d47b1da6423))
+* **split:** advisory warnings for ambiguous category configs ([#34714](https://github.com/run-llama/llama-parse-py/issues/34714)) ([9621570](https://github.com/run-llama/llama-parse-py/commit/9621570aa85e8a09fecc4b4b63d63be2e6e96c26))
+* **split:** category segment boundary in 1.3.0 ([#35081](https://github.com/run-llama/llama-parse-py/issues/35081)) ([4492b4f](https://github.com/run-llama/llama-parse-py/commit/4492b4fa446d09975946b15405ff0395014acb99))
+* **webhooks:** keep a saved webhook's masked credentials by its id ([#32736](https://github.com/run-llama/llama-parse-py/issues/32736)) ([c476ea8](https://github.com/run-llama/llama-parse-py/commit/c476ea8ce8dd5be30448f39c3cbbd2020d10c3ae))
+
+
+### Bug Fixes
+
+* **api:** reject a page_size below 1 on every list route's pagination query (PROD-10603) ([#30406](https://github.com/run-llama/llama-parse-py/issues/30406)) ([3dee0ae](https://github.com/run-llama/llama-parse-py/commit/3dee0aefc87515348b1401d8a60f45697dd3435f))
+* **extract:** restore run() and wait_for_completion() lost in the ext… ([#25](https://github.com/run-llama/llama-parse-py/issues/25)) ([f5a7910](https://github.com/run-llama/llama-parse-py/commit/f5a79101c57e87e3c75e56494159cc15200b078f))
+* **index:** fetch the full pipeline after resolving it by name ([#24](https://github.com/run-llama/llama-parse-py/issues/24)) ([7ec1a54](https://github.com/run-llama/llama-parse-py/commit/7ec1a54dab6ebdc22758d09b5dee6f54df25c301))
+* keep legacy pipelines with empty embedding configs listable ([#31282](https://github.com/run-llama/llama-parse-py/issues/31282)) ([067e859](https://github.com/run-llama/llama-parse-py/commit/067e859311ce63b3f7eec99ff4fff6adf23d9fb2))
+* **split:** reject category names that make segment labels ambiguous (PROD-10501) ([#29963](https://github.com/run-llama/llama-parse-py/issues/29963)) ([ec7e688](https://github.com/run-llama/llama-parse-py/commit/ec7e688cc22144ba42b40b3839379019e4d2db3c))
+
+
+### Documentation
+
+* **extract:** describe Max effort pricing by the processing each document needs ([#33403](https://github.com/run-llama/llama-parse-py/issues/33403)) ([6ef1013](https://github.com/run-llama/llama-parse-py/commit/6ef10135821f7dcd8ce9d2aaed8ebf62ba1c18bc))
+* **split:** PPTX segment pages count visible slides only (PROD-10504) ([#29972](https://github.com/run-llama/llama-parse-py/issues/29972)) ([2b7fbf6](https://github.com/run-llama/llama-parse-py/commit/2b7fbf6f26c5dc7c02200e97f668a1a0240c841b))
+
 ## [2.19.0](https://github.com/run-llama/llama-parse-py/compare/v2.18.0...v2.19.0) (2026-10-21)
 
 
