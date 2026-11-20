@@ -31,6 +31,13 @@ class SplittingStrategy(BaseModel):
     Shorter segments are merged into an adjacent segment; 1 disables merging.
     """
 
+    segment_boundary: Optional[Literal["category", "document"]] = None
+    """
+    Where a new segment starts: document at each new document, category wherever the
+    category changes. Unset means document. category requires version 1.3.0 or
+    later.
+    """
+
 
 class Warning(BaseModel):
     """Advisory finding about split categories; the job still runs."""
