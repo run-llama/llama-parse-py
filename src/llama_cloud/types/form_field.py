@@ -19,14 +19,27 @@ __all__ = [
     "GroundingID",
     "GroundingIDLine",
     "GroundingIDLineWord",
+    "GroundingIDLineWordChar",
     "GroundingLabel",
     "GroundingLabelLine",
     "GroundingLabelLineWord",
+    "GroundingLabelLineWordChar",
     "GroundingValue",
     "GroundingValueLine",
     "GroundingValueLineWord",
+    "GroundingValueLineWordChar",
     "ValueItem",
 ]
+
+
+class GroundingIDLineWordChar(BaseModel):
+    """One grounded character: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Character bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
 
 
 class GroundingIDLineWord(BaseModel):
@@ -37,6 +50,13 @@ class GroundingIDLineWord(BaseModel):
 
     span: List[object]
     """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    chars: Optional[List[GroundingIDLineWordChar]] = None
+    """
+    Per-character grounding within the word, present when `granular_bboxes` includes
+    'char' (Agentic Plus only). Each box is an even split of the word box across the
+    word's characters.
+    """
 
 
 class GroundingIDLine(BaseModel):
@@ -64,6 +84,19 @@ class GroundingID(BaseModel):
     coordinates and optional local rotation r.
     """
 
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
+
+
+class GroundingLabelLineWordChar(BaseModel):
+    """One grounded character: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Character bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
 
 class GroundingLabelLineWord(BaseModel):
     """One grounded word: a `[start, end)` span in the source text and its bbox."""
@@ -73,6 +106,13 @@ class GroundingLabelLineWord(BaseModel):
 
     span: List[object]
     """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    chars: Optional[List[GroundingLabelLineWordChar]] = None
+    """
+    Per-character grounding within the word, present when `granular_bboxes` includes
+    'char' (Agentic Plus only). Each box is an even split of the word box across the
+    word's characters.
+    """
 
 
 class GroundingLabelLine(BaseModel):
@@ -100,6 +140,19 @@ class GroundingLabel(BaseModel):
     coordinates and optional local rotation r.
     """
 
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
+
+
+class GroundingValueLineWordChar(BaseModel):
+    """One grounded character: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Character bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
 
 class GroundingValueLineWord(BaseModel):
     """One grounded word: a `[start, end)` span in the source text and its bbox."""
@@ -109,6 +162,13 @@ class GroundingValueLineWord(BaseModel):
 
     span: List[object]
     """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    chars: Optional[List[GroundingValueLineWordChar]] = None
+    """
+    Per-character grounding within the word, present when `granular_bboxes` includes
+    'char' (Agentic Plus only). Each box is an even split of the word box across the
+    word's characters.
+    """
 
 
 class GroundingValueLine(BaseModel):
@@ -135,6 +195,9 @@ class GroundingValue(BaseModel):
     Word requests include supported words; gaps are valid. Boxes use final page
     coordinates and optional local rotation r.
     """
+
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
 
 
 class Grounding(BaseModel):
@@ -200,6 +263,22 @@ class FormField(BaseModel):
 
     label: Optional[str] = None
     """Printed field caption, if any"""
+
+    label_markdown_span: Optional[List[object]] = None
+    """
+    `[start, end)` UTF-8 byte offsets of the field's printed caption (a table cell's
+    column header) in its page's `markdown` string, on some Agentic Plus jobs from
+    version 2026-11-19. Absent on other jobs and when it has no place in the
+    markdown
+    """
+
+    markdown_span: Optional[List[object]] = None
+    """
+    `[start, end)` UTF-8 byte offsets of the field's value in its page's `markdown`
+    string, on some Agentic Plus jobs from version 2026-11-19. A checkbox covers its
+    `[x]` or `[ ]`, and a blank table cell covers the whole cell. Absent on other
+    jobs and when the value has no place in the markdown
+    """
 
     type: Optional[Literal["field"]] = None
     """Form field node"""

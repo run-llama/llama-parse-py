@@ -30,7 +30,7 @@ class TestV2Projects:
         v2_project = client.v2_projects.list(
             name="name",
             organization_id="organization_id",
-            page_size=0,
+            page_size=1,
             page_token="page_token",
         )
         assert_matches_type(SyncPaginatedCursor[V2ProjectListResponse], v2_project, path=["response"])
@@ -126,7 +126,7 @@ class TestAsyncV2Projects:
         v2_project = await async_client.v2_projects.list(
             name="name",
             organization_id="organization_id",
-            page_size=0,
+            page_size=1,
             page_token="page_token",
         )
         assert_matches_type(AsyncPaginatedCursor[V2ProjectListResponse], v2_project, path=["response"])

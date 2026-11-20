@@ -19,7 +19,10 @@ class PipelineFile(BaseModel):
     """The ID of the pipeline that the file is associated with."""
 
     config_hash: Optional[Dict[str, Union[Dict[str, object], List[object], str, float, bool, None]]] = None
-    """Hashes for the configuration of the pipeline."""
+    """Hashes for the configuration of the pipeline.
+
+    Every hash but `transform_config_hash` is null.
+    """
 
     created_at: Optional[datetime] = None
     """When the pipeline file was created."""

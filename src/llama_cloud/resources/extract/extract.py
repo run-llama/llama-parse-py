@@ -8,7 +8,15 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
+from .review import (
+    ReviewResource,
+    AsyncReviewResource,
+    ReviewResourceWithRawResponse,
+    AsyncReviewResourceWithRawResponse,
+    ReviewResourceWithStreamingResponse,
+    AsyncReviewResourceWithStreamingResponse,
+)
+from ...types import (
     extract_get_params,
     extract_list_params,
     extract_cancel_params,
@@ -17,33 +25,37 @@ from ..types import (
     extract_generate_schema_params,
     extract_validate_schema_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._polling import (
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._polling import (
     DEFAULT_TIMEOUT,
     BackoffStrategy,
     poll_until_complete,
     poll_until_complete_async,
 )
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncPaginatedCursor, AsyncPaginatedCursor
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.extract_v2_job import ExtractV2Job
-from ..types.configuration_create import ConfigurationCreate
-from ..types.extract_configuration_param import ExtractConfigurationParam
-from ..types.extract_v2_schema_validate_response import ExtractV2SchemaValidateResponse
+from ...pagination import SyncPaginatedCursor, AsyncPaginatedCursor
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.extract_v2_job import ExtractV2Job
+from ...types.configuration_create import ConfigurationCreate
+from ...types.extract_configuration_param import ExtractConfigurationParam
+from ...types.extract_v2_schema_validate_response import ExtractV2SchemaValidateResponse
 
 __all__ = ["ExtractResource", "AsyncExtractResource"]
 
 
 class ExtractResource(SyncAPIResource):
+    @cached_property
+    def review(self) -> ReviewResource:
+        return ReviewResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> ExtractResourceWithRawResponse:
         """
@@ -163,6 +175,7 @@ class ExtractResource(SyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        review_status: Optional[Literal["approved", "none", "pending", "rejected"]] | Omit = omit,
         status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -174,9 +187,12 @@ class ExtractResource(SyncAPIResource):
         """
         List extraction jobs with optional filtering and pagination.
 
-        Filter by `configuration_id`, `status`, `file_input`, or creation date range.
-        Results are returned newest-first. Use `expand=configuration` to include the
-        full configuration used, and `expand=extract_metadata` for per-field metadata.
+        Filter by `configuration_id`, `status`, `file_input`, `review_status`, or
+        creation date range. Results are returned newest-first. `review_status=pending`
+        lists completed jobs waiting for review, unless `status` names another. A review
+        stays pending when its job fails or is cancelled, so pass that `status` to list
+        those. Use `expand=configuration` to include the full configuration used, and
+        `expand=extract_metadata` for per-field metadata.
 
         Args:
           configuration_id: Filter by configuration ID
@@ -198,6 +214,8 @@ class ExtractResource(SyncAPIResource):
           page_size: Number of items per page
 
           page_token: Token for pagination
+
+          review_status: Filter by review status; none is a job without a review
 
           status: Filter by status
 
@@ -231,6 +249,7 @@ class ExtractResource(SyncAPIResource):
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "review_status": review_status,
                         "status": status,
                     },
                     extract_list_params.ExtractListParams,
@@ -544,7 +563,7 @@ class ExtractResource(SyncAPIResource):
 
             client = LlamaCloud(api_key="...")
 
-            job = client.extract.create(type="file_id", value="file-abc123")
+            job = client.extract.create(file_input="dfl-abc123", configuration={"data_schema": {...}})
             completed_job = client.extract.wait_for_completion(job.id, verbose=True)
             print(completed_job.extract_result)
             ```
@@ -594,6 +613,7 @@ class ExtractResource(SyncAPIResource):
         project_id: Optional[str] | Omit = omit,
         configuration: Optional[ExtractConfigurationParam] | Omit = omit,
         configuration_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
         # Polling parameters
         polling_interval: float = 1.0,
@@ -618,6 +638,8 @@ class ExtractResource(SyncAPIResource):
             configuration: Inline extraction configuration with schema and options.
 
             configuration_id: Saved extract configuration ID (mutually exclusive with configuration).
+
+            webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
             webhook_configurations: The outbound webhook configurations.
 
@@ -647,6 +669,7 @@ class ExtractResource(SyncAPIResource):
             project_id=project_id,
             configuration=configuration,
             configuration_id=configuration_id,
+            webhook_configuration_ids=webhook_configuration_ids,
             webhook_configurations=webhook_configurations,
             extra_headers=extra_headers,
             extra_query=extra_query,
@@ -670,6 +693,10 @@ class ExtractResource(SyncAPIResource):
 
 
 class AsyncExtractResource(AsyncAPIResource):
+    @cached_property
+    def review(self) -> AsyncReviewResource:
+        return AsyncReviewResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncExtractResourceWithRawResponse:
         """
@@ -789,6 +816,7 @@ class AsyncExtractResource(AsyncAPIResource):
         page_size: Optional[int] | Omit = omit,
         page_token: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
+        review_status: Optional[Literal["approved", "none", "pending", "rejected"]] | Omit = omit,
         status: Optional[Literal["CANCELLED", "COMPLETED", "FAILED", "PENDING", "RUNNING", "THROTTLED"]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -800,9 +828,12 @@ class AsyncExtractResource(AsyncAPIResource):
         """
         List extraction jobs with optional filtering and pagination.
 
-        Filter by `configuration_id`, `status`, `file_input`, or creation date range.
-        Results are returned newest-first. Use `expand=configuration` to include the
-        full configuration used, and `expand=extract_metadata` for per-field metadata.
+        Filter by `configuration_id`, `status`, `file_input`, `review_status`, or
+        creation date range. Results are returned newest-first. `review_status=pending`
+        lists completed jobs waiting for review, unless `status` names another. A review
+        stays pending when its job fails or is cancelled, so pass that `status` to list
+        those. Use `expand=configuration` to include the full configuration used, and
+        `expand=extract_metadata` for per-field metadata.
 
         Args:
           configuration_id: Filter by configuration ID
@@ -824,6 +855,8 @@ class AsyncExtractResource(AsyncAPIResource):
           page_size: Number of items per page
 
           page_token: Token for pagination
+
+          review_status: Filter by review status; none is a job without a review
 
           status: Filter by status
 
@@ -857,6 +890,7 @@ class AsyncExtractResource(AsyncAPIResource):
                         "page_size": page_size,
                         "page_token": page_token,
                         "project_id": project_id,
+                        "review_status": review_status,
                         "status": status,
                     },
                     extract_list_params.ExtractListParams,
@@ -1170,7 +1204,7 @@ class AsyncExtractResource(AsyncAPIResource):
 
             client = AsyncLlamaCloud(api_key="...")
 
-            job = await client.extract.create(type="file_id", value="file-abc123")
+            job = await client.extract.create(file_input="dfl-abc123", configuration={"data_schema": {...}})
             completed_job = await client.extract.wait_for_completion(job.id, verbose=True)
             print(completed_job.extract_result)
             ```
@@ -1220,6 +1254,7 @@ class AsyncExtractResource(AsyncAPIResource):
         project_id: Optional[str] | Omit = omit,
         configuration: Optional[ExtractConfigurationParam] | Omit = omit,
         configuration_id: Optional[str] | Omit = omit,
+        webhook_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         webhook_configurations: Optional[Iterable[extract_create_params.WebhookConfiguration]] | Omit = omit,
         # Polling parameters
         polling_interval: float = 1.0,
@@ -1244,6 +1279,8 @@ class AsyncExtractResource(AsyncAPIResource):
             configuration: Inline extraction configuration with schema and options.
 
             configuration_id: Saved extract configuration ID (mutually exclusive with configuration).
+
+            webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
             webhook_configurations: The outbound webhook configurations.
 
@@ -1273,6 +1310,7 @@ class AsyncExtractResource(AsyncAPIResource):
             project_id=project_id,
             configuration=configuration,
             configuration_id=configuration_id,
+            webhook_configuration_ids=webhook_configuration_ids,
             webhook_configurations=webhook_configurations,
             extra_headers=extra_headers,
             extra_query=extra_query,
@@ -1321,6 +1359,10 @@ class ExtractResourceWithRawResponse:
             extract.validate_schema,
         )
 
+    @cached_property
+    def review(self) -> ReviewResourceWithRawResponse:
+        return ReviewResourceWithRawResponse(self._extract.review)
+
 
 class AsyncExtractResourceWithRawResponse:
     def __init__(self, extract: AsyncExtractResource) -> None:
@@ -1347,6 +1389,10 @@ class AsyncExtractResourceWithRawResponse:
         self.validate_schema = async_to_raw_response_wrapper(
             extract.validate_schema,
         )
+
+    @cached_property
+    def review(self) -> AsyncReviewResourceWithRawResponse:
+        return AsyncReviewResourceWithRawResponse(self._extract.review)
 
 
 class ExtractResourceWithStreamingResponse:
@@ -1375,6 +1421,10 @@ class ExtractResourceWithStreamingResponse:
             extract.validate_schema,
         )
 
+    @cached_property
+    def review(self) -> ReviewResourceWithStreamingResponse:
+        return ReviewResourceWithStreamingResponse(self._extract.review)
+
 
 class AsyncExtractResourceWithStreamingResponse:
     def __init__(self, extract: AsyncExtractResource) -> None:
@@ -1401,3 +1451,7 @@ class AsyncExtractResourceWithStreamingResponse:
         self.validate_schema = async_to_streamed_response_wrapper(
             extract.validate_schema,
         )
+
+    @cached_property
+    def review(self) -> AsyncReviewResourceWithStreamingResponse:
+        return AsyncReviewResourceWithStreamingResponse(self._extract.review)

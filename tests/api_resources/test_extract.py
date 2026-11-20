@@ -51,6 +51,7 @@ class TestExtract:
                 "cite_sources": True,
                 "confidence_scores": True,
                 "disable_cache": True,
+                "effort": "max",
                 "extraction_target": "per_doc",
                 "max_pages": 10,
                 "parse_config_id": "cfg-11111111-2222-3333-4444-555555555555",
@@ -124,6 +125,7 @@ class TestExtract:
             page_size=1,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            review_status="approved",
             status="CANCELLED",
         )
         assert_matches_type(SyncPaginatedCursor[ExtractV2Job], extract, path=["response"])
@@ -444,6 +446,7 @@ class TestAsyncExtract:
                 "cite_sources": True,
                 "confidence_scores": True,
                 "disable_cache": True,
+                "effort": "max",
                 "extraction_target": "per_doc",
                 "max_pages": 10,
                 "parse_config_id": "cfg-11111111-2222-3333-4444-555555555555",
@@ -517,6 +520,7 @@ class TestAsyncExtract:
             page_size=1,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            review_status="approved",
             status="CANCELLED",
         )
         assert_matches_type(AsyncPaginatedCursor[ExtractV2Job], extract, path=["response"])

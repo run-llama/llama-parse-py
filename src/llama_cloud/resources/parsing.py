@@ -65,7 +65,7 @@ class ParsingResource(SyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-10-16", "2026-09-28", "2026-06-15"], str],
+        version: Union[Literal["latest", "2026-11-19", "2026-11-12", "2026-11-09"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -120,10 +120,10 @@ class ParsingResource(SyncAPIResource):
 
               Current `latest` by tier:
 
-              - `fast`: `2026-06-15`
-              - `cost_effective`: `2026-09-28`
-              - `agentic`: `2026-10-16`
-              - `agentic_plus`: `2026-09-28`
+              - `fast`: `2026-11-12`
+              - `cost_effective`: `2026-11-09`
+              - `agentic`: `2026-11-09`
+              - `agentic_plus`: `2026-11-19`
 
               Full list: `GET /api/v2/parse/versions`.
 
@@ -177,8 +177,8 @@ class ParsingResource(SyncAPIResource):
 
           webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
-          webhook_configurations: Webhook endpoints for job status notifications. Multiple webhooks can be
-              configured for different events or services
+          webhook_configurations: Webhook endpoints for job notifications. Maximum 10 total, including
+              webhook_configuration_ids.
 
           extra_headers: Send extra headers
 
@@ -869,7 +869,7 @@ class AsyncParsingResource(AsyncAPIResource):
         self,
         *,
         tier: Union[Literal["fast", "cost_effective", "agentic", "agentic_plus"], str],
-        version: Union[Literal["latest", "2026-10-16", "2026-09-28", "2026-06-15"], str],
+        version: Union[Literal["latest", "2026-11-19", "2026-11-12", "2026-11-09"], str],
         organization_id: Optional[str] | Omit = omit,
         project_id: Optional[str] | Omit = omit,
         agentic_options: Optional[parsing_create_params.AgenticOptions] | Omit = omit,
@@ -924,10 +924,10 @@ class AsyncParsingResource(AsyncAPIResource):
 
               Current `latest` by tier:
 
-              - `fast`: `2026-06-15`
-              - `cost_effective`: `2026-09-28`
-              - `agentic`: `2026-10-16`
-              - `agentic_plus`: `2026-09-28`
+              - `fast`: `2026-11-12`
+              - `cost_effective`: `2026-11-09`
+              - `agentic`: `2026-11-09`
+              - `agentic_plus`: `2026-11-19`
 
               Full list: `GET /api/v2/parse/versions`.
 
@@ -981,8 +981,8 @@ class AsyncParsingResource(AsyncAPIResource):
 
           webhook_configuration_ids: IDs of saved webhook configurations to notify for this job.
 
-          webhook_configurations: Webhook endpoints for job status notifications. Multiple webhooks can be
-              configured for different events or services
+          webhook_configurations: Webhook endpoints for job notifications. Maximum 10 total, including
+              webhook_configuration_ids.
 
           extra_headers: Send extra headers
 

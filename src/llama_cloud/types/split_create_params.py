@@ -58,12 +58,23 @@ class ConfigurationSplittingStrategy(TypedDict, total=False):
     Shorter segments are merged into an adjacent segment; 1 disables merging.
     """
 
+    segment_boundary: Optional[Literal["category", "document"]]
+    """
+    Where a new segment starts: document at each new document, category wherever the
+    category changes. Unset means document. category requires version 1.3.0 or
+    later.
+    """
+
 
 class Configuration(TypedDict, total=False):
     """Split configuration with categories and splitting strategy."""
 
     categories: Required[Iterable[SplitCategoryParam]]
-    """Categories to split documents into."""
+    """Categories to split documents into.
+
+    Names must be unique; 'uncategorized' is reserved unless allow_uncategorized is
+    'forbid'.
+    """
 
     parse_config_id: Optional[str]
     """
@@ -119,6 +130,7 @@ class WebhookConfiguration(TypedDict, total=False):
                 "extract.error",
                 "extract.partial_success",
                 "extract.pending",
+                "extract.running",
                 "extract.success",
                 "parse.cancelled",
                 "parse.error",

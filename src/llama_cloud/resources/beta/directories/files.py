@@ -234,6 +234,9 @@ class FilesResource(SyncAPIResource):
         Delete a directory file by `directory_file_id`; to resolve from `unique_id`,
         list with a filter first.
 
+        The uploaded file is deleted with it unless another directory or index still
+        uses it.
+
         Args:
           extra_headers: Send extra headers
 
@@ -651,6 +654,9 @@ class AsyncFilesResource(AsyncAPIResource):
         """
         Delete a directory file by `directory_file_id`; to resolve from `unique_id`,
         list with a filter first.
+
+        The uploaded file is deleted with it unless another directory or index still
+        uses it.
 
         Args:
           extra_headers: Send extra headers

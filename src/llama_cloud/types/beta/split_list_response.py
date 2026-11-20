@@ -35,6 +35,9 @@ class SplitListResponse(BaseModel):
     user_id: str
     """User ID who created this job."""
 
+    version: str
+    """Split version used for this job."""
+
     configuration_id: Optional[str] = None
     """Split configuration ID used for this job."""
 

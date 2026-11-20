@@ -88,7 +88,7 @@ class TestIndexes:
     def test_method_list_with_all_params(self, client: LlamaCloud) -> None:
         index = client.indexes.list(
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            page_size=0,
+            page_size=1,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_directory_id="source_directory_id",
@@ -398,7 +398,7 @@ class TestAsyncIndexes:
     async def test_method_list_with_all_params(self, async_client: AsyncLlamaCloud) -> None:
         index = await async_client.indexes.list(
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            page_size=0,
+            page_size=1,
             page_token="page_token",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             source_directory_id="source_directory_id",

@@ -273,7 +273,8 @@ class DirectoriesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Permanently delete a directory.
+        Permanently delete a directory, and the files in it that no other directory or
+        index uses.
 
         Args:
           extra_headers: Send extra headers
@@ -582,7 +583,8 @@ class AsyncDirectoriesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> None:
         """
-        Permanently delete a directory.
+        Permanently delete a directory, and the files in it that no other directory or
+        index uses.
 
         Args:
           extra_headers: Send extra headers

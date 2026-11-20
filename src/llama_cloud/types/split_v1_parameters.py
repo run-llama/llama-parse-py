@@ -29,12 +29,23 @@ class SplittingStrategy(BaseModel):
     Shorter segments are merged into an adjacent segment; 1 disables merging.
     """
 
+    segment_boundary: Optional[Literal["category", "document"]] = None
+    """
+    Where a new segment starts: document at each new document, category wherever the
+    category changes. Unset means document. category requires version 1.3.0 or
+    later.
+    """
+
 
 class SplitV1Parameters(BaseModel):
     """Typed parameters for a *split v1* product configuration."""
 
     categories: List[SplitCategory]
-    """Categories to split documents into."""
+    """Categories to split documents into.
+
+    Names must be unique; 'uncategorized' is reserved unless allow_uncategorized is
+    'forbid'.
+    """
 
     product_type: Literal["split_v1"]
     """Product type."""

@@ -10,7 +10,7 @@ from typing import Any, Dict, List, Tuple, Optional
 from llama_index.core.schema import ImageNode, NodeWithScore
 from llama_index.core.async_utils import run_jobs
 
-from llama_cloud import LlamaCloud, AsyncLlamaCloud
+from llama_cloud import LlamaCloud, NotFoundError, AsyncLlamaCloud
 from llama_cloud.types import Retriever, PageFigureNodeWithScore, AutoTransformConfigParam, PageScreenshotNodeWithScore
 from llama_cloud.types.project import Project
 from llama_cloud.types.pipeline import Pipeline
@@ -81,17 +81,26 @@ def resolve_project_and_pipeline(
         organization_id=organization_id,
     )
 
-    pipeline: Optional[Pipeline] = None
     if pipeline_id is not None:
-        pipeline = client.pipelines.get(pipeline_id=pipeline_id)
-    elif name is not None:
-        pipelines = client.pipelines.list(organization_id=organization_id, project_id=project.id, pipeline_name=name)
-        pipeline = next((p for p in pipelines if p.name == name), None)
-        if pipeline is None:
-            raise ValueError(f"Pipeline with name '{name}' not found in project '{project.name}'.")
-    else:
+        return project, client.pipelines.get(pipeline_id=pipeline_id)
+    if name is None:
         raise ValueError("Either pipeline_id or name must be provided.")
 
+    # The list endpoint returns slim items whose embedding config may be null
+    # for legacy pipelines, so the name lookup only identifies the pipeline;
+    # the detail read supplies the full `Pipeline` this helper promises.
+    # A pipeline mid-deletion can share its name with its replacement, so it
+    # is skipped in favour of the live one.
+    pipelines = client.pipelines.list(organization_id=organization_id, project_id=project.id, pipeline_name=name)
+    match = next((p for p in pipelines if p.name == name and p.status != "DELETING"), None)
+    if match is None:
+        raise ValueError(f"Pipeline with name '{name}' not found in project '{project.name}'.")
+    try:
+        pipeline = client.pipelines.get(pipeline_id=match.id)
+    except NotFoundError as err:
+        # Deleted between the list and the detail read: keep the not-found
+        # contract of the name lookup rather than leaking the raw API error.
+        raise ValueError(f"Pipeline with name '{name}' not found in project '{project.name}'.") from err
     return project, pipeline
 
 

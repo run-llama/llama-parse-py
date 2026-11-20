@@ -16,21 +16,35 @@ __all__ = [
     "GroundingID",
     "GroundingIDLine",
     "GroundingIDLineWord",
+    "GroundingIDLineWordChar",
     "GroundingColumn",
     "GroundingColumnLine",
     "GroundingColumnLineWord",
+    "GroundingColumnLineWordChar",
     "GroundingLabel",
     "GroundingLabelLine",
     "GroundingLabelLineWord",
+    "GroundingLabelLineWordChar",
     "GroundingRow",
     "GroundingRowLine",
     "GroundingRowLineWord",
+    "GroundingRowLineWordChar",
 ]
 
 if TYPE_CHECKING or not PYDANTIC_V1:
     Row = TypeAliasType("Row", Union[str, "FormTableCellItems", None])
 else:
     Row: TypeAlias = Union[str, "FormTableCellItems", None]
+
+
+class GroundingIDLineWordChar(BaseModel):
+    """One grounded character: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Character bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
 
 
 class GroundingIDLineWord(BaseModel):
@@ -41,6 +55,13 @@ class GroundingIDLineWord(BaseModel):
 
     span: List[object]
     """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    chars: Optional[List[GroundingIDLineWordChar]] = None
+    """
+    Per-character grounding within the word, present when `granular_bboxes` includes
+    'char' (Agentic Plus only). Each box is an even split of the word box across the
+    word's characters.
+    """
 
 
 class GroundingIDLine(BaseModel):
@@ -68,6 +89,19 @@ class GroundingID(BaseModel):
     coordinates and optional local rotation r.
     """
 
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
+
+
+class GroundingColumnLineWordChar(BaseModel):
+    """One grounded character: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Character bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
 
 class GroundingColumnLineWord(BaseModel):
     """One grounded word: a `[start, end)` span in the source text and its bbox."""
@@ -77,6 +111,13 @@ class GroundingColumnLineWord(BaseModel):
 
     span: List[object]
     """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    chars: Optional[List[GroundingColumnLineWordChar]] = None
+    """
+    Per-character grounding within the word, present when `granular_bboxes` includes
+    'char' (Agentic Plus only). Each box is an even split of the word box across the
+    word's characters.
+    """
 
 
 class GroundingColumnLine(BaseModel):
@@ -104,6 +145,19 @@ class GroundingColumn(BaseModel):
     coordinates and optional local rotation r.
     """
 
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
+
+
+class GroundingLabelLineWordChar(BaseModel):
+    """One grounded character: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Character bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
 
 class GroundingLabelLineWord(BaseModel):
     """One grounded word: a `[start, end)` span in the source text and its bbox."""
@@ -113,6 +167,13 @@ class GroundingLabelLineWord(BaseModel):
 
     span: List[object]
     """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    chars: Optional[List[GroundingLabelLineWordChar]] = None
+    """
+    Per-character grounding within the word, present when `granular_bboxes` includes
+    'char' (Agentic Plus only). Each box is an even split of the word box across the
+    word's characters.
+    """
 
 
 class GroundingLabelLine(BaseModel):
@@ -140,6 +201,19 @@ class GroundingLabel(BaseModel):
     coordinates and optional local rotation r.
     """
 
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
+
+
+class GroundingRowLineWordChar(BaseModel):
+    """One grounded character: a `[start, end)` span in the source text and its bbox."""
+
+    bbox: BBox
+    """Character bounding box"""
+
+    span: List[object]
+    """`[start, end)` UTF-8 byte span in the complete source property string"""
+
 
 class GroundingRowLineWord(BaseModel):
     """One grounded word: a `[start, end)` span in the source text and its bbox."""
@@ -149,6 +223,13 @@ class GroundingRowLineWord(BaseModel):
 
     span: List[object]
     """`[start, end)` UTF-8 byte span in the complete source property string"""
+
+    chars: Optional[List[GroundingRowLineWordChar]] = None
+    """
+    Per-character grounding within the word, present when `granular_bboxes` includes
+    'char' (Agentic Plus only). Each box is an even split of the word box across the
+    word's characters.
+    """
 
 
 class GroundingRowLine(BaseModel):
@@ -175,6 +256,9 @@ class GroundingRow(BaseModel):
     Word requests include supported words; gaps are valid. Boxes use final page
     coordinates and optional local rotation r.
     """
+
+    bbox: Optional[BBox] = None
+    """Bounding box with coordinates and optional metadata."""
 
 
 class Grounding(BaseModel):
@@ -230,6 +314,13 @@ class FormTable(BaseModel):
 
     label: Optional[str] = None
     """Printed table caption, if any"""
+
+    markdown_span: Optional[List[object]] = None
+    """
+    `[start, end)` UTF-8 byte offsets of the table caption in its page's `markdown`
+    string, on some Agentic Plus jobs from version 2026-11-19. Absent on other jobs
+    and when it has no place in the markdown
+    """
 
     type: Optional[Literal["table"]] = None
     """Form table node"""

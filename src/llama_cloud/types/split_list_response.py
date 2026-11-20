@@ -8,7 +8,7 @@ from .._models import BaseModel
 from .beta.split_category import SplitCategory
 from .beta.split_result_response import SplitResultResponse
 
-__all__ = ["SplitListResponse", "SplittingStrategy"]
+__all__ = ["SplitListResponse", "SplittingStrategy", "Warning"]
 
 
 class SplittingStrategy(BaseModel):
@@ -30,6 +30,26 @@ class SplittingStrategy(BaseModel):
 
     Shorter segments are merged into an adjacent segment; 1 disables merging.
     """
+
+    segment_boundary: Optional[Literal["category", "document"]] = None
+    """
+    Where a new segment starts: document at each new document, category wherever the
+    category changes. Unset means document. category requires version 1.3.0 or
+    later.
+    """
+
+
+class Warning(BaseModel):
+    """Advisory finding about split categories; the job still runs."""
+
+    category_names: List[str]
+    """Names of the categories the warning concerns."""
+
+    code: Literal["catch_all_category", "missing_description", "near_duplicate_description", "near_duplicate_name"]
+    """Rule that produced the warning."""
+
+    message: str
+    """What is ambiguous and how to fix it."""
 
 
 class SplitListResponse(BaseModel):
@@ -58,6 +78,9 @@ class SplitListResponse(BaseModel):
 
     user_id: str
     """User who created this job."""
+
+    version: str
+    """Split version used for this job."""
 
     configuration_id: Optional[str] = None
     """Split configuration ID used for this job."""
@@ -88,3 +111,6 @@ class SplitListResponse(BaseModel):
 
     updated_at: Optional[datetime] = None
     """Update datetime"""
+
+    warnings: Optional[List[Warning]] = None
+    """Advisory findings about the categories this job uses; empty when none."""
