@@ -29,6 +29,7 @@ class ParsingListVersionsResponse(BaseModel):
 
     agentic: List[
         Literal[
+            "2026-11-22",
             "2026-11-09",
             "2026-11-05",
             "2026-10-30",
@@ -149,6 +150,7 @@ class ParsingListVersionsResponse(BaseModel):
 
     cost_effective: List[
         Literal[
+            "2026-11-22",
             "2026-11-09",
             "2026-11-05",
             "2026-10-30",
