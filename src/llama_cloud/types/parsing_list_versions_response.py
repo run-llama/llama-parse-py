@@ -150,6 +150,7 @@ class ParsingListVersionsResponse(BaseModel):
 
     cost_effective: List[
         Literal[
+            "2026-11-24",
             "2026-11-22",
             "2026-11-09",
             "2026-11-05",
