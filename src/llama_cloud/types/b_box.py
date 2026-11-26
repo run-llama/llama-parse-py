@@ -28,6 +28,12 @@ class BBox(BaseModel):
     end_index: Optional[int] = None
     """End index in the text"""
 
+    image_filename: Optional[str] = None
+    """
+    Filename of the saved layout image cut from this region; equals `filename` of an
+    `images_content_metadata` entry.
+    """
+
     label: Optional[str] = None
     """Label for the bounding box"""
 
