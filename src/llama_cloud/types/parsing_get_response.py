@@ -176,11 +176,24 @@ class ImagesContentMetadataImage(BaseModel):
     content_type: Optional[str] = None
     """MIME type of the image"""
 
+    label: Optional[str] = None
+    """
+    Layout class of the region a layout image was cut from: 'chart', 'table',
+    'image' or 'seal'. Null for other images.
+    """
+
     presigned_url: Optional[str] = None
     """Presigned URL to download the image"""
 
     size_bytes: Optional[int] = None
     """Deprecated: always returns None. Will be removed in a future release."""
+
+    sublabels: Optional[List[str]] = None
+    """Figure classes of the region a layout image was cut from, e.g.
+
+    ['line_chart'] or ['logo']; empty when the region has no figure classification.
+    Null for other images.
+    """
 
 
 class ImagesContentMetadata(BaseModel):
